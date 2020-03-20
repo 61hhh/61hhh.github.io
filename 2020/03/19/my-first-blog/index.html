@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="用hexo+github Page搭建博客1 前言1.1感想​        本着好玩感兴趣的想法尝试弄一个个人博客，毕竟以前好多课考前赶的笔记都是手写的，考完试课程结束笔记本也找不到了。。。用博客的话可以写点东西留着。 ​        本来有现成的纯小白快速搭建《利用 GitHub Pages 快速搭建个人博客》 ，一开始参考这个半小时就完成搭建了，先fork然后修改_config.yml代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="my-first-blog">
+<meta property="og:url" content="http://yoursite.com/2020/03/19/my-first-blog/index.html">
+<meta property="og:site_name" content="刘义">
+<meta property="og:description" content="用hexo+github Page搭建博客1 前言1.1感想​        本着好玩感兴趣的想法尝试弄一个个人博客，毕竟以前好多课考前赶的笔记都是手写的，考完试课程结束笔记本也找不到了。。。用博客的话可以写点东西留着。 ​        本来有现成的纯小白快速搭建《利用 GitHub Pages 快速搭建个人博客》 ，一开始参考这个半小时就完成搭建了，先fork然后修改_config.yml代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/挚爱Leslie/Pictures/git.png">
+<meta property="og:image" content="c:/Users/挚爱Leslie/Pictures/QQ截图20200319183456.png">
+<meta property="og:image" content="c:/Users/挚爱Leslie/Pictures/QQ截图20200319184052.png">
+<meta property="og:image" content="c:/Users/挚爱Leslie/Pictures/QQ截图20200319192258.png">
+<meta property="og:image" content="c:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CPictures%5CQQ%E6%88%AA%E5%9B%BE20200319205433.png">
+<meta property="og:image" content="c:/Users/挚爱Leslie/Pictures/QQ截图20200319210054.png">
+<meta property="og:image" content="c:/Users/挚爱Leslie/Pictures/QQ截图20200319210343.png">
+<meta property="article:published_time" content="2020-03-19T09:19:26.988Z">
+<meta property="article:modified_time" content="2020-03-20T06:41:54.563Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/挚爱Leslie/Pictures/git.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/19/my-first-blog/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>my-first-blog | 刘义</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">刘义</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/19/my-first-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="刘义">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          my-first-blog
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-19 17:19:26" itemprop="dateCreated datePublished" datetime="2020-03-19T17:19:26+08:00">2020-03-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-20 14:41:54" itemprop="dateModified" datetime="2020-03-20T14:41:54+08:00">2020-03-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="用hexo-github-Page搭建博客"><a href="#用hexo-github-Page搭建博客" class="headerlink" title="用hexo+github Page搭建博客"></a>用hexo+github Page搭建博客</h2><h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h3><h4 id="1-1感想"><a href="#1-1感想" class="headerlink" title="1.1感想"></a>1.1感想</h4><p>​        本着好玩感兴趣的想法尝试弄一个个人博客，毕竟以前好多课考前赶的笔记都是手写的，考完试课程结束笔记本也找不到了。。。用博客的话可以写点东西留着。</p>
+<p>​        本来有现成的纯小白快速搭建<a href="http://www.jianshu.com/p/e68fba58f75c" target="_blank" rel="noopener">《利用 GitHub Pages 快速搭建个人博客》</a> ，一开始参考这个半小时就完成搭建了，先fork然后修改_config.yml代码，按照他的提示步骤就可以完成，并且无论是功能上还是页面布局上都比自己从零开始搭建的更加强大，不过我还是想自己从头开始尝试一下，了解一下大概的方法。</p>
+<p>​        花了一下午使用hexo＋github Page搭建个人博客，也在网上参考了搭建步骤，记录一下自己的搭建过程。</p>
+<a id="more"></a>
+
+<h4 id="1-2-GitHub-page搭建的优缺点："><a href="#1-2-GitHub-page搭建的优缺点：" class="headerlink" title="1.2 GitHub page搭建的优缺点："></a>1.2 GitHub page搭建的优缺点：</h4><ol>
+<li>全是静态文件，访问速度快</li>
+<li>免费快捷，并且也不需要服务器和后台</li>
+<li>可以自由绑定自己的域名</li>
+<li>数据基于github版本管理，安全可靠，还能学习团队协作</li>
+<li>不适合 大型网站，因为它没有使用数据库，每次运行都遍历全部文件</li>
+<li>生成的是静态网页，要添加动态功能只能使用外部服务</li>
+</ol>
+<h3 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2 准备工作"></a>2 准备工作</h3><p>&lt;1&gt;一个github账号（github网站注册即可）</p>
+<p>&lt;2&gt;安装git bash</p>
+<p>&lt;3&gt;安装nodejs、hexo</p>
+<h4 id="2-1安装git-bash"><a href="#2-1安装git-bash" class="headerlink" title="2.1安装git bash"></a>2.1安装git bash</h4><p>Git是目前世界上最先进的分布式版本控制系统，无论是我们目前的搭建还是以后做项目都必须要用，下载好后建议使用git bash，而不是git GUI，有助于对指令的理解</p>
+<ul>
+<li><p><a href="https://gitforwindows.org/" target="_blank" rel="noopener">安装地址</a>，直接下载安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version（或git -v）查看是否安装成功</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>后续若要学习git，推荐一个很全面的参考教程 <a href="https://www.baidu.com/link?url=Z8O3Sg4igVflUvqE5-hwJJjzkB34zZiXH2AEdNsItuC_Avh0lVB4MP9gn-e0CsVqqpXtcMx_--570lKkiS0xUwmX3Mqw3url-J6PF71I-i7&ck=7290.9.0.0.0.121.268.0&shh=www.baidu.com&sht=baidu&wd=&eqid=982d1239000645b1000000055e734703" target="_blank" rel="noopener"><em>Git</em>简介 - 廖雪峰的官方网站</a>（当时写报告就参照他的教程写的hh）</p>
+</li>
+</ul>
+<p>​        <img src="C:\Users\挚爱Leslie\Pictures\git.png" style="zoom:50%;" /></p>
+<h4 id="2-2安装NodeJs和Hexo"><a href="#2-2安装NodeJs和Hexo" class="headerlink" title="2.2安装NodeJs和Hexo"></a>2.2安装NodeJs和Hexo</h4><p>&lt;1&gt;hexo是基于nodejs的静态博客，安装要用到npm工具</p>
+<ul>
+<li><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node.js安装包及源码</a>，按个人配置直接安装即可</li>
+</ul>
+<p>​        <img src="C:\Users\挚爱Leslie\Pictures\QQ截图20200319183456.png" style="zoom:80%;" /></p>
+<p>&lt;2&gt;先准备一个文件夹安装hexo（以我的D:\Blog61\HG_Blog为例），在此处git bash</p>
+<ul>
+<li><p>由于hexo用npm正常安装会出现卡住的情况，我们可以换源，采用淘宝的npm源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry  https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装hexo命令和查看版本命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安装：npm -i g hexo</span><br><span class="line">查看版本：hexo -v</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>​        <img src="C:\Users\挚爱Leslie\Pictures\QQ截图20200319184052.png" style="zoom: 67%;" /></p>
+<ul>
+<li><p>安装后新建一个文件夹存放你的博客（我的是D:\Blog61\HG_Blog\HEXO_File）初始化：hexo init，完成后可以看到文件</p>
+<img src="C:\Users\挚爱Leslie\Pictures\QQ截图20200319192258.png" style="zoom:80%;" />
+</li>
+<li><p>文件含义：</p>
+<ul>
+<li><p>.deploy_git是连接git仓库后生成的文件</p>
+</li>
+<li><p>node_modules存放依赖包</p>
+</li>
+<li><p>public即为由hexo将博客生成的相关html静态文件，是要提交到github上的</p>
+</li>
+<li><p>scaffolds是一些通用的markdown模板</p>
+</li>
+<li><p>source是创建文章的地方，hexo命令生成文章在source/_post下</p>
+</li>
+<li><p>themes是个人博客的主题</p>
+</li>
+<li><p>_config.yml是博客网站的配置</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3GitHub创建仓库连接"><a href="#3GitHub创建仓库连接" class="headerlink" title="3GitHub创建仓库连接"></a>3GitHub创建仓库连接</h3><h4 id="3-1创建仓库"><a href="#3-1创建仓库" class="headerlink" title="3.1创建仓库"></a>3.1创建仓库</h4><ul>
+<li>新建一个仓库，命名为username.github.io(username即为自己的GitHub账号名，我的是61hhh.github.io )，每个GitHub账号只能创建一个这样可以直接按域名访问的仓库</li>
+<li>创建成功后默认有一些示例代码，还有readme.md文件</li>
+</ul>
+<p>注意：</p>
+<ol>
+<li>命名规则必须为username.github.io，这样才能保证访问</li>
+<li>注册账号的邮箱要验证，后面配置SSH Key要用到</li>
+</ol>
+<h4 id="3-2绑定域名"><a href="#3-2绑定域名" class="headerlink" title="3.2绑定域名"></a>3.2绑定域名</h4><ul>
+<li><p>绑定域名与否都可以，不绑就采用默认的username.github.io来访问（我就没有绑定域名）</p>
+</li>
+<li><p>绑定域名首先要注册一个域名，在随意网站上购买，godaddy、阿里都行</p>
+</li>
+<li><p>配置域名有两种方式：CNAME和A记录，CNAME填写域名，A记录填写IP（详细内容等以后绑定域名再加）</p>
+</li>
+</ul>
+<h4 id="3-3配置SSH-Key"><a href="#3-3配置SSH-Key" class="headerlink" title="3.3配置SSH Key"></a>3.3配置SSH Key</h4><ul>
+<li><p>采用Github page搭建大概原理是对仓库操作，然后提交到github仓库，直接采用用户名密码方式不够安全，因此配置SSH key可以解决本地和服务器的连接问题</p>
+</li>
+<li><p>在git bash中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</span><br></pre></td></tr></table></figure>
+
+<p>可以在目标文件中找到生成的对应id_rsa.pub文件，用notepad++打开，复制</p>
+<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CPictures%5CQQ%E6%88%AA%E5%9B%BE20200319205433.png" alt=""></p>
+</li>
+<li><p>或者在bash中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd !&#x2F;.ssh （切换目录）</span><br><span class="line">cat id_rsa.pub（查看key）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开个人github账号，找到settings，新建SSH key，粘贴</p>
+<img src="C:\Users\挚爱Leslie\Pictures\QQ截图20200319210054.png" style="zoom: 30%;" />
+</li>
+<li><p>填好后，在git bash中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<img src="C:\Users\挚爱Leslie\Pictures\QQ截图20200319210343.png" style="zoom:70%;" />
+</li>
+<li><p>要提交就要指明用户是谁，所以要git config设置，–global表示全作用域的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;61hhh&quot;</span><br><span class="line"></span><br><span class="line">git config --globaluser.email &quot;1587403870@qq.com&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3 id="4-修改config上传到github"><a href="#4-修改config上传到github" class="headerlink" title="4 修改config上传到github"></a>4 修改config上传到github</h3><h4 id="4-1-编辑配置文件"><a href="#4-1-编辑配置文件" class="headerlink" title="4.1 编辑配置文件"></a>4.1 编辑配置文件</h4><ul>
+<li><p>编辑器打开_config.yml文件，简单修改一下配置（以后更多功能的增加都要记得编辑配置）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"></span><br><span class="line">	type: git</span><br><span class="line"></span><br><span class="line">	repo: git@github.com&#x2F;username&#x2F;username.github.io</span><br><span class="line"></span><br><span class="line">	branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回到git bash中，在blog文件夹中执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean（清除缓存文件db.json和生成的静态文件public）</span><br><span class="line"></span><br><span class="line">hexo generate（生成网站静态文件到public文件夹）</span><br><span class="line"></span><br><span class="line">hexo server（启动本地服务器，用于预览主题）</span><br></pre></td></tr></table></figure>
+
+<p>注：hexo 3.0吧服务器独立，要单独安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>打开浏览器输入：<a href="http://localhost:4000，即为初始的博客界面">http://localhost:4000，即为初始的博客界面</a></p>
+</li>
+</ul>
+<h4 id="4-2上传到github"><a href="#4-2上传到github" class="headerlink" title="4.2上传到github"></a>4.2上传到github</h4><ul>
+<li><p>安装配置，确保文章能上传到github，此指令会生成上面的deploy_git文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行指令（建议每次编辑修改了都执行一遍）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo generate (hexo g)</span><br><span class="line"></span><br><span class="line">hexo deploy (hexo d)</span><br></pre></td></tr></table></figure>
+
+<p>注：deploy会要求输入github账户密码</p>
+</li>
+<li><p>之后在浏览器输入<a href="http://61hhh.github.io即可看到个人博客" target="_blank" rel="noopener">http://61hhh.github.io即可看到个人博客</a></p>
+</li>
+</ul>
+<h3 id="5-修改配置主题"><a href="#5-修改配置主题" class="headerlink" title="5.修改配置主题"></a>5.修改配置主题</h3><ul>
+<li><p>hexo默认主题是landscape，可以在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">官方主题网站</a>更换，选自己喜欢的主题</p>
+</li>
+<li><p>在blog文件夹中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone  https:&#x2F;&#x2F;github.com&#x2F;xx&#x2F;xxx.git  themes&#x2F;xxx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>clone的文件在blog文件夹的themes目录，修改_config.yml文件的themes：landscape为下载的主题themes:xxx，然后上传提交即可</p>
+</li>
+</ul>
+<h3 id="6-写博客"><a href="#6-写博客" class="headerlink" title="6 写博客"></a>6 写博客</h3><ul>
+<li><p>新建文章：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &#39;文章名&#39;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>该指令会在_posts文件夹下生成相关md文件，对md文件编辑可以开始写博客了</p>
+</li>
+<li><p>具体的文章编辑可以参照<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank" rel="noopener">官网的介绍</a></p>
+</li>
+<li><p>工具可以网上查找md编写工具</p>
+<p>tips：默认情况下，生成的博文目录会显示全部的文章内容，在指定位置加上代码可使文章显示指定摘要</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--more--&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="7-其他操作"><a href="#7-其他操作" class="headerlink" title="7 其他操作"></a>7 其他操作</h3><h4 id="7-1-常用指令"><a href="#7-1-常用指令" class="headerlink" title="7.1 常用指令"></a>7.1 常用指令</h4><p>常用的指令上面已经基本介绍了，再讲一下大概功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&#39;ctrl + c&#39;关闭server）</span><br><span class="line">hexo deploy #将.deploy目录部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-2-更多操作"><a href="#7-2-更多操作" class="headerlink" title="7.2 更多操作"></a>7.2 更多操作</h4><p>​    大部分操作都要求针对_config.yml文件进行配置，在此列举一些常用的（暂时没有实现。。。因为没学js。。。）</p>
+<p>​    大部分的模块网上都有，可以自己找相关的按操作提示进行</p>
+<h5 id="7-2-1-评论"><a href="#7-2-1-评论" class="headerlink" title="7.2.1 评论"></a>7.2.1 评论</h5><ul>
+<li>添加一个第三方评论系统</li>
+<li>在当前主题的配置文件中找到comment，添加代码</li>
+<li>注册评论系统，获取代码，在当前主题的layout下找到commnet新建的对应ejs模板</li>
+<li>编辑，再部署，即可。</li>
+</ul>
+<h5 id="7-2-2-统计"><a href="#7-2-2-统计" class="headerlink" title="7.2.2 统计"></a>7.2.2 统计</h5><ul>
+<li>在主题中配置analytics系统，添加代码后在对应ejs模板中编辑代码</li>
+<li>注册baidu analytics或者google analytics，获取tracked_id，和跟踪代码</li>
+<li>将tracked_id和url写入配置中，编辑部署即可</li>
+</ul>
+<h5 id="7-2-3-404页面"><a href="#7-2-3-404页面" class="headerlink" title="7.2.3 404页面"></a>7.2.3 404页面</h5><ul>
+<li><p>github page有提供404页面的指引：<a href="https://help.github.com/articles/custom-404-Pages" target="_blank" rel="noopener">Custom 404 Pages</a></p>
+</li>
+<li><p>直接在根目录下创建404.html（根目录指的是HEXO_File/source）</p>
+</li>
+<li><p>404.html代码可以参照网上，推荐使用<a href="http://www.qq.com/404" target="_blank" rel="noopener">腾讯公益404</a></p>
+<p>注：_config.yml中的permalink_defaults属性不需要修改</p>
+</li>
+</ul>
+<h3 id="8-小结"><a href="#8-小结" class="headerlink" title="8 小结"></a>8 小结</h3><p>​    本来建博客是因为领了阿里云服务器，想尝试建博客，结果网上找教程跑偏了。。。建了个不需要服务器就能访问的博客，建都建了干脆搞完，下一步可以考虑部署hexo博客到服务器，或者用LAMP搭建一个真正意义上的服务器。</p>
+<p>​    感觉必须要学习前端知识了（虽然之前学过html和css。。。不过已经忘光了==这边不就是没学嘛。。。），先学习一下前端，再来改进这个博客。</p>
+<h3 id="9-REFERENCE"><a href="#9-REFERENCE" class="headerlink" title="9 REFERENCE"></a>9 REFERENCE</h3><ul>
+<li><a href="https://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="noopener">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/19/hello-world/" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用hexo-github-Page搭建博客"><span class="nav-number">1.</span> <span class="nav-text">用hexo+github Page搭建博客</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-前言"><span class="nav-number">1.1.</span> <span class="nav-text">1 前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1感想"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1感想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-GitHub-page搭建的优缺点："><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 GitHub page搭建的优缺点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-准备工作"><span class="nav-number">1.2.</span> <span class="nav-text">2 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1安装git-bash"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1安装git bash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2安装NodeJs和Hexo"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2安装NodeJs和Hexo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3GitHub创建仓库连接"><span class="nav-number">1.3.</span> <span class="nav-text">3GitHub创建仓库连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1创建仓库"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1创建仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2绑定域名"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2绑定域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3配置SSH-Key"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3配置SSH Key</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-修改config上传到github"><span class="nav-number">1.4.</span> <span class="nav-text">4 修改config上传到github</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-编辑配置文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 编辑配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2上传到github"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2上传到github</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-修改配置主题"><span class="nav-number">1.5.</span> <span class="nav-text">5.修改配置主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-写博客"><span class="nav-number">1.6.</span> <span class="nav-text">6 写博客</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-其他操作"><span class="nav-number">1.7.</span> <span class="nav-text">7 其他操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-常用指令"><span class="nav-number">1.7.1.</span> <span class="nav-text">7.1 常用指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-更多操作"><span class="nav-number">1.7.2.</span> <span class="nav-text">7.2 更多操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-1-评论"><span class="nav-number">1.7.2.1.</span> <span class="nav-text">7.2.1 评论</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-2-统计"><span class="nav-number">1.7.2.2.</span> <span class="nav-text">7.2.2 统计</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-3-404页面"><span class="nav-number">1.7.2.3.</span> <span class="nav-text">7.2.3 404页面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-小结"><span class="nav-number">1.8.</span> <span class="nav-text">8 小结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-REFERENCE"><span class="nav-number">1.9.</span> <span class="nav-text">9 REFERENCE</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
