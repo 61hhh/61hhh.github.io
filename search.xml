@@ -114,6 +114,9 @@
 <li><a href="https://www.jianshu.com/p/0e091bb04531" target="_blank" rel="noopener">hexo-next主题优化</a></li>
 </ol>
 ]]></content>
+      <categories>
+        <category>web前端</category>
+      </categories>
       <tags>
         <tag>Blog</tag>
       </tags>
@@ -310,6 +313,9 @@
 <li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官方说明文档</a></li>
 </ul>
 ]]></content>
+      <categories>
+        <category>web前端</category>
+      </categories>
       <tags>
         <tag>Blog</tag>
       </tags>
@@ -333,5 +339,11 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>log</tag>
+      </tags>
   </entry>
 </search>
