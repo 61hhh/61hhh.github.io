@@ -212,8 +212,9 @@
 <p>大概代码示例：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏</span></span><br><span class="line"><span class="attr">reward_type:</span> <span class="number">2</span></span><br><span class="line"><span class="comment"># 打赏wording</span></span><br><span class="line"><span class="attr">reward_wording:</span> <span class="string">'请我喝杯咖啡吧~'</span></span><br><span class="line"><span class="comment"># 支付宝二维码图片地址，跟你设置logo的方式一样。比如：/images/alipay.jpg</span></span><br><span class="line"><span class="attr">alipay:</span> <span class="string">/images/alipay.jpg</span></span><br><span class="line"><span class="comment"># 微信二维码图片地址</span></span><br><span class="line"><span class="attr">weixin:</span> <span class="string">/images/wechat.jpg</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="建站时间"><a href="#建站时间" class="headerlink" title="建站时间"></a>建站时间</h2><p>这个实践会显示在站点底部，</p>
-<h2 id="添加leancloud阅读量统计"><a href="#添加leancloud阅读量统计" class="headerlink" title="添加leancloud阅读量统计"></a>添加leancloud阅读量统计</h2><h2 id="添加百度、谷歌Analytics"><a href="#添加百度、谷歌Analytics" class="headerlink" title="添加百度、谷歌Analytics"></a>添加百度、谷歌Analytics</h2><p>百度统计和Google统计主要可以用于分析网站数据：流量、访客量等。</p>
+
+
+<h2 id="添加百度、谷歌Analytics"><a href="#添加百度、谷歌Analytics" class="headerlink" title="添加百度、谷歌Analytics"></a>添加百度、谷歌Analytics</h2><p>百度统计和Google统计主要可以用于分析网站数据：流量、访客量等。</p>
 <p>基本步骤就是注册账号，创建网页应用（按提示步骤来就行），获取js代码，添加。附上网站链接：</p>
 <p><a href="[https://tongji.baidu.com](https://tongji.baidu.com/)">百度统计网站</a></p>
 <p><a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">Google统计网站</a></p>
@@ -223,7 +224,8 @@
 <p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322114644925.png" alt="image-20200322114644925"></p>
 <p>在主题配置文件_config.yml中配置一下id：</p>
 <p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322113331239.png" alt="image-20200322113331239"></p>
-<p>Google Analytics和百度类似，在.ejs文件中替换你的js代码，在_config.yml中配置id即可。</p>
+<p>Google Analytics和百度类似，在.ejs文件中替换你的js代码，在_config.yml中配置id即可。配置成功后可以在控制台看到相关信息：</p>
+<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322115142347.png" alt="image-20200322115142347"></p>
 
       
       <!-- reward -->
@@ -405,7 +407,7 @@
     <ul class="list-inline">
       <li>
         &copy;
-        2015-2020
+        2020
         LY
       </li>
       <li>
