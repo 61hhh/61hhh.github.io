@@ -82,7 +82,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.4k字</span>
+            <span class="post-count">1.6k字</span>
         </span>
     </span>
 
@@ -174,32 +174,35 @@
 </ol>
 <p>该主题ayer已经实现了网易云外链播放，只需要配置一下</p>
 <h3 id="获取外链代码"><a href="#获取外链代码" class="headerlink" title="获取外链代码"></a>获取外链代码</h3><p>进入网易云网页端，找到你想要的歌曲，可以到外链播放器，点击生成查看对应代码</p>
-<img src="C:\Users\挚爱Leslie\AppData\Roaming\Typora\typora-user-images\image-20200322104342688.png" alt="image-20200322104342688" style="zoom:60%;" />
+<img src="http://q7kxgx8az.bkt.clouddn.com/netease-outchains.png" alt="image-20200322104342688" style="zoom:60%;" />
 
-<img src="C:\Users\挚爱Leslie\AppData\Roaming\Typora\typora-user-images\image-20200322104527772.png" alt="image-20200322104527772" style="zoom:50%;" />
+<img src="http://q7kxgx8az.bkt.clouddn.com/netease-outchains-html.png" alt="image-20200322104527772" style="zoom:50%;" />
 
 <h3 id="完成相应配置"><a href="#完成相应配置" class="headerlink" title="完成相应配置"></a>完成相应配置</h3><ul>
 <li><p>首先是添加html代码到布局文件对应位置（这里的对应位置就是你想要的位置。。一般主题里有相关的文件，ayer主题中themes/ayer/layout/_partial的music.ejs文件）</p>
 <p>ayer主题的作者已经实现了这一块代码，因此只需要把我复制的html替换</p>
-<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322110853550.png" alt="image-20200322110853550"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/iframe-code.png" alt="image-20200322110853550"></p>
 </li>
 <li><p>然后是在对应主题的_config.yml配置一下就可以了</p>
 </li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322111033485.png" alt="image-20200322111033485"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/netease-config.png" alt="image-20200322111033485"></p>
 <ul>
 <li>之后就可以在博客上看到啦</li>
 </ul>
-<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322111255078.png" alt="image-20200322111255078"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/blog-netease-player.png" alt="image-20200322111255078"></p>
 <p>（注：网易云中很多歌曲由于版权保护不能生成外链播放器，在网上找的方法是：F12进入控制台查看代码找对应id，然后复制到对应配置。不过这个方法不一定可行，我照这样还是不能播放。。。所以还是要自己多试试几首歌，找到能直接生成外链播放器的吧。。。）</p>
-<img src="C:\Users\挚爱Leslie\AppData\Roaming\Typora\typora-user-images\image-20200322105755315.png" alt="image-20200322105755315" style="zoom:50%;" />
+<img src="http://q7kxgx8az.bkt.clouddn.com/outchains-f12-id.png" alt="image-20200322105755315" style="zoom:50%;" />
 
 
 
-
-
-
-
+<h2 id="使用七牛云图床"><a href="#使用七牛云图床" class="headerlink" title="使用七牛云图床"></a>使用七牛云图床</h2><p>blog中要插入图片，在网页端无法直接读取个人电脑的地址，因此要用到图床工具生成外链</p>
+<p>推荐使用七牛云图床，免费10g的空间，链接速度也快</p>
+<p>在<a href="https://www.qiniu.com/" target="_blank" rel="noopener">七牛云</a>首页注册，完成实名认证，然后创建对象存储-&gt;设置参数-&gt;上传图片生成外链</p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/qiniu-1.png" alt="创建"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/qiniu-2.png" alt="设置参数"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/qiniu-3.png" alt="操作"></p>
+<p>最后就是在你的博客文章中插入外链写博客，在网站中就可以看到啦！</p>
 <h2 id="开启打赏功能"><a href="#开启打赏功能" class="headerlink" title="开启打赏功能"></a>开启打赏功能</h2><p>原作者的ayer主题中已经自带了打赏功能，支持微信打赏和支付宝打赏。 只需要themes/ayer/_config.yml中填入 微信 和 支付宝 收款二维码图片地址（将你的个人支付宝、微信收款码放在对应地址）即可开启该功能。</p>
 <p>大概代码示例：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打赏type设定：0-关闭打赏； 1-文章对应的md文件里有reward:true属性，才有打赏； 2-所有文章均有打赏</span></span><br><span class="line"><span class="attr">reward_type:</span> <span class="number">2</span></span><br><span class="line"><span class="comment"># 打赏wording</span></span><br><span class="line"><span class="attr">reward_wording:</span> <span class="string">'请我喝杯咖啡吧~'</span></span><br><span class="line"><span class="comment"># 支付宝二维码图片地址，跟你设置logo的方式一样。比如：/images/alipay.jpg</span></span><br><span class="line"><span class="attr">alipay:</span> <span class="string">/images/alipay.jpg</span></span><br><span class="line"><span class="comment"># 微信二维码图片地址</span></span><br><span class="line"><span class="attr">weixin:</span> <span class="string">/images/wechat.jpg</span></span><br></pre></td></tr></table></figure>
@@ -213,11 +216,16 @@
 <p>（说明：在ayer主题中已经集成，只需要配置一下即可。这个大部分主题都有集成吧0.0）具体位置：</p>
 <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">themes<span class="symbol">\a</span>yer<span class="symbol">\l</span>auout<span class="symbol">\_</span>partial<span class="symbol">\g</span>oogle-analytics.ejs</span><br><span class="line">themes<span class="symbol">\a</span>yer<span class="symbol">\l</span>auout<span class="symbol">\_</span>partial<span class="symbol">\b</span>aidu-analytics.ejs</span><br></pre></td></tr></table></figure>
 
-<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322114644925.png" alt="image-20200322114644925"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/baidu-analytics-js.png" alt="image-20200322114644925"></p>
 <p>在主题配置文件_config.yml中配置一下id：</p>
-<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322113331239.png" alt="image-20200322113331239"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/analytics-config.png" alt="image-20200322113331239"></p>
 <p>Google Analytics和百度类似，在.ejs文件中替换你的js代码，在_config.yml中配置id即可。配置成功后可以在控制台看到相关信息：</p>
-<p><img src="C:%5CUsers%5C%E6%8C%9A%E7%88%B1Leslie%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200322115142347.png" alt="image-20200322115142347"></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/analytics-f12console.png" alt="image-20200322115142347"></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://www.jianshu.com/p/f1005ae09e5a" target="_blank" rel="noopener">Hexo添加Player播放器</a></li>
+<li><a href="http://yansheng836.coding.me/article/eda67a25.html" target="_blank" rel="noopener">hexo+yilia添加百度统计和Google统计</a></li>
+<li><a href="https://www.jianshu.com/p/0e091bb04531" target="_blank" rel="noopener">hexo-next主题优化</a></li>
+</ol>
 
       
       <!-- reward -->
@@ -514,7 +522,7 @@
 <script>
   try {
     var typed = new Typed("#subtitle", {
-      strings: ['我爱哭的时候便哭，我爱笑的时候便笑，我不求深刻，只求简单。', '我笑，便面如春花，定是能感动人的', '燃烧一个人的灵魂的，正是对生命的爱，那是至死方休。'],
+      strings: ['不求深刻，只求简单。', '我笑，便面如春花，定是能感动人的', '燃烧一个人的灵魂的，正是对生命的爱，那是至死方休。'],
       startDelay: 0,
       typeSpeed: 200,
       loop: true,
