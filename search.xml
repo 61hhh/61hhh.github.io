@@ -8,7 +8,7 @@
 </blockquote>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前大概html+css，在W3School、solo learn上简单的了解相关基础，但是并没有实践项目来驱动，所以学得快忘得快。前段时间搭建了hexo博客后又重燃了学习前端的想法，大概看了之后感觉还是要找实践小项目来熟练，用实践推动学习！因此在github上找了个30day的JavaScript挑战，它的每一个day小项目得到readme.md文件就是该项目学习目标，就以这个作为参考，记录相关知识，相当于一个随笔吧。</p>
 <h2 id="Day1-有趣的架子鼓小游戏"><a href="#Day1-有趣的架子鼓小游戏" class="headerlink" title="Day1 有趣的架子鼓小游戏"></a>Day1 有趣的架子鼓小游戏</h2><h3 id="任务描述"><a href="#任务描述" class="headerlink" title="任务描述"></a>任务描述</h3><p>实现一个可以互动的架子鼓游戏，敲击键盘时会发出相应的音效，如果你是个大神，最后就会产生美妙动听的音乐哦~来试试吧。</p>
-<p>任务效果图：</p>
+<p>任务效果图：<img src="http://q7kxgx8az.bkt.clouddn.com/JS-day1.png" alt="效果图"></p>
 <h3 id="任务目的"><a href="#任务目的" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><ol>
 <li><h5 id="掌握-data-自定义属性的使用"><a href="#掌握-data-自定义属性的使用" class="headerlink" title="掌握 data-* 自定义属性的使用"></a>掌握 data-* 自定义属性的使用</h5><p>html5中可以使用data-来设置自定义属性，进行数据存放</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span> <span class="attr">data-age</span>=<span class="string">"25"</span>&gt;</span></span><br><span class="line">ROOT</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -33,10 +33,14 @@
 <li><h5 id="掌握-rem-为单位的根元素字体大小"><a href="#掌握-rem-为单位的根元素字体大小" class="headerlink" title="掌握 rem 为单位的根元素字体大小"></a>掌握 rem 为单位的根元素字体大小</h5><p>rem是CSS3新增的一个相对单位，它与em的区别在于，使用rem为元素设定字体大小时，仍是相对大小，不过相对的是HTML根元素，通过rem可以做到只修改根元素就成比例调整所有字体的大小，还可以避免字体大小逐层符合的连锁反应</p>
 </li>
 <li><h5 id="掌握-transtion-和-transform-的用法"><a href="#掌握-transtion-和-transform-的用法" class="headerlink" title="掌握 transtion 和 transform 的用法"></a>掌握 transtion 和 transform 的用法</h5><p><a href="https://www.jianshu.com/p/80f6051389bd" target="_blank" rel="noopener">探究CSS3中的transition和transform属性</a></p>
+<ul>
+<li>transform是转换，值改变所在元素的外观，它有很多手段(转换函数)来实现，比如位移、缩放、旋转等，转换是一瞬间完成的</li>
+<li>transition是过渡，指某个CSS属性值怎样平滑的改变，就是常说的动效，改变有一个过程。</li>
+</ul>
 </li>
-</ol>
-<ol start="5">
-<li><h5 id="了解-text-transform-的使用"><a href="#了解-text-transform-的使用" class="headerlink" title="了解 text-transform 的使用"></a>了解 text-transform 的使用</h5></li>
+<li><h5 id="了解-text-transform-的使用"><a href="#了解-text-transform-的使用" class="headerlink" title="了解 text-transform 的使用"></a>了解 text-transform 的使用</h5><p>text-transform属性控制文本的大小写</p>
+<p>常见值：none–默认；capitalize–大写字母开头；uppercase–仅有大写字母；lowercase–仅有小写字母；inherit–从父元素继承该值。</p>
+</li>
 </ol>
 <h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><ol>
 <li><h5 id="掌握-querySelector-、querySelectorAll-方法的使用"><a href="#掌握-querySelector-、querySelectorAll-方法的使用" class="headerlink" title="掌握 querySelector()、querySelectorAll() 方法的使用"></a>掌握 querySelector()、querySelectorAll() 方法的使用</h5></li>
