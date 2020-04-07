@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>JavaScript-30day-challenge</title>
+    <url>/2020/04/07/JavaScript-30day-challenge/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote>
+<p>真正的才智是刚毅的志向  ——拿破仑</p>
+</blockquote>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前大概html+css，在W3School、solo learn上简单的了解相关基础，但是并没有实践项目来驱动，所以学得快忘得快。前段时间搭建了hexo博客后又重燃了学习前端的想法，大概看了之后感觉还是要找实践小项目来熟练，用实践推动学习！因此在github上找了个30day的JavaScript挑战，它的每一个day小项目得到readme.md文件就是该项目学习目标，就以这个作为参考，记录相关知识，相当于一个随笔吧。</p>
+<h2 id="Day1-有趣的架子鼓小游戏"><a href="#Day1-有趣的架子鼓小游戏" class="headerlink" title="Day1 有趣的架子鼓小游戏"></a>Day1 有趣的架子鼓小游戏</h2><h3 id="任务描述"><a href="#任务描述" class="headerlink" title="任务描述"></a>任务描述</h3><p>实现一个可以互动的架子鼓游戏，敲击键盘时会发出相应的音效，如果你是个大神，最后就会产生美妙动听的音乐哦~来试试吧。</p>
+<p>任务效果图：</p>
+<h3 id="任务目的"><a href="#任务目的" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><ol>
+<li><h5 id="掌握-data-自定义属性的使用"><a href="#掌握-data-自定义属性的使用" class="headerlink" title="掌握 data-* 自定义属性的使用"></a>掌握 data-* 自定义属性的使用</h5><p>html5中可以使用data-来设置自定义属性，进行数据存放</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span> <span class="attr">data-age</span>=<span class="string">"25"</span>&gt;</span></span><br><span class="line">ROOT</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><h5 id="了解-lt-kbd-gt-lt-kbd-gt-标签的用法"><a href="#了解-lt-kbd-gt-lt-kbd-gt-标签的用法" class="headerlink" title="了解 &lt;kbd&gt;&lt;/kbd&gt; 标签的用法"></a>了解 <code>&lt;kbd&gt;&lt;/kbd&gt;</code> 标签的用法</h5><p>该标签表示文本是从键盘上键入的，浏览器通常用等宽字体显示该标签中的文本</p>
+</li>
+<li><h5 id="掌握-lt-audio-gt-标签的使用"><a href="#掌握-lt-audio-gt-标签的使用" class="headerlink" title="掌握 &lt;audio&gt; 标签的使用"></a>掌握 <code>&lt;audio&gt;</code> 标签的使用</h5><p>该标签定义声音，比如音乐或其他音频流，该标签是html5的新标签</p>
+</li>
+</ol>
+<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><ol>
+<li><h5 id="掌握-vh、vm-为单位的宽高使用"><a href="#掌握-vh、vm-为单位的宽高使用" class="headerlink" title="掌握 vh、vm 为单位的宽高使用"></a>掌握 vh、vm 为单位的宽高使用</h5><p>vw：相对于视口的宽度。视口被均分为100单位的vw（即浏览器可视区）100vw=可视区宽度 </p>
+<p>vh：相对于视口的高度。视口被均分为100单位的vh（即浏览器可视区）100vh=可视区高度</p>
+</li>
+<li><h5 id="掌握-flexbox-的语法及使用"><a href="#掌握-flexbox-的语法及使用" class="headerlink" title="掌握 flexbox 的语法及使用"></a>掌握 flexbox 的语法及使用</h5><p> <a href="https://www.runoob.com/css3/css3-flexbox.html" target="_blank" rel="noopener">菜鸟教程-FlexBox</a> </p>
+<p>flexbox弹性盒子是CSS3的一种新的布局模式，保证当页面需要适应不同的屏幕大小及设备类型时确保元素拥有恰当行为的布局。 由弹性容器flex container和弹性子元素flex item组成，弹性容器内包含了多个弹性子元素 注意： 弹性容器外及弹性子元素内是正常渲染的。弹性盒子只定义了弹性子元素如何在弹性容器内布局。 弹性子元素通常在弹性盒子内一行显示。默认情况每个容器只有一行。</p>
+</li>
+<li><h5 id="掌握-rem-为单位的根元素字体大小"><a href="#掌握-rem-为单位的根元素字体大小" class="headerlink" title="掌握 rem 为单位的根元素字体大小"></a>掌握 rem 为单位的根元素字体大小</h5><p>rem是CSS3新增的一个相对单位，它与em的区别在于，使用rem为元素设定字体大小时，仍是相对大小，不过相对的是HTML根元素，通过rem可以做到只修改根元素就成比例调整所有字体的大小，还可以避免字体大小逐层符合的连锁反应</p>
+</li>
+<li><h5 id="掌握-transtion-和-transform-的用法"><a href="#掌握-transtion-和-transform-的用法" class="headerlink" title="掌握 transtion 和 transform 的用法"></a>掌握 transtion 和 transform 的用法</h5><p><a href="https://www.jianshu.com/p/80f6051389bd" target="_blank" rel="noopener">探究CSS3中的transition和transform属性</a></p>
+</li>
+</ol>
+<ol start="5">
+<li><h5 id="了解-text-transform-的使用"><a href="#了解-text-transform-的使用" class="headerlink" title="了解 text-transform 的使用"></a>了解 text-transform 的使用</h5></li>
+</ol>
+<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><ol>
+<li><h5 id="掌握-querySelector-、querySelectorAll-方法的使用"><a href="#掌握-querySelector-、querySelectorAll-方法的使用" class="headerlink" title="掌握 querySelector()、querySelectorAll() 方法的使用"></a>掌握 querySelector()、querySelectorAll() 方法的使用</h5></li>
+</ol>
+<ol start="2">
+<li><h5 id="掌握-classList-的使用"><a href="#掌握-classList-的使用" class="headerlink" title="掌握 classList 的使用"></a>掌握 classList 的使用</h5></li>
+</ol>
+<ol start="3">
+<li><h5 id="掌握-audio-在-JavaScript-中的方法"><a href="#掌握-audio-在-JavaScript-中的方法" class="headerlink" title="掌握 audio 在 JavaScript 中的方法"></a>掌握 audio 在 JavaScript 中的方法</h5></li>
+</ol>
+<ol start="4">
+<li><h5 id="掌握-addEventListener-方法的使用"><a href="#掌握-addEventListener-方法的使用" class="headerlink" title="掌握 addEventListener() 方法的使用"></a>掌握 addEventListener() 方法的使用</h5></li>
+</ol>
+<ol start="5">
+<li><h5 id="掌握-ES6-中模板字符串的使用方法"><a href="#掌握-ES6-中模板字符串的使用方法" class="headerlink" title="掌握 ES6 中模板字符串的使用方法"></a>掌握 ES6 中模板字符串的使用方法</h5></li>
+</ol>
+<ol start="6">
+<li><h5 id="掌握-ES6-中的胖箭头函数写法"><a href="#掌握-ES6-中的胖箭头函数写法" class="headerlink" title="掌握 ES6 中的胖箭头函数写法"></a>掌握 ES6 中的胖箭头函数写法</h5></li>
+</ol>
+<ol start="7">
+<li><h5 id="学习并掌握事件代理相关知识"><a href="#学习并掌握事件代理相关知识" class="headerlink" title="学习并掌握事件代理相关知识"></a>学习并掌握事件代理相关知识</h5></li>
+</ol>
+<ol start="8">
+<li><h5 id="了解-transtionend-事件"><a href="#了解-transtionend-事件" class="headerlink" title="了解 transtionend 事件"></a>了解 transtionend 事件</h5></li>
+</ol>
+<h2 id="Day2-行走的时钟"><a href="#Day2-行走的时钟" class="headerlink" title="Day2 行走的时钟"></a>Day2 行走的时钟</h2><h2 id="Day3-定制个人相册"><a href="#Day3-定制个人相册" class="headerlink" title="Day3 定制个人相册"></a>Day3 定制个人相册</h2><h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2><h2 id="Day8-Canvas五彩缤纷的画笔"><a href="#Day8-Canvas五彩缤纷的画笔" class="headerlink" title="Day8 Canvas五彩缤纷的画笔"></a>Day8 Canvas五彩缤纷的画笔</h2><h2 id="Day9-控制台操作小技巧必知必会"><a href="#Day9-控制台操作小技巧必知必会" class="headerlink" title="Day9 控制台操作小技巧必知必会"></a>Day9 控制台操作小技巧必知必会</h2><h2 id="Day10-按住shift实现复选框全选"><a href="#Day10-按住shift实现复选框全选" class="headerlink" title="Day10 按住shift实现复选框全选"></a>Day10 按住shift实现复选框全选</h2><h2 id="Day11-自定义本地HTML5播放器"><a href="#Day11-自定义本地HTML5播放器" class="headerlink" title="Day11 自定义本地HTML5播放器"></a>Day11 自定义本地HTML5播放器</h2><h2 id="Day12-键盘序列检测"><a href="#Day12-键盘序列检测" class="headerlink" title="Day12 键盘序列检测"></a>Day12 键盘序列检测</h2><h2 id="Day13-滚动加载页面图片"><a href="#Day13-滚动加载页面图片" class="headerlink" title="Day13 滚动加载页面图片"></a>Day13 滚动加载页面图片</h2><h2 id="Day14-Javascript-Reference与Copy的对比"><a href="#Day14-Javascript-Reference与Copy的对比" class="headerlink" title="Day14 Javascript Reference与Copy的对比"></a>Day14 Javascript Reference与Copy的对比</h2><h2 id="Day15-LocalStorage的使用"><a href="#Day15-LocalStorage的使用" class="headerlink" title="Day15 LocalStorage的使用"></a>Day15 LocalStorage的使用</h2>]]></content>
+      <categories>
+        <category>前端基础</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>Js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《算法笔记》基础篇学习</title>
     <url>/2020/04/01/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0%E3%80%8B%E5%9F%BA%E7%A1%80%E7%AF%87%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>算法笔记这本书是在学算法设计课的时候同学推荐的，内容很多很好，当时边上课边看这个书把基础篇看完了，但是对应的题也没咋做。。。现在感觉都不会写题了。。再捡起来练习一下</p>
@@ -144,7 +215,21 @@
 
 
 
-<h4 id="PAT-A-3"><a href="#PAT-A-3" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1019-General-Palidromic-Number"><a href="#1019-General-Palidromic-Number" class="headerlink" title="1019 General Palidromic Number"></a>1019 General Palidromic Number</h5><h5 id="1027-Colors-in-Mars"><a href="#1027-Colors-in-Mars" class="headerlink" title="1027 Colors in Mars"></a>1027 Colors in Mars</h5><h5 id="1058-A-B-in-Hogwarts"><a href="#1058-A-B-in-Hogwarts" class="headerlink" title="1058 A+B in Hogwarts"></a>1058 A+B in Hogwarts</h5><h3 id="3-6字符串处理"><a href="#3-6字符串处理" class="headerlink" title="3.6字符串处理"></a>3.6字符串处理</h3><h4 id="PAT-B-4"><a href="#PAT-B-4" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1006换个格式输出整数"><a href="#1006换个格式输出整数" class="headerlink" title="1006换个格式输出整数"></a>1006换个格式输出整数</h5><h5 id="1021个位数统计"><a href="#1021个位数统计" class="headerlink" title="1021个位数统计"></a>1021个位数统计</h5><h5 id="1031查验身份证"><a href="#1031查验身份证" class="headerlink" title="1031查验身份证"></a>1031查验身份证</h5><h5 id="1002写出这个数"><a href="#1002写出这个数" class="headerlink" title="1002写出这个数"></a>1002写出这个数</h5><h5 id="1009说反话"><a href="#1009说反话" class="headerlink" title="1009说反话"></a>1009说反话</h5><h5 id="1014福尔摩斯的约会"><a href="#1014福尔摩斯的约会" class="headerlink" title="1014福尔摩斯的约会"></a>1014福尔摩斯的约会</h5><h5 id="1024科学计数法"><a href="#1024科学计数法" class="headerlink" title="1024科学计数法"></a>1024科学计数法</h5><h5 id="1048数字加密"><a href="#1048数字加密" class="headerlink" title="1048数字加密"></a>1048数字加密</h5><h4 id="PAT-A-4"><a href="#PAT-A-4" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1061-Dating"><a href="#1061-Dating" class="headerlink" title="1061 Dating"></a>1061 Dating</h5><h5 id="1073-Scientific-Notation"><a href="#1073-Scientific-Notation" class="headerlink" title="1073 Scientific Notation"></a>1073 Scientific Notation</h5><h5 id="1001-A-B-Format"><a href="#1001-A-B-Format" class="headerlink" title="1001 A+B Format"></a>1001 A+B Format</h5><h5 id="1005-Spell-It-Right"><a href="#1005-Spell-It-Right" class="headerlink" title="1005 Spell It Right"></a>1005 Spell It Right</h5><h5 id="1035-Password"><a href="#1035-Password" class="headerlink" title="1035 Password"></a>1035 Password</h5><h5 id="1077-Kuchgiuse"><a href="#1077-Kuchgiuse" class="headerlink" title="1077 Kuchgiuse"></a>1077 Kuchgiuse</h5><h5 id="1082-Read-Number-in-Chinese"><a href="#1082-Read-Number-in-Chinese" class="headerlink" title="1082 Read Number in Chinese"></a>1082 Read Number in Chinese</h5>]]></content>
+<h4 id="PAT-A-3"><a href="#PAT-A-3" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1019-General-Palidromic-Number"><a href="#1019-General-Palidromic-Number" class="headerlink" title="1019 General Palidromic Number"></a>1019 General Palidromic Number</h5><h5 id="1027-Colors-in-Mars"><a href="#1027-Colors-in-Mars" class="headerlink" title="1027 Colors in Mars"></a>1027 Colors in Mars</h5><h5 id="1058-A-B-in-Hogwarts"><a href="#1058-A-B-in-Hogwarts" class="headerlink" title="1058 A+B in Hogwarts"></a>1058 A+B in Hogwarts</h5><h3 id="3-6字符串处理"><a href="#3-6字符串处理" class="headerlink" title="3.6字符串处理"></a>3.6字符串处理</h3><h4 id="PAT-B-4"><a href="#PAT-B-4" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1006换个格式输出整数"><a href="#1006换个格式输出整数" class="headerlink" title="1006换个格式输出整数"></a>1006换个格式输出整数</h5><p>思路：上机指南上用数组存放，其实可以直接求百、十、个位的数值，然后输出</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;num);</span><br><span class="line">	<span class="keyword">int</span> i,j,k;</span><br><span class="line">	i=num/<span class="number">100</span>%<span class="number">10</span>;</span><br><span class="line">	j=num/<span class="number">10</span>%<span class="number">10</span>;</span><br><span class="line">	k=num%<span class="number">10</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">0</span>;m&lt;i;m++)<span class="built_in">printf</span>(<span class="string">"B"</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">0</span>;m&lt;j;m++)<span class="built_in">printf</span>(<span class="string">"S"</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">1</span>;m&lt;=k;m++)<span class="built_in">printf</span>(<span class="string">"%d"</span>,m);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1021个位数统计"><a href="#1021个位数统计" class="headerlink" title="1021个位数统计"></a>1021个位数统计</h5><p>思路：将数字以数组形式输入，然后strlen获取长度</p>
+<ul>
+<li>定义ans[]数组存放0到9出现次数，最后输出不为0的数</li>
+<li>PAT不支持gets()函数的使用，换成cin即可</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">1000</span>];</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;str;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="built_in">strlen</span>(str);</span><br><span class="line">	<span class="keyword">int</span> ans[<span class="number">10</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ans[str[i]-<span class="string">'0'</span>]++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(ans[i]!=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d:%d\n"</span>,i,ans[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1031查验身份证"><a href="#1031查验身份证" class="headerlink" title="1031查验身份证"></a>1031查验身份证</h5><h5 id="1002写出这个数"><a href="#1002写出这个数" class="headerlink" title="1002写出这个数"></a>1002写出这个数</h5><h5 id="1009说反话"><a href="#1009说反话" class="headerlink" title="1009说反话"></a>1009说反话</h5><h5 id="1014福尔摩斯的约会"><a href="#1014福尔摩斯的约会" class="headerlink" title="1014福尔摩斯的约会"></a>1014福尔摩斯的约会</h5><h5 id="1024科学计数法"><a href="#1024科学计数法" class="headerlink" title="1024科学计数法"></a>1024科学计数法</h5><h5 id="1048数字加密"><a href="#1048数字加密" class="headerlink" title="1048数字加密"></a>1048数字加密</h5><h4 id="PAT-A-4"><a href="#PAT-A-4" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1061-Dating"><a href="#1061-Dating" class="headerlink" title="1061 Dating"></a>1061 Dating</h5><h5 id="1073-Scientific-Notation"><a href="#1073-Scientific-Notation" class="headerlink" title="1073 Scientific Notation"></a>1073 Scientific Notation</h5><h5 id="1001-A-B-Format"><a href="#1001-A-B-Format" class="headerlink" title="1001 A+B Format"></a>1001 A+B Format</h5><h5 id="1005-Spell-It-Right"><a href="#1005-Spell-It-Right" class="headerlink" title="1005 Spell It Right"></a>1005 Spell It Right</h5><h5 id="1035-Password"><a href="#1035-Password" class="headerlink" title="1035 Password"></a>1035 Password</h5><h5 id="1077-Kuchgiuse"><a href="#1077-Kuchgiuse" class="headerlink" title="1077 Kuchgiuse"></a>1077 Kuchgiuse</h5><h5 id="1082-Read-Number-in-Chinese"><a href="#1082-Read-Number-in-Chinese" class="headerlink" title="1082 Read Number in Chinese"></a>1082 Read Number in Chinese</h5>]]></content>
       <categories>
         <category>算法笔记</category>
       </categories>
@@ -317,8 +402,9 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>基本原理：Hexo是github上一个优秀的开源博客框架，支持markdown解析文章，有多种第三方主题插件供选择。先由hexo将.md文件生成静态网页.html文件，然后上传到你创建的个人GitHub仓库，这个仓库比较特殊，相当于是github为我们提供的展示网页的资源挂载库。因此hexo+github全程的搭建免费且便捷。我们只需要自己购买一个域名解析到对应的github-page就行了。</p>
 <blockquote>
 <p>贪安稳就没有自由，要自由就要历些危险。只有这两条路。 ——鲁迅</p>
-<a id="more"></a>
 </blockquote>
+<a id="more"></a>
+
 <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h3><h4 id="1-1想法"><a href="#1-1想法" class="headerlink" title="1.1想法"></a>1.1想法</h4><p>本着好玩感兴趣的想法尝试弄一个个人博客，毕竟以前好多课考前赶的笔记都是手写的，考完试课程结束笔记本也找不到了。。。用博客的话可以写点东西留着。</p>
 <p>本来有现成的纯小白快速搭建<a href="http://www.jianshu.com/p/e68fba58f75c" target="_blank" rel="noopener">《利用 GitHub Pages 快速搭建个人博客》</a> ，一开始参考这个半小时就完成搭建了，先fork然后修改_config.yml代码，按照他的提示步骤就可以完成，并且无论是功能上还是页面布局上都比自己从零开始搭建的更加强大，不过我还是想自己从头开始尝试一下，了解一下大概的方法。</p>
 <p>花了一下午使用hexo＋github Page搭建个人博客，也在网上参考了搭建步骤，记录一下自己的搭建过程。</p>

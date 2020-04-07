@@ -10,7 +10,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    LY&#39;s love |  Ocean
+    JavaScript-30day-challenge |  Ocean
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -50,9 +50,6 @@
 
 
 <link rel="alternate" href="/atom.xml" title="Ocean" type="application/atom+xml">
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
 </head>
 
 </html>
@@ -61,7 +58,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="page-" class="article article-type-page" itemscope
+  <article id="post-JavaScript-30day-challenge" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -69,7 +66,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  LY&#39;s love
+  JavaScript-30day-challenge
 </h1>
   
 
@@ -77,6 +74,47 @@
     
 
     
+    <div class="article-meta">
+      <a href="/2020/04/07/JavaScript-30day-challenge/" class="article-date">
+  <time datetime="2020-04-07T12:56:20.000Z" itemprop="datePublished">2020-04-07</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">930字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
 
     
 
@@ -86,13 +124,66 @@
       
 
       
-      
-    <div id="aplayer-dlogViaU" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="629185645" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#FF4081"
-    ></div>
+      <blockquote>
+<p>真正的才智是刚毅的志向  ——拿破仑</p>
+</blockquote>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前大概html+css，在W3School、solo learn上简单的了解相关基础，但是并没有实践项目来驱动，所以学得快忘得快。前段时间搭建了hexo博客后又重燃了学习前端的想法，大概看了之后感觉还是要找实践小项目来熟练，用实践推动学习！因此在github上找了个30day的JavaScript挑战，它的每一个day小项目得到readme.md文件就是该项目学习目标，就以这个作为参考，记录相关知识，相当于一个随笔吧。</p>
+<h2 id="Day1-有趣的架子鼓小游戏"><a href="#Day1-有趣的架子鼓小游戏" class="headerlink" title="Day1 有趣的架子鼓小游戏"></a>Day1 有趣的架子鼓小游戏</h2><h3 id="任务描述"><a href="#任务描述" class="headerlink" title="任务描述"></a>任务描述</h3><p>实现一个可以互动的架子鼓游戏，敲击键盘时会发出相应的音效，如果你是个大神，最后就会产生美妙动听的音乐哦~来试试吧。</p>
+<p>任务效果图：</p>
+<h3 id="任务目的"><a href="#任务目的" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h4><ol>
+<li><h5 id="掌握-data-自定义属性的使用"><a href="#掌握-data-自定义属性的使用" class="headerlink" title="掌握 data-* 自定义属性的使用"></a>掌握 data-* 自定义属性的使用</h5><p>html5中可以使用data-来设置自定义属性，进行数据存放</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"root"</span> <span class="attr">data-age</span>=<span class="string">"25"</span>&gt;</span></span><br><span class="line">ROOT</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
 
+</li>
+</ol>
+<ol start="2">
+<li><h5 id="了解-lt-kbd-gt-lt-kbd-gt-标签的用法"><a href="#了解-lt-kbd-gt-lt-kbd-gt-标签的用法" class="headerlink" title="了解 &lt;kbd&gt;&lt;/kbd&gt; 标签的用法"></a>了解 <code>&lt;kbd&gt;&lt;/kbd&gt;</code> 标签的用法</h5><p>该标签表示文本是从键盘上键入的，浏览器通常用等宽字体显示该标签中的文本</p>
+</li>
+<li><h5 id="掌握-lt-audio-gt-标签的使用"><a href="#掌握-lt-audio-gt-标签的使用" class="headerlink" title="掌握 &lt;audio&gt; 标签的使用"></a>掌握 <code>&lt;audio&gt;</code> 标签的使用</h5><p>该标签定义声音，比如音乐或其他音频流，该标签是html5的新标签</p>
+</li>
+</ol>
+<h4 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h4><ol>
+<li><h5 id="掌握-vh、vm-为单位的宽高使用"><a href="#掌握-vh、vm-为单位的宽高使用" class="headerlink" title="掌握 vh、vm 为单位的宽高使用"></a>掌握 vh、vm 为单位的宽高使用</h5><p>vw：相对于视口的宽度。视口被均分为100单位的vw（即浏览器可视区）100vw=可视区宽度 </p>
+<p>vh：相对于视口的高度。视口被均分为100单位的vh（即浏览器可视区）100vh=可视区高度</p>
+</li>
+<li><h5 id="掌握-flexbox-的语法及使用"><a href="#掌握-flexbox-的语法及使用" class="headerlink" title="掌握 flexbox 的语法及使用"></a>掌握 flexbox 的语法及使用</h5><p> <a href="https://www.runoob.com/css3/css3-flexbox.html" target="_blank" rel="noopener">菜鸟教程-FlexBox</a> </p>
+<p>flexbox弹性盒子是CSS3的一种新的布局模式，保证当页面需要适应不同的屏幕大小及设备类型时确保元素拥有恰当行为的布局。 由弹性容器flex container和弹性子元素flex item组成，弹性容器内包含了多个弹性子元素 注意： 弹性容器外及弹性子元素内是正常渲染的。弹性盒子只定义了弹性子元素如何在弹性容器内布局。 弹性子元素通常在弹性盒子内一行显示。默认情况每个容器只有一行。</p>
+</li>
+<li><h5 id="掌握-rem-为单位的根元素字体大小"><a href="#掌握-rem-为单位的根元素字体大小" class="headerlink" title="掌握 rem 为单位的根元素字体大小"></a>掌握 rem 为单位的根元素字体大小</h5><p>rem是CSS3新增的一个相对单位，它与em的区别在于，使用rem为元素设定字体大小时，仍是相对大小，不过相对的是HTML根元素，通过rem可以做到只修改根元素就成比例调整所有字体的大小，还可以避免字体大小逐层符合的连锁反应</p>
+</li>
+<li><h5 id="掌握-transtion-和-transform-的用法"><a href="#掌握-transtion-和-transform-的用法" class="headerlink" title="掌握 transtion 和 transform 的用法"></a>掌握 transtion 和 transform 的用法</h5><p><a href="https://www.jianshu.com/p/80f6051389bd" target="_blank" rel="noopener">探究CSS3中的transition和transform属性</a></p>
+</li>
+</ol>
+<ol start="5">
+<li><h5 id="了解-text-transform-的使用"><a href="#了解-text-transform-的使用" class="headerlink" title="了解 text-transform 的使用"></a>了解 text-transform 的使用</h5></li>
+</ol>
+<h4 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h4><ol>
+<li><h5 id="掌握-querySelector-、querySelectorAll-方法的使用"><a href="#掌握-querySelector-、querySelectorAll-方法的使用" class="headerlink" title="掌握 querySelector()、querySelectorAll() 方法的使用"></a>掌握 querySelector()、querySelectorAll() 方法的使用</h5></li>
+</ol>
+<ol start="2">
+<li><h5 id="掌握-classList-的使用"><a href="#掌握-classList-的使用" class="headerlink" title="掌握 classList 的使用"></a>掌握 classList 的使用</h5></li>
+</ol>
+<ol start="3">
+<li><h5 id="掌握-audio-在-JavaScript-中的方法"><a href="#掌握-audio-在-JavaScript-中的方法" class="headerlink" title="掌握 audio 在 JavaScript 中的方法"></a>掌握 audio 在 JavaScript 中的方法</h5></li>
+</ol>
+<ol start="4">
+<li><h5 id="掌握-addEventListener-方法的使用"><a href="#掌握-addEventListener-方法的使用" class="headerlink" title="掌握 addEventListener() 方法的使用"></a>掌握 addEventListener() 方法的使用</h5></li>
+</ol>
+<ol start="5">
+<li><h5 id="掌握-ES6-中模板字符串的使用方法"><a href="#掌握-ES6-中模板字符串的使用方法" class="headerlink" title="掌握 ES6 中模板字符串的使用方法"></a>掌握 ES6 中模板字符串的使用方法</h5></li>
+</ol>
+<ol start="6">
+<li><h5 id="掌握-ES6-中的胖箭头函数写法"><a href="#掌握-ES6-中的胖箭头函数写法" class="headerlink" title="掌握 ES6 中的胖箭头函数写法"></a>掌握 ES6 中的胖箭头函数写法</h5></li>
+</ol>
+<ol start="7">
+<li><h5 id="学习并掌握事件代理相关知识"><a href="#学习并掌握事件代理相关知识" class="headerlink" title="学习并掌握事件代理相关知识"></a>学习并掌握事件代理相关知识</h5></li>
+</ol>
+<ol start="8">
+<li><h5 id="了解-transtionend-事件"><a href="#了解-transtionend-事件" class="headerlink" title="了解 transtionend 事件"></a>了解 transtionend 事件</h5></li>
+</ol>
+<h2 id="Day2-行走的时钟"><a href="#Day2-行走的时钟" class="headerlink" title="Day2 行走的时钟"></a>Day2 行走的时钟</h2><h2 id="Day3-定制个人相册"><a href="#Day3-定制个人相册" class="headerlink" title="Day3 定制个人相册"></a>Day3 定制个人相册</h2><h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2><h2 id="Day8-Canvas五彩缤纷的画笔"><a href="#Day8-Canvas五彩缤纷的画笔" class="headerlink" title="Day8 Canvas五彩缤纷的画笔"></a>Day8 Canvas五彩缤纷的画笔</h2><h2 id="Day9-控制台操作小技巧必知必会"><a href="#Day9-控制台操作小技巧必知必会" class="headerlink" title="Day9 控制台操作小技巧必知必会"></a>Day9 控制台操作小技巧必知必会</h2><h2 id="Day10-按住shift实现复选框全选"><a href="#Day10-按住shift实现复选框全选" class="headerlink" title="Day10 按住shift实现复选框全选"></a>Day10 按住shift实现复选框全选</h2><h2 id="Day11-自定义本地HTML5播放器"><a href="#Day11-自定义本地HTML5播放器" class="headerlink" title="Day11 自定义本地HTML5播放器"></a>Day11 自定义本地HTML5播放器</h2><h2 id="Day12-键盘序列检测"><a href="#Day12-键盘序列检测" class="headerlink" title="Day12 键盘序列检测"></a>Day12 键盘序列检测</h2><h2 id="Day13-滚动加载页面图片"><a href="#Day13-滚动加载页面图片" class="headerlink" title="Day13 滚动加载页面图片"></a>Day13 滚动加载页面图片</h2><h2 id="Day14-Javascript-Reference与Copy的对比"><a href="#Day14-Javascript-Reference与Copy的对比" class="headerlink" title="Day14 Javascript Reference与Copy的对比"></a>Day14 Javascript Reference与Copy的对比</h2><h2 id="Day15-LocalStorage的使用"><a href="#Day15-LocalStorage的使用" class="headerlink" title="Day15 LocalStorage的使用"></a>Day15 LocalStorage的使用</h2>
       
       <!-- reward -->
       
@@ -161,13 +252,15 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/playlist/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/07/JavaScript-30day-challenge/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Js/" rel="tag">Js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+
 
     </footer>
 
@@ -175,6 +268,16 @@
 
   
   
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/04/01/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0%E3%80%8B%E5%9F%BA%E7%A1%80%E7%AF%87%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">《算法笔记》基础篇学习</div>
+      </a>
+    
+  </nav>
+
 
   
 
@@ -232,6 +335,8 @@
 
   
 
+  
+  
   
 
 </article>
@@ -387,6 +492,30 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
 
 
 
