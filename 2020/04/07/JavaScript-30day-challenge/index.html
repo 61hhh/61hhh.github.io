@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.2k</span>
+            <span class="post-count">3.5k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">8 分钟</span>
+            <span class="post-count">13 分钟</span>
         </span>
     </span>
 </div>
@@ -236,7 +236,68 @@ var _hmt = _hmt || [];
 <p><code>transitionend</code> 事件是双向触发的 - 当完成到转换状态的过渡，以及完全恢复到默认或非转换状态时都会触发。 如果没有过渡延迟或持续时间，即两者的值都为0s或者都未声明， 则不发生过渡，并且任何过渡事件都不会触发。如果触发了 <code>transitioncancel</code> 事件，则<code>transitionend</code> 事件不会触发。</p>
 </li>
 </ol>
-<h2 id="Day2-行走的时钟"><a href="#Day2-行走的时钟" class="headerlink" title="Day2 行走的时钟"></a>Day2 行走的时钟</h2><h2 id="Day3-定制个人相册"><a href="#Day3-定制个人相册" class="headerlink" title="Day3 定制个人相册"></a>Day3 定制个人相册</h2><h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2><h2 id="Day8-Canvas五彩缤纷的画笔"><a href="#Day8-Canvas五彩缤纷的画笔" class="headerlink" title="Day8 Canvas五彩缤纷的画笔"></a>Day8 Canvas五彩缤纷的画笔</h2><h2 id="Day9-控制台操作小技巧必知必会"><a href="#Day9-控制台操作小技巧必知必会" class="headerlink" title="Day9 控制台操作小技巧必知必会"></a>Day9 控制台操作小技巧必知必会</h2><h2 id="Day10-按住shift实现复选框全选"><a href="#Day10-按住shift实现复选框全选" class="headerlink" title="Day10 按住shift实现复选框全选"></a>Day10 按住shift实现复选框全选</h2><h2 id="Day11-自定义本地HTML5播放器"><a href="#Day11-自定义本地HTML5播放器" class="headerlink" title="Day11 自定义本地HTML5播放器"></a>Day11 自定义本地HTML5播放器</h2><h2 id="Day12-键盘序列检测"><a href="#Day12-键盘序列检测" class="headerlink" title="Day12 键盘序列检测"></a>Day12 键盘序列检测</h2><h2 id="Day13-滚动加载页面图片"><a href="#Day13-滚动加载页面图片" class="headerlink" title="Day13 滚动加载页面图片"></a>Day13 滚动加载页面图片</h2><h2 id="Day14-Javascript-Reference与Copy的对比"><a href="#Day14-Javascript-Reference与Copy的对比" class="headerlink" title="Day14 Javascript Reference与Copy的对比"></a>Day14 Javascript Reference与Copy的对比</h2><h2 id="Day15-LocalStorage的使用"><a href="#Day15-LocalStorage的使用" class="headerlink" title="Day15 LocalStorage的使用"></a>Day15 LocalStorage的使用</h2>
+<h2 id="Day2-行走的时钟"><a href="#Day2-行走的时钟" class="headerlink" title="Day2 行走的时钟"></a>Day2 行走的时钟</h2><h2 id="任务描述-1"><a href="#任务描述-1" class="headerlink" title="任务描述"></a>任务描述</h2><p>动手实现一个网页版的时钟吧！它不仅仅可以给你带来乐趣，更重要的是让你更牢固地掌握 new Date() 方法的使用。</p>
+<p>任务效果图：</p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/JS-day2.png" alt="时钟"></p>
+<h3 id="任务目的-1"><a href="#任务目的-1" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="HTML-1"><a href="#HTML-1" class="headerlink" title="HTML"></a>HTML</h4><ol>
+<li><h5 id="掌握-flexbox-布局，使元素在页面居中（也可使用-position-布局）"><a href="#掌握-flexbox-布局，使元素在页面居中（也可使用-position-布局）" class="headerlink" title="掌握 flexbox 布局，使元素在页面居中（也可使用 position 布局）"></a>掌握 flexbox 布局，使元素在页面居中（也可使用 position 布局）</h5><p>采用Flex布局的元素，称为Flex容器，简称“容器”，它所有的子元素自动成为容器成员，称为Flex项目，简称“项目”。</p>
+<p>容器默认存在两个轴：main axis（水平主轴）和cross axis（垂直交叉轴）</p>
+<p>容器属性：设置在容器上</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">flex-direction;</span><br><span class="line">//决定主轴方向(即项目排列方向)</span><br><span class="line">flex-wrap;</span><br><span class="line">//默认情况下，项目都排在一条线（又称"轴线"）上。flex-wrap属性定义，如果一条轴线排不下，如何换行</span><br><span class="line">flex-flow;</span><br><span class="line">//是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。</span><br><span class="line">justify-content;</span><br><span class="line">//定义了项目在主轴上的对齐方式。</span><br><span class="line">align-items;</span><br><span class="line">//定义项目在交叉轴上如何对齐</span><br><span class="line">align-content;</span><br><span class="line">//定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用</span><br></pre></td></tr></table></figure>
+
+<p>项目的属性：设置在项目上</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">order</span>;</span><br><span class="line"><span class="comment">//定义了项目的排列顺序，数值越小越靠前，默认为0</span></span><br><span class="line"><span class="attribute">flex-grow</span>;</span><br><span class="line"><span class="comment">//定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大</span></span><br><span class="line"><span class="attribute">flex-shrink</span>;</span><br><span class="line"><span class="comment">//定义项目的缩小比例，默认为1，即如果空间不足，该项目将缩小</span></span><br><span class="line"><span class="attribute">flex-basis</span>;</span><br><span class="line"><span class="comment">//定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</span></span><br><span class="line"><span class="attribute">flex</span>;</span><br><span class="line"><span class="comment">//是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</span></span><br><span class="line"><span class="attribute">align-self</span>;</span><br><span class="line"><span class="comment">//允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>   <a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">Flex布局教程：语法篇</a></p>
+<h4 id="CSS-1"><a href="#CSS-1" class="headerlink" title="CSS"></a>CSS</h4><ol>
+<li><h5 id="掌握-CSS3-中的-nth-child-伪类的使用"><a href="#掌握-CSS3-中的-nth-child-伪类的使用" class="headerlink" title="掌握 CSS3 中的 :nth-child() 伪类的使用"></a>掌握 CSS3 中的 :nth-child() 伪类的使用</h5><p>语法：E:nth-child(n){Rules}：用于匹配父元素的第n个子元素E</p>
+<p>当然这个伪类选择器功能不止这些，还可以倍数选择、倍数分组选择、奇偶匹配等</p>
+<p>示例代码：将父元素的第二个li子元素颜色设置为红</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-cn"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>结构性伪类选择符 E:nth-child(n)_CSS参考手册_web前端开发参考手册系列<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-tag">h1</span>&#123;<span class="attribute">font-size</span>:<span class="number">16px</span>;&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(2)</span>&#123;<span class="attribute">color</span>:<span class="number">#f00</span>;&#125;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>第二行要变成红色 <span class="tag">&lt;<span class="name">code</span>&gt;</span>li:nth-child(2)&#123;color:#f00;&#125;<span class="tag">&lt;/<span class="name">code</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>结构性伪类选择符 E:nth-child(n)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>结构性伪类选择符 E:nth-child(n)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>结构性伪类选择符 E:nth-child(n)<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><h5 id="掌握-position-中-absolute-和-relative-的使用"><a href="#掌握-position-中-absolute-和-relative-的使用" class="headerlink" title="掌握 position 中 absolute 和 relative 的使用"></a>掌握 position 中 absolute 和 relative 的使用</h5><p>absolute：绝对定位，默认参照浏览器的左上角，配合TOP、RIGHT、LEFT、BOTTOM、LEFT进行定位。</p>
+<p>&lt;1&gt;绝对定位使元素框从文档流完全删除，相当于该元素从原文档中删除了</p>
+<p>&lt;2&gt;它的位置是相对于已定位的祖先元素，如果没有默认为body</p>
+<p>&lt;3&gt;因为绝对定义的框与文档流无关，因此可以通过设置Z-index控制这些框覆盖其他元素</p>
+<p>relative：相对定位，设置为相对定位的元素框会偏移某个距离。元素仍然保持其未定位前的形状，它原本所占的空间仍保留。</p>
+<p>&lt;1&gt;相对定位不会删除元素框在文档流的位置，而是在原文档位置基础上进行移动</p>
+</li>
+</ol>
+<ol start="3">
+<li><h5 id="掌握-transform-origin-属性的使用"><a href="#掌握-transform-origin-属性的使用" class="headerlink" title="掌握 transform-origin 属性的使用"></a>掌握 transform-origin 属性的使用</h5><p>语法：transform-origin: <em>x-axis y-axis z-axis</em>;</p>
+<p>transform-Origin属性允许您更改转换元素的位置。2D转换元素可以改变元素的X和Y轴。 3D转换元素，还可以更改元素的Z轴。</p>
+</li>
+<li><h5 id="熟悉-rotate-函数的运用"><a href="#熟悉-rotate-函数的运用" class="headerlink" title="熟悉 rotate() 函数的运用"></a>熟悉 rotate() 函数的运用</h5><p>语法：rotate(angle–旋转的角度)</p>
+<p>通过设置角度参数值来设定旋转幅度，rotate函数可以旋转元素.</p>
+<p>如果元素设定了perspective值，就可以使用rotate3d()函数实现三维空间的选择：rotateX(angle)–rotateY(angle)–rotateZ(angle)</p>
+<p>关联元素：transform-origin</p>
+</li>
+</ol>
+<h4 id="JavaScript-1"><a href="#JavaScript-1" class="headerlink" title="JavaScript"></a>JavaScript</h4><ol>
+<li><h5 id="掌握-setInterval-方法的使用"><a href="#掌握-setInterval-方法的使用" class="headerlink" title="掌握 setInterval() 方法的使用"></a>掌握 setInterval() 方法的使用</h5><p>语法：setInterval ( code, milliseconds[, args…] )</p>
+<p>code：要执行的函数或js代码；</p>
+<p>milliseconds：执行函数或代码的间隔时间，单位为毫秒</p>
+<p>[args..]：可选参数，用于传参</p>
+</li>
+<li><h5 id="掌握-new-Date-方法的使用"><a href="#掌握-new-Date-方法的使用" class="headerlink" title="掌握 new Date() 方法的使用"></a>掌握 new Date() 方法的使用</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nowDate=<span class="keyword">new</span> <span class="built_in">Date</span>() <span class="comment">//获取系统当前时间</span></span><br><span class="line">nowDate.getYear();<span class="comment">//获取当前年份2位。getFullYear 获取4位</span></span><br><span class="line">nowDate.getMonth();<span class="comment">//获取当前月份0开始，0-11</span></span><br><span class="line">nowDate.getDate();<span class="comment">//获取当前日期0-31</span></span><br><span class="line">nowDate.getDay();<span class="comment">//获取星期</span></span><br><span class="line"><span class="comment">//。。。</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><h5 id="掌握-ES6-模板字符串的用法"><a href="#掌握-ES6-模板字符串的用法" class="headerlink" title="掌握 ES6 模板字符串的用法"></a>掌握 ES6 模板字符串的用法</h5></li>
+</ol>
+<h2 id="Day3-定制个人相册"><a href="#Day3-定制个人相册" class="headerlink" title="Day3 定制个人相册"></a>Day3 定制个人相册</h2><h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2><h2 id="Day8-Canvas五彩缤纷的画笔"><a href="#Day8-Canvas五彩缤纷的画笔" class="headerlink" title="Day8 Canvas五彩缤纷的画笔"></a>Day8 Canvas五彩缤纷的画笔</h2><h2 id="Day9-控制台操作小技巧必知必会"><a href="#Day9-控制台操作小技巧必知必会" class="headerlink" title="Day9 控制台操作小技巧必知必会"></a>Day9 控制台操作小技巧必知必会</h2><h2 id="Day10-按住shift实现复选框全选"><a href="#Day10-按住shift实现复选框全选" class="headerlink" title="Day10 按住shift实现复选框全选"></a>Day10 按住shift实现复选框全选</h2><h2 id="Day11-自定义本地HTML5播放器"><a href="#Day11-自定义本地HTML5播放器" class="headerlink" title="Day11 自定义本地HTML5播放器"></a>Day11 自定义本地HTML5播放器</h2><h2 id="Day12-键盘序列检测"><a href="#Day12-键盘序列检测" class="headerlink" title="Day12 键盘序列检测"></a>Day12 键盘序列检测</h2><h2 id="Day13-滚动加载页面图片"><a href="#Day13-滚动加载页面图片" class="headerlink" title="Day13 滚动加载页面图片"></a>Day13 滚动加载页面图片</h2><h2 id="Day14-Javascript-Reference与Copy的对比"><a href="#Day14-Javascript-Reference与Copy的对比" class="headerlink" title="Day14 Javascript Reference与Copy的对比"></a>Day14 Javascript Reference与Copy的对比</h2><h2 id="Day15-LocalStorage的使用"><a href="#Day15-LocalStorage的使用" class="headerlink" title="Day15 LocalStorage的使用"></a>Day15 LocalStorage的使用</h2>
       
       <!-- reward -->
       
