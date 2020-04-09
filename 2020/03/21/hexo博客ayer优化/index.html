@@ -9,11 +9,11 @@
    
   <meta name="keywords" content="learn to live,learn to love" />
    
-  <meta name="description" content="Oceans Deep" />
+  <meta name="description" content="Be Yourself" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    hexo博客ayer优化 |  Ocean
+    hexo博客ayer优化 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -55,7 +55,7 @@ var _hmt = _hmt || [];
 </script>
 
 
-<link rel="alternate" href="/atom.xml" title="Ocean" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
 </head>
 
 </html>
@@ -151,6 +151,7 @@ var _hmt = _hmt || [];
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">title:</span> <span class="string">歌单</span></span><br><span class="line"><span class="attr">date:</span> <span class="number">2020</span><span class="number">-3</span><span class="number">-21</span> </span><br><span class="line"><span class="attr">type:</span> <span class="string">"playlist"</span></span><br></pre></td></tr></table></figure>
 
 <p>3 打开主题的_config.yml文件，在menu下新建一个名为playlist的类（在nexT主题中集成了fontAwesome可以插入图标，本主题没有。。。遗憾）</p>
+<p>注：标点符号的中英文输入要检查</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">	playlist:</span> <span class="meta-keyword">/playlist/</span></span><br></pre></td></tr></table></figure>
 
 <p>4.打开主题文件下的language/zh-CN.yml添加对应中文翻译</p>
@@ -224,7 +225,7 @@ var _hmt = _hmt || [];
 
 
 <h2 id="添加百度、谷歌Analytics"><a href="#添加百度、谷歌Analytics" class="headerlink" title="添加百度、谷歌Analytics"></a>添加百度、谷歌Analytics</h2><p>百度统计和Google统计主要可以用于分析网站数据：流量、访客量等。</p>
-<p>基本步骤就是注册账号，创建网页应用（按提示步骤来就行），获取js代码，添加。附上网站链接：</p>
+<p>基本步骤就是注册账号，创建网页应用（按提示步骤来就行），获取js代码（在管理-&gt;获取代码 中即可找到js代码），添加。附上网站链接：</p>
 <p><a href="[https://tongji.baidu.com](https://tongji.baidu.com/)">百度统计网站</a></p>
 <p><a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener">Google统计网站</a></p>
 <p>（说明：在ayer主题中已经集成，只需要配置一下即可。这个大部分主题都有集成吧0.0）具体位置：</p>
@@ -233,8 +234,9 @@ var _hmt = _hmt || [];
 <p><img src="http://q7kxgx8az.bkt.clouddn.com/baidu-analytics-js.png" alt="image-20200322114644925"></p>
 <p>在主题配置文件_config.yml中配置一下id：</p>
 <p><img src="http://q7kxgx8az.bkt.clouddn.com/analytics-config.png" alt="image-20200322113331239"></p>
-<p>Google Analytics和百度类似，在.ejs文件中替换你的js代码，在_config.yml中配置id即可。配置成功后可以在控制台看到相关信息：</p>
+<p>Google Analytics和百度类似，找到UA码复制，在.ejs文件中替换你的js代码，在_config.yml中配置id即可。配置成功后可以在控制台看到相关信息：</p>
 <p><img src="http://q7kxgx8az.bkt.clouddn.com/analytics-f12console.png" alt="image-20200322115142347"></p>
+<p>网站底部的UV页面访问、PV IP访问，在localhost下数值会异常，不过部署到服务器上会重新设置。</p>
 <h2 id="增加评论功能-Valine、Gitalk"><a href="#增加评论功能-Valine、Gitalk" class="headerlink" title="增加评论功能(Valine、Gitalk)"></a>增加评论功能(Valine、Gitalk)</h2><p>hexo博客评论系统有很多常用的有：来比力、Gitalk、畅言、valine等，多个评论系统已经下线或者是外国网站，容易被墙，所有好用的主要就Valine和Gitalk。</p>
 <ul>
 <li>Valine：<a href="https://github.com/xCss/Valine" target="_blank" rel="noopener">https://github.com/xCss/Valine</a>  （快速高效）</li>
@@ -493,7 +495,7 @@ var _hmt = _hmt || [];
 <nav class="navbar">
   
   <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="Ocean"></a>
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
   </div>
   
   <ul class="nav nav-main">
@@ -588,10 +590,10 @@ var _hmt = _hmt || [];
 <script>
   try {
     var typed = new Typed("#subtitle", {
-      strings: ['My oceans deep my rivers wide', 'The strangers weep at pleasures side', 'Oh why do I not see the only one unseen'],
+      strings: ['我就是我，是颜色不一样的烟火', '', ''],
       startDelay: 0,
       typeSpeed: 100,
-      loop: true,
+      loop: false,
       backSpeed: 100,
       showCursor: true
     });
