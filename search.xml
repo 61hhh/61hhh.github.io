@@ -266,24 +266,21 @@
 
 <p>它将符合条件的元素封装到一个数组中返回，返回值为NodeList对象，我们若要查找具体元素，就必须使用索引。</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//本例中选择所有class为controls下的input元素</span></span><br><span class="line"><span class="comment">//使用ES6胖箭头函数，forEach对每个元素执行一次添加事件监听</span></span><br><span class="line"><span class="keyword">const</span> inputs = <span class="built_in">document</span>.querySelectorAll(<span class="string">'.controls input'</span>);</span><br><span class="line">inputs.forEach(<span class="function"><span class="params">input</span> =&gt;</span> input.addEventListener(<span class="string">'change'</span> ,handleChange));</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
-</ol>
-<ol start="2">
-<li><h5 id="掌握-dataset-的使用技巧"><a href="#掌握-dataset-的使用技巧" class="headerlink" title="掌握 dataset 的使用技巧"></a>掌握 dataset 的使用技巧</h5></li>
-</ol>
-<ol start="3">
+<li><h5 id="掌握-dataset-的使用技巧"><a href="#掌握-dataset-的使用技巧" class="headerlink" title="掌握 dataset 的使用技巧"></a>掌握 dataset 的使用技巧</h5><p>应用自定义属性data-：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"day-meal-expense"</span> <span class="attr">data-drink</span>=<span class="string">"tea"</span> <span class="attr">data-food</span>=<span class="string">"noodle"</span> <span class="attr">data-meal</span>=<span class="string">"lunch"</span>&gt;</span>$18.3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>获取某个属性的值，可以使用dataset对象：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> expenseday=<span class="built_in">document</span>.getElementById(<span class="string">'day-meal-expense'</span>);</span><br><span class="line"><span class="keyword">var</span> typeOfDrink=expenseday.dataset.drink;</span><br><span class="line"><span class="built_in">console</span>.log(typeOfDrink);<span class="comment">//tea</span></span><br><span class="line"><span class="built_in">console</span>.log(expenseday.dataset.food);<span class="comment">//noodle</span></span><br><span class="line"><span class="built_in">console</span>.log(expenseday.dataset.meal);<span class="comment">//lunch</span></span><br></pre></td></tr></table></figure>
+
+<p>本例中js代码获取的this.dataset.size，就是html代码中相框宽度、模糊度的data-size，即data[size]=px；</p>
+<p>参考：<a href="https://www.jb51.net/article/74886.htm" target="_blank" rel="noopener">关于javascript中dataset的问题小结</a></p>
+</li>
 <li><h5 id="掌握-ES6-模板字符串的使用"><a href="#掌握-ES6-模板字符串的使用" class="headerlink" title="掌握 ES6 模板字符串的使用"></a>掌握 ES6 模板字符串的使用</h5></li>
 <li><h5 id="掌握-ES6-胖箭头函数的使用"><a href="#掌握-ES6-胖箭头函数的使用" class="headerlink" title="掌握 ES6 胖箭头函数的使用"></a>掌握 ES6 胖箭头函数的使用</h5></li>
-<li><h5 id="掌握-this-的使用和指向问题"><a href="#掌握-this-的使用和指向问题" class="headerlink" title="掌握 this 的使用和指向问题"></a>掌握 this 的使用和指向问题</h5></li>
-</ol>
-<ol start="6">
+<li><h5 id="掌握-this-的使用和指向问题"><a href="#掌握-this-的使用和指向问题" class="headerlink" title="掌握 this 的使用和指向问题"></a>掌握 this 的使用和指向问题</h5><p>将this的指向问题学习整理，写了一篇博客<a href="[https://61hhh.github.io/2020/04/10/javascripts%E4%B8%ADthis%E7%9A%84%E6%8C%87%E5%90%91/](https://61hhh.github.io/2020/04/10/javascripts中this的指向/)">javascripts中this的指向</a></p>
+</li>
 <li><h5 id="熟悉-setProperty-方法的使用"><a href="#熟悉-setProperty-方法的使用" class="headerlink" title="熟悉 setProperty() 方法的使用"></a>熟悉 setProperty() 方法的使用</h5></li>
-</ol>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/dataset" target="_blank" rel="noopener">什么是 dataset</a></li>
 </ol>
 <h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2><h2 id="Day8-Canvas五彩缤纷的画笔"><a href="#Day8-Canvas五彩缤纷的画笔" class="headerlink" title="Day8 Canvas五彩缤纷的画笔"></a>Day8 Canvas五彩缤纷的画笔</h2><h2 id="Day9-控制台操作小技巧必知必会"><a href="#Day9-控制台操作小技巧必知必会" class="headerlink" title="Day9 控制台操作小技巧必知必会"></a>Day9 控制台操作小技巧必知必会</h2><h2 id="Day10-按住shift实现复选框全选"><a href="#Day10-按住shift实现复选框全选" class="headerlink" title="Day10 按住shift实现复选框全选"></a>Day10 按住shift实现复选框全选</h2><h2 id="Day11-自定义本地HTML5播放器"><a href="#Day11-自定义本地HTML5播放器" class="headerlink" title="Day11 自定义本地HTML5播放器"></a>Day11 自定义本地HTML5播放器</h2><h2 id="Day12-键盘序列检测"><a href="#Day12-键盘序列检测" class="headerlink" title="Day12 键盘序列检测"></a>Day12 键盘序列检测</h2><h2 id="Day13-滚动加载页面图片"><a href="#Day13-滚动加载页面图片" class="headerlink" title="Day13 滚动加载页面图片"></a>Day13 滚动加载页面图片</h2><h2 id="Day14-Javascript-Reference与Copy的对比"><a href="#Day14-Javascript-Reference与Copy的对比" class="headerlink" title="Day14 Javascript Reference与Copy的对比"></a>Day14 Javascript Reference与Copy的对比</h2><h2 id="Day15-LocalStorage的使用"><a href="#Day15-LocalStorage的使用" class="headerlink" title="Day15 LocalStorage的使用"></a>Day15 LocalStorage的使用</h2>]]></content>
       <categories>
