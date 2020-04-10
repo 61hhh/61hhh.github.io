@@ -280,9 +280,16 @@
 <li><h5 id="掌握-ES6-胖箭头函数的使用"><a href="#掌握-ES6-胖箭头函数的使用" class="headerlink" title="掌握 ES6 胖箭头函数的使用"></a>掌握 ES6 胖箭头函数的使用</h5></li>
 <li><h5 id="掌握-this-的使用和指向问题"><a href="#掌握-this-的使用和指向问题" class="headerlink" title="掌握 this 的使用和指向问题"></a>掌握 this 的使用和指向问题</h5><p>将this的指向问题学习整理，写了一篇博客<a href="[https://61hhh.github.io/2020/04/10/javascripts%E4%B8%ADthis%E7%9A%84%E6%8C%87%E5%90%91/](https://61hhh.github.io/2020/04/10/javascripts中this的指向/)">javascripts中this的指向</a></p>
 </li>
-<li><h5 id="熟悉-setProperty-方法的使用"><a href="#熟悉-setProperty-方法的使用" class="headerlink" title="熟悉 setProperty() 方法的使用"></a>熟悉 setProperty() 方法的使用</h5></li>
+<li><h5 id="熟悉-setProperty-方法的使用"><a href="#熟悉-setProperty-方法的使用" class="headerlink" title="熟悉 setProperty() 方法的使用"></a>熟悉 setProperty() 方法的使用</h5><p>setProperty() 方法用于设置一个新的 CSS 属性，同时也可以修改 CSS 声明块中已存在的属性。语法：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">object.setProperty(propertyname, value, priority);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
 </ol>
-<h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2><h2 id="Day8-Canvas五彩缤纷的画笔"><a href="#Day8-Canvas五彩缤纷的画笔" class="headerlink" title="Day8 Canvas五彩缤纷的画笔"></a>Day8 Canvas五彩缤纷的画笔</h2><h2 id="Day9-控制台操作小技巧必知必会"><a href="#Day9-控制台操作小技巧必知必会" class="headerlink" title="Day9 控制台操作小技巧必知必会"></a>Day9 控制台操作小技巧必知必会</h2><h2 id="Day10-按住shift实现复选框全选"><a href="#Day10-按住shift实现复选框全选" class="headerlink" title="Day10 按住shift实现复选框全选"></a>Day10 按住shift实现复选框全选</h2><h2 id="Day11-自定义本地HTML5播放器"><a href="#Day11-自定义本地HTML5播放器" class="headerlink" title="Day11 自定义本地HTML5播放器"></a>Day11 自定义本地HTML5播放器</h2><h2 id="Day12-键盘序列检测"><a href="#Day12-键盘序列检测" class="headerlink" title="Day12 键盘序列检测"></a>Day12 键盘序列检测</h2><h2 id="Day13-滚动加载页面图片"><a href="#Day13-滚动加载页面图片" class="headerlink" title="Day13 滚动加载页面图片"></a>Day13 滚动加载页面图片</h2><h2 id="Day14-Javascript-Reference与Copy的对比"><a href="#Day14-Javascript-Reference与Copy的对比" class="headerlink" title="Day14 Javascript Reference与Copy的对比"></a>Day14 Javascript Reference与Copy的对比</h2><h2 id="Day15-LocalStorage的使用"><a href="#Day15-LocalStorage的使用" class="headerlink" title="Day15 LocalStorage的使用"></a>Day15 LocalStorage的使用</h2>]]></content>
+<h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2>]]></content>
       <categories>
         <category>前端基础</category>
       </categories>
