@@ -62,7 +62,7 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><blockquote>
 <p>真正的才智是刚毅的志向  ——拿破仑</p>
 </blockquote>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前大概html+css，在W3School、solo learn上简单的了解相关基础，但是并没有实践项目来驱动，所以学得快忘得快。前段时间搭建了hexo博客后又重燃了学习前端的想法，大概看了之后感觉还是要找实践小项目来熟练，用实践推动学习！因此在github上找了个30day的JavaScript挑战，它的每一个day小项目得到readme.md文件就是该项目学习目标，就以这个作为参考，记录相关知识，相当于一个随笔吧。</p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前大概html+css，在W3School、solo learn上简单的了解相关基础，但是并没有实践项目来驱动，所以学得快忘得快。前段时间搭建了hexo博客后又重燃了学习前端的想法，大概看了之后感觉还是要找实践小项目来熟练，用实践推动学习！因此在github上找了个30day的JavaScript挑战，它的每一个day小项目readme.md文件就是该项目学习目标，就以这个作为参考，记录相关知识，相当于一个随笔吧。</p>
 <a id="more"></a>
 
 <h2 id="Day1-有趣的架子鼓小游戏"><a href="#Day1-有趣的架子鼓小游戏" class="headerlink" title="Day1 有趣的架子鼓小游戏"></a>Day1 有趣的架子鼓小游戏</h2><h3 id="任务描述"><a href="#任务描述" class="headerlink" title="任务描述"></a>任务描述</h3><p>实现一个可以互动的架子鼓游戏，敲击键盘时会发出相应的音效，如果你是个大神，最后就会产生美妙动听的音乐哦~来试试吧。</p>
@@ -228,7 +228,7 @@
 </ol>
 <h2 id="Day3-定制个人相册"><a href="#Day3-定制个人相册" class="headerlink" title="Day3 定制个人相册"></a>Day3 定制个人相册</h2><h3 id="任务描述-2"><a href="#任务描述-2" class="headerlink" title="任务描述"></a>任务描述</h3><p>使用 CSS4 中的自定义属性和 data -* 来自己做一个属于自己的相册吧，可以根据需求再添加更多的样式！</p>
 <p>任务效果图：</p>
-<p><img src="https://github.com/Hushabyme/JavaScript-30days/blob/master/%E5%AE%9A%E5%88%B6%E5%B1%9E%E4%BA%8E%E4%BD%A0%E7%9A%84%E7%9B%B8%E5%86%8C/final/final.png" alt=""></p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/JS-day3.png" alt="相册"></p>
 <h3 id="任务目的-2"><a href="#任务目的-2" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="HTML-2"><a href="#HTML-2" class="headerlink" title="HTML"></a>HTML</h4><ol>
 <li><h5 id="掌握-HTML5-中新添加的-input-中的-type-属性值（例如：range、color）"><a href="#掌握-HTML5-中新添加的-input-中的-type-属性值（例如：range、color）" class="headerlink" title="掌握 HTML5 中新添加的 input 中的 type 属性值（例如：range、color）"></a>掌握 HTML5 中新添加的 input 中的 type 属性值（例如：range、color）</h5><figure class="highlight html"><table><tr><td class="code"><pre><span class="line">button		//定义可点击按钮（多数情况下，用于通过 JavaScript 启动脚本）。</span><br><span class="line">checkbox	//定义复选框。</span><br><span class="line">file		//定义输入字段和 "浏览"按钮，供文件上传。</span><br><span class="line">hidden		//定义隐藏的输入字段。</span><br><span class="line">image		//定义图像形式的提交按钮。</span><br><span class="line">password	//定义密码字段。该字段中的字符被掩码。</span><br><span class="line">radio		//定义单选按钮。</span><br><span class="line">reset		//定义重置按钮。重置按钮会清除表单中的所有数据。</span><br><span class="line">submit		//定义提交按钮。提交按钮会把表单数据发送到服务器。</span><br><span class="line">text		//定义单行的输入字段，用户可在其中输入文本。默认宽度为 20 个字符。</span><br></pre></td></tr></table></figure>
 
@@ -289,13 +289,89 @@
 
 </li>
 </ol>
-<h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2>]]></content>
+<h2 id="Day4-Array-prototype-方法学习"><a href="#Day4-Array-prototype-方法学习" class="headerlink" title="Day4 Array prototype 方法学习"></a>Day4 Array prototype 方法学习</h2><h3 id="任务描述-3"><a href="#任务描述-3" class="headerlink" title="任务描述"></a>任务描述</h3><p>使用 Array.prototype.method() 来完成挑战吧！在此挑战中，你能学会使用 Array 的原型方法来简化代码的书写，包括但不限于 filter()、map()、sort()、reduce() 等方法的学习和实践。</p>
+<h3 id="任务目的-3"><a href="#任务目的-3" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="JavaScript-3"><a href="#JavaScript-3" class="headerlink" title="JavaScript"></a>JavaScript</h4><ol>
+<li><h5 id="熟练掌握-filter-方法的使用"><a href="#熟练掌握-filter-方法的使用" class="headerlink" title="熟练掌握 filter() 方法的使用"></a>熟练掌握 filter() 方法的使用</h5><p>概述：<strong>filter()</strong> 方法使用指定的函数测试所有元素，并创建一个包含所有通过测试的元素的新数组。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(a.filter(<span class="function"><span class="params">x</span> =&gt;</span> x &gt; <span class="number">2</span>)); <span class="comment">// [3]</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><h5 id="熟练掌握-sort-方法的使用"><a href="#熟练掌握-sort-方法的使用" class="headerlink" title="熟练掌握 sort() 方法的使用"></a>熟练掌握 sort() 方法的使用</h5><p>概述：<strong>sort()</strong> 方法对数组的元素做排序，并返回这个数组。 sort 排序可能是不稳定的。默认按照字符串的Unicode 码位点（code point）排序，即将元素转换为字符串再比较它们的UTF-16代码单元值序列时构建，因为它取决于具体实现，因此无法保证排序的时间和空间复杂性</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">12</span>,<span class="number">11</span>,<span class="number">16</span>,<span class="number">122</span>];</span><br><span class="line"><span class="built_in">console</span>.log(a.sort());<span class="comment">//[1,11,12,122,16]</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><h5 id="熟练掌握-map-方法的使用"><a href="#熟练掌握-map-方法的使用" class="headerlink" title="熟练掌握 map() 方法的使用"></a>熟练掌握 map() 方法的使用</h5><p>概述：<strong>map()</strong> 方法返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(a.map(<span class="function"><span class="params">x</span> =&gt;</span> x + <span class="number">1</span>));  <span class="comment">// [2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><h5 id="熟练掌握-reduce-方法的使用"><a href="#熟练掌握-reduce-方法的使用" class="headerlink" title="熟练掌握 reduce() 方法的使用"></a>熟练掌握 reduce() 方法的使用</h5><p><strong>reduce()</strong> 方法接收一个函数作为累加器（accumulator），数组中的每个值（从左到右）开始合并，最终为一个值。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(a.reduce(<span class="function">(<span class="params">x,y</span>) =&gt;</span> x * y)); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><h5 id="掌握额外的例如-includes-、forEach-、slice-等方法的学习"><a href="#掌握额外的例如-includes-、forEach-、slice-等方法的学习" class="headerlink" title="掌握额外的例如 includes()、forEach()、slice() 等方法的学习"></a>掌握额外的例如 includes()、forEach()、slice() 等方法的学习</h5><p>概述：<strong>forEach()</strong> 方法对数组的每个元素执行一次提供的函数(回调函数)。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">a.forEach( <span class="function"><span class="params">x</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(x + <span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<p>概述：<strong>includes()</strong> 方法用来判断当前数组是否包含某指定的值，如果是，则返回 true，否则返回 false。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">a.includes(<span class="number">2</span>);  <span class="comment">// true</span></span><br><span class="line">a.includes(<span class="number">4</span>);  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>概述：<strong>slice()</strong> 方法会浅复制（shallow copy）数组的一部分到一个新的数组，并返回这个新数组。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> b = a.slice(<span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(b);  <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ol>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array" target="_blank" rel="noopener">MDN Array</a></li>
+<li><a href="http://www.jianshu.com/p/9546aa0d1c33" target="_blank" rel="noopener">Hushaby丶 的简书 —— 引用类型之 Array（一）</a></li>
+<li><a href="http://www.jianshu.com/p/8dd1af6d868e" target="_blank" rel="noopener">Hushaby丶 的简书 —— 引用类型之 Array（二）</a></li>
+</ol>
+<h2 id="Day5-制作唯美交互的网页图集"><a href="#Day5-制作唯美交互的网页图集" class="headerlink" title="Day5 制作唯美交互的网页图集"></a>Day5 制作唯美交互的网页图集</h2><h3 id="任务描述-4"><a href="#任务描述-4" class="headerlink" title="任务描述"></a>任务描述</h3><p>考验的 flexbox 的时候到来啦！如何使用 flex 布局制作一份赏心悦目的 Web 图集。在此过程中，你会学习和实践 flexbox 和 css 过渡效果，来大显身手吧。</p>
+<p>任务效果图：</p>
+<p><img src="http://q7kxgx8az.bkt.clouddn.com/JS-day5.png" alt=""></p>
+<h3 id="任务目的-4"><a href="#任务目的-4" class="headerlink" title="任务目的"></a>任务目的</h3><h4 id="CSS-3"><a href="#CSS-3" class="headerlink" title="CSS"></a>CSS</h4><ol>
+<li><h5 id="熟练掌握和运用-flexbox-的相关知识。"><a href="#熟练掌握和运用-flexbox-的相关知识。" class="headerlink" title="熟练掌握和运用 flexbox 的相关知识。"></a>熟练掌握和运用 flexbox 的相关知识。</h5></li>
+</ol>
+<ol start="2">
+<li><h5 id="掌握-transform-的相关属性（例如：translate-等）"><a href="#掌握-transform-的相关属性（例如：translate-等）" class="headerlink" title="掌握 transform 的相关属性（例如：translate() 等）"></a>掌握 transform 的相关属性（例如：translate() 等）</h5></li>
+</ol>
+<ol start="3">
+<li><h5 id="掌握-transition-的相关用法"><a href="#掌握-transition-的相关用法" class="headerlink" title="掌握 transition 的相关用法"></a>掌握 transition 的相关用法</h5></li>
+</ol>
+<h4 id="JavaScript-4"><a href="#JavaScript-4" class="headerlink" title="JavaScript"></a>JavaScript</h4><ol>
+<li><h5 id="熟练掌握-classList-的相关方法"><a href="#熟练掌握-classList-的相关方法" class="headerlink" title="熟练掌握 classList 的相关方法"></a>熟练掌握 classList 的相关方法</h5></li>
+</ol>
+<ol start="2">
+<li><h5 id="掌握-addEventListener-方法的使用-1"><a href="#掌握-addEventListener-方法的使用-1" class="headerlink" title="掌握 addEventListener() 方法的使用"></a>掌握 addEventListener() 方法的使用</h5></li>
+</ol>
+<ol start="3">
+<li><h5 id="理解函数解耦，使一个函数只做一件事"><a href="#理解函数解耦，使一个函数只做一件事" class="headerlink" title="理解函数解耦，使一个函数只做一件事"></a>理解函数解耦，使一个函数只做一件事</h5></li>
+</ol>
+<ol start="4">
+<li><h5 id="了解-Array-prototype-includes-方法的使用"><a href="#了解-Array-prototype-includes-方法的使用" class="headerlink" title="了解 Array.prototype.includes() 方法的使用"></a>了解 Array.prototype.includes() 方法的使用</h5></li>
+</ol>
+<h2 id="Day6-实时在线查找地址"><a href="#Day6-实时在线查找地址" class="headerlink" title="Day6 实时在线查找地址"></a>Day6 实时在线查找地址</h2><h2 id="Day7-Array-prototype-方法学习-2"><a href="#Day7-Array-prototype-方法学习-2" class="headerlink" title="Day7 Array prototype 方法学习(2)"></a>Day7 Array prototype 方法学习(2)</h2>]]></content>
       <categories>
         <category>前端基础</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>Js</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -303,6 +379,7 @@
     <url>/2020/04/01/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0%E3%80%8B%E5%9F%BA%E7%A1%80%E7%AF%87%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>算法笔记这本书是在学算法设计课的时候同学推荐的，内容很多很好，当时边上课边看这个书把基础篇看完了，但是对应的题也没咋做。。。现在感觉都不会写题了。。再捡起来练习一下</p>
 <p>题目比较多，我的能力也有限，慢慢来吧，一点点去学习更新 :)。</p>
+<p>参考：《算法笔记-上机训练实战指南》</p>
 <blockquote>
 <p>种一棵树最好的时间是十年前，其次是现在。</p>
 </blockquote>
@@ -418,7 +495,7 @@
 <li>假设三角有k行，每行符号数为1、3、5……2k-1。 则总符号数等差求和： 1+2(3+2<em>k-1)</em>(k-1)/2</li>
 <li>由题2k^2-1&lt;=n;可以解得行数k，然后依次打印倒三角正三角</li>
 <li>注意：有一组答案错误，我测试了几个n，发现n=7/8时求k会为1(开根号的问题)，因该直接设k=3</li>
-<li>我的基本思路是没问题的，不过提交有一组数据答案错误。。。找了半天也想不到为啥</li>
+<li>我的基本思路是没问题的，不过还是提交有一组数据答案错误。。。找了半天也想不到为啥</li>
 </ul>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %c"</span>,&amp;n,&amp;c);</span><br><span class="line">	<span class="keyword">int</span> k;</span><br><span class="line">	<span class="keyword">if</span>(n&gt;<span class="number">9</span>||n&lt;<span class="number">7</span>)</span><br><span class="line">		k=(<span class="keyword">int</span>)<span class="built_in">sqrt</span>((n<span class="number">-1.0</span>)/<span class="number">2.0</span>);</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">7</span>||n==<span class="number">8</span>)</span><br><span class="line">		k=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">int</span> blank;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=k;i&gt;=<span class="number">1</span>;i--)</span><br><span class="line">	&#123;</span><br><span class="line">		blank=k-i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;blank;j++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;(<span class="number">2</span>*i<span class="number">-1</span>);j++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%c"</span>,c);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=k;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		blank=k-i;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;blank;j++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;(<span class="number">2</span>*i<span class="number">-1</span>);j++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%c"</span>,c);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,n-(<span class="number">2</span>*k*k<span class="number">-1</span>));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -456,7 +533,42 @@
 
 
 
-<h5 id="1031查验身份证"><a href="#1031查验身份证" class="headerlink" title="1031查验身份证"></a>1031查验身份证</h5><h5 id="1002写出这个数"><a href="#1002写出这个数" class="headerlink" title="1002写出这个数"></a>1002写出这个数</h5><h5 id="1009说反话"><a href="#1009说反话" class="headerlink" title="1009说反话"></a>1009说反话</h5><h5 id="1014福尔摩斯的约会"><a href="#1014福尔摩斯的约会" class="headerlink" title="1014福尔摩斯的约会"></a>1014福尔摩斯的约会</h5><h5 id="1024科学计数法"><a href="#1024科学计数法" class="headerlink" title="1024科学计数法"></a>1024科学计数法</h5><h5 id="1048数字加密"><a href="#1048数字加密" class="headerlink" title="1048数字加密"></a>1048数字加密</h5><h4 id="PAT-A-4"><a href="#PAT-A-4" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1061-Dating"><a href="#1061-Dating" class="headerlink" title="1061 Dating"></a>1061 Dating</h5><h5 id="1073-Scientific-Notation"><a href="#1073-Scientific-Notation" class="headerlink" title="1073 Scientific Notation"></a>1073 Scientific Notation</h5><h5 id="1001-A-B-Format"><a href="#1001-A-B-Format" class="headerlink" title="1001 A+B Format"></a>1001 A+B Format</h5><h5 id="1005-Spell-It-Right"><a href="#1005-Spell-It-Right" class="headerlink" title="1005 Spell It Right"></a>1005 Spell It Right</h5><h5 id="1035-Password"><a href="#1035-Password" class="headerlink" title="1035 Password"></a>1035 Password</h5><h5 id="1077-Kuchgiuse"><a href="#1077-Kuchgiuse" class="headerlink" title="1077 Kuchgiuse"></a>1077 Kuchgiuse</h5><h5 id="1082-Read-Number-in-Chinese"><a href="#1082-Read-Number-in-Chinese" class="headerlink" title="1082 Read Number in Chinese"></a>1082 Read Number in Chinese</h5>]]></content>
+<h5 id="1031查验身份证"><a href="#1031查验身份证" class="headerlink" title="1031查验身份证"></a>1031查验身份证</h5><p>思路：</p>
+<ul>
+<li>遍历输入的数组str，前17位判断是否为数字，是则乘权重求和，否则跳出当前循环</li>
+<li>遍历完成后对求和sum取模判断，是否与第18位校验码一致</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> w[<span class="number">20</span>]=&#123;<span class="number">7</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">4</span>,<span class="number">2</span>&#125;;</span><br><span class="line"><span class="keyword">char</span> judge[<span class="number">15</span>]=&#123;<span class="string">'1'</span>,<span class="string">'0'</span>,<span class="string">'X'</span>,<span class="string">'9'</span>,<span class="string">'8'</span>,<span class="string">'7'</span>,<span class="string">'6'</span>,<span class="string">'5'</span>,<span class="string">'4'</span>,<span class="string">'3'</span>,<span class="string">'2'</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">bool</span> flag=<span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s"</span>,str);</span><br><span class="line">		<span class="keyword">int</span> j,sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;<span class="number">17</span>;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(!(str[j]&gt;=<span class="string">'0'</span>&amp;&amp;str[j]&lt;=<span class="string">'9'</span>)) <span class="keyword">break</span>;</span><br><span class="line">			sum=sum+(str[j]-<span class="string">'0'</span>)*w[j];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(j&lt;<span class="number">17</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			flag=<span class="literal">false</span>;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,str);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(judge[sum%<span class="number">11</span>]!=str[<span class="number">17</span>])</span><br><span class="line">			&#123;</span><br><span class="line">				flag=<span class="literal">false</span>;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,str);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(flag==<span class="literal">true</span>)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"All passed\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1002写出这个数"><a href="#1002写出这个数" class="headerlink" title="1002写出这个数"></a>1002写出这个数</h5><p>思路：</p>
+<ul>
+<li>以数组形式输入该数，累加求和sum，然后将每一位存储到数组ans中，show对应0到9输出形式</li>
+<li>从高位到地位枚举ans，输出对应的show</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">110</span>];</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;str;</span><br><span class="line">	<span class="keyword">int</span> len=<span class="built_in">strlen</span>(str);</span><br><span class="line">	<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		sum+=str[i]-<span class="string">'0'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> num=<span class="number">0</span>,ans[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">while</span>(sum!=<span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ans[num]=sum%<span class="number">10</span>;</span><br><span class="line">		num++;</span><br><span class="line">		sum/=<span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">char</span> show[<span class="number">10</span>][<span class="number">5</span>]=&#123;<span class="string">"ling"</span>,<span class="string">"yi"</span>,<span class="string">"er"</span>,<span class="string">"san"</span>,<span class="string">"si"</span>,<span class="string">"wu"</span>,<span class="string">"liu"</span>,<span class="string">"qi"</span>,<span class="string">"ba"</span>,<span class="string">"jiu"</span>&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=num<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%s"</span>,show[ans[i]]);</span><br><span class="line">		<span class="keyword">if</span>(i!=<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1009说反话"><a href="#1009说反话" class="headerlink" title="1009说反话"></a>1009说反话</h5><p>思路：cin.getline()读入一整行，然后从左至右枚举，以空格为分隔符划分单词，并以此存储到二维数组中，最后逆序输出。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">cin</span>.getline(str,<span class="number">100</span>);</span><br><span class="line">    <span class="keyword">int</span> len=<span class="built_in">strlen</span>(str),r=<span class="number">0</span>,h=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> ans[<span class="number">100</span>][<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(str[i]!=<span class="string">' '</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans[r][h++]=str[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans[r][h]=<span class="string">'\0'</span>;</span><br><span class="line">            r++;</span><br><span class="line">            h=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=r;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%s"</span>,ans[i]);</span><br><span class="line">        <span class="keyword">if</span>(i&gt;<span class="number">0</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">" "</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1014福尔摩斯的约会"><a href="#1014福尔摩斯的约会" class="headerlink" title="1014福尔摩斯的约会"></a>1014福尔摩斯的约会</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1024科学计数法"><a href="#1024科学计数法" class="headerlink" title="1024科学计数法"></a>1024科学计数法</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1048数字加密"><a href="#1048数字加密" class="headerlink" title="1048数字加密"></a>1048数字加密</h5><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="PAT-A-4"><a href="#PAT-A-4" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1061-Dating"><a href="#1061-Dating" class="headerlink" title="1061 Dating"></a>1061 Dating</h5><h5 id="1073-Scientific-Notation"><a href="#1073-Scientific-Notation" class="headerlink" title="1073 Scientific Notation"></a>1073 Scientific Notation</h5><h5 id="1001-A-B-Format"><a href="#1001-A-B-Format" class="headerlink" title="1001 A+B Format"></a>1001 A+B Format</h5><h5 id="1005-Spell-It-Right"><a href="#1005-Spell-It-Right" class="headerlink" title="1005 Spell It Right"></a>1005 Spell It Right</h5><h5 id="1035-Password"><a href="#1035-Password" class="headerlink" title="1035 Password"></a>1035 Password</h5><h5 id="1077-Kuchgiuse"><a href="#1077-Kuchgiuse" class="headerlink" title="1077 Kuchgiuse"></a>1077 Kuchgiuse</h5><h5 id="1082-Read-Number-in-Chinese"><a href="#1082-Read-Number-in-Chinese" class="headerlink" title="1082 Read Number in Chinese"></a>1082 Read Number in Chinese</h5>]]></content>
       <categories>
         <category>算法笔记</category>
       </categories>
