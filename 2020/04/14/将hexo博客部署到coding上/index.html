@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    hexo博客绑定域名 |  Salute
+    将hexo博客部署到coding上 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-hexo博客绑定域名" class="article article-type-post" itemscope
+  <article id="post-将hexo博客部署到coding上" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  hexo博客绑定域名
+  将hexo博客部署到coding上
 </h1>
  
 
@@ -81,8 +81,8 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/04/14/hexo%E5%8D%9A%E5%AE%A2%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/" class="article-date">
-  <time datetime="2020-04-14T04:02:00.000Z" itemprop="datePublished">2020-04-14</time>
+      <a href="/2020/04/14/%E5%B0%86hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0coding%E4%B8%8A/" class="article-date">
+  <time datetime="2020-04-14T07:56:03.000Z" itemprop="datePublished">2020-04-14</time>
 </a>
       
   <div class="article-category">
@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">300</span>
+            <span class="post-count">678</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
@@ -130,15 +130,56 @@ var _hmt = _hmt || [];
       
 
       
-      <p>搭建的博客，默认域名是GitHub下的二级域名：<code>61hhh.github.io</code>，每次输入比较麻烦，而且缺少个性化，因此购买了一个域名，并绑定到博客上。</p>
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>将博客部署到GitHub上后，我发现一个很大的问题——访问速度很慢！！！因此找了一下教程，实现双部署：GitHub对应海外，coding对应默认（其实也不可能由歪果仁看这个博客。。。）</p>
+<p>由于网上的教程很多都是在coding改版前的，很多东西例如Pages服务、认证位置都有较大变动，因此我属实废了点功夫。。。</p>
+<blockquote>
+<p>倘只看书，便变成书橱。</p>
+</blockquote>
 <a id="more"></a>
 
-<h3 id="域名选择"><a href="#域名选择" class="headerlink" title="域名选择"></a>域名选择</h3><p>国内的域名服务商有很多，新网，腾讯云，阿里云等。我选择的是阿里云的万网，刚好看到新用户1元购活动，就在万网上购买了心仪的域名<code>salute61.top</code>，然后进入阿里云的<code>管理控制台</code>–<code>域名</code>就可以看到了，此时域名是未认证的状态，先按提示进行实名认证(一般2小时内就可以通过)。</p>
-<h3 id="域名解析"><a href="#域名解析" class="headerlink" title="域名解析"></a>域名解析</h3><p>首先要获取我们的GitHub的IP地址，直接cmd中ping自己的博客地址就可以，然后在<code>域名</code>–<code>解析</code>中，点击新手引导，将得到的IP地址填到记录栏中，修改为CNAME和A类型<img src="https://ae01.alicdn.com/kf/H762ccabff22a463ebdefb802e88344a4v.png" alt=""></p>
-<h3 id="添加CNAME文件"><a href="#添加CNAME文件" class="headerlink" title="添加CNAME文件"></a>添加CNAME文件</h3><p>在hexo的source文件夹下创建CNAME文件(没有后缀！)，里面填写你的域名：</p>
-<p><img src="https://ae01.alicdn.com/kf/Hccac12360b894735bfa5e68ee16784c4J.png" alt=""></p>
-<h3 id="github设置"><a href="#github设置" class="headerlink" title="github设置"></a>github设置</h3><p>打开GitHub，找到对应仓库github.io，在setting中下拉找到GitHub Pages，在custom domain中填写你的域名，至此域名的配置就算完成啦！</p>
-<p><img src="https://ae01.alicdn.com/kf/H0479f0ae8b5c4fddb0a32241d472c795E.png" alt=""></p>
+<h3 id="配置coding"><a href="#配置coding" class="headerlink" title="配置coding"></a>配置coding</h3><ul>
+<li>首先就是注册coding官网账号：<a href="https://coding.net/" target="_blank" rel="noopener">coding官网</a></li>
+<li>注册完成后创建新项目</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/He0fc2946326c4828a2c7a145c1e495b0m.png" alt=""></p>
+<p><img src="https://ae01.alicdn.com/kf/Ha5b5fef975e14c3fb6869f25c14195d4y.png" alt=""></p>
+<h3 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h3><p>由于之前GitHub已经配置过SSH key了，因此可以直接用。</p>
+<ul>
+<li><p>在C盘—用户—.ssh文件加下，找到之前的SSH key文件，打开复制</p>
+</li>
+<li><p>在coding个人设置—SHH公钥中粘贴</p>
+<p><img src="https://ae01.alicdn.com/kf/Hf5a8605e46b843c297e3b3565c0e9e2bn.png" alt=""></p>
+</li>
+</ul>
+<h3 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h3><p>使用git bash测试</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@git.coding.<span class="keyword">net</span> </span><br><span class="line"><span class="comment">//出现Hello username You've connected to Coding.net by SSH successfully!表示成功</span></span><br></pre></td></tr></table></figure>
+
+<p>若出现权限被拒绝，解决方案是：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@e</span>.coding.net</span><br><span class="line">//首次建立连接要求信任主机，输入<span class="literal">yes</span>回车就🆗了，我已经输入过因此不显示了</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ae01.alicdn.com/kf/Hfa5c1e816c8d46dcb5be564ed4dfc999q.png" alt=""></p>
+<h3 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h3><p>打开刚刚创建的项目，在右侧找到SSH，复制：</p>
+<p><img src="https://ae01.alicdn.com/kf/H607ff457a1a24d1c8a6312d2b22b4d03T.png" alt=""></p>
+<p>打开我们的hexo项目根目录下的config.yml，找到部署对应的代码，粘贴：</p>
+<p><img src="https://ae01.alicdn.com/kf/Ha6a02a2497a14fd2aedcd4d57a4a22d7g.png" alt=""></p>
+<p>配置完成后，部署代码：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="attr">hexo</span> <span class="string">d -g</span></span><br></pre></td></tr></table></figure>
+
+<p>就可以在coding上查看到我们的代码了！</p>
+<p><img src="https://ae01.alicdn.com/kf/Hb5e753659ede42ea8235f0018e8b3ccd3.png" alt=""></p>
+<h3 id="开启静态页面功能"><a href="#开启静态页面功能" class="headerlink" title="开启静态页面功能"></a>开启静态页面功能</h3><p>coding改版后，很多功能默认是不开启的，因此初始代码仓库界面只有上图的前三项，要实现Pages功能先要开启对应的功能模块，在项目的项目设置中打开，建议直接把功能全打开</p>
+<p><img src="https://ae01.alicdn.com/kf/H05f698a69b33482e8b52d296d36299ecJ.png" alt=""></p>
+<p>然后就可以看到上面代码仓库图的那些功能了，找到持续部署，首先要完成<strong>实名认证</strong>才能创建页面，在团队管理—团队设置—高级设置 中完成实名认证。</p>
+<p><img src="https://ae01.alicdn.com/kf/Hf3070358fe8b456e84a09b50b694502fR.png" alt=""></p>
+<p>完成实名认证后，就可以在持续部署—静态网页中创建了，输入项目名，选择部署来源（默认hexo的项目即可）</p>
+<p><img src="https://ae01.alicdn.com/kf/H22c48fed15774816829dbe39101fa2231.png" alt=""></p>
+<p>点击立即部署，即可访问</p>
+<p><img src="https://ae01.alicdn.com/kf/Hae599665c7754e43ae9a9a82c5bedcf03.png" alt=""></p>
+<h3 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h3><p>参照之前的域名设置，首先也是ping 该网指，将得到的IP地址在阿里云DNS解析—新手引导 中输入，得到的值修改一下配置CNAME，将原来的GitHub设为境外，coding默认，等一会配置解析完成</p>
+<p><img src="https://ae01.alicdn.com/kf/Ha280ebbad0d147bb8369142895327d1eJ.png" alt=""></p>
+<p>在静态页面的右上角设置中，下拉找到自定义域名，加入我们的域名即可</p>
+<p><img src="https://ae01.alicdn.com/kf/Hf8584a439e2340f19f782883d5fbd54d3.png" alt=""></p>
+<p>部署一下，就可以访问了，速度比起之前的GitHub Pages快了很多很多啊！</p>
 
       
       <!-- reward -->
@@ -207,7 +248,7 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/14/hexo%E5%8D%9A%E5%AE%A2%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/14/%E5%B0%86hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0coding%E4%B8%8A/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -225,19 +266,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/2020/04/14/%E5%B0%86hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0coding%E4%B8%8A/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            将hexo博客部署到coding上
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/10/javascripts%E4%B8%ADthis%E7%9A%84%E6%8C%87%E5%90%91/" class="article-nav-link">
+      <a href="/2020/04/14/hexo%E5%8D%9A%E5%AE%A2%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">javascripts中this的指向</div>
+        <div class="article-nav-title">hexo博客绑定域名</div>
       </a>
     
   </nav>
