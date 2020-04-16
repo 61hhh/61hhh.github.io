@@ -143,9 +143,9 @@
       <category term="前端基础" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="web" scheme="http://yoursite.com/tags/web/"/>
-    
       <category term="Js" scheme="http://yoursite.com/tags/Js/"/>
+    
+      <category term="web" scheme="http://yoursite.com/tags/web/"/>
     
   </entry>
   
