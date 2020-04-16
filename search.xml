@@ -50,10 +50,14 @@
 
 <p>配置完成后执行<code>hexo g</code>，正常情况下会在source文件夹下看到多出两个文件：<code>sitemap.xml</code>和<code>baidusitemap.xml</code>，这就是sitemap文件。</p>
 <p>在自动提交—sitemap的输入框中，按格式填写。然后就可以了！等待一段时间让他收录</p>
-<h2 id="Google收录"><a href="#Google收录" class="headerlink" title="Google收录"></a>Google收录</h2><p>先进入<a href="https://www.google.com/webmasters/tools/home?hl=zh-CN" target="_blank" rel="noopener">google站点平台</a>，具体步骤与百度相同，只不过要翻墙</p>
-<p>也是<code>验证网站</code>，<code>链接提交</code>，不过我填了网址进去，然后没找到验证网站的地方？？？（左侧菜单栏找遍了也没看见哪个是验证网站）</p>
-<p>直接链接提交了</p>
+<h2 id="Google收录"><a href="#Google收录" class="headerlink" title="Google收录"></a>Google收录</h2><p>先进入<a href="https://www.google.com/webmasters/tools/home?hl=zh-CN" target="_blank" rel="noopener">google站点平台</a>，具体步骤与百度相同，只不过要翻墙。步骤也是<code>验证网站</code>，<code>链接提交</code>，不过我网址前缀验证进入，然后没找到验证网站的地方？？？（左侧菜单栏找遍了也没看见哪个是验证网站）</p>
+<p>进入网站有两种方式：网域、网址前缀</p>
+<p><img src="https://ae01.alicdn.com/kf/Hde6a7df83385422fbbfc930a1da6d983Y.jpg" alt=""></p>
+<p>查了一下好像直接链接提交就行，直接提交sitemap。完成</p>
+<p><a href="https://support.google.com/webmasters/answer/183669?hl=zh-Hans" target="_blank" rel="noopener">帮助文档</a></p>
 <p><img src="https://ae01.alicdn.com/kf/Hc2b4ff8fb80342a489a7e889936a6d70M.png" alt=""></p>
+<p>然后就是等待他们收录了！</p>
+<p>谷歌收录较快，基本我弄完一个小时就收到邮件了，百度要等待一下</p>
 ]]></content>
       <categories>
         <category>学习</category>
