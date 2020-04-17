@@ -50,13 +50,15 @@
 </ul>
 <p><img src="https://ae01.alicdn.com/kf/H03bfde373cab4943b4d6b91a6af11d7cb.png" alt=""></p>
 <p>首先安装插件：<code>npm install hexo-baidu-url-submit --save</code></p>
+<p>（插件GitHub地址:<a href="https://github.com/huiwang/hexo-baidu-url-submit）" target="_blank" rel="noopener">https://github.com/huiwang/hexo-baidu-url-submit）</a></p>
 <p>在根目录配置文件中新增字段：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">##主动推送</span></span><br><span class="line"><span class="attr">baidu_url_submit:</span> </span><br><span class="line">    <span class="attr">count:</span> <span class="number">100</span> <span class="comment"># 提交最新的一个链接</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">http://salute61.top/</span> <span class="comment"># 你注册的域名</span></span><br><span class="line">    <span class="attr">token:</span> <span class="string">***</span> <span class="comment">#上图中的token后面的字段</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">#文本文档的地址， 新链接会保存在此文本文档里</span></span><br></pre></td></tr></table></figure>
 
 <p>在deploy中新增：</p>
 <figure class="highlight elm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span>: baidu_url_submit</span><br></pre></td></tr></table></figure>
 
-<p>这样执行<code>hexo deploy</code>的时候，新的链接就会被推送了。</p>
+<p>这样执行<code>hexo deploy</code>的时候，新的链接就会被推送了。成功后可以在bash中看到：</p>
+<p><img src="https://ae01.alicdn.com/kf/Hb6a1d85346784508ab5bfc8eccff0f5fB.png" alt=""></p>
 <h4 id="sitemap提交"><a href="#sitemap提交" class="headerlink" title="sitemap提交"></a>sitemap提交</h4><h5 id="1-安装sitemap插件"><a href="#1-安装sitemap插件" class="headerlink" title="1.安装sitemap插件"></a>1.安装sitemap插件</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br><span class="line"><span class="comment">##一个是谷歌的，一个是百度的</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="2-修改博客配置文件"><a href="#2-修改博客配置文件" class="headerlink" title="2.修改博客配置文件"></a>2.修改博客配置文件</h5><p>修改url为你的博客首页，xxx.github.io或自己的域名</p>
@@ -79,8 +81,8 @@
         <category>学习</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -400,8 +402,8 @@
         <category>学习</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -421,8 +423,8 @@
         <category>学习</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1169,8 +1171,8 @@
         <category>学习</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1372,8 +1374,8 @@
         <category>学习</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
