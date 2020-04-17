@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">3 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -168,9 +168,25 @@ var _hmt = _hmt || [];
 <p><img src="https://ae01.alicdn.com/kf/H2f7b18d9dd414a85a741d4d770e3a3fdS.png" alt=""></p>
 <p><strong>自动提交</strong>显然是更好的选择，在自己网站的站长平台可以看到三种提交方式，选择sitemap方式</p>
 <p><img src="https://ae01.alicdn.com/kf/H2ebfe3c5ab864cec938269a41b520a96S.png" alt=""></p>
-<h4 id="1-安装sitemap插件"><a href="#1-安装sitemap插件" class="headerlink" title="1.安装sitemap插件"></a>1.安装sitemap插件</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br><span class="line"><span class="comment">##一个是谷歌的，一个是百度的</span></span><br></pre></td></tr></table></figure>
+<h4 id="主动提交"><a href="#主动提交" class="headerlink" title="主动提交"></a>主动提交</h4><p>因为百度收录的效率很低，所以我在sitemap基础上增加了主动推送。</p>
+<p><strong>主动推送：</strong>最为快速的提交方式，建议您将站点当天新产出链接立即通过此方式推送给百度，以保证新链接可以及时被百度收录。</p>
+<p>主动推送的好处：</p>
+<ul>
+<li><strong>及时发现：</strong>可以缩短百度爬虫发现您站点新链接的时间，使新发布的页面可以在第一时间被百度收录</li>
+<li><strong>保护原创：</strong>对于网站的最新原创内容，使用主动推送功能可以快速通知到百度，使内容可以在转发之前被百度发现</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/H03bfde373cab4943b4d6b91a6af11d7cb.png" alt=""></p>
+<p>首先安装插件：<code>npm install hexo-baidu-url-submit --save</code></p>
+<p>在根目录配置文件中新增字段：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##主动推送</span></span><br><span class="line"><span class="attr">baidu_url_submit:</span> </span><br><span class="line">    <span class="attr">count:</span> <span class="number">100</span> <span class="comment"># 提交最新的一个链接</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">http://salute61.top/</span> <span class="comment"># 你注册的域名</span></span><br><span class="line">    <span class="attr">token:</span> <span class="string">***</span> <span class="comment">#上图中的token后面的字段</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">#文本文档的地址， 新链接会保存在此文本文档里</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="2-修改博客配置文件"><a href="#2-修改博客配置文件" class="headerlink" title="2.修改博客配置文件"></a>2.修改博客配置文件</h4><p>修改url为你的博客首页，xxx.github.io或自己的域名</p>
+<p>在deploy中新增：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span>: baidu_url_submit</span><br></pre></td></tr></table></figure>
+
+<p>这样执行<code>hexo deploy</code>的时候，新的链接就会被推送了。</p>
+<h4 id="sitemap提交"><a href="#sitemap提交" class="headerlink" title="sitemap提交"></a>sitemap提交</h4><h5 id="1-安装sitemap插件"><a href="#1-安装sitemap插件" class="headerlink" title="1.安装sitemap插件"></a>1.安装sitemap插件</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br><span class="line"><span class="comment">##一个是谷歌的，一个是百度的</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-修改博客配置文件"><a href="#2-修改博客配置文件" class="headerlink" title="2.修改博客配置文件"></a>2.修改博客配置文件</h5><p>修改url为你的博客首页，xxx.github.io或自己的域名</p>
 <p><img src="https://ae01.alicdn.com/kf/Hca76c42e1527487185a2fb4f31062e79O.png" alt=""></p>
 <p>指定生成文件名和生成路径</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 自动生成sitemap</span></span><br><span class="line"><span class="symbol">sitemap:</span> </span><br><span class="line"><span class="symbol">  path:</span> sitemap.xml</span><br><span class="line"><span class="symbol">baidusitemap:</span> </span><br><span class="line"><span class="symbol">  path:</span> baidusitemap.xml</span><br></pre></td></tr></table></figure>
