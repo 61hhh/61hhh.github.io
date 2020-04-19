@@ -209,15 +209,17 @@
 
 
 
-<h5 id="4-commit提交"><a href="#4-commit提交" class="headerlink" title="4.commit提交"></a>4.commit提交</h5><p>通过add只是将文件或目录添加到了index暂存区，使用commit将暂存区的文件提交到本地仓库：</p>
+<h5 id="4-commit提交"><a href="#4-commit提交" class="headerlink" title="4.commit提交"></a>4.commit提交</h5><p>通过add只是将文件或目录添加到了index暂存区，使用commit将暂存区的文件提交到本地仓库，每次使用git commit 命令我们都会在本地版本库生成一个40位的哈希值，这个哈希值也叫commit-id：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 提交暂存区到仓库区，-m 后面是本次提交的说明</span></span><br><span class="line">$ git <span class="keyword">commit</span> -m [message]</span><br><span class="line"><span class="comment"># 提交暂存区的指定文件到仓库区</span></span><br><span class="line">$ git <span class="keyword">commit</span> [file1] [file2] ... -m [message]</span><br><span class="line"><span class="comment"># 提交工作区自上次commit之后的变化，直接到仓库区，跳过了add,对新文件无效</span></span><br><span class="line">$ git <span class="keyword">commit</span> -a</span><br><span class="line"><span class="comment"># 提交时显示所有diff信息</span></span><br><span class="line">$ git <span class="keyword">commit</span> -v</span><br><span class="line"><span class="comment"># 使用一次新的commit，替代上一次提交</span></span><br><span class="line"><span class="comment"># 如果代码没有任何新变化，则用来改写上一次commit的提交信息</span></span><br><span class="line">$ git <span class="keyword">commit</span> <span class="comment">--amend -m [message]</span></span><br><span class="line"><span class="comment"># 重做上一次commit，并包括指定文件的新变化</span></span><br><span class="line">$ git <span class="keyword">commit</span> <span class="comment">--amend [file1] [file2] ...</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="将代码提交到Git仓库步骤："><a href="#将代码提交到Git仓库步骤：" class="headerlink" title="将代码提交到Git仓库步骤："></a><strong>将代码提交到Git仓库步骤：</strong></h5><ol>
+<h5 id="lt-代码提交到Git仓库步骤-gt"><a href="#lt-代码提交到Git仓库步骤-gt" class="headerlink" title="&lt;代码提交到Git仓库步骤&gt;"></a><strong>&lt;代码提交到Git仓库步骤&gt;</strong></h5><ol>
 <li><p>使用<code>git add</code>将文件加到缓存区</p>
 <p>执行该步骤没有任何显示，即正确执行</p>
 </li>
-<li><p>使用<code>git commit</code>提交到仓库</p>
-<p>建议加上-m，写上每次提交的说明，方便自己以后查看。</p>
+<li><p>使用<code>git commit</code>提交到本地仓库</p>
+<p>建议加上-m，写上每次提交的说明，团队项目方便以后查看。</p>
+</li>
+<li><p>使用<code>git push origin master</code>将本地版本库推送到远程服务器（详细参数参照4.3.6 git push）</p>
 </li>
 </ol>
 <p><strong>注：</strong>因为<code>commit</code>可以一次提交很多文件，所以你可以多次<code>add</code>不同的文件</p>
@@ -280,11 +282,16 @@
 <h4 id="4-3-5-git-pull"><a href="#4-3-5-git-pull" class="headerlink" title="4.3.5 git pull"></a>4.3.5 git pull</h4><p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。它的完整格式稍稍有点复杂。</p>
 <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line">$ git pull <span class="params">&lt;远程主机名&gt;</span> <span class="params">&lt;远程分支名&gt;</span>:<span class="params">&lt;本地分支名&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#取回origin主机的next分支，与本地的master分支合并，需要写成下面这样</span></span><br><span class="line">$ git pull origin next:master</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<h4 id="4-3-6-git-push"><a href="#4-3-6-git-push" class="headerlink" title="4.3.6 git push"></a>4.3.6 git push</h4><p><code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
+<h4 id="4-3-6-git-push"><a href="#4-3-6-git-push" class="headerlink" title="4.3.6 git push"></a>4.3.6 git push</h4><p>在使用git commit命令将修改从暂存区提交到本地版本库后，只剩下最后一步将本地版本库的分支推送到远程服务器上对应的分支，<code>git push</code>命令用于将本地分支的更新，推送到远程主机。它的格式与<code>git pull</code>命令相仿。</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ git push <span class="tag">&lt;<span class="name">远程主机名</span>&gt;</span> <span class="tag">&lt;<span class="name">本地分支名</span>&gt;</span>:<span class="tag">&lt;<span class="name">远程分支名</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>注意，分支推送顺序的写法是&lt;来源地&gt;:&lt;目的地&gt;，所以<code>git pull</code>是&lt;远程分支&gt;:&lt;本地分支&gt;，而<code>git push</code>是&lt;本地分支&gt;:&lt;远程分支&gt;。</p>
-<p>如果省略远程分支名，则表示将本地分支推送与之存在”追踪关系”的远程分支（通常两者同名），如果该远程分支不存在，则会被新建。</p>
+<ol>
+<li>git push origin master<br>如果远程分支被省略，如上则表示将本地分支推送到与之存在追踪关系的远程分支（通常两者同名），如果该远程分支不存在，则会被新建</li>
+<li>git push origin ：refs/for/master<br>如果省略本地分支名，则表示删除指定的远程分支，因为这等同于推送一个空的本地分支到远程分支，等同于 git push origin –delete master</li>
+<li>git push origin<br>如果当前分支与远程分支存在追踪关系，则本地分支和远程分支都可以省略，将当前分支推送到origin主机的对应分支</li>
+<li>git push<br>如果当前分支只有一个远程分支，那么主机名都可以省略，形如 git push，可以使用git branch -r ，查看远程的分支名</li>
+</ol>
 <h2 id="5-分支管理"><a href="#5-分支管理" class="headerlink" title="5. 分支管理"></a>5. 分支管理</h2><p>分支管理应该是项目中经常遇到的问题了，本身也很重要，而Git的分支管理功能是非常强大的，因此分支操作要好好了解熟悉。关于分支管理，廖雪峰大佬已经讲的很好了，因此我把他的讲解引用过来，主要说说创建与合并、冲突解决，后面的分支策略、Bug分支等就用我自己的理解简单说一下。</p>
 <p><strong>常用Git分支管理指令：</strong></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 列出所有本地分支,查看</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有远程分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -r</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出所有本地分支和远程分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -a</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，但依然停留在当前分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch [branch-name]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，并切换到该分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout -b [branch]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，指向指定commit</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch [branch] [commit]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 新建一个分支，与指定的远程分支建立追踪关系</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch --track [branch] [remote-branch]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换到指定分支，并更新工作区</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout [branch-name]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 切换到上一个分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git checkout -</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 建立追踪关系，在现有分支与指定的远程分支之间</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch --<span class="built_in">set</span>-upstream [branch] [remote-branch]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 合并指定分支到当前分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git merge [branch]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 选择一个commit，合并进当前分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git cherry-pick [commit]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -d [branch-name]</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除远程分支</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin --delete [branch-name]</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git branch -dr [remote/branch]</span></span><br></pre></td></tr></table></figure>
@@ -510,6 +517,14 @@
 <p>真正的才智是刚毅的志向  ——拿破仑</p>
 </blockquote>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>之前大概html+css，在W3School、solo learn上简单的了解相关基础，但是并没有实践项目来驱动，所以学得快忘得快。前段时间搭建了hexo博客后又重燃了学习前端的想法，大概看了之后感觉还是要找实践小项目来熟练，用实践推动学习！因此在github上找了个30day的JavaScript挑战，它的每一个day小项目readme.md文件就是该项目学习目标，就以这个作为参考，记录相关知识，相当于一个随笔吧。</p>
+<blockquote>
+<p>做了几天后我发现我的思路出了问题。感觉做完一个第二天就模糊了。。。</p>
+<ul>
+<li>原来：我最初发现的js30day项目只有18day，缺少后面的challenge，并且我一开始就是单纯的照着它的代码敲一遍，然后按他的README.md提示去了解相关知识，感觉这样的理解并不深刻</li>
+<li>改进：在GitHub上JavaScript30day的官方文档下给出了几个中文项目，相比我自己发现的，他们更加完整，然后我在B站和Youtube上都找到原作者wesbos的视频（没有字幕啊。。），我打算重新开始，结合视频边看边做，边学英语边学js</li>
+</ul>
+<p>Edit By LY  on 4-19</p>
+</blockquote>
 <a id="more"></a>
 
 <h2 id="Day1-有趣的架子鼓小游戏"><a href="#Day1-有趣的架子鼓小游戏" class="headerlink" title="Day1 有趣的架子鼓小游戏"></a>Day1 有趣的架子鼓小游戏</h2><h3 id="任务描述"><a href="#任务描述" class="headerlink" title="任务描述"></a>任务描述</h3><p>实现一个可以互动的架子鼓游戏，敲击键盘时会发出相应的音效，如果你是个大神，最后就会产生美妙动听的音乐哦~来试试吧。</p>
