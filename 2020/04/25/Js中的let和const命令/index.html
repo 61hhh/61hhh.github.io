@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    将hexo博客部署到coding上 |  Salute
+    Js中的let和const命令 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-将hexo博客部署到coding上" class="article article-type-post" itemscope
+  <article id="post-Js中的let和const命令" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  将hexo博客部署到coding上
+  Js中的let和const命令
 </h1>
  
 
@@ -81,12 +81,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/04/14/%E5%B0%86hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0coding%E4%B8%8A/" class="article-date">
-  <time datetime="2020-04-14T07:56:03.000Z" itemprop="datePublished">2020-04-14</time>
+      <a href="/2020/04/25/Js%E4%B8%AD%E7%9A%84let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" class="article-date">
+  <time datetime="2020-04-25T14:05:26.000Z" itemprop="datePublished">2020-04-25</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
   </div>
 
       
@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">678</span>
+            <span class="post-count">1.6k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">5 分钟</span>
         </span>
     </span>
 </div>
@@ -130,56 +130,65 @@ var _hmt = _hmt || [];
       
 
       
-      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>将博客部署到GitHub上后，我发现一个很大的问题——访问速度很慢！！！因此找了一下教程，实现双部署：GitHub对应海外，coding对应默认（其实也不可能有歪果仁看这个博客。。。）</p>
-<p>由于网上的教程很多都是在coding改版前的，很多东西例如Pages服务、认证位置都有较大变动，因此我属实废了点功夫。。。</p>
+      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在js30中看到的let和const两种声明变量的方法，记录一下二者的基本概念</p>
 <blockquote>
-<p>倘只看书，便变成书橱。</p>
+<p>参考阮一峰的：<a href="https://es6.ruanyifeng.com/#docs/let" target="_blank" rel="noopener">let 和 const 命令</a></p>
 </blockquote>
-<a id="more"></a>
-
-<h3 id="配置coding"><a href="#配置coding" class="headerlink" title="配置coding"></a>配置coding</h3><ul>
-<li>首先就是注册coding官网账号：<a href="https://coding.net/" target="_blank" rel="noopener">coding官网</a></li>
-<li>注册完成后创建新项目</li>
-</ul>
-<p><img src="https://ae01.alicdn.com/kf/He0fc2946326c4828a2c7a145c1e495b0m.png" alt=""></p>
-<p><img src="https://ae01.alicdn.com/kf/Ha5b5fef975e14c3fb6869f25c14195d4y.png" alt=""></p>
-<h3 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h3><p>由于之前GitHub已经配置过SSH key了，因此可以直接用。</p>
+<p>在ES6之前，Js只有两种作用域：<strong>全局变量</strong>和<strong>函数内局部变量</strong></p>
+<p>ES6中引入了两个关键字：<strong>let</strong>、<strong>const</strong></p>
+<h2 id="1-let命令"><a href="#1-let命令" class="headerlink" title="1 let命令"></a>1 let命令</h2><h3 id="1-1-块级作用域"><a href="#1-1-块级作用域" class="headerlink" title="1.1 块级作用域"></a>1.1 块级作用域</h3><p>首先它的用法类似于<code>var</code>，但是所声明的变量，只在<code>let</code>命令所在的代码块内有效。</p>
 <ul>
-<li><p>在C盘—用户—.ssh文件加下，找到之前的SSH key文件，打开复制</p>
-</li>
-<li><p>在coding个人设置—SHH公钥中粘贴</p>
-<p><img src="https://ae01.alicdn.com/kf/Hf5a8605e46b843c297e3b3565c0e9e2bn.png" alt=""></p>
-</li>
+<li>使用 var 关键字声明的变量不具备块级作用域的特性，它在 {} 外依然能被访问到。</li>
+<li>let 声明的变量只在 let 命令所在的代码块 <strong>{}</strong> 内有效，在 <strong>{}</strong> 之外不能访问。</li>
 </ul>
-<h3 id="测试SSH"><a href="#测试SSH" class="headerlink" title="测试SSH"></a>测试SSH</h3><p>使用git bash测试</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@git.coding.<span class="keyword">net</span> </span><br><span class="line"><span class="comment">//出现Hello username You've connected to Coding.net by SSH successfully!表示成功</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">a <span class="comment">// ReferenceError: a is not defined.</span></span><br><span class="line">b <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 
-<p>若出现权限被拒绝，解决方案是：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@e</span>.coding.net</span><br><span class="line">//首次建立连接要求信任主机，输入<span class="literal">yes</span>回车就🆗了，我已经输入过因此不显示了</span><br></pre></td></tr></table></figure>
+<p>块级作用域可以解决很多问题，例如：</p>
+<ul>
+<li>内层变量覆盖外层</li>
+<li>循环变量用完后泄露为全局变量</li>
+</ul>
+<p>ES6允许块级作用域的嵌套，只要使用<code>{}</code>括起来，外层无法读取内层的变量（C++函数体范围概念类似）</p>
+<p>块级作用域也使得匿名立即执行函数表达式（匿名 IIFE）不再必要了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// IIFE 写法</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> tmp = ...;</span><br><span class="line">  ...</span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// 块级作用域写法</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">let</span> tmp = ...;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://ae01.alicdn.com/kf/Hfa5c1e816c8d46dcb5be564ed4dfc999q.png" alt=""></p>
-<h3 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h3><p>打开刚刚创建的项目，在右侧找到SSH，复制：</p>
-<p><img src="https://ae01.alicdn.com/kf/H607ff457a1a24d1c8a6312d2b22b4d03T.png" alt=""></p>
-<p>打开我们的hexo项目根目录下的config.yml，找到部署对应的代码，粘贴：</p>
-<p><img src="https://ae01.alicdn.com/kf/Ha6a02a2497a14fd2aedcd4d57a4a22d7g.png" alt=""></p>
-<p>配置完成后，部署代码：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">hexo</span> <span class="string">clean</span></span><br><span class="line"><span class="attr">hexo</span> <span class="string">d -g</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-循环作用域"><a href="#1-2-循环作用域" class="headerlink" title="1.2 循环作用域"></a>1.2 循环作用域</h3><p>使用了 <strong>var</strong> 关键字，它声明的变量是全局的，包括循环体内与循环体外，而循环内被赋给数组<code>a</code>的函数内部的<code>console.log(i)</code>，里面的<code>i</code>指向的就是全局的<code>i</code>。也就是说，所有数组<code>a</code>的成员里面的<code>i</code>，指向的都是同一个<code>i</code>，所以全局只有一个变量<code>i</code>，每次循环改变的是<code>i</code>的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a[<span class="number">6</span>](); <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
 
-<p>就可以在coding上查看到我们的代码了！</p>
-<p><img src="https://ae01.alicdn.com/kf/Hb5e753659ede42ea8235f0018e8b3ccd3.png" alt=""></p>
-<h3 id="开启静态页面功能"><a href="#开启静态页面功能" class="headerlink" title="开启静态页面功能"></a>开启静态页面功能</h3><p>coding改版后，很多功能默认是不开启的，因此初始代码仓库界面只有上图的前三项，要实现Pages功能先要开启对应的功能模块，在项目的项目设置中打开，建议直接把功能全打开</p>
-<p><img src="https://ae01.alicdn.com/kf/H05f698a69b33482e8b52d296d36299ecJ.png" alt=""></p>
-<p>然后就可以看到上面代码仓库图的那些功能了，找到持续部署，首先要完成<strong>实名认证</strong>才能创建页面，在团队管理—团队设置—高级设置 中完成实名认证。</p>
-<p><img src="https://ae01.alicdn.com/kf/Hf3070358fe8b456e84a09b50b694502fR.png" alt=""></p>
-<p>完成实名认证后，就可以在持续部署—静态网页中创建了，输入项目名，选择部署来源（默认hexo的项目即可）</p>
-<p><img src="https://ae01.alicdn.com/kf/H22c48fed15774816829dbe39101fa2231.png" alt=""></p>
-<p>点击立即部署，即可访问</p>
-<p><img src="https://ae01.alicdn.com/kf/Hae599665c7754e43ae9a9a82c5bedcf03.png" alt=""></p>
-<h3 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h3><p>参照之前的域名设置，首先也是ping 该网指，将得到的IP地址在阿里云DNS解析—新手引导 中输入，得到的值修改一下配置CNAME，将原来的GitHub设为境外，coding默认，等一会配置解析完成</p>
-<p><img src="https://ae01.alicdn.com/kf/Ha280ebbad0d147bb8369142895327d1eJ.png" alt=""></p>
-<p>在静态页面的右上角设置中，下拉找到自定义域名，加入我们的域名即可</p>
-<p><img src="https://ae01.alicdn.com/kf/Hf8584a439e2340f19f782883d5fbd54d3.png" alt=""></p>
-<p>部署一下，就可以访问了，速度比起之前的GitHub Pages快了很多很多啊！</p>
+<p>使用 <strong>let</strong> 关键字，它声明的变量仅在块级作用域有效，每次循环都是一个新的变量，每个<code>i</code>都是不一样的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a[<span class="number">6</span>](); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong> JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量<code>i</code>时，就在上一轮循环的基础上进行计算。因此本轮重新声明的值可以知道上一轮的值从而开展计算。</p>
+<p><strong>另：</strong><code>for</code>循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。结果成功输出3次abc，即说明循环变量的<code>i</code>和函数体内部的<code>i</code>不一样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="string">'abc'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// abc</span></span><br><span class="line"><span class="comment">// abc</span></span><br><span class="line"><span class="comment">// abc</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-3-变量提升问题-amp-暂时性死区"><a href="#1-3-变量提升问题-amp-暂时性死区" class="headerlink" title="1.3 变量提升问题&amp;暂时性死区"></a>1.3 变量提升问题&amp;暂时性死区</h3><p>JavaScript 中，变量可以在使用后声明，也就是变量可以先使用再声明。</p>
+<p>变量提升：函数声明和变量声明总是会被解释器悄悄地被”提升”到方法体的最顶部。</p>
+<ul>
+<li><code>var</code>声明的变量可以在声明前使用，值为<code>undefined</code>，但是按照逻辑应该是先声明后使用</li>
+<li><code>let</code>的变量必须先声明后使用，即变量<code>a</code>在声明前就存在了，由于是<code>var</code>声明，就会先输出<code>undefined</code> ，而<code>b</code>用<code>let</code>声明，表示在声明前<code>b</code>是不存在的，若使用了就会报错。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">//undefined</span></span><br><span class="line"><span class="keyword">var</span> a=<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(b);<span class="comment">//报错：ReferenceError</span></span><br><span class="line"><span class="keyword">let</span> b=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>只要块级作用域内存在<code>let</code>命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。（学过C++的还是很好理解这些概念的）</p>
+<p>ES6 明确规定，如果区块中存在<code>let</code>和<code>const</code>命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。</p>
+<p>总之，在代码块内，使用<code>let</code>命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”（temporal dead zone，简称 TDZ）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="number">111</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	a=<span class="string">"xyz"</span>;<span class="comment">//报错</span></span><br><span class="line">    <span class="keyword">typeof</span> x; <span class="comment">// ReferenceError</span></span><br><span class="line">	<span class="keyword">let</span> a;<span class="comment">//在let命令声明变量tmp之前，都属于变量tmp的“死区”。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//或者一些隐性的死区</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cmp</span>(<span class="params">x=y,y=<span class="number">2</span></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [x,y];</span><br><span class="line">&#125;</span><br><span class="line">cmp();</span><br><span class="line"><span class="comment">//因为x默认值=y，此时y还未声明，属于死区  </span></span><br><span class="line"><span class="comment">//改为x=2,y=x就不会报错</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-全局变量和全局对象的属性"><a href="#1-4-全局变量和全局对象的属性" class="headerlink" title="1.4 全局变量和全局对象的属性"></a>1.4 全局变量和全局对象的属性</h3><p>ES5中全局对象的属性与全局变量基本是等价的，但是也有区别，比如通过var声明的全局变量不能使用delete从 window/global （ global是针对与node环境）上删除，不过在变量的访问上基本等价。</p>
+<p>ES6 中做了严格的区分，使用 var 和 function 声明的全局变量依旧作为全局对象的属性，使用 <strong><code>let</code>**</strong>, <code>const</code>** 命令声明的全局变量不属于全局对象的属性。</p>
+<h2 id="2-const命令"><a href="#2-const命令" class="headerlink" title="2 const命令"></a>2 const命令</h2><p>const 和 let 的作用域是一致的，不同的是 const 变量一旦被赋值，就不能再改变了，但是这并不意味着使用 const 声明的变量本身不可变，只是说它不可被再次赋值了，而且const 声明的变量必须经过<strong>初始化</strong>。即声明时就进行赋值操作，只声明不赋值会报错！</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo;</span><br><span class="line"><span class="comment">// SyntaxError: Missing initializer in const declaration</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h3><p><code>const</code>实际上并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。对于复合类型的数据（主要是对象和数组），变量指向的是数据所在的地址，因此它保存的只是一个指向实际数据的指针，<code>const</code>只能保证这个地址指针是固定的（即总是指向另一个固定的地址），至于它指向的数据结构就不能控制了。因此，将一个对象声明为常量必须非常小心。</p>
+<ul>
+<li>简单数据类型（数值，字符串，布尔值）：值保存在变量指向的那个内存地址，因此等同于常量。</li>
+<li>复合类型的数据（对象和数组）：变量指向的是内存地址，保存的是一个指针，const只能保存这个指针地址是固定的，至于他指向的数据结构是不是可变的，就完全不能控制了。</li>
+</ul>
 
       
       <!-- reward -->
@@ -248,14 +257,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/04/14/%E5%B0%86hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0coding%E4%B8%8A/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/04/25/Js%E4%B8%AD%E7%9A%84let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/" rel="tag">web</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Js/" rel="tag">Js</a></li></ul>
 
 
     </footer>
@@ -266,19 +275,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/2020/04/15/git%E5%AD%A6%E4%B9%A0/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            git学习
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/14/hexo%E5%8D%9A%E5%AE%A2%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/" class="article-nav-link">
+      <a href="/2020/04/18/hexo%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%86/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">hexo博客绑定域名</div>
+        <div class="article-nav-title">hexo博客加密</div>
       </a>
     
   </nav>
