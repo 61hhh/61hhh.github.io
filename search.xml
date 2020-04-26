@@ -88,8 +88,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -131,8 +131,7 @@
 <h3 id="链接提交"><a href="#链接提交" class="headerlink" title="链接提交"></a>链接提交</h3><p>接下来要做的就是<a href="http://zhanzhang.baidu.com/linksubmit/index" target="_blank" rel="noopener">链接提交</a>.链接提交有<code>手动</code>和<code>自动</code>两种方法。</p>
 <p><strong>手动提交</strong>你的站点到百度搜索，在搜索框输入<code>site:salute61.top</code>搜索不到后，下面有提交网址的选项，当然这种方法很麻烦，因为如果想让每一篇文章都能被搜索到就需要把所有的页面链接进行提交！</p>
 <p><img src="https://ae01.alicdn.com/kf/H2f7b18d9dd414a85a741d4d770e3a3fdS.png" alt=""></p>
-<p><strong>自动提交</strong>显然是更好的选择，在自己网站的站长平台可以看到三种提交方式，选择sitemap方式</p>
-<p><img src="https://ae01.alicdn.com/kf/H2ebfe3c5ab864cec938269a41b520a96S.png" alt=""></p>
+<p><strong>自动提交</strong>显然是更好的选择，在自己网站的站长平台可以看到三种提交方式。</p>
 <h4 id="主动提交"><a href="#主动提交" class="headerlink" title="主动提交"></a>主动提交</h4><p>因为百度收录的效率很低，所以我在sitemap基础上增加了主动推送。</p>
 <p><strong>主动推送：</strong>最为快速的提交方式，建议您将站点当天新产出链接立即通过此方式推送给百度，以保证新链接可以及时被百度收录。</p>
 <p>主动推送的好处：</p>
@@ -142,7 +141,7 @@
 </ul>
 <p><img src="https://ae01.alicdn.com/kf/H03bfde373cab4943b4d6b91a6af11d7cb.png" alt=""></p>
 <p>首先安装插件：<code>npm install hexo-baidu-url-submit --save</code></p>
-<p>（插件GitHub地址:<a href="https://github.com/huiwang/hexo-baidu-url-submit）" target="_blank" rel="noopener">https://github.com/huiwang/hexo-baidu-url-submit）</a></p>
+<p>（插件GitHub地址:<a href="https://github.com/huiwang/hexo-baidu-url-submit" target="_blank" rel="noopener">https://github.com/huiwang/hexo-baidu-url-submit</a> ）</p>
 <p>在根目录配置文件中新增字段：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment">##主动推送</span></span><br><span class="line"><span class="attr">baidu_url_submit:</span> </span><br><span class="line">    <span class="attr">count:</span> <span class="number">100</span> <span class="comment"># 提交最新的一个链接</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">http://salute61.top/</span> <span class="comment"># 你注册的域名</span></span><br><span class="line">    <span class="attr">token:</span> <span class="string">***</span> <span class="comment">#上图中的token后面的字段</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">baidu_urls.txt</span> <span class="comment">#文本文档的地址， 新链接会保存在此文本文档里</span></span><br></pre></td></tr></table></figure>
 
@@ -151,7 +150,8 @@
 
 <p>这样执行<code>hexo deploy</code>的时候，新的链接就会被推送了。成功后可以在bash中看到：</p>
 <p><img src="https://ae01.alicdn.com/kf/Hb6a1d85346784508ab5bfc8eccff0f5fB.png" alt=""></p>
-<h4 id="sitemap提交"><a href="#sitemap提交" class="headerlink" title="sitemap提交"></a>sitemap提交</h4><h5 id="1-安装sitemap插件"><a href="#1-安装sitemap插件" class="headerlink" title="1.安装sitemap插件"></a>1.安装sitemap插件</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br><span class="line"><span class="comment">##一个是谷歌的，一个是百度的</span></span><br></pre></td></tr></table></figure>
+<h4 id="sitemap提交"><a href="#sitemap提交" class="headerlink" title="sitemap提交"></a>sitemap提交</h4><p>选择sitemap方式时</p>
+<h5 id="1-安装sitemap插件"><a href="#1-安装sitemap插件" class="headerlink" title="1.安装sitemap插件"></a>1.安装sitemap插件</h5><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-generator-baidu-sitemap <span class="comment">--save</span></span><br><span class="line"><span class="comment">##一个是谷歌的，一个是百度的</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="2-修改博客配置文件"><a href="#2-修改博客配置文件" class="headerlink" title="2.修改博客配置文件"></a>2.修改博客配置文件</h5><p>修改url为你的博客首页，xxx.github.io或自己的域名</p>
 <p><img src="https://ae01.alicdn.com/kf/Hca76c42e1527487185a2fb4f31062e79O.png" alt=""></p>
@@ -159,7 +159,9 @@
 <figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="meta"># 自动生成sitemap</span></span><br><span class="line"><span class="symbol">sitemap:</span> </span><br><span class="line"><span class="symbol">  path:</span> sitemap.xml</span><br><span class="line"><span class="symbol">baidusitemap:</span> </span><br><span class="line"><span class="symbol">  path:</span> baidusitemap.xml</span><br></pre></td></tr></table></figure>
 
 <p>配置完成后执行<code>hexo g</code>，正常情况下会在source文件夹下看到多出两个文件：<code>sitemap.xml</code>和<code>baidusitemap.xml</code>，这就是sitemap文件。</p>
-<p>在自动提交—sitemap的输入框中，按格式填写。然后就可以了！等待一段时间让他收录</p>
+<p>在自动提交—sitemap的输入框中，按格式填写。然后就可以了！等待一段时间让他收录，也可以访问该xml文件，查看详情</p>
+<p><img src="https://ae01.alicdn.com/kf/H2ebfe3c5ab864cec938269a41b520a96S.png" alt=""></p>
+<p><img src="https://pic.downk.cc/item/5ea4f3d1c2a9a83be58d3506.png" alt=""></p>
 <h2 id="Google收录"><a href="#Google收录" class="headerlink" title="Google收录"></a>Google收录</h2><p>先进入<a href="https://www.google.com/webmasters/tools/home?hl=zh-CN" target="_blank" rel="noopener">google站点平台</a>，具体步骤与百度相同，只不过要翻墙。步骤也是<code>验证网站</code>，<code>链接提交</code>，不过我网址前缀验证进入，然后没找到验证网站的地方？？？（左侧菜单栏找遍了也没看见哪个是验证网站）</p>
 <p>进入网站有两种方式：网域、网址前缀</p>
 <p><img src="https://ae01.alicdn.com/kf/Hde6a7df83385422fbbfc930a1da6d983Y.jpg" alt=""></p>
@@ -167,14 +169,14 @@
 <p><a href="https://support.google.com/webmasters/answer/183669?hl=zh-Hans" target="_blank" rel="noopener">帮助文档</a></p>
 <p><img src="https://ae01.alicdn.com/kf/Hc2b4ff8fb80342a489a7e889936a6d70M.png" alt=""></p>
 <p>然后就是等待他们收录了！</p>
-<p>谷歌收录较快，基本我弄完一个小时就收到邮件了，百度要等待一下</p>
+<p>谷歌收录较快，基本我弄完一个小时就收到邮件了，百度得等很久。。。</p>
 ]]></content>
       <categories>
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -501,8 +503,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -522,8 +524,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -952,8 +954,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1155,8 +1157,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
