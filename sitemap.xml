@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://salute61.top/photos/index.html</loc>
+    
+    <lastmod>2020-04-28T09:47:43.763Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://salute61.top/About-Me/index.html</loc>
+    
+    <lastmod>2020-04-28T09:37:15.880Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://salute61.top/2020/04/16/hexo%E5%8D%9A%E5%AE%A2%E6%8F%90%E4%BA%A4Google%E5%92%8C%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/</loc>
     
     <lastmod>2020-04-26T02:38:05.758Z</lastmod>
@@ -68,20 +82,6 @@
     <loc>http://salute61.top/2020/04/10/javascripts%E4%B8%ADthis%E7%9A%84%E6%8C%87%E5%90%91/</loc>
     
     <lastmod>2020-04-10T12:28:57.675Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://salute61.top/About-Me/index.html</loc>
-    
-    <lastmod>2020-04-01T11:02:49.992Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://salute61.top/photos/index.html</loc>
-    
-    <lastmod>2020-03-22T08:19:40.755Z</lastmod>
     
   </url>
   
