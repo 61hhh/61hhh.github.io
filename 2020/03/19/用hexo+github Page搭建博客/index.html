@@ -158,12 +158,12 @@ var _hmt = _hmt || [];
 <li><p>后续若要学习git，推荐一个很全面的参考教程 <a href="https://www.baidu.com/link?url=Z8O3Sg4igVflUvqE5-hwJJjzkB34zZiXH2AEdNsItuC_Avh0lVB4MP9gn-e0CsVqqpXtcMx_--570lKkiS0xUwmX3Mqw3url-J6PF71I-i7&ck=7290.9.0.0.0.121.268.0&shh=www.baidu.com&sht=baidu&wd=&eqid=982d1239000645b1000000055e734703" target="_blank" rel="noopener"><em>Git</em>简介 - 廖雪峰的官方网站</a>（当时写报告就参照他的教程写的hh）</p>
 </li>
 </ul>
-<p>​        <img src="http://q7kxgx8az.bkt.clouddn.com/image-20200319182342707.png" style="zoom:80%;"/></p>
+<p>​        <img src="http://img.salute61.top/git%20--version.png" style="zoom:70%;"/></p>
 <h4 id="2-2安装NodeJs和Hexo"><a href="#2-2安装NodeJs和Hexo" class="headerlink" title="2.2安装NodeJs和Hexo"></a>2.2安装NodeJs和Hexo</h4><p>&lt;1&gt;hexo是基于nodejs的静态博客，安装要用到npm工具</p>
 <ul>
 <li><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node.js安装包及源码</a>，按个人配置直接安装即可</li>
 </ul>
-<p>​        <img src="http://q7kxgx8az.bkt.clouddn.com/cmd-node.png" style="zoom:80%;" /></p>
+<p>​        <img src="http://img.salute61.top/node.png" style="zoom:80%;" /></p>
 <p>&lt;2&gt;先准备一个文件夹安装hexo（以我的D:\Blog61\HG_Blog为例），在此处git bash</p>
 <ul>
 <li><p>由于hexo用npm正常安装会出现卡住的情况，我们可以换源，采用淘宝的npm源：</p>
@@ -174,10 +174,10 @@ var _hmt = _hmt || [];
 
 </li>
 </ul>
-<p>​        <img src="http://q7kxgx8az.bkt.clouddn.com/hexo%20-v.png" style="zoom: 67%;" /></p>
+<p>​        <img src="http://img.salute61.top/hexo-v.png" style="zoom: 67%;" /></p>
 <ul>
 <li><p>安装后新建一个文件夹存放你的博客（我的是D:\Blog61\HG_Blog\HEXO_File）初始化：hexo init，完成后可以看到文件</p>
-<img src="C:\Users\挚爱Leslie\Pictures\QQ截图20200319192258.png" style="zoom:80%;" />
+<img src="http://img.salute61.top/blogfile.png" style="zoom:80%;" />
 </li>
 <li><p>文件含义：</p>
 <ul>
@@ -222,18 +222,18 @@ var _hmt = _hmt || [];
 <figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -<span class="built_in">t</span> rsa -C <span class="string">"youremail@example.com"</span></span><br></pre></td></tr></table></figure>
 
 <p>可以在目标文件中找到生成的对应id_rsa.pub文件，用notepad++打开，复制</p>
-<p><img src="http://q7kxgx8az.bkt.clouddn.com/sshfile.png" alt=""></p>
+<p><img src="http://img.salute61.top/C%E7%9B%98.ssh%E6%96%87%E4%BB%B6.png" alt=""></p>
 </li>
 <li><p>或者在bash中输入：</p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> !<span class="string">/.ssh</span> （切换目录）</span><br><span class="line">cat id_rsa.pub（查看key）</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>打开个人github账号，找到settings，新建SSH key，粘贴</p>
-<img src="http://q7kxgx8az.bkt.clouddn.com/ssh-config.png" style="zoom: 30%;" />
+<img src="http://img.salute61.top/GitHub-ssh.png" style="zoom: 30%;" />
 </li>
 <li><p>填好后，在git bash中输入：</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh</span> -T git<span class="variable">@github</span>.com</span><br></pre></td></tr></table></figure>
 
-<img src="http://q7kxgx8az.bkt.clouddn.com/ssh-t.png" style="zoom:70%;" />
+<img src="http://img.salute61.top/ssh-T.png" style="zoom:70%;" />
 </li>
 <li><p>要提交就要指明用户是谁，所以要git config设置，–global表示全作用域的</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global user.name <span class="string">"61hhh"</span></span><br><span class="line"></span><br><span class="line">git<span class="built_in"> config </span>--globaluser.email <span class="string">"1587403870@qq.com"</span></span><br></pre></td></tr></table></figure>
