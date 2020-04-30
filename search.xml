@@ -828,7 +828,7 @@
 <p>4.打开主题文件下的language/zh-CN.yml添加对应中文翻译</p>
 <figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">playlist : 歌单</span><br></pre></td></tr></table></figure>
 
-<h3 id="使用hexo-tag-aplayer"><a href="#使用hexo-tag-aplayer" class="headerlink" title="使用hexo-tag-aplayer"></a>使用hexo-tag-aplayer</h3><p>1 Aplayer是hexo上的一个插件，配置可以参考<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FMoePlayer%2Fhexo-tag-aplayer%2Fblob%2Fmaster%2Fdocs%2FREADME-zh_cn.md" target="_blank" rel="noopener">官方文档</a>，第一步安装插件：</p>
+<h3 id="使用hexo-tag-aplayer"><a href="#使用hexo-tag-aplayer" class="headerlink" title="使用hexo-tag-aplayer"></a>使用hexo-tag-aplayer</h3><p>1 Aplayer是hexo上的一个插件，配置可以参考<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md" target="_blank" rel="noopener">官方文档</a>，第一步安装插件：</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">npm <span class="keyword">install</span> <span class="comment">--save hexo-tag-aplayer</span></span><br></pre></td></tr></table></figure>
 
 <p>2 最新版的aplayer已经支持MetingJS的使用，可以直接解析网络平台歌曲，想在本插件中使用MetingJS，要先在根目录的_config.yml中配置：</p>
@@ -848,6 +848,103 @@
 <li><code>width:xxx</code>: (可选) 播放器宽度 (默认: 100%)</li>
 <li><code>lrc:xxx</code>: （可选）歌词文件 URL 地址</li>
 </ul>
+<p>在文章中使用 MetingJS 播放器：</p>
+<figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>有关 <code>
+    <div id="aplayer-UlxvbgYM" class="aplayer aplayer-tag-marker meting-tag-marker"
+         data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
+    ></div></code> 的选项列表如下:</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td><strong>必须值</strong></td>
+<td>歌曲 id / 播放列表 id / 相册 id / 搜索关键字</td>
+</tr>
+<tr>
+<td>server</td>
+<td><strong>必须值</strong></td>
+<td>音乐平台: <code>netease</code>, <code>tencent</code>, <code>kugou</code>, <code>xiami</code>, <code>baidu</code></td>
+</tr>
+<tr>
+<td>type</td>
+<td><strong>必须值</strong></td>
+<td><code>song</code>, <code>playlist</code>, <code>album</code>, <code>search</code>, <code>artist</code></td>
+</tr>
+<tr>
+<td>fixed</td>
+<td><code>false</code></td>
+<td>开启固定模式</td>
+</tr>
+<tr>
+<td>mini</td>
+<td><code>false</code></td>
+<td>开启迷你模式</td>
+</tr>
+<tr>
+<td>loop</td>
+<td><code>all</code></td>
+<td>列表循环模式：<code>all</code>, <code>one</code>,<code>none</code></td>
+</tr>
+<tr>
+<td>order</td>
+<td><code>list</code></td>
+<td>列表播放模式： <code>list</code>, <code>random</code></td>
+</tr>
+<tr>
+<td>volume</td>
+<td>0.7</td>
+<td>播放器音量</td>
+</tr>
+<tr>
+<td>lrctype</td>
+<td>0</td>
+<td>歌词格式类型</td>
+</tr>
+<tr>
+<td>listfolded</td>
+<td><code>false</code></td>
+<td>指定音乐播放列表是否折叠</td>
+</tr>
+<tr>
+<td>storagename</td>
+<td><code>metingjs</code></td>
+<td>LocalStorage 中存储播放器设定的键名</td>
+</tr>
+<tr>
+<td>autoplay</td>
+<td><code>true</code></td>
+<td>自动播放，移动端浏览器暂时不支持此功能</td>
+</tr>
+<tr>
+<td>mutex</td>
+<td><code>true</code></td>
+<td>该选项开启时，如果同页面有其他 aplayer 播放，该播放器会暂停</td>
+</tr>
+<tr>
+<td>listmaxheight</td>
+<td><code>340px</code></td>
+<td>播放列表的最大长度</td>
+</tr>
+<tr>
+<td>preload</td>
+<td><code>auto</code></td>
+<td>音乐文件预载入模式，可选项： <code>none</code>, <code>metadata</code>, <code>auto</code></td>
+</tr>
+<tr>
+<td>theme</td>
+<td><code>#ad7a86</code></td>
+<td>播放器风格色彩设置</td>
+</tr>
+</tbody></table>
+<p>关于如何设置自建的 Meting API 服务器地址，以及其他 MetingJS 配置，请参考章节<a href="https://github.com/MoePlayer/hexo-tag-aplayer/blob/master/docs/README-zh_cn.md#自定义配置30-新功能" target="_blank" rel="noopener">自定义配置</a></p>
 <p>以我的配置为例：</p>
 <figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line">&#123;% meting <span class="string">"817407958"</span> <span class="string">"netease"</span> <span class="string">"playlist"</span> <span class="string">"theme:#FF4081"</span> <span class="string">"mode:circulation"</span> <span class="string">"mutex:true"</span> <span class="string">"listmaxheight:340px"</span> <span class="string">"preload:auto"</span> %&#125;</span><br></pre></td></tr></table></figure>
 
