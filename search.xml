@@ -9,6 +9,9 @@
 </blockquote>
 <p>在ES6之前，Js只有两种作用域：<strong>全局变量</strong>和<strong>函数内局部变量</strong></p>
 <p>ES6中引入了两个关键字：<strong>let</strong>、<strong>const</strong></p>
+<blockquote>
+<p>千淘万漉虽辛苦，吹尽狂沙始到金。        ——<a href="https://so.gushiwen.org/authorv_e3c4e8cf2646.aspx" target="_blank" rel="noopener">刘禹锡</a>《<a href="https://so.gushiwen.org/shiwenv_4a14da2eebb5.aspx" target="_blank" rel="noopener">浪淘沙·其八</a>》</p>
+</blockquote>
 <a id="more"></a>
 
 <h2 id="1-let命令"><a href="#1-let命令" class="headerlink" title="1 let命令"></a>1 let命令</h2><h3 id="1-1-块级作用域"><a href="#1-1-块级作用域" class="headerlink" title="1.1 块级作用域"></a>1.1 块级作用域</h3><p>首先它的用法类似于<code>var</code>，但是所声明的变量，只在<code>let</code>命令所在的代码块内有效。</p>
@@ -99,6 +102,9 @@
 <p><strong>验证：</strong>在百度/Google搜索框中输入<code>site:***(你的网站/域名)</code>，如果没找到说明没有被收录（必然找不到啊！），Google的验证要先翻墙。</p>
 <p><strong>收录步骤：</strong>主要分为两步，一是<code>验证网站</code>，再是<code>链接提交</code>。</p>
 <p>下面分别说一下百度和谷歌的收录步骤。</p>
+<blockquote>
+<p>高山仰止，景行行止。             ——《<a href="https://so.gushiwen.org/shiwenv_3d961475d9df.aspx" target="_blank" rel="noopener">车舝</a>》</p>
+</blockquote>
 <a id="more"></a>
 
 <h2 id="百度收录"><a href="#百度收录" class="headerlink" title="百度收录"></a>百度收录</h2><p>首先要验证网站，我们要在百度站长平台中的<a href="http://zhanzhang.baidu.com/dashboard/index" target="_blank" rel="noopener">站长工具</a>去验证，步骤：</p>
@@ -186,6 +192,9 @@
 <p>借着这个机会重新学习一下，不求精通，只是温习一下git的基本操作，结合之前的软工实验的git报告，加上网上教程，达到熟练掌握常用的指令即可。</p>
 <p>参考：<a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程—廖雪峰</a>；<a href="https://www.cnblogs.com/best/archive/2017/09/07/7474442.html" target="_blank" rel="noopener">一小时学会Git</a></p>
 <p>推荐一个很有趣的网站，在教程评论下看到的：<a href="https://learngitbranching.js.org/?locale=zh_CN" target="_blank" rel="noopener">Learn Git Braching</a></p>
+<blockquote>
+<p>愿你有进一寸的勇气，亦有退一尺的从容        </p>
+</blockquote>
 <a id="more"></a>
 
 <h2 id="1-Git安装与配置"><a href="#1-Git安装与配置" class="headerlink" title="1 Git安装与配置"></a>1 Git安装与配置</h2><h3 id="1-1-Git简述"><a href="#1-1-Git简述" class="headerlink" title="1.1 Git简述"></a>1.1 Git简述</h3><p>首先要说的是：<code>Git!=GitHub!!!</code>千万不要以为Git就是GitHub！一个是版本控制系统，一个是代码托管仓库。</p>
@@ -451,7 +460,7 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>将博客部署到GitHub上后，我发现一个很大的问题——访问速度很慢！！！因此找了一下教程，实现双部署：GitHub对应海外，coding对应默认（其实也不可能有歪果仁看这个博客。。。）</p>
 <p>由于网上的教程很多都是在coding改版前的，很多东西例如Pages服务、认证位置都有较大变动，因此我属实废了点功夫。。。</p>
 <blockquote>
-<p>倘只看书，便变成书橱。</p>
+<p>休对故人思故国，且将新火试新茶。诗酒趁年华。 ——<a href="https://so.gushiwen.org/authorv_3b99a16ff2dd.aspx" target="_blank" rel="noopener">苏轼</a>《<a href="https://so.gushiwen.org/shiwenv_b8148e70fea6.aspx" target="_blank" rel="noopener">望江南·超然台作</a>》</p>
 </blockquote>
 <a id="more"></a>
 
@@ -588,10 +597,13 @@
     <title>《算法笔记》基础篇学习</title>
     <url>/2020/04/01/%E3%80%8A%E7%AE%97%E6%B3%95%E7%AC%94%E8%AE%B0%E3%80%8B%E5%9F%BA%E7%A1%80%E7%AF%87%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>算法笔记这本书是在学算法设计课的时候同学推荐的，内容很多很好，当时边上课边看这个书把基础篇看完了，但是对应的题也没咋做。。。现在感觉都不会写题了。。再捡起来练习一下</p>
-<p>题目比较多，我的能力也有限，慢慢来吧，一点点去学习更新 :)。</p>
+<p>题目比较多，我的能力也有限，慢慢来吧，一点点去学习更新 :)</p>
 <p>参考：《算法笔记-上机训练实战指南》</p>
 <blockquote>
 <p>种一棵树最好的时间是十年前，其次是现在。</p>
+</blockquote>
+<blockquote>
+<p>很烦自己这种三天打鱼两天晒网的行为。。。总是一时的激情，然后抛之脑后，以后不做多的，一天一题。</p>
 </blockquote>
 <a id="more"></a>
 
@@ -852,7 +864,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-oujhrFXV" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-SkptjaKp" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
@@ -1069,7 +1081,7 @@
     <url>/2020/03/19/%E7%94%A8hexo+github%20Page%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>基本原理：Hexo是github上一个优秀的开源博客框架，支持markdown解析文章，有多种第三方主题插件供选择。先由hexo将.md文件生成静态网页.html文件，然后上传到你创建的个人GitHub仓库，这个仓库比较特殊，相当于是github为我们提供的展示网页的资源挂载库。因此hexo+github全程的搭建免费且便捷。我们只需要自己购买一个域名解析到对应的github-page就行了。</p>
 <blockquote>
-<p>贪安稳就没有自由，要自由就要历些危险。只有这两条路。 ——鲁迅</p>
+<p>贪安稳就没有自由，要自由就要历些危险。只有这两条路。 </p>
 </blockquote>
 <a id="more"></a>
 
