@@ -607,7 +607,8 @@
 </blockquote>
 <a id="more"></a>
 
-<h2 id="第三章-入门模拟"><a href="#第三章-入门模拟" class="headerlink" title="第三章-入门模拟"></a>第三章-入门模拟</h2><h3 id="3-1简单模拟"><a href="#3-1简单模拟" class="headerlink" title="3.1简单模拟"></a>3.1简单模拟</h3><h4 id="PAT-B"><a href="#PAT-B" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1001-害死人不偿命的-3n-1-猜想"><a href="#1001-害死人不偿命的-3n-1-猜想" class="headerlink" title="1001 害死人不偿命的(3n+1)猜想"></a>1001 害死人不偿命的(3n+1)猜想</h5><p>思路：使用while循环判断n是否为1</p>
+<h2 id="第三章-入门模拟"><a href="#第三章-入门模拟" class="headerlink" title="第三章-入门模拟"></a>第三章-入门模拟</h2><h3 id="3-1简单模拟"><a href="#3-1简单模拟" class="headerlink" title="3.1简单模拟"></a>3.1简单模拟</h3><p>第三章的题是简单的模拟题，没有什么算法上的问题，主要是思维上的问题。</p>
+<h4 id="PAT-B"><a href="#PAT-B" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1001-害死人不偿命的-3n-1-猜想"><a href="#1001-害死人不偿命的-3n-1-猜想" class="headerlink" title="1001 害死人不偿命的(3n+1)猜想"></a>1001 害死人不偿命的(3n+1)猜想</h5><p>思路：使用while循环判断n是否为1</p>
 <ul>
 <li>如果为1，退出循环</li>
 <li>不为1，判断是否为偶数，是偶数n除以2，否则n=(3*n+1)/2，step++</li>
@@ -864,7 +865,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-FJGYBJGP" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-GuEuDEAn" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
