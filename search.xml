@@ -183,8 +183,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -274,8 +274,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -605,8 +605,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -626,8 +626,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -828,7 +828,12 @@
 
 
 
-<h5 id="1009-Product-of-Polynomials"><a href="#1009-Product-of-Polynomials" class="headerlink" title="1009 Product of Polynomials"></a>1009 Product of Polynomials</h5><h3 id="3-2查找元素"><a href="#3-2查找元素" class="headerlink" title="3.2查找元素"></a>3.2查找元素</h3><h4 id="PAT-B-1"><a href="#PAT-B-1" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1041考试座位号"><a href="#1041考试座位号" class="headerlink" title="1041考试座位号"></a>1041考试座位号</h5><p>思路：利用结构体，创建一个学生结构体，存放id和考试座位号，试机座位号作为下标</p>
+<h5 id="1009-Product-of-Polynomials"><a href="#1009-Product-of-Polynomials" class="headerlink" title="1009 Product of Polynomials"></a>1009 Product of Polynomials</h5><p>思路：同样的，用数组存储们，获取倒第一个多项式系数后，在第二次循环中与第一个相乘</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">poly</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">exp</span>;      </span><br><span class="line">    <span class="keyword">double</span> cof;     </span><br><span class="line">&#125;poly[<span class="number">1010</span>];</span><br><span class="line"><span class="keyword">double</span> answer[<span class="number">2010</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k,count=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %lf"</span>,&amp;poly[i].<span class="built_in">exp</span>,&amp;poly[i].cof);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">exp</span>;</span><br><span class="line">        <span class="keyword">double</span> cof;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d %lf"</span>,&amp;<span class="built_in">exp</span>,&amp;cof);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;k;j++)&#123;</span><br><span class="line">            answer[<span class="built_in">exp</span>+poly[j].<span class="built_in">exp</span>]+=cof*poly[j].cof;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=<span class="number">2000</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(answer[i]!=<span class="number">0.0</span>)</span><br><span class="line">            count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>,count);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2000</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(answer[i]!=<span class="number">0</span>)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">" %d %0.1f"</span>,i,answer[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2查找元素"><a href="#3-2查找元素" class="headerlink" title="3.2查找元素"></a>3.2查找元素</h3><h4 id="PAT-B-1"><a href="#PAT-B-1" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1041考试座位号"><a href="#1041考试座位号" class="headerlink" title="1041考试座位号"></a>1041考试座位号</h5><p>思路：利用结构体，创建一个学生结构体，存放id和考试座位号，试机座位号作为下标</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Student</span>&#123;</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> id;</span><br><span class="line">	<span class="keyword">int</span> examSeat;</span><br><span class="line">&#125;testSeat[<span class="number">1010</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> N,eSeat,seat;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> sid;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;N;</span><br><span class="line">	<span class="keyword">while</span>(N--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;sid&gt;&gt;seat&gt;&gt;eSeat;</span><br><span class="line">		testSeat[seat].id=sid;</span><br><span class="line">		testSeat[seat].examSeat=eSeat;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m,k;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;m;</span><br><span class="line">	<span class="keyword">while</span>(m--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;k;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;testSeat[k].id&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;testSeat[k].examSeat&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -1017,7 +1022,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-HFhVzrNq" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-vIegZcEJ" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
@@ -1228,8 +1233,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -1431,8 +1436,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
 </search>
