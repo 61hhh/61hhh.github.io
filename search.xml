@@ -183,8 +183,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -274,8 +274,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -605,8 +605,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -626,8 +626,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -861,7 +861,12 @@
 
 
 
-<h4 id="PAT-A-1"><a href="#PAT-A-1" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1011-World-Cup-Betting"><a href="#1011-World-Cup-Betting" class="headerlink" title="1011 World Cup Betting"></a>1011 World Cup Betting</h5><h5 id="1006-Sign-In-and-Sign-Out"><a href="#1006-Sign-In-and-Sign-Out" class="headerlink" title="1006 Sign In and Sign Out"></a>1006 Sign In and Sign Out</h5><h5 id="1036-Boys-vs-Girls"><a href="#1036-Boys-vs-Girls" class="headerlink" title="1036 Boys vs Girls"></a>1036 Boys vs Girls</h5><h3 id="3-3图形输出"><a href="#3-3图形输出" class="headerlink" title="3.3图形输出"></a>3.3图形输出</h3><h4 id="PAT-B-2"><a href="#PAT-B-2" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1027打印沙漏"><a href="#1027打印沙漏" class="headerlink" title="1027打印沙漏"></a>1027打印沙漏</h5><p>思路：可以将沙漏看作一个倒三角一个正三角，</p>
+<h4 id="PAT-A-1"><a href="#PAT-A-1" class="headerlink" title="PAT-A"></a>PAT-A</h4><h5 id="1011-World-Cup-Betting"><a href="#1011-World-Cup-Betting" class="headerlink" title="1011 World Cup Betting"></a>1011 World Cup Betting</h5><p>思路：就是对每次的输入比较大小，选择最大的输出对应序号的字符，最后做一个计算值判断即可</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> S[<span class="number">3</span>]=&#123;<span class="string">'W'</span>,<span class="string">'T'</span>,<span class="string">'L'</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> ans = <span class="number">1.0</span>,tmp,a;</span><br><span class="line">	<span class="keyword">int</span> index ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">3</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		tmp = <span class="number">0.0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">3</span>;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%lf"</span>,&amp;a);</span><br><span class="line">			<span class="keyword">if</span>(a&gt;tmp)</span><br><span class="line">			&#123;</span><br><span class="line">				tmp = a;</span><br><span class="line">				index = j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		ans*=tmp;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c "</span>,S[index]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%.2f"</span>,(ans*<span class="number">0.65</span><span class="number">-1</span>)*<span class="number">2</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1006-Sign-In-and-Sign-Out"><a href="#1006-Sign-In-and-Sign-Out" class="headerlink" title="1006 Sign In and Sign Out"></a>1006 Sign In and Sign Out</h5><h5 id="1036-Boys-vs-Girls"><a href="#1036-Boys-vs-Girls" class="headerlink" title="1036 Boys vs Girls"></a>1036 Boys vs Girls</h5><h3 id="3-3图形输出"><a href="#3-3图形输出" class="headerlink" title="3.3图形输出"></a>3.3图形输出</h3><h4 id="PAT-B-2"><a href="#PAT-B-2" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1027打印沙漏"><a href="#1027打印沙漏" class="headerlink" title="1027打印沙漏"></a>1027打印沙漏</h5><p>思路：可以将沙漏看作一个倒三角一个正三角，</p>
 <ul>
 <li>假设三角有k行，每行符号数为1、3、5……2k-1。 则总符号数等差求和： 1+2(3+2<em>k-1)</em>(k-1)/2</li>
 <li>由题2k^2-1&lt;=n;可以解得行数k，然后依次打印倒三角正三角</li>
@@ -1022,7 +1027,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-lBvEeqcG" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-sGgziGjO" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
@@ -1233,8 +1238,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1436,8 +1441,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
