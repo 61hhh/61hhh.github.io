@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    UML建模--用例图 |  Salute
+    Js30day |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-UML建模-用例图" class="article article-type-post" itemscope
+  <article id="post-Js30day" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  UML建模--用例图
+  Js30day
 </h1>
  
 
@@ -81,12 +81,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/05/11/UML%E5%BB%BA%E6%A8%A1-%E7%94%A8%E4%BE%8B%E5%9B%BE/" class="article-date">
-  <time datetime="2020-05-11T08:39:06.000Z" itemprop="datePublished">2020-05-11</time>
+      <a href="/2020/06/01/Js30day/" class="article-date">
+  <time datetime="2020-06-01T13:57:39.000Z" itemprop="datePublished">2020-06-01</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+    <a class="article-category-link" href="/categories/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
   </div>
 
       
@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">794</span>
         </span>
     </span>
 
@@ -130,55 +130,177 @@ var _hmt = _hmt || [];
       
 
       
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近开了应用软件实验，分小组做项目，相当于上学期软件工程实验的升级版，主要的知识除了code就是软工的那些了，画用例图的时候感觉很模糊，上学期的知识已经忘光了。。。这里简单整理一下，免得以后忘了又要到处找。</p>
+      <h1 id="Javascript30-纯JS代码挑战"><a href="#Javascript30-纯JS代码挑战" class="headerlink" title="Javascript30-纯JS代码挑战"></a>Javascript30-纯JS代码挑战</h1><p>JavaScript30是加拿大工程师WES BOS制作的一系列纯JavaScript代码练习，共30个challenge，每一个challenge都提供了教学视频、示例文件、解决方案源码</p>
+<p><img src="http://img.salute61.top/Js30.png" alt=""></p>
 <blockquote>
-<p>寄意寒星荃不察，我以我血荐轩辕。</p>
+<p><a href="https://github.com/wesbos/JavaScript30" target="_blank" rel="noopener">Js30的GitHub地址</a></p>
+<p><a href="http://javascript30.com/" target="_blank" rel="noopener">Js30网址</a></p>
 </blockquote>
-<a id="more"></a>
-
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>根据百度百科：用例图是指由参与者（Actor）、<a href="https://baike.baidu.com/item/用例/163511" target="_blank" rel="noopener">用例</a>（Use Case），边界以及它们之间的关系构成的用于描述系统功能的视图。用例图（User Case）是外部用户（被称为参与者）所能观察到的系统功能的<strong>模型图。用例图是系统的蓝图。</strong>用例图呈现了一些参与者，一些用例，以及它们之间的关系，主要用于对系统、子系统或类的功能行为进行<a href="https://baike.baidu.com/item/建模/814831" target="_blank" rel="noopener">建模</a>。</p>
-<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>用例图包含的元素如下：</p>
-<ol>
-<li><p>参与者（Actor）</p>
-<p>不一定指人，它表示你开发的系统以外的，使用本系统或与本系统交互的角色。用小人形表示</p>
-<p><img src="http://img.salute61.top/Actor.png" alt=""></p>
-</li>
-<li><p>用例（Use Case）</p>
-<p>是对包括变量在内的一组动作序列的描述，系统执行这些动作，并产生传递特定参与者的价值的可观察结果。简单说用例就是外部可见的系统功能，对系统提供的服务进行描述。用椭圆表示。</p>
-<p><img src="http://img.salute61.top/usecase.png" alt=""></p>
-</li>
-<li><p>容器</p>
-<p>容器代表的就是开发的系统。</p>
-<p><img src="http://img.salute61.top/%E5%AE%B9%E5%99%A8.png" alt=""></p>
-<p>系统边界：<a href="https://baike.baidu.com/item/系统边界" target="_blank" rel="noopener">系统边界</a>是用来表示正在<a href="https://baike.baidu.com/item/建模" target="_blank" rel="noopener">建模</a>系统的边界。边界内表示系统的组成部分，边界外表示系统外部。系统边界在画图中用方框来表示，同时附上系统的名称，参与者画在边界的外面，用例画在边界里面。</p>
-<p>箭头：用来表示参与者和系统通过相互发送信号或消息进行交互的关联关系。箭头尾部用来表示启动交互的一方，箭头头部用来表示被启动的一方，其中用例总是要由参与者来启动。</p>
-</li>
-</ol>
-<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>用例图的作用主要由三个：</p>
-<ol>
-<li>获取需求</li>
-<li>指导测试</li>
-<li>在开发的其他工作流中起指导作用</li>
-</ol>
-<h2 id="关系"><a href="#关系" class="headerlink" title="关系"></a>关系</h2><p>用例图中涉及的关系有四种：<strong>包含、泛化、扩展</strong></p>
-<ol>
-<li><p>包含关系（include）：两个或多个用例中共用一组相同的动作，这时可以将这组相同的动作抽出来作为一个独立的子用例，供多个基用例所共享。（因为子用例被抽出，基用例并非一个完整的用例，所以<strong>include关系中的基用例必须和子用例一起使用才实现完整功能。</strong>）</p>
-<p>例如：业务中，总是存在着维护某某信息的功能，如果将它作为一个用例，那添加、修改以及删除都要在用例详述中描述，过于复杂；如果分成添加用例、修改用例和删除用例，则划分太细。这时包含关系可以用来理清关系。</p>
-<p>【箭头指向】：include关系在用例图中使用带箭头的虚线表示(在线上标注&lt;<include>&gt;)，箭头从基用例指向子用例。</p>
-<p><img src="http://img.salute61.top/%E5%8C%85%E5%90%AB%E5%85%B3%E7%B3%BB.png" alt=""></p>
-</li>
-<li><p>扩展关系（extend）：假设一个用例明显地混合了两种或者两种以上的不同场景，即依据情况可能发生多种分支，则能够将这个用例分为一个基用例和一个或多个扩展子用例。这样可能会使描写叙述更加清晰。（<strong>基用例即使没有子用例的参与，也可以完成一个完整的功能</strong>）</p>
-<p>扩展用例为基用例添加新的行为。扩展用例可以访问基用例的属性，因此它能根据基用例中扩展点的当前状态来判断是否执行自己。但是扩展用例对基用例不可见。</p>
-<p>【箭头指向】：extend关系在用例图中使用带箭头的虚线表示(在线上标注&lt;<extend>&gt;)，箭头从子用例指向基用例。</p>
-<p><img src="http://img.salute61.top/%E6%89%A9%E5%B1%95%E5%85%B3%E7%B3%BB.png" alt=""></p>
-</li>
-<li><p>泛化关系（generalization）：泛化关系是一种继承关系，子用例将继承基用例的所有行为，关系和通信关系，也就是说在任何使用基用例的地方都可以用子用例来代替。</p>
-<p>【箭头指向】：在用例图中使用空心的箭头表示，箭头方向从子用例指向基用例。</p>
-<p><img src="http://img.salute61.top/%E6%B3%9B%E5%8C%96%E5%85%B3%E7%B3%BB.png" alt=""></p>
-</li>
-</ol>
-<p>以下是一个小示例：</p>
-<p><img src="http://img.salute61.top/%E8%A1%8C%E7%A8%8B%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F%E7%94%A8%E4%BE%8B%E5%9B%BE.png" alt=""></p>
+<p>这个项目是我在GitHub上偶然找到的，我发现的也是一个学生fork了WesBos的项目在学，照着他的学了几天，感觉吧，按他的学习目标去查相关知识、再写代码、再写README非常耗时。。。主要我能抽出的时间不算多，只能快速的了解，因此我重新在GitHub上找到了WesBos的项目，然后在Youtube上找相关的视频，倍速边看边写，暂时是只能这样了，以后等有机会好好学，再来回顾！</p>
+<blockquote>
+<p>在看视频时up主有提到直接原生js帮助很大，但是也确实很难，我开始时感觉有其他cs基础专业课的学习，理解上会好一点，结果还是感觉原生js的话学习效率并不算很高，因为没有完整的学过前端网页，只是简单的了解了基础的hmtl+css+js的概念知识，很多js原生的函数都不知道，虽然大概看一下就知道意思，不过确实感觉很艰难。。。</p>
+<p>其实转念一想，很多的语言学习方法类似，人又不是字典要把所有功能都记住，掌握常用的核心函数就行，其他的用的时候就去查，学习独立解决问题的能力才是关键吧。肝！</p>
+</blockquote>
+<p>之前追剧耽搁了两天。。最后还是把这个系列补完了！</p>
+<table>
+<thead>
+<tr>
+<th>No</th>
+<th>Name</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/01" target="_blank" rel="noopener">JavaScript Drum Kit</a></td>
+<td><a href="http://47.92.108.230/js01/index61.html" target="_blank" rel="noopener">纯 JS 模拟敲鼓效果</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/02" target="_blank" rel="noopener">JS + CSS Clock</a></td>
+<td><a href="http://47.92.108.230/js02/index61.html" target="_blank" rel="noopener">纯 JavaScript+CSS 时钟效果</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/03" target="_blank" rel="noopener">CSS Variables</a></td>
+<td><a href="http://47.92.108.230/js03/index61.html" target="_blank" rel="noopener">用 CSS 变量实现拖动控制参数效果</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/04" target="_blank" rel="noopener">Array Cardio Day 1</a></td>
+<td><a href="http://47.92.108.230/js04/index61.html" target="_blank" rel="noopener">数组基本操作方法示例一</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/05" target="_blank" rel="noopener">Flex Panel Gallery</a></td>
+<td><a href="http://47.92.108.230/js05/index61.html" target="_blank" rel="noopener">可伸缩的图片墙在线效果</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/06" target="_blank" rel="noopener">Type Ahead</a></td>
+<td><a href="http://47.92.108.230/js06/index61.html" target="_blank" rel="noopener">过滤匹配实现查找</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/07" target="_blank" rel="noopener">Array Cardio Day 2</a></td>
+<td><a href="http://47.92.108.230/js07/index61.html" target="_blank" rel="noopener">数组基本操作方法示例二</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/08" target="_blank" rel="noopener">Fun with HTML5 Canvas</a></td>
+<td><a href="http://47.92.108.230/js08/index61.html" target="_blank" rel="noopener">彩虹画笔绘画板在线效果</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/09" target="_blank" rel="noopener">Dev Tools Domination</a></td>
+<td><a href="http://47.92.108.230/js09/index61.html" target="_blank" rel="noopener">Console 调试技巧在线示例</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/10" target="_blank" rel="noopener">Hold Shift and Check Checkboxes</a></td>
+<td><a href="http://47.92.108.230/js10/index61.html" target="_blank" rel="noopener">Shift 批量选中在线效果</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/11" target="_blank" rel="noopener">Custom Video Player</a></td>
+<td><a href="http://47.92.108.230/js11/index61.html" target="_blank" rel="noopener">自制播放器</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/12" target="_blank" rel="noopener">Key Sequence Detection</a></td>
+<td><a href="http://47.92.108.230/js12/index61.html" target="_blank" rel="noopener">键盘输入序列</a></td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/13" target="_blank" rel="noopener">Slide in on Scroll</a></td>
+<td><a href="http://47.92.108.230/js13/index61.html" target="_blank" rel="noopener">图片随屏幕滚动而滑入滑出的在线效果</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/14" target="_blank" rel="noopener">JavaScript References VS Copying</a></td>
+<td>-</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/15" target="_blank" rel="noopener">LocalStorage</a></td>
+<td><a href="http://47.92.108.230/js15/index61.html" target="_blank" rel="noopener">利用 localStorage 模拟在线菜单</a></td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/16" target="_blank" rel="noopener">Mouse Move Shadow</a></td>
+<td><a href="http://47.92.108.230/js16/index61.html" target="_blank" rel="noopener">文字阴影随鼠标移动在线效果</a></td>
+</tr>
+<tr>
+<td>17</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/17" target="_blank" rel="noopener">Sort Without Articles</a></td>
+<td><a href="http://47.92.108.230/js17/index61.html" target="_blank" rel="noopener">去前缀排序在线效果</a></td>
+</tr>
+<tr>
+<td>18</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/18" target="_blank" rel="noopener">Adding Up Times with Reduce</a></td>
+<td><a href="http://47.92.108.230/js18/index61.html" target="_blank" rel="noopener">使用 Reduce 进行时间叠加效果</a></td>
+</tr>
+<tr>
+<td>19</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/19" target="_blank" rel="noopener">Webcam Fun</a></td>
+<td><a href="http://47.92.108.230/js19/index61.html" target="_blank" rel="noopener">网络摄像头及图片处理在线效果</a></td>
+</tr>
+<tr>
+<td>20</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/20" target="_blank" rel="noopener">Speech Detection</a></td>
+<td><a href="http://47.92.108.230/js20/index61.html" target="_blank" rel="noopener">语音检测识别效果</a></td>
+</tr>
+<tr>
+<td>21</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/21" target="_blank" rel="noopener">Geolocation</a></td>
+<td>-</td>
+</tr>
+<tr>
+<td>22</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/22" target="_blank" rel="noopener">Follow Along Link Highlighter</a></td>
+<td><a href="http://47.92.108.230/js22/index61.html" target="_blank" rel="noopener">鼠标停留高亮效果</a></td>
+</tr>
+<tr>
+<td>23</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/23" target="_blank" rel="noopener">Speech Synthesis</a></td>
+<td><a href="http://47.92.108.230/js23/index61.html" target="_blank" rel="noopener">语音播放效果</a></td>
+</tr>
+<tr>
+<td>24</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/24" target="_blank" rel="noopener">Sticky Nav</a></td>
+<td><a href="http://47.92.108.230/js24/index61.html" target="_blank" rel="noopener">类博客标签栏效果</a></td>
+</tr>
+<tr>
+<td>25</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/25" target="_blank" rel="noopener">Event Capture, Propagation, Bubbling and Once</a></td>
+<td><a href="http://47.92.108.230/js25/index61.html" target="_blank" rel="noopener">事件冒泡效果</a></td>
+</tr>
+<tr>
+<td>26</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/26" target="_blank" rel="noopener">Stripe Follow Along Nav</a></td>
+<td><a href="http://47.92.108.230/js26/index61.html" target="_blank" rel="noopener">Js鼠标驻留显示</a></td>
+</tr>
+<tr>
+<td>27</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/27" target="_blank" rel="noopener">Click and Drag</a></td>
+<td><a href="http://47.92.108.230/js27/index61.html" target="_blank" rel="noopener">立体的点击&amp;拖曳</a></td>
+</tr>
+<tr>
+<td>28</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/28" target="_blank" rel="noopener">Video Speed Controller</a></td>
+<td><a href="http://47.92.108.230/js28/index61.html" target="_blank" rel="noopener">视频速度</a></td>
+</tr>
+<tr>
+<td>29</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/29" target="_blank" rel="noopener">Countdown Timer</a></td>
+<td><a href="http://47.92.108.230/js29/index61.html" target="_blank" rel="noopener">时钟计时器</a></td>
+</tr>
+<tr>
+<td>30</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/30" target="_blank" rel="noopener">Whack A Mole</a></td>
+<td><a href="http://47.92.108.230/js30/index61.html" target="_blank" rel="noopener">Js打地鼠</a></td>
+</tr>
+</tbody></table>
 
       
       <!-- reward -->
@@ -247,14 +369,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/05/11/UML%E5%BB%BA%E6%A8%A1-%E7%94%A8%E4%BE%8B%E5%9B%BE/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/06/01/Js30day/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/" rel="tag">UML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" rel="tag">软件工程</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Js/" rel="tag">Js</a></li></ul>
 
 
     </footer>
@@ -265,19 +387,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/2020/06/01/Js30day/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Js30day
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/25/Js%E4%B8%AD%E7%9A%84let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/" class="article-nav-link">
+      <a href="/2020/05/11/UML%E5%BB%BA%E6%A8%A1-%E7%94%A8%E4%BE%8B%E5%9B%BE/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Js中的let和const命令</div>
+        <div class="article-nav-title">UML建模--用例图</div>
       </a>
     
   </nav>

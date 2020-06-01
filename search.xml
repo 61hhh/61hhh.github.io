@@ -1,6 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Js30day</title>
+    <url>/2020/06/01/Js30day/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Javascript30-纯JS代码挑战"><a href="#Javascript30-纯JS代码挑战" class="headerlink" title="Javascript30-纯JS代码挑战"></a>Javascript30-纯JS代码挑战</h1><p>JavaScript30是加拿大工程师WES BOS制作的一系列纯JavaScript代码练习，共30个challenge，每一个challenge都提供了教学视频、示例文件、解决方案源码</p>
+<p><img src="http://img.salute61.top/Js30.png" alt=""></p>
+<blockquote>
+<p><a href="https://github.com/wesbos/JavaScript30" target="_blank" rel="noopener">Js30的GitHub地址</a></p>
+<p><a href="http://javascript30.com/" target="_blank" rel="noopener">Js30网址</a></p>
+</blockquote>
+<p>这个项目是我在GitHub上偶然找到的，我发现的也是一个学生fork了WesBos的项目在学，照着他的学了几天，感觉吧，按他的学习目标去查相关知识、再写代码、再写README非常耗时。。。主要我能抽出的时间不算多，只能快速的了解，因此我重新在GitHub上找到了WesBos的项目，然后在Youtube上找相关的视频，倍速边看边写，暂时是只能这样了，以后等有机会好好学，再来回顾！</p>
+<blockquote>
+<p>在看视频时up主有提到直接原生js帮助很大，但是也确实很难，我开始时感觉有其他cs基础专业课的学习，理解上会好一点，结果还是感觉原生js的话学习效率并不算很高，因为没有完整的学过前端网页，只是简单的了解了基础的hmtl+css+js的概念知识，很多js原生的函数都不知道，虽然大概看一下就知道意思，不过确实感觉很艰难。。。</p>
+<p>其实转念一想，很多的语言学习方法类似，人又不是字典要把所有功能都记住，掌握常用的核心函数就行，其他的用的时候就去查，学习独立解决问题的能力才是关键吧。肝！</p>
+</blockquote>
+<p>之前追剧耽搁了两天。。最后还是把这个系列补完了！</p>
+<table>
+<thead>
+<tr>
+<th>No</th>
+<th>Name</th>
+<th>Demo</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/01" target="_blank" rel="noopener">JavaScript Drum Kit</a></td>
+<td><a href="http://47.92.108.230/js01/index61.html" target="_blank" rel="noopener">纯 JS 模拟敲鼓效果</a></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/02" target="_blank" rel="noopener">JS + CSS Clock</a></td>
+<td><a href="http://47.92.108.230/js02/index61.html" target="_blank" rel="noopener">纯 JavaScript+CSS 时钟效果</a></td>
+</tr>
+<tr>
+<td>3</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/03" target="_blank" rel="noopener">CSS Variables</a></td>
+<td><a href="http://47.92.108.230/js03/index61.html" target="_blank" rel="noopener">用 CSS 变量实现拖动控制参数效果</a></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/04" target="_blank" rel="noopener">Array Cardio Day 1</a></td>
+<td><a href="http://47.92.108.230/js04/index61.html" target="_blank" rel="noopener">数组基本操作方法示例一</a></td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/05" target="_blank" rel="noopener">Flex Panel Gallery</a></td>
+<td><a href="http://47.92.108.230/js05/index61.html" target="_blank" rel="noopener">可伸缩的图片墙在线效果</a></td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/06" target="_blank" rel="noopener">Type Ahead</a></td>
+<td><a href="http://47.92.108.230/js06/index61.html" target="_blank" rel="noopener">过滤匹配实现查找</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/07" target="_blank" rel="noopener">Array Cardio Day 2</a></td>
+<td><a href="http://47.92.108.230/js07/index61.html" target="_blank" rel="noopener">数组基本操作方法示例二</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/08" target="_blank" rel="noopener">Fun with HTML5 Canvas</a></td>
+<td><a href="http://47.92.108.230/js08/index61.html" target="_blank" rel="noopener">彩虹画笔绘画板在线效果</a></td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/09" target="_blank" rel="noopener">Dev Tools Domination</a></td>
+<td><a href="http://47.92.108.230/js09/index61.html" target="_blank" rel="noopener">Console 调试技巧在线示例</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/10" target="_blank" rel="noopener">Hold Shift and Check Checkboxes</a></td>
+<td><a href="http://47.92.108.230/js10/index61.html" target="_blank" rel="noopener">Shift 批量选中在线效果</a></td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/11" target="_blank" rel="noopener">Custom Video Player</a></td>
+<td><a href="http://47.92.108.230/js11/index61.html" target="_blank" rel="noopener">自制播放器</a></td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/12" target="_blank" rel="noopener">Key Sequence Detection</a></td>
+<td><a href="http://47.92.108.230/js12/index61.html" target="_blank" rel="noopener">键盘输入序列</a></td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/13" target="_blank" rel="noopener">Slide in on Scroll</a></td>
+<td><a href="http://47.92.108.230/js13/index61.html" target="_blank" rel="noopener">图片随屏幕滚动而滑入滑出的在线效果</a></td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/14" target="_blank" rel="noopener">JavaScript References VS Copying</a></td>
+<td>-</td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/15" target="_blank" rel="noopener">LocalStorage</a></td>
+<td><a href="http://47.92.108.230/js15/index61.html" target="_blank" rel="noopener">利用 localStorage 模拟在线菜单</a></td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/16" target="_blank" rel="noopener">Mouse Move Shadow</a></td>
+<td><a href="http://47.92.108.230/js16/index61.html" target="_blank" rel="noopener">文字阴影随鼠标移动在线效果</a></td>
+</tr>
+<tr>
+<td>17</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/17" target="_blank" rel="noopener">Sort Without Articles</a></td>
+<td><a href="http://47.92.108.230/js17/index61.html" target="_blank" rel="noopener">去前缀排序在线效果</a></td>
+</tr>
+<tr>
+<td>18</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/18" target="_blank" rel="noopener">Adding Up Times with Reduce</a></td>
+<td><a href="http://47.92.108.230/js18/index61.html" target="_blank" rel="noopener">使用 Reduce 进行时间叠加效果</a></td>
+</tr>
+<tr>
+<td>19</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/19" target="_blank" rel="noopener">Webcam Fun</a></td>
+<td><a href="http://47.92.108.230/js19/index61.html" target="_blank" rel="noopener">网络摄像头及图片处理在线效果</a></td>
+</tr>
+<tr>
+<td>20</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/20" target="_blank" rel="noopener">Speech Detection</a></td>
+<td><a href="http://47.92.108.230/js20/index61.html" target="_blank" rel="noopener">语音检测识别效果</a></td>
+</tr>
+<tr>
+<td>21</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/21" target="_blank" rel="noopener">Geolocation</a></td>
+<td>-</td>
+</tr>
+<tr>
+<td>22</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/22" target="_blank" rel="noopener">Follow Along Link Highlighter</a></td>
+<td><a href="http://47.92.108.230/js22/index61.html" target="_blank" rel="noopener">鼠标停留高亮效果</a></td>
+</tr>
+<tr>
+<td>23</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/23" target="_blank" rel="noopener">Speech Synthesis</a></td>
+<td><a href="http://47.92.108.230/js23/index61.html" target="_blank" rel="noopener">语音播放效果</a></td>
+</tr>
+<tr>
+<td>24</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/24" target="_blank" rel="noopener">Sticky Nav</a></td>
+<td><a href="http://47.92.108.230/js24/index61.html" target="_blank" rel="noopener">类博客标签栏效果</a></td>
+</tr>
+<tr>
+<td>25</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/25" target="_blank" rel="noopener">Event Capture, Propagation, Bubbling and Once</a></td>
+<td><a href="http://47.92.108.230/js25/index61.html" target="_blank" rel="noopener">事件冒泡效果</a></td>
+</tr>
+<tr>
+<td>26</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/26" target="_blank" rel="noopener">Stripe Follow Along Nav</a></td>
+<td><a href="http://47.92.108.230/js26/index61.html" target="_blank" rel="noopener">Js鼠标驻留显示</a></td>
+</tr>
+<tr>
+<td>27</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/27" target="_blank" rel="noopener">Click and Drag</a></td>
+<td><a href="http://47.92.108.230/js27/index61.html" target="_blank" rel="noopener">立体的点击&amp;拖曳</a></td>
+</tr>
+<tr>
+<td>28</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/28" target="_blank" rel="noopener">Video Speed Controller</a></td>
+<td><a href="http://47.92.108.230/js28/index61.html" target="_blank" rel="noopener">视频速度</a></td>
+</tr>
+<tr>
+<td>29</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/29" target="_blank" rel="noopener">Countdown Timer</a></td>
+<td><a href="http://47.92.108.230/js29/index61.html" target="_blank" rel="noopener">时钟计时器</a></td>
+</tr>
+<tr>
+<td>30</td>
+<td><a href="https://github.com/61hhh/Js30/tree/master/30" target="_blank" rel="noopener">Whack A Mole</a></td>
+<td><a href="http://47.92.108.230/js30/index61.html" target="_blank" rel="noopener">Js打地鼠</a></td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>前端基础</category>
+      </categories>
+      <tags>
+        <tag>Js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>UML建模--用例图</title>
     <url>/2020/05/11/UML%E5%BB%BA%E6%A8%A1-%E7%94%A8%E4%BE%8B%E5%9B%BE/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近开了应用软件实验，分小组做项目，相当于上学期软件工程实验的升级版，主要的知识除了code就是软工的那些了，画用例图的时候感觉很模糊，上学期的知识已经忘光了。。。这里简单整理一下，免得以后忘了又要到处找。</p>
@@ -183,8 +365,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -274,8 +456,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -605,8 +787,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -626,8 +808,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -866,7 +1048,16 @@
 
 
 
-<h5 id="1006-Sign-In-and-Sign-Out"><a href="#1006-Sign-In-and-Sign-Out" class="headerlink" title="1006 Sign In and Sign Out"></a>1006 Sign In and Sign Out</h5><h5 id="1036-Boys-vs-Girls"><a href="#1036-Boys-vs-Girls" class="headerlink" title="1036 Boys vs Girls"></a>1036 Boys vs Girls</h5><h3 id="3-3图形输出"><a href="#3-3图形输出" class="headerlink" title="3.3图形输出"></a>3.3图形输出</h3><h4 id="PAT-B-2"><a href="#PAT-B-2" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1027打印沙漏"><a href="#1027打印沙漏" class="headerlink" title="1027打印沙漏"></a>1027打印沙漏</h5><p>思路：可以将沙漏看作一个倒三角一个正三角，</p>
+<h5 id="1006-Sign-In-and-Sign-Out"><a href="#1006-Sign-In-and-Sign-Out" class="headerlink" title="1006 Sign In and Sign Out"></a>1006 Sign In and Sign Out</h5><p>思路：创建一个结构体Work，存储id和签到时间属性，然后编写一个cmp函数比较时间，设置一个ans1、ans2用于设置签入和签出的时间。</p>
+<ul>
+<li>在n个循环内输入id，再输入签入时间，cmp比较</li>
+<li>再输入签出时间，cmp比较，最后输出符合条件的</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Work</span>&#123;</span></span><br><span class="line">	<span class="keyword">char</span> id[<span class="number">20</span>];</span><br><span class="line">	<span class="keyword">int</span> hh,mm,ss;</span><br><span class="line">	</span><br><span class="line">&#125;tmp,ans1,ans2;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(Work work1,Work work2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(work1.hh != work2.hh) <span class="keyword">return</span> work1.hh&gt;work2.hh;</span><br><span class="line">	<span class="keyword">if</span>(work1.mm != work2.mm) <span class="keyword">return</span> work1.mm&gt;work2.mm;</span><br><span class="line">	<span class="keyword">return</span> work1.ss&gt;work2.ss;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	ans1.hh=<span class="number">24</span>,ans1.mm=<span class="number">60</span>,ans1.ss=<span class="number">60</span>;</span><br><span class="line">	ans2.hh=<span class="number">0</span>,ans2.mm=<span class="number">0</span>,ans2.ss=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%s %d:%d:%d"</span>,&amp;tmp.id,&amp;tmp.hh,&amp;tmp.mm,&amp;tmp.ss);</span><br><span class="line">		<span class="keyword">if</span>(cmp(tmp,ans1)==<span class="literal">false</span>)</span><br><span class="line">			ans1=tmp;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d:%d:%d"</span>,&amp;tmp.hh,&amp;tmp.mm,&amp;tmp.ss);</span><br><span class="line">		<span class="keyword">if</span>(cmp(tmp,ans2)==<span class="literal">true</span>)</span><br><span class="line">			ans2=tmp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s %s\n"</span>,ans1.id,ans2.id);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1036-Boys-vs-Girls"><a href="#1036-Boys-vs-Girls" class="headerlink" title="1036 Boys vs Girls"></a>1036 Boys vs Girls</h5><h3 id="3-3图形输出"><a href="#3-3图形输出" class="headerlink" title="3.3图形输出"></a>3.3图形输出</h3><h4 id="PAT-B-2"><a href="#PAT-B-2" class="headerlink" title="PAT-B"></a>PAT-B</h4><h5 id="1027打印沙漏"><a href="#1027打印沙漏" class="headerlink" title="1027打印沙漏"></a>1027打印沙漏</h5><p>思路：可以将沙漏看作一个倒三角一个正三角，</p>
 <ul>
 <li>假设三角有k行，每行符号数为1、3、5……2k-1。 则总符号数等差求和： 1+2(3+2<em>k-1)</em>(k-1)/2</li>
 <li>由题2k^2-1&lt;=n;可以解得行数k，然后依次打印倒三角正三角</li>
@@ -1027,7 +1218,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-ZhMilizt" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-VwUNlhtG" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
@@ -1238,8 +1429,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -1441,8 +1632,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
 </search>
