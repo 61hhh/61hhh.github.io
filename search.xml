@@ -9,6 +9,8 @@
 <p><a href="https://github.com/wesbos/JavaScript30" target="_blank" rel="noopener">Js30的GitHub地址</a></p>
 <p><a href="http://javascript30.com/" target="_blank" rel="noopener">Js30网址</a></p>
 </blockquote>
+<a id="more"></a>
+
 <p>这个项目是我在GitHub上偶然找到的，我发现的也是一个学生fork了WesBos的项目在学，照着他的学了几天，感觉吧，按他的学习目标去查相关知识、再写代码、再写README非常耗时。。。主要我能抽出的时间不算多，只能快速的了解，因此我重新在GitHub上找到了WesBos的项目，然后在Youtube上找相关的视频，倍速边看边写，暂时是只能这样了，以后等有机会好好学，再来回顾！</p>
 <blockquote>
 <p>在看视频时up主有提到直接原生js帮助很大，但是也确实很难，我开始时感觉有其他cs基础专业课的学习，理解上会好一点，结果还是感觉原生js的话学习效率并不算很高，因为没有完整的学过前端网页，只是简单的了解了基础的hmtl+css+js的概念知识，很多js原生的函数都不知道，虽然大概看一下就知道意思，不过确实感觉很艰难。。。</p>
@@ -365,8 +367,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -456,8 +458,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -787,8 +789,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -808,8 +810,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1218,7 +1220,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-VwUNlhtG" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-ejCwJhhF" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
@@ -1429,8 +1431,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -1632,8 +1634,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
         <tag>web</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
