@@ -1,6 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Intent详解</title>
+    <url>/2020/07/02/Intent%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Android中使用Intent的总结"><a href="#Android中使用Intent的总结" class="headerlink" title="Android中使用Intent的总结"></a>Android中使用Intent的总结</h1><p>学习Android一开始就是活动（Activity），而Intent就是连接活动的重要组件。</p>
+<p>Android中提供了Intent机制来协助应用间的交互与通讯，或者采用更准确的说法是，Intent不仅可用于应用程序之间，也可用于应用程序内部的activity, service和broadcast receiver之间的交互。Intent是一种运行时绑定（runtime binding)机制，它能在程序运行的过程中连接两个不同的组件。通过Intent，你的程序可以向Android表达某种请求或者意愿，Android会根据意愿的内容选择适当的组件来响应。</p>
+<p>参考文档：</p>
+<p><a href="https://developer.android.google.cn/guide/components/intents-filters" target="_blank" rel="noopener">Intent 和 Intent 过滤器</a></p>
+<p><a href="https://www.cnblogs.com/qianguyihao/p/3959204.html" target="_blank" rel="noopener">Android组件系列—-Intent详解</a></p>
+<a id="more"></a>
+
+<h2 id="1-Intent概念"><a href="#1-Intent概念" class="headerlink" title="1 Intent概念"></a>1 Intent概念</h2><p><code>Intent</code> 是一个消息传递对象，您可以用来从其他<a href="https://developer.android.google.cn/guide/components/fundamentals#Components" target="_blank" rel="noopener">应用组件</a>请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信，但其基本用例主要包括以下三个：</p>
+<ul>
+<li><p><strong>启动Activity</strong></p>
+<p>通过将 <code>Intent</code> 传递给 <code>startActivity()</code>，可以启动新的 <code>Activity</code> 实例。<code>Intent</code> 用于描述要启动的 Activity，并携带任何必要的数据。</p>
+<p>如果希望在 Activity 完成后收到结果，可以调用 <code>startActivityForResult()</code>。在 Activity 的 <code>onActivityResult()</code> 回调中， Activity 将结果作为单独的 <code>Intent</code> 对象接收。</p>
+</li>
+<li><p><strong>启动服务</strong></p>
+<p><code>Service</code> 是一个不使用用户界面而在后台执行操作的组件。使用 Android 5.0（API 级别 21）及更高版本，您可以启动包含 <code>JobScheduler</code> 的服务。如需了解有关 <code>JobScheduler</code> 的详细信息，请参阅其 <code>API-reference documentation</code>。</p>
+<p>对于 Android 5.0（API 级别 21）之前的版本，您可以使用 <code>Service</code> 类的方法来启动服务。通过将 <code>Intent</code> 传递给 <code>startService()</code>，您可以启动服务执行一次性操作（例如，下载文件）。<code>Intent</code> 用于描述要启动的服务，并携带任何必要的数据。</p>
+<p>如果服务旨在使用客户端-服务器接口，则通过将 <code>Intent</code> 传递给 <code>bindService()</code>，您可以从其他组件绑定到此服务。如需了解详细信息，请参阅<a href="https://developer.android.google.cn/guide/components/services" target="_blank" rel="noopener">服务</a>指南。</p>
+</li>
+<li><p><strong>传递广播</strong></p>
+<p>广播是任何应用均可接收的消息。系统将针对系统事件（例如：系统启动或设备开始充电时）传递各种广播。通过将 <code>Intent</code> 传递给 <code>sendBroadcast()</code> 或 <code>sendOrderedBroadcast()</code>，您可以将广播传递给其他应用。</p>
+</li>
+</ul>
+<h2 id="2-Intent类型"><a href="#2-Intent类型" class="headerlink" title="2 Intent类型"></a>2 Intent类型</h2><p>Intent分为两种类型：</p>
+<ul>
+<li><p><strong>显示Intent</strong></p>
+<p>即直接指明了需要交互的Activity对应的类，用于启动某个特定应用组件</p>
+</li>
+<li><p><strong>隐式Intent</strong></p>
+<p>隐式 Intent 指定能够在可以执行相应操作的设备上调用任何应用的操作，相比于显式Intent，隐式Intent不指定组件名，而是指定Intent的Action、Data或Category，当启动组件时，系统会去匹配<code>AndroidManifest.xml</code>中相关的<code>Intent-filter</code>，逐一匹配满足属性的组件，不止一个满足条件时会弹出应用选择框。</p>
+</li>
+</ul>
+<img src="http://img.salute61.top/Intent-Filter%E5%8C%B9%E9%85%8D%E8%BF%87%E7%A8%8B.png" style="zoom:50%;"/>
+
+<h2 id="3-Intent相关属性"><a href="#3-Intent相关属性" class="headerlink" title="3 Intent相关属性"></a>3 Intent相关属性</h2><p>Intent有7个属性，其中除了Component是直接属性，其他都是可选属性：</p>
+<ol>
+<li>component(组件)：目的组件</li>
+<li>action（动作）：用来表现意图的行动</li>
+<li>category（类别）：用来表现动作的类别</li>
+<li>data（数据）：表示与动作要操纵的数据</li>
+<li>type（数据类型）：对于data范例的描写</li>
+<li>extras（扩展信息）：扩展信息</li>
+<li>Flags（标志位）：期望这个意图的运行模式</li>
+</ol>
+<h3 id="3-1-component（组件）"><a href="#3-1-component（组件）" class="headerlink" title="3.1 component（组件）"></a>3.1 component（组件）</h3><p>Component属性明确指定Intent的目标组件的类名称。（属于直接Intent）如果 component这个属性有指定的话，将直接使用它指定的组件。指定了这个属性以后，Intent的其它所有属性都是可选的。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Activity1中点击button1跳转到Activity2</span></span><br><span class="line">button1.setOnClickListener(<span class="keyword">new</span> OnClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//创建一个意图对象</span></span><br><span class="line">                Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line">                <span class="comment">//创建组件，通过组件来响应</span></span><br><span class="line">                ComponentName component = <span class="keyword">new</span> ComponentName(MainActivity.<span class="keyword">this</span>, SecondActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">                intent.setComponent(component);</span><br><span class="line">                startActivity(intent);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>或者使用setClass：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Intent intent = <span class="keyword">new</span> Intent();</span><br><span class="line"><span class="comment">//setClass函数的第一个参数是一个Context对象</span></span><br><span class="line"><span class="comment">//Context是一个类，Activity是Context类的子类，也就是说，所有的Activity对象，都可以向上转型为Context对象</span></span><br><span class="line"><span class="comment">//setClass函数的第二个参数是一个Class对象，在当前场景下，应该传入需要被启动的Activity类的class对象</span></span><br><span class="line">intent.setClass(MainActivity.<span class="keyword">this</span>, SecondActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+<p>更简单常用的是直接使用Intent的构造函数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Intent intent=<span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,secondActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">startActivity(intent);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-Action（动作）"><a href="#3-2-Action（动作）" class="headerlink" title="3.2 Action（动作）"></a>3.2 Action（动作）</h3><p>在Intent中，Action就是描述做、写等动作的，当你指明了一个Action，执行者就会依照这个动作的指示，接受相关输入，表现对应行为，产生符合的输出（实际action属性就是一个字符串标记而已）。在Intent类中，定义了一批量的动作，比如ACTION_VIEW，ACTION_PICK等， 基本涵盖了常用动作。加的动作越多，越精确。</p>
+<p>Action 是一个用户定义的字符串，用于描述一个 Android 应用程序组件，一个 Intent Filter 可以包含多个 Action。在 AndroidManifest.xml 的Activity 定义时，可以在其 <intent-filter >节点指定一个 Action列表用于标识 Activity 所能接受的“动作”。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>ACTION_MAIN</code></td>
+<td align="left">表示程序的入口</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_VIEW</code></td>
+<td align="left">配合intent.setData(uri)使用，跳转到指定数据的界面</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_DAIL</code></td>
+<td align="left">显示Data指向的号码并在拨号界面Dailer上</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_PICK</code></td>
+<td align="left">选择一个一条的Data并且返回它，是一种精确跳转方式(满足条件的Activity只有一个)</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_SEND</code></td>
+<td align="left">发送Data到指定地方（sendto可以发送多组Data）</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_EDIT</code></td>
+<td align="left">配合intent.setData(uri)使用，根据不同数据类型的uri，跳转到可编辑的uir指定的需要修改的数据的指定页面。</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_INSERT</code></td>
+<td align="left">添加一个空的项到容器中</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_SEARCH</code></td>
+<td align="left">执行搜索</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_RUN</code></td>
+<td align="left">运行Data</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-category（类别）"><a href="#3-3-category（类别）" class="headerlink" title="3.3 category（类别）"></a>3.3 category（类别）</h3><p>Category属性也是作为<intent-filter>子元素来声明的。Action 和category通常是放在一起用的，例如Activity1跳转到Activity2的隐式Intent即可以采用此方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//隐式Intent，Activity1中的OnClick方法</span></span><br><span class="line">Intent intent=<span class="keyword">new</span> Intent(<span class="string">"com.example.activitytest.Action_START"</span>);</span><br><span class="line">intent.addCategory(<span class="string">"com.example.activitytest.MY_CATEGORY"</span>);</span><br><span class="line">startActivity(intent);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在对应的AndroidManifest.xml添加</span></span><br><span class="line">        &lt;activity android:name=<span class="string">".secondActivity"</span>&gt;</span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=<span class="string">"com.example.activitytest.Action_START"</span> /&gt;</span><br><span class="line">                &lt;category android:name=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span><br><span class="line">                &lt;category android:name=<span class="string">"android.intent.category.MY_CATEGORY"</span> /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">        &lt;/activity&gt;</span><br><span class="line"><span class="comment">//在Intent添加类别可以添加多个类别，那就要求被匹配的组件必须同时满足这多个类别，才能匹配成功。操作Activity的时候，如果没有类别，须加上默认类别</span></span><br></pre></td></tr></table></figure>
+
+<p><code>action</code>表示匹配的动作，category默认为default，即：<strong>只有<action>和<category>中的内容同时能够匹配上Intent中指定的action和category时，这个活动才能响应Intent。而如果有多个组件匹配成功，就会以对话框列表的方式让用户进行选择。</strong></p>
+<p>常用的category添加：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CATEGORY_DEFAULT</code></td>
+<td>把一个组件Component设为可被implicit启动的</td>
+</tr>
+<tr>
+<td><code>CATEGORY_LAUNCHER</code></td>
+<td>把一个action设置为在顶级执行。并且包含这个属性的Activity所定义的icon将取代application中定义的icon</td>
+</tr>
+<tr>
+<td><code>CATEGORY_BROWSABLE</code></td>
+<td>当Intent指向网络相关时，必须要添加这个类别</td>
+</tr>
+<tr>
+<td><code>CATEGORY_HOME</code></td>
+<td>使Intent指向Home界面</td>
+</tr>
+<tr>
+<td><code>CATEGORY_PREFERENCE</code></td>
+<td>定义的Activity是一个偏好面板Preference Panel</td>
+</tr>
+</tbody></table>
+<h3 id="3-4-data（数据）"><a href="#3-4-data（数据）" class="headerlink" title="3.4 data（数据）"></a>3.4 data（数据）</h3><ul>
+<li>Data属性是Android要访问的数据，于前面类似也在<intent-filter>中，当有多个组件匹配成功时显示优先级高的，相同则显示列表</li>
+<li>Data是用Uri对象来表示的，uri代表数据的地址，属于一种标识符。</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment">//打开浏览器</span></span><br><span class="line">Intent intent=<span class="keyword">new</span> Intent(Intent.ACTION_VIEW);</span><br><span class="line">intent.setData(Uri.parse(<span class="string">"http://salute61.top/"</span>));</span><br><span class="line">startActivity(intent);</span><br><span class="line"><span class="comment">//初始时调用系统默认的浏览器，可以在清单中修改一下匹配2个       </span></span><br><span class="line">&lt;activity android:name=<span class="string">".ThirdActivity"</span>&gt;</span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name="android.intent.action.VIEW"&gt;&lt;/action&gt;</span><br><span class="line">                &lt;category android:name="android.intent.category.DEFAULT"&gt;&lt;/category&gt;</span><br><span class="line">                &lt;category android:name="android.intent.category.BROWSABLE"&gt;&lt;/category&gt;</span><br><span class="line">                &lt;data android:scheme="http"&gt;&lt;/data&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">        &lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="http://img.salute61.top/Intent%E9%9A%90%E5%BC%8F%E5%8C%B9%E9%85%8D%E5%A4%9A%E4%B8%AA.png" style="zoom:50%;"/>
+
+<p>注：当然匹配到的testActivity中的Activity2并没有对应的功能代码，这里只是演示，实际项目开发中不要将没有对应功能的Activity进行响应</p>
+<p>Type属性用于明确指定Data属性的数据类型或MIME类型，但是通常来说，当Intent不指定Data属性时，Type属性才会起作用，否则Android系统将会根据Data属性值来分析数据的类型，所以无需指定Type属性。</p>
+<p>data和type属性一般只需要一个，通过setData方法会把type属性设置为null，相反设置setType方法会把data设置为null，如果想要两个属性同时设置，要使用Intent.setDataAndType()方法。</p>
+<h3 id="3-5-type（数据类型）"><a href="#3-5-type（数据类型）" class="headerlink" title="3.5 type（数据类型）"></a>3.5 type（数据类型）</h3><p>如果Intent对象中既包含Uri又包含Type，则在<intent-filter>中也必须将二者都包含</p>
+<p>Type属性用于明确指定Data属性的数据类型或MIME类型，但是通常来说，当Intent不指定Data属性时，Type属性才会起作用，否则Android系统将会根据Data属性值来分析数据的类型，所以无需指定Type属性。</p>
+<p>data和type属性一般只需要一个，通过setData方法会把type属性设置为null，相反设置setType方法会把data设置为null，如果想要两个属性同时设置，要使用Intent.setDataAndType()方法。</p>
+<h3 id="3-6-extras（扩展信息）"><a href="#3-6-extras（扩展信息）" class="headerlink" title="3.6 extras（扩展信息）"></a>3.6 extras（扩展信息）</h3><p>extras可以携带完成请求操作所需的附加信息的键值对。正如某些操作使用特定类型的数据 URI 一样，有些操作也使用特定的 extra。</p>
+<p>您可以使用各种 <code>putExtra()</code> 方法添加 extra 数据，每种方法均接受两个参数：键名和值。您还可以创建一个包含所有 extra 数据的 <code>Bundle</code> 对象，然后使用 <code>putExtras()</code> 将 <code>Bundle</code> 插入 <code>Intent</code> 中。</p>
+<p>例如，使用 <code>ACTION_SEND</code> 创建用于发送电子邮件的 Intent 时，可以使用 <code>EXTRA_EMAIL</code> 键指定<em>目标</em>收件人，并使用 <code>EXTRA_SUBJECT</code> 键指定<em>主题</em>。</p>
+<p>向下一个活动传递数据：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String data=<span class="string">"使用Intent传递的数据"</span>;</span><br><span class="line">Intent intent=<span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,secondActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">intent.putExtra(<span class="string">"extra_data"</span>,data);</span><br><span class="line">startActivity(intent);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在secondActivity中接收</span></span><br><span class="line">Intent intent=getIntent();</span><br><span class="line">String data=intent.getStringExtra(<span class="string">"extra_data"</span>);</span><br><span class="line">Log.d(<span class="string">"secondActivity"</span>,data);</span><br></pre></td></tr></table></figure>
+
+<img src="http://img.salute61.top/Intent%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE.png">
+
+<p>返回数据给上一个活动（使用startActivityForResult），由于使用startActivityForResult启动了secondActivity，因此secondActivity销毁后会回调上一个活动的onActivityResult方法，因此要重写一下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//FirstActivity代码</span></span><br><span class="line">Intent intent=<span class="keyword">new</span> Intent(FirstActivity.<span class="keyword">this</span>,secondActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">startActivityForResult(intent,<span class="number">1</span>);</span><br><span class="line"><span class="comment">//SecondActivity中添加返回数据的逻辑</span></span><br><span class="line">Intent intent=<span class="keyword">new</span> Intent();</span><br><span class="line">intent.putExtra(<span class="string">"data_return"</span>,<span class="string">"secondActivity返回的数据"</span>);</span><br><span class="line">setResult(RESULT_OK,intent);</span><br><span class="line">finish();</span><br><span class="line"></span><br><span class="line"><span class="comment">//重写onActivityResult方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode,<span class="keyword">int</span> resultCode,Intent data)</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onActivityResult( requestCode, resultCode,data);</span><br><span class="line">        <span class="keyword">switch</span> (requestCode)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">if</span>(resultCode==RESULT_OK)&#123;</span><br><span class="line">                    String returnData=data.getStringExtra(<span class="string">"data_return"</span>);</span><br><span class="line">                    Log.d(<span class="string">"FirstActivity"</span>,returnData);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<img src="http://img.salute61.top/Intent%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%922.png">
+
+<h3 id="3-7-Flag（标志位）"><a href="#3-7-Flag（标志位）" class="headerlink" title="3.7 Flag（标志位）"></a>3.7 Flag（标志位）</h3><p>一个程序启动后系统会为这个程序分配一个task供其使用，另外同一个task里面可以拥有不同应用程序的activity。那么，同一个程序能不能拥有多个task？相关知识涉及到加载activity的启动模式</p>
+<p>注：android中一组逻辑上在一起的activity被叫做task，自己认为可以理解成一个activity堆栈。</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>Android组件</tag>
+        <tag>学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java读取txt文件+处理</title>
     <url>/2020/06/04/Java%E8%AF%BB%E5%8F%96txt%E6%96%87%E4%BB%B6-%E5%A4%84%E7%90%86/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>因为实验课的任务需要做一个交通的查询功能，因此要将在txt文档中的高铁、航班信息读取+处理</p>
@@ -1371,7 +1545,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-PCeRdiyb" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-YlyyJMMK" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
