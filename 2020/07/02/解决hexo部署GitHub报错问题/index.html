@@ -92,7 +92,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">382</span>
+            <span class="post-count">567</span>
         </span>
     </span>
 
@@ -101,7 +101,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">2 分钟</span>
         </span>
     </span>
 </div>
@@ -145,6 +145,18 @@ var _hmt = _hmt || [];
 <li><p>再执行<code>ssh -T git@github.com</code>，出现提示回车即可</p>
 </li>
 </ul>
+<p>然后依旧port 443报错，那么就不是这个端口的问题了。。改回默认的22端口，然后换个操作：</p>
+<ul>
+<li>打开控制面板，打开：系统和安全—&gt;Windows Defender防火墙—&gt;左侧高级设置—&gt;入站规则—&gt;新建规则</li>
+<li>依次选：端口—&gt;特定本地端口22—&gt;允许连接—&gt;域、专用、公用默认都选上—&gt;名称描述自己设置</li>
+</ul>
+<p>提示如下图，操作完成后可以看到如图2：</p>
+<img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B30.png" style="zoom:50%">
+
+<img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B31.png" style="zoom:60%">
+
+<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。</p>
+<p>再次尝试hexo d部署没有问题，在GitHub的代码仓库中也找到了生成的静态html文件，问题解决！</p>
 
       
       <!-- reward -->
