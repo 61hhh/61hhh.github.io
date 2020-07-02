@@ -92,7 +92,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">567</span>
+            <span class="post-count">591</span>
         </span>
     </span>
 
@@ -124,7 +124,10 @@ var _hmt = _hmt || [];
       
 
       
-      <p>问题描述：</p>
+      <p>解决GitHub部署遇到的一个小问题</p>
+<a id="more"></a>
+
+<p>问题描述：</p>
 <p>之前写的一篇博客上传了就没管了，结果在网站上压根没有，重新<code>npm run deployee</code>了两遍还是没有，仔细一看才发现部署信息提示报错了（很奇怪：有时有有时无。。）——在hexo d部署时出现了<code>ssh: connect to host github.com port 22: Connection timed out</code>问题。</p>
 <p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%981.png" alt=""></p>
 <p>遗憾的是第一次看见时我跑偏了。。只关注了下面的<code>Please make sure you have the correct access rights and the repository exists.</code>描述，然后找解决问题，发现是git服务器没有存储本地ssh密钥。因此执行了一遍操作：</p>
@@ -155,7 +158,7 @@ var _hmt = _hmt || [];
 
 <img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B31.png" style="zoom:60%">
 
-<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。</p>
+<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。（我也没动过22端口。。。真离谱）</p>
 <p>再次尝试hexo d部署没有问题，在GitHub的代码仓库中也找到了生成的静态html文件，问题解决！</p>
 
       

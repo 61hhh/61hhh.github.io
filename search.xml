@@ -3,7 +3,10 @@
   <entry>
     <title>解决hexo部署GitHub报错问题</title>
     <url>/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>问题描述：</p>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>解决GitHub部署遇到的一个小问题</p>
+<a id="more"></a>
+
+<p>问题描述：</p>
 <p>之前写的一篇博客上传了就没管了，结果在网站上压根没有，重新<code>npm run deployee</code>了两遍还是没有，仔细一看才发现部署信息提示报错了（很奇怪：有时有有时无。。）——在hexo d部署时出现了<code>ssh: connect to host github.com port 22: Connection timed out</code>问题。</p>
 <p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%981.png" alt=""></p>
 <p>遗憾的是第一次看见时我跑偏了。。只关注了下面的<code>Please make sure you have the correct access rights and the repository exists.</code>描述，然后找解决问题，发现是git服务器没有存储本地ssh密钥。因此执行了一遍操作：</p>
@@ -34,7 +37,7 @@
 
 <img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B31.png" style="zoom:60%">
 
-<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。</p>
+<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。（我也没动过22端口。。。真离谱）</p>
 <p>再次尝试hexo d部署没有问题，在GitHub的代码仓库中也找到了生成的静态html文件，问题解决！</p>
 ]]></content>
       <tags>
@@ -1586,7 +1589,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-itJmpekj" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-hYIQvpvw" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>

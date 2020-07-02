@@ -139,40 +139,10 @@ var _hmt = _hmt || [];
       
 
       
-      <p>问题描述：</p>
-<p>之前写的一篇博客上传了就没管了，结果在网站上压根没有，重新<code>npm run deployee</code>了两遍还是没有，仔细一看才发现部署信息提示报错了（很奇怪：有时有有时无。。）——在hexo d部署时出现了<code>ssh: connect to host github.com port 22: Connection timed out</code>问题。</p>
-<p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%981.png" alt=""></p>
-<p>遗憾的是第一次看见时我跑偏了。。只关注了下面的<code>Please make sure you have the correct access rights and the repository exists.</code>描述，然后找解决问题，发现是git服务器没有存储本地ssh密钥。因此执行了一遍操作：</p>
-<ul>
-<li>找到.ssh文件夹（C:\User\用户名.ssh），删除其中的known_host（直接删除）</li>
-<li>在Git的bin目录下（一般是C:\Program File\Git\Bin）找到bash.exe输入<code>ssh-keygen -t rsa -C &quot;git的username&quot;</code>，成功就返回一些提示信息，都直接yes回车，然后生成了SSH KEY，即.ssh/id_rsa.pub文件</li>
-<li>将id_rsa.pub中的内容赋值，在GitHub的setting中找到SSH keys复制添加</li>
-<li>在bash.exe中输入<code>ssh -T git@github.com</code>验证即可</li>
-</ul>
-<p>然鹅我最后出现的是：<code>Hi 61hhh! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</code>，一搜说出现这个没啥影响，好的。</p>
-<p>再次hexo d没报错，结果还是没有，再执行hexo d又报错了：</p>
-<p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%982.png" alt=""></p>
-<p>搜到另外的操作：</p>
-<ul>
-<li><p>在.ssh文件夹下使用bash，指令<code>vim config</code>，然后:wq退出</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User 注册github的邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>再执行<code>ssh -T git@github.com</code>，出现提示回车即可</p>
-</li>
-</ul>
-<p>然后依旧port 443报错，那么就不是这个端口的问题了。。改回默认的22端口，然后换个操作：</p>
-<ul>
-<li>打开控制面板，打开：系统和安全—&gt;Windows Defender防火墙—&gt;左侧高级设置—&gt;入站规则—&gt;新建规则</li>
-<li>依次选：端口—&gt;特定本地端口22—&gt;允许连接—&gt;域、专用、公用默认都选上—&gt;名称描述自己设置</li>
-</ul>
-<p>提示如下图，操作完成后可以看到如图2：</p>
-<img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B30.png" style="zoom:50%">
-
-<img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B31.png" style="zoom:60%">
-
-<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。</p>
-<p>再次尝试hexo d部署没有问题，在GitHub的代码仓库中也找到了生成的静态html文件，问题解决！</p>
-
+      <p>解决GitHub部署遇到的一个小问题</p>
+      
+      <a class="article-more-link" href="/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/">阅读更多...</a>
+      
       
       <!-- reward -->
       
