@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>解决hexo部署GitHub报错问题</title>
+    <url>/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>问题描述：</p>
+<p>之前写的一篇博客上传了就没管了，结果在网站上压根没有，重新<code>npm run deployee</code>了两遍还是没有，仔细一看才发现部署信息提示报错了（很奇怪：有时有有时无。。）——在hexo d部署时出现了<code>ssh: connect to host github.com port 22: Connection timed out</code>问题。</p>
+<p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%981.png" alt=""></p>
+<p>遗憾的是第一次看见时我跑偏了。。只关注了下面的<code>Please make sure you have the correct access rights and the repository exists.</code>描述，然后找解决问题，发现是git服务器没有存储本地ssh密钥。因此执行了一遍操作：</p>
+<ul>
+<li>找到.ssh文件夹（C:\User\用户名.ssh），删除其中的known_host（直接删除）</li>
+<li>在Git的bin目录下（一般是C:\Program File\Git\Bin）找到bash.exe输入<code>ssh-keygen -t rsa -C &quot;git的username&quot;</code>，成功就返回一些提示信息，都直接yes回车，然后生成了SSH KEY，即.ssh/id_rsa.pub文件</li>
+<li>将id_rsa.pub中的内容赋值，在GitHub的setting中找到SSH keys复制添加</li>
+<li>在bash.exe中输入<code>ssh -T git@github.com</code>验证即可</li>
+</ul>
+<p>然鹅我最后出现的是：<code>Hi 61hhh! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</code>，一搜说出现这个没啥影响，好的。</p>
+<p>再次hexo d没报错，结果还是没有，再执行hexo d又报错了：</p>
+<p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%982.png" alt=""></p>
+<p>搜到另外的操作：</p>
+<ul>
+<li><p>在.ssh文件夹下使用bash，指令<code>vim config</code>，然后:wq退出</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User 注册github的邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>再执行<code>ssh -T git@github.com</code>，出现提示回车即可</p>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Intent详解</title>
     <url>/2020/07/02/Intent%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="Android中使用Intent的总结"><a href="#Android中使用Intent的总结" class="headerlink" title="Android中使用Intent的总结"></a>Android中使用Intent的总结</h1><p>学习Android一开始就是活动（Activity），而Intent就是连接活动的重要组件。</p>
@@ -1545,7 +1574,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-KYeHKuVE" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-BrwGOlDn" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
