@@ -83,11 +83,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java后端学习路线</title>
-    <url>/2020/07/04/Java%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
-  </entry>
-  <entry>
     <title>解决hexo部署GitHub报错问题</title>
     <url>/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>解决GitHub部署遇到的一个小问题</p>
@@ -1677,7 +1672,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-joHiRBqb" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-AjOJgQnK" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
