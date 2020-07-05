@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    解决hexo部署GitHub报错问题 |  Salute
+    Tomcat学习 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-解决hexo部署GitHub报错问题" class="article article-type-post" itemscope
+  <article id="post-Tomcat学习" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  解决hexo部署GitHub报错问题
+  Tomcat学习
 </h1>
  
 
@@ -81,10 +81,14 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2020-07-02T13:29:34.000Z" itemprop="datePublished">2020-07-02</time>
+      <a href="/2020/07/05/Tomcat%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-07-05T14:01:18.000Z" itemprop="datePublished">2020-07-05</time>
 </a>
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+
       
       
 <div class="word_count">
@@ -92,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">591</span>
+            <span class="post-count">1.2k</span>
         </span>
     </span>
 
@@ -101,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2 分钟</span>
+            <span class="post-count">4 分钟</span>
         </span>
     </span>
 </div>
@@ -112,6 +116,8 @@ var _hmt = _hmt || [];
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -124,42 +130,76 @@ var _hmt = _hmt || [];
       
 
       
-      <p>解决GitHub部署遇到的一个小问题</p>
+      <h2 id="Tomcat学习"><a href="#Tomcat学习" class="headerlink" title="Tomcat学习"></a>Tomcat学习</h2><p>想学习现在热门的Spring，搜查得知在此之前应该掌握tomcat、servlet等前提知识，B站网课动则几十个小时是在是劝退，因此就通过找博客快速学习一下相关知识吧</p>
 <a id="more"></a>
 
-<p>问题描述：</p>
-<p>之前写的一篇博客上传了就没管了，结果在网站上压根没有，重新<code>npm run deployee</code>了两遍还是没有，仔细一看才发现部署信息提示报错了（很奇怪：有时有有时无。。）——在hexo d部署时出现了<code>ssh: connect to host github.com port 22: Connection timed out</code>问题。</p>
-<p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%981.png" alt=""></p>
-<p>遗憾的是第一次看见时我跑偏了。。只关注了下面的<code>Please make sure you have the correct access rights and the repository exists.</code>描述，然后找解决问题，发现是git服务器没有存储本地ssh密钥。因此执行了一遍操作：</p>
-<ul>
-<li>找到.ssh文件夹（C:\User\用户名.ssh），删除其中的known_host（直接删除）</li>
-<li>在Git的bin目录下（一般是C:\Program File\Git\Bin）找到bash.exe输入<code>ssh-keygen -t rsa -C &quot;git的username&quot;</code>，成功就返回一些提示信息，都直接yes回车，然后生成了SSH KEY，即.ssh/id_rsa.pub文件</li>
-<li>将id_rsa.pub中的内容赋值，在GitHub的setting中找到SSH keys复制添加</li>
-<li>在bash.exe中输入<code>ssh -T git@github.com</code>验证即可</li>
-</ul>
-<p>然鹅我最后出现的是：<code>Hi 61hhh! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</code>，一搜说出现这个没啥影响，好的。</p>
-<p>再次hexo d没报错，结果还是没有，再执行hexo d又报错了：</p>
-<p><img src="http://img.salute61.top/git%E9%97%AE%E9%A2%982.png" alt=""></p>
-<p>搜到另外的操作：</p>
-<ul>
-<li><p>在.ssh文件夹下使用bash，指令<code>vim config</code>，然后:wq退出</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">User 注册github的邮箱</span><br><span class="line">Hostname ssh.github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Port 443</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>再执行<code>ssh -T git@github.com</code>，出现提示回车即可</p>
-</li>
-</ul>
-<p>然后依旧port 443报错，那么就不是这个端口的问题了。。改回默认的22端口，然后换个操作：</p>
-<ul>
-<li>打开控制面板，打开：系统和安全—&gt;Windows Defender防火墙—&gt;左侧高级设置—&gt;入站规则—&gt;新建规则</li>
-<li>依次选：端口—&gt;特定本地端口22—&gt;允许连接—&gt;域、专用、公用默认都选上—&gt;名称描述自己设置</li>
-</ul>
-<p>提示如下图，操作完成后可以看到如图2：</p>
-<img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B30.png" style="zoom:50%">
+<h3 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h3><p>百度解释：Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应HTML页面的访问请求。  简单来说Tomcat就是一个运行Java的网络服务器，也是JSP和servlet的容器</p>
+<h3 id="下载配置"><a href="#下载配置" class="headerlink" title="下载配置"></a>下载配置</h3><p>tomcat可以在<a href="https://tomcat.apache.org/" target="_blank" rel="noopener">官网</a>直接下载，点击左侧download选择版本后，再根据自己的版本选择压缩包下载即可，下载完成后解压（建议解压到D盘，C盘可能会出现拒绝访问问题）</p>
+<p><img src="https://ae01.alicdn.com/kf/Hcbeb78f92871439fad842dbe67de0190h.jpg" alt=""></p>
+<p>解压完成后，在环境变量中配置，在系统变量中新建，变量名为<code>CATALINA_HOME</code>，变量值即为安装目录（是tomcat整个的安装目录！）</p>
+<img src="https://ae01.alicdn.com/kf/H030647ae575844e4bc6a50a030a70b02a.jpg" style="zoom:50%">
 
-<img src="http://img.salute61.top/git%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B31.png" style="zoom:60%">
+<p>然后在系统变量的path变量中添加<code>%CATALINA_HOME%\bin</code>，一路确认返回即可。</p>
+<p>Tomcat的运行需要JDK的支持，在命令行中输入<code>java -version</code>查看Java版本，在 JDK1.8 环境下能够正常运行，如果是在12.0版本，1.7版本，Tomcat不能够正常启动！其他JDK版本具体测试，JDK自行百度</p>
+<p>准备好后在命令行中输入<code>startup.bat</code>即可进入tomcat<strong>（此时新产生的命令行窗口不能关闭！）</strong>，在浏览器中输入<code>localhost:8080</code>查看到相应页面即成功配置！</p>
+<img src="https://ae01.alicdn.com/kf/H4d9bd880e851487fa9bcc84ec2e86f69z.jpg">
 
-<p>根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。（我也没动过22端口。。。真离谱）</p>
-<p>再次尝试hexo d部署没有问题，在GitHub的代码仓库中也找到了生成的静态html文件，问题解决！</p>
+<p>1 启动错误，一闪而退可能是端口被占用，tomcat默认的是8080端口，可以在到安装目录下的conf/server.xml文件中修改端口</p>
+<p><img src="https://ae01.alicdn.com/kf/H2f6d525c2ff8410e9481eacea20b52a9Z.jpg" alt=""></p>
+<p>2 如果出现乱码，可以在安装目录的conf文件夹下，找到logging.properties文件，打开修改UTF-8为GBK即可</p>
+<p><img src="https://ae01.alicdn.com/kf/H1480a8a65c914eb69ffbd80fdf99fbfes.jpg" alt=""></p>
+<h3 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h3><p>部署前我们需要先了解Tomcat安装目录的文件结构，最好的方法就是在官网看文档<strong>（适用于所有软件、框架的学习）</strong>，在documentation选择自己下载的版本，进入后overview查看</p>
+<ul>
+<li>/bin：启动、关闭和一些其他的脚本文件，在Unix系统是.sh文件在window是.bat文件</li>
+<li>/conf：存放Tomcat的各种配置文件</li>
+<li>/lib：存放Tomcat的支撑jar包</li>
+<li>/logs：日志文件默认的存放位置</li>
+<li>/temp：存放运行时产生的临时文件</li>
+<li>/webapps：存放自己web app的位置</li>
+</ul>
+<p>部署方式有两种：内嵌式部署、外部映射部署</p>
+<ul>
+<li><p>内嵌式部署：直接将你的web app放在上述的webapps目录下，然后<code>localhost:8080/你的web app文件夹/资源文件.html</code>即可查看。</p>
+<p>具体演示：在webapps目录下新建test目录，新建一个firstweb.html文件，编写html代码，然后在浏览器中输入<code>localhost:8080/test/firstweb.html</code>即可访问</p>
+<img src="https://ae01.alicdn.com/kf/H8a8ffc9678a3441aa72ac7bef8a8403d0.jpg" style="zoom:33%;" />
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>通过WEB-INF设置首页：我们的web app不可能就一个html文件，在多个文件的情况下要设置一个首页，可以借助WEB-INF目录下的web.xml文件实现</p>
+<p>在之前的test目录下创建second.html文件，编写代码，然后创建WEB-INF目录，新建web.xml文件，由于我们自己是不知道规范格式咋写的，可以直接将test同级目录的ROOT目录中的web.xml代码copy过来，然后加上：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;welcome-<span class="built_in">file</span>-<span class="built_in">list</span>&gt;</span><br><span class="line">&lt;welcome-<span class="built_in">file</span>&gt;secondweb.html&lt;/welcome-<span class="built_in">file</span>&gt;</span><br><span class="line"> &lt;/welcome-<span class="built_in">file</span>-<span class="built_in">list</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="https://ae01.alicdn.com/kf/H1dbf640d5415449dbcb404092bc61b88k.jpg" style="zoom: 50%;" />
+
+<p>然后此时可以不用再指定资源文件了，直接浏览器输入<code>localhost:8080/test</code>即可看到设置的首页</p>
+<img src="https://ae01.alicdn.com/kf/Heab6d4e6a4ab4e3a9ce2e868559ae805s.jpg" style="zoom:50%;" />
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>外部映射部署：不是在webapps目录而是在其他盘中的web app文件，也可以部署到Tomcat中，分散存放web文件既可以节约资源也比较方便管理</p>
+<p>具体演示：</p>
+<ul>
+<li>法一：在F盘中创建一个test2，按照之前的目录结构新建index.html，编写代码，然后打开Tom cat的conf目录下的server.xml，在Host标签下添加一行代码：</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context <span class="attribute">path</span>=<span class="string">""</span> <span class="attribute">docBase</span>=<span class="string">""</span>&gt;</span><br><span class="line">path:表示的是访问时输入的web项目名（即是映射路径）</span><br><span class="line">docBase：表示的是站点目录的绝对路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://ae01.alicdn.com/kf/H71e02e9270204034bcdb92c50aba6411F.jpg" alt=""></p>
+<p>打开浏览器输入<code>localhost:8080/new/index.html</code>即可</p>
+<ul>
+<li><p>法二：在conf的Catalina的localhost目录下新建一个new.xml文件然后配置xml文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span></span></span><br><span class="line"><span class="tag">	<span class="attr">reloadable:</span>"<span class="attr">true</span>"</span></span><br><span class="line"><span class="tag">	<span class="attr">docBase</span>=<span class="string">"F:\test2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>同样，打开浏览器输入<code>localhost:8080/new/index.html</code>即可。</p>
+</li>
+</ul>
+</li>
+</ul>
 
       
       <!-- reward -->
@@ -228,14 +268,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/05/Tomcat%E5%AD%A6%E4%B9%A0/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/" rel="tag">git</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a></li></ul>
 
 
     </footer>
@@ -246,19 +286,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
+    
       <a href="/2020/07/04/Java%E5%90%8E%E7%AB%AF%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Java后端学习路线
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/07/02/Intent%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Intent详解</div>
+        <div class="article-nav-title">Java后端学习路线</div>
       </a>
     
   </nav>
