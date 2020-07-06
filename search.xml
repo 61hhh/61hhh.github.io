@@ -5,6 +5,9 @@
     <url>/2020/07/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9CCH1-CH3%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h1 id="计算机网络-CH1-CH3概述"><a href="#计算机网络-CH1-CH3概述" class="headerlink" title="计算机网络 CH1-CH3概述"></a>计算机网络 CH1-CH3概述</h1><p>这两天在复习计算机网络，前面相对简单过的很快，结合《计算机网络——谢希仁 第7版》教材和幕布上整理得非常全面的一份文档对照着看，自己再结合个人理解，对比较重点的地方修改成了自己的语言表述，整体上算是详细的，并且关键知识点经过个人的咀嚼给出了更白话的形式！</p>
 <p>原幕布文档地址：<a href="https://mubu.com/doc/explore/27334" target="_blank" rel="noopener">谢希仁《计算机网络》| 一至六章期末复习</a></p>
+<blockquote>
+<p>君不见黄河之水天上来，奔流到海不复回。<br>君不见高堂明镜悲白发，朝如青丝暮成雪。</p>
+</blockquote>
 <a id="more"></a>
 
 <h2 id="CH1概述"><a href="#CH1概述" class="headerlink" title="CH1概述"></a>CH1概述</h2><h3 id="三网"><a href="#三网" class="headerlink" title="三网"></a>三网</h3><ul>
@@ -2196,7 +2199,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-NKpDmeCv" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-CEjJgMLo" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
