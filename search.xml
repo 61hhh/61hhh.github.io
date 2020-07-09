@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ICMP协议应用</title>
+    <url>/2020/07/09/ICMP%E5%8D%8F%E8%AE%AE%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="ICMP协议应用"><a href="#ICMP协议应用" class="headerlink" title="ICMP协议应用"></a>ICMP协议应用</h2><p>先回顾一下相关知识，ICMP协议是网际层使用的，但是它封装在了IP数据包的数据部分</p>
+<p>ICMP报文格式：前4个字节是统一格式，共三个字段：类型、代码和检验和，后4个字节内容与具体的类型有关，最后是数据字段</p>
+<p><img src="https://pics.images.ac.cn/image/5f06c804e723e.html" alt=""></p>
+<p>ICMP报文分类：</p>
+<ul>
+<li>差错报告报文<ul>
+<li>终点不可达</li>
+<li>时间超时</li>
+<li>参数问题</li>
+<li>改变路由（重定向）</li>
+</ul>
+</li>
+<li>询问报文<ul>
+<li>回送请求和回答</li>
+<li>时间戳请求和回答</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://pics.images.ac.cn/image/5f06c6ae09698.html" alt="报文类型值"></p>
+<h3 id="询问报文例子"><a href="#询问报文例子" class="headerlink" title="询问报文例子"></a>询问报文例子</h3><p>PING——分组网间探测(Packet InterNet Groper)用来测试两台主机之间的连通性，使用了ICMP回送请求和会送回答报文，PING是应用层直接使用网络层ICMP的一个例子，没有通过运输层的TCP或UDP</p>
+<p>在cmd窗口中输入<code>ping www.baidu.com</code>，回车就可以看到结果</p>
+<p><img src="https://pics.images.ac.cn/image/5f06c3a1af700.html" alt=""></p>
+<p>流程：键入<code>ping  www.baidu.com</code>后，PC会一连发出四个ICMP回送请求报文，如果服务器baidu.com正常工作且响应了这个ICMP会送请求报文，那么它就会发送会送回答报文，往返的ICMP报文上有时间戳，可以得出往返时间，最后显示统计结果：发送到哪个IP地址，发送的、接受的、丢失的分组数，往返时间最小最大平均值</p>
+<p>注：出现分组丢失时，ping指令并不会给出原因</p>
+<h3 id="路由重定向例子"><a href="#路由重定向例子" class="headerlink" title="路由重定向例子"></a>路由重定向例子</h3><p>traceroute（在Windows中是tracert）：不断发送数据报来检测，找到故障的路由器</p>
+<ul>
+<li>由源主机向目的主机发送一连串的IP数据报，数据包中封装的是无法交互的UDP用户数据报。第一个数据包P1生存时间TTL设为1，P1到达第一个路由器R1时接收完后被丢弃，并向源主机发送一个<strong>ICMP时间超过差错报告报文</strong>；</li>
+<li>源主机再发送第二个数据包P2，TTL设置为2，同理到第二个路由器R2接收完丢弃，并向源主机发送一个<strong>ICMP时间超过差错报告报文</strong>；</li>
+<li>······重复上面的操作，当最后一个数据报到达目的主机，数据包的TTL为1。由于数据包中封装的是无法交付的UDP数据报，因此目的主机向源主机发送<strong>ICMP终点不可达差错报告报文</strong>；</li>
+<li>最后源主机就得知了想要的路由信息：从源主机IP出发到目的主机所经过的路由器的IP地址，以及每一所需要的往返时间</li>
+</ul>
+<p>注：原则上经过路由器越多时间越长，但是实际上由于互联网的拥塞程度时一直变化的，也有可能出现经过更多路由器反而时间更少</p>
+<p><img src="https://pics.images.ac.cn/image/5f06cef2cb988.html" alt=""></p>
+]]></content>
+      <categories>
+        <category>学习</category>
+        <category>计网</category>
+      </categories>
+      <tags>
+        <tag>ICMP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SSH连接虚拟机Linux</title>
     <url>/2020/07/08/SSH%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BALinux/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>看到网上的一个项目部署视频，提到配置虚拟机的Linux服务器，由于之前Linux课已经有现成的Ubuntu系统，网络配置也已经完成，只需要配置远程连接即可</p>
@@ -2234,7 +2279,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-zPqbjyZz" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-AaBoiqRJ" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
