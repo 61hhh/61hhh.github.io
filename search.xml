@@ -5,6 +5,8 @@
     <url>/2020/07/09/ICMP%E5%8D%8F%E8%AE%AE%E5%BA%94%E7%94%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="ICMP协议应用"><a href="#ICMP协议应用" class="headerlink" title="ICMP协议应用"></a>ICMP协议应用</h2><p>先回顾一下相关知识，ICMP协议是网际层使用的，但是它封装在了IP数据包的数据部分</p>
 <p>ICMP报文格式：前4个字节是统一格式，共三个字段：类型、代码和检验和，后4个字节内容与具体的类型有关，最后是数据字段</p>
+<a id="more"></a>
+
 <p><img src="https://pics.images.ac.cn/image/5f06c804e723e.html" alt=""></p>
 <p>ICMP报文分类：</p>
 <ul>
@@ -2279,7 +2281,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-AaBoiqRJ" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-YhJrOlJT" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
