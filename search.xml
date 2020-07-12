@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>TCP传输连接管理</title>
+    <url>/2020/07/12/TCP%E4%BC%A0%E8%BE%93%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>TCP是面向连接的协议，每次通信过程中连接的建立与释放都是必不可少的。因此TCP传输连接有三个阶段：<strong>连接建立</strong>、<strong>数据传送</strong>、<strong>连接释放</strong>。传输连接管理就是使连接建立与释放都能正常进行</p>
+<p>在TCP连接建立过程中要解决以下三个问题：</p>
+<p>(1)要使每一方能够确知对方的存在。</p>
+<p>(2))要允许双方协商一些参数（如最大窗口值、是否使用窗口扩大选项和时间戳选项以及服务质量等）</p>
+<p>(3)能够对传输实体资源（如缓存大小、连接表中的项目等）进行分配。</p>
+<p>TCP连接采取客户端服务器C/S方式，主动发起连接建立的叫客户端，被动建立的叫服务器端</p>
+<a id="more"></a>
+
+
+
+<h2 id="TCP连接建立"><a href="#TCP连接建立" class="headerlink" title="TCP连接建立"></a>TCP连接建立</h2><p>假定A是TCP客户程序，B是TCP服务器程序，初始阶段都是CLOSED状态，本例中A主动打开连接，B被动打开连接。</p>
+<ul>
+<li>B的TCP服务器进程创建<strong>传输控制块TCB</strong>，准备接受客户进程的连接请求，服务器进程处于LISTEN状态</li>
+<li>A的TCP客户进程创建<strong>传输控制块TCB</strong>，向B发出连接请求，此时同步为<code>SYN=1</code>，初始序号<code>seq=x</code>，表示传送的第一个数据字节序号是x（注：SYN报文段不能携带数据，但是要<strong>消耗掉一个序号</strong>）</li>
+<li>B收到连接请求报文段后，若同意则向A发送确认，确认报文段中<code>SYN=1，ACK=1</code>，确认号<code>ack=x+1</code>，自己选择的序号<code>seq=y</code>（注：该报文段不能携带数据，但是同样要<strong>消耗掉一个序号</strong>）</li>
+<li>TCP客户进程A收到B的确认后，还要向B发出确认，置<code>ACK=1，ack=y+1</code>，而自己的序号为<code>seq=x+1</code>（注：ACK报文段可以携带数据，<strong>若不携带数据则不消耗序号</strong>——即下一数据报序号仍为x+1）</li>
+<li>这时TCP连接建立，A进入established状态；B收到A的确认后，也进入established状态</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/H17444b89a8e64e87993b5cabafbc61bcO.jpg" alt=""></p>
+<h3 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h3><p>三次握手是为了防止已经失效的请求报文段突然又传送到了B而产生错误</p>
+<p>下面两种情况是只有两次报文即可建立连接，即A的连接请求，B的确认报文</p>
+<p><strong>正常情况</strong>：A发送连接请求，但是由于报文丢失而未收到确认，于是重传一次连接请求，收到确认建立连接；发送数据；关闭连接。全过程中A发送了两次请求报文，一次丢失、一次到达，没有失效的报文</p>
+<p><strong>异常情况</strong>：A发送的第一个连接请求报文没有丢失，而是在某个网络结点滞留了，延误了一段时间才到达B，假设延误时间到在A和B的连接释放之后，此时B收到此报文以为A又要建立连接，于是向A发送确认报文同意连接，如果没有A的再次确认，B会一直认为连接建立，因此一直等待A发来数据请求！</p>
+<p>采用三报文握手时，A不向B的确认发送确认，B收不到确认就知道A没有要建立连接。</p>
+<h2 id="TCP连接释放"><a href="#TCP连接释放" class="headerlink" title="TCP连接释放"></a>TCP连接释放</h2><p>数据传输结束后，通信双方都可以释放连接，假定现在A、B都处于established状态，准备释放</p>
+<ul>
+<li><p>A应用进程向TCP发送连接释放报文段，并停止发送数据，主动关闭TCP连接。置<code>FIN=1，seq=u</code>（u等于A前面发送的数据最后一个字节+1），此时A进入FIN-WAIT-1状态，等待B的确认</p>
+</li>
+<li><p>B收到连接释放报文段就发出确认，确认号<code>ack=u+1</code>，自己的序号为<code>seq=v</code>（v等于B前面发送的数据最后一个字节+1），B进入CLOSE-WAIT状态。</p>
+<ul>
+<li>TCP服务器进程这时要通知高层应用进程，释放A到B方向的连接，此时TCP连接处于<strong>半关闭状态</strong>，即A已没有数据发送了，但B若要发送数据A仍要接受，从B到A方向的连接并未关闭</li>
+</ul>
+</li>
+<li><p>A收到B的确认后进入FIN-WAIT-2状态，等待B发送连接释放报文</p>
+<ul>
+<li>若B没有要向A发送的数据，应用进程就通知TCP释放连接，B发送连接释放报文，置<code>FIN=1</code>.假定B的序号为w（半关闭状态时B又发送了一些数据，所以序号不是v+1而是w），B还要重复确认号<code>ack=u+1</code>，此时B进入LAST-ACK状态，等待A的确认</li>
+<li>A收到B的连接释放报文段后，对此发出确认，在报文段中置<code>ACK=1</code>，确认号<code>ack=w+1</code>，而自己的序号是seq=u+1，然后进入TIME-WAIT状态，经过<strong>时间等待计时器设置的时间2MSL</strong>后进入CLOSED状态</li>
+</ul>
+<p>注：MSL最长报文段寿命</p>
+</li>
+</ul>
+<p><img src="https://ae01.alicdn.com/kf/H5a69fc4f4ff94097be0fc676a7ec09b13.jpg" alt=""></p>
+<h3 id="为什么要等待2MSL时间"><a href="#为什么要等待2MSL时间" class="headerlink" title="为什么要等待2MSL时间"></a>为什么要等待2MSL时间</h3><p>第一：为保证A的最后一个ACK报文能到达B，这个ACK报文可能会丢失，使得处于LAST-ACK状态的B收不到对已发送的FIN+ACK的确认，B就会超时重传该报文，在2MSL时间内A能接收到重传的报文，然后A重传一次取人，重启2MSL计时器。最后A、B都能进入CLOSED状态！这种情况下若不等待的话B就无法进入CLOSED状态</p>
+<p>第二：防止上面提到的”失效的请求报文段“出现在笨连接中，A发送完最后一个ACK报文后，再经过2MSL时间就可以使本连接持续时间内产生的所有报文都从网络中消失，这就不会出现旧的连接请求报文</p>
+<p>除了时间等待计时器外，TCP还有一个<strong>保活计时器</strong></p>
+<p>假定：客户与服务器建立连接，但是后来客户主机突然出现故障，显然服务器不能收到客户发来的数据，但是不能让服务器白白等着浪费资源，可以通过保活计时器，每次收到客户端的数据，就重置保活计时器，时间通常时2小时，两小时内未收到客户端的数据就发送一个探测报文，之后每隔75秒发送一个，若连发10个都没有响应，服务器可以认定客户端故障，接着就关闭连接。</p>
+<p><img src="https://ae01.alicdn.com/kf/H232e84fc4f97428db59d11e6959ebc40V.jpg" alt=""></p>
+]]></content>
+      <categories>
+        <category>计网</category>
+        <category>学习</category>
+      </categories>
+      <tags>
+        <tag>TCP连接</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TCP拥塞控制详解</title>
     <url>/2020/07/12/TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>TCP的拥塞控制是TCP中最重要的部分之一，因此值得好好学习，记录下知识点以便回顾！</p>
@@ -2392,7 +2451,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-nvxICuep" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-AOJMqqmR" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
