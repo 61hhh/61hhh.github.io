@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="learn to live,learn to love" />
+   
+  <meta name="description" content="Be Yourself" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    https协议详解 |  Salute
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-161190166-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-https协议详解" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  https协议详解
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/30/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-date">
+  <time datetime="2020-07-30T12:25:24.000Z" itemprop="datePublished">2020-07-30</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a> / <a class="article-category-link" href="/categories/%E9%9D%A2%E8%AF%95/%E8%AE%A1%E7%BD%91/">计网</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><p>在介绍HTTPS协议之前，因该先了解网络安全的知识，这样才能知道为什么HTTP协议升级为HTTPS协议。</p>
+<h3 id="网络安全问题概述"><a href="#网络安全问题概述" class="headerlink" title="网络安全问题概述"></a>网络安全问题概述</h3><p>计算机网络通信主要面临两大类威胁，即<strong>主动攻击</strong>与<strong>被动攻击</strong></p>
+<p>被动攻击指：攻击者从网络上窃取他人通信内容，通常称为截获。被动攻击中，攻击者只是观察和分析某一个<u>协议数据单元PDU</u>而不干扰信息流，主要通过观察协议控制信息部分了解正在通信的协议实体地址和身份、研究PDU的长度和传输的频度，也称<u>流量分析</u>。</p>
+<p>主动攻击有以下几种形式：</p>
+<ul>
+<li>篡改：恶意篡改网络上传送的报文</li>
+<li>恶意程序：计算机病毒；计算机蠕虫；特洛伊木马；逻辑炸弹；后门入侵；流氓软件等</li>
+<li>拒绝服务DoS：指攻击者不停向服务器发送大量分组，使该服务器无法正常工作</li>
+</ul>
+<p>对于主动攻击可以采取措施检测，被动攻击通常检测不出来，根据这些特点可以得出计算机网络通信安全的目标如下：</p>
+<ol>
+<li>防止析出报文内容和流量分析</li>
+<li>防止恶意程序</li>
+<li>检测更改报文流和拒绝服务</li>
+<li>采用加密技术对服被动攻击；将加密技术和鉴别技术结合对服主动攻击</li>
+</ol>
+<p>一个安全的计算机网络应该达到以下四个目标：</p>
+<ol>
+<li>保密性</li>
+<li>端点鉴别</li>
+<li>信息的完整性</li>
+<li>运行安全性</li>
+</ol>
+<h4 id="数据加密模型"><a href="#数据加密模型" class="headerlink" title="数据加密模型"></a>数据加密模型</h4><p>一般加密模型如下图，用户A向用户B发送<em>明文X</em>，通过<em>加密算法E</em>运算后，得到<em>密文Y</em>。</p>
+<p>加密解密所用的<em>密钥K(Key)</em>是一串秘密的字符串。在接收端使用<em>解密算法D</em>运算和<em>解密密钥K</em>，解出明文X。</p>
+<p>解密算法是加密算法的逆运算，如果解密时不采用事先约定好的密钥就无法解密出明文。</p>
+<p><img src="http://img2.salute61.top/https%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9E%8B.png" alt="加密模型"></p>
+<h3 id="两类密码体制"><a href="#两类密码体制" class="headerlink" title="两类密码体制"></a>两类密码体制</h3><p>密码学分为：密码编码学、密码分析学。如果截获者无论获取多少密文都不能找到足够的信息来唯一确定对应明文，则称这一密码体制是<u>无条件安全的</u>（或<u>理论上不可破的</u>）</p>
+<h4 id="对称密钥密码体制"><a href="#对称密钥密码体制" class="headerlink" title="对称密钥密码体制"></a>对称密钥密码体制</h4><p>所谓对称密钥密码体制，即<strong>加密密钥和解密密钥是使用相同的密码体制</strong>，上面加密模型图就是采用这种。</p>
+<p>数据加密标准DES属于对称密钥密码体制，由IBM研制。DES是一种分组密码，在加密前将整个明文分组，每组为64位长的二进制数据；然后对每一个64位二进制数据进行加密处理，产生一组64位密文数据；最后将各组密文串接得到整个密文，使用的密钥占64位（实际密钥56位，奇偶校验位8位）</p>
+<p>DES的保密性取决于对密钥的保密，而算法是公开的。DES的问题是密钥长度是56位，即有2^56中可能密钥。但是现在的计算机是可以搜索破解的。因此有学者提出了三重DES方法：将一个64明文用一个密钥加密，再用另一个密钥解密，再用另一个密钥加密 <em>Y=DES <sub>k1</sub>(DES<sup>-1</sup> <sub>k2</sub>( DES<sub>k3</sub>(X)))</em>；</p>
+<h4 id="公钥密码体制"><a href="#公钥密码体制" class="headerlink" title="公钥密码体制"></a>公钥密码体制</h4><p>公钥密码体制是由斯坦福大学的研究人员Diffie与Hellman提出的。<strong>公钥密码体制使用不同的加密密钥和解密密钥</strong></p>
+<p>产生原因：</p>
+<ul>
+<li>对称密钥密码体制的密钥分配问题</li>
+<li>由于对数字签名的需求</li>
+</ul>
+<p>目前最著名的是美国三位科学家Rivest、Shamir、Adleman提出的<strong>RSA体制</strong>，它是一种基于数论中的大数分解问题的体制。</p>
+<p>在公钥密码体制中，加密密钥<em>PK(Primary Key)</em>是向公众公开的，解密密钥<em>SK(Secret Key)</em>则是要保密的，加密算法E和解密算法D也是公开的。</p>
+<p>公钥密码体制加密解密过程特点：</p>
+<ol>
+<li><strong>密钥对</strong>产生器产生出接收者B的一对密钥：加密密钥PK<sub>B</sub>和解密密钥SK<sub>B</sub>。发送者A所用的加密密钥PK<sub>B</sub>就是接收者B的公钥，它向公众公开，而B所用的解密密钥SK<sub>B</sub>就是接收者B的私钥，对别人保密。</li>
+<li>发送者A用B的公钥PK<sub>B</sub>通过E运算对明文X加密，得出密文Y，发送给B。<em>Y = E<sub> PK<sub>B</sub> </sub>( X )</em></li>
+<li>B用自己的私钥SK<sub>B</sub>通过D运算进行解密，恢复出明文。D <sub>SK<sub>B</sub></sub>( Y ) = D <sub>SK<sub>B</sub></sub>( E<sub> PK<sub>B</sub> </sub>( X ) ) = X</li>
+<li>虽然在计算机上很容易生产成对的PK<sub>B</sub>和SK<sub>B</sub>，但是由已知的PK<sub>B</sub>推导出SK<sub>B</sub>属实“计算上不可能的”</li>
+<li>公钥可以用来加密，但是不能用来解密。D <sub>PK<sub>B</sub></sub>( E<sub> PK<sub>B</sub> </sub>( X ) )  不等于 X</li>
+<li>先对X进行D运算再E运算，和先E运算再D运算结果是一样的</li>
+</ol>
+<p><img src="http://img2.salute61.top/https%E5%85%AC%E9%92%A5.png" alt="公钥加密"></p>
+<p>对称密钥中双方使用相同的密钥，可以实现通信信道上的一对一双向保密通信；公开密钥中通信信道上可以实现双方多对一的单向保密通信</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>数字签名功能：</p>
+<ol>
+<li>报文鉴别：接收者能何时发送者对报文的签名，即确认发送者信息。</li>
+<li>报文完整性：接收者确信接收的数据与发送者发送是完全一致未被篡改的。</li>
+<li>不可否认：发送者事后不能抵赖对报文的签名。</li>
+</ol>
+<p>现在已经有多种实现数字签名的方法，其中采用公钥算法更容易实现。</p>
+<p>为进行签名，A用其私钥SK<sub>A</sub>对报文X进行D运算（此处的D运算并非指解密运算），得到不可读的密文，将密文传送给B。B为了核实签名，用A的公钥PK<sub>A</sub>进行E运算还原出明文X（注：任何人用A的公钥进行E运算后都可以得到A发送的明文）。这里的通信不是为了保密，而是为了签名和核实签名，即确认发送者信息</p>
+<p><img src="http://img2.salute61.top/https%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D.png" alt=""></p>
+<p>上述功能分析：</p>
+<ul>
+<li>由于除A外没有人拥有A的私钥SK<sub>A</sub>，那么除了A就没人能产生密文D<sub>SK<sub>A</sub></sub>(X)。这样B就能相信X是A签名发送的，这就是报文鉴别功能</li>
+<li>同理，其他人若篡改报文，但由于没有A的私钥SK<sub>A</sub>来对X进行加密，那么B对篡改后的报文解密时将会得到不可读的明文，由此知道报文被篡改过了，这就是报文完整性</li>
+<li>若A抵赖发送过报文给B，B可以将明文X和密文D<sub>SK<sub>A</sub></sub>(X)出示给公证的第三者，第三者很容易用PK<sub>A</sub>去证实A确实发送过保温给B，这就是不可否认。</li>
+</ul>
+<p>上述过程中A仅对报文签名，未对报文保密，因此接获到密文D<sub>SK<sub>A</sub></sub>(X)后，可以通过查手册知道公钥PK<sub>A</sub>从而知道报文内容X。可以使用A、B两者的公钥实现保密和签名</p>
+<p><img src="http://img2.salute61.top/https%E4%BF%9D%E5%AF%86%26%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D.png" alt=""></p>
+<h3 id="鉴别"><a href="#鉴别" class="headerlink" title="鉴别"></a>鉴别</h3><h3 id="密钥分配"><a href="#密钥分配" class="headerlink" title="密钥分配"></a>密钥分配</h3><h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>HTTP协议是一种使用明文数据传输的网络协议。</strong>这样会存在很大的隐患——数据在传输过程中可能会被截获，截获者因此可以获取你的信息，甚至篡改你发送的数据，导致服务器接收到错误的数据！！！</p>
+<p>因此在HTTP协议基础上增加数据加密，即为HTTPS，他的维基百科定义如下</p>
+<blockquote>
+<p><strong>安全超文本传输协议</strong>（<strong>HTTPS</strong>）是<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" rel="noopener">超文本传输协议</a>（HTTP）的扩展。它用于在<a href="https://en.wikipedia.org/wiki/Network_operating_system" target="_blank" rel="noopener">计算机网络上</a>进行<a href="https://en.wikipedia.org/wiki/Secure_communications" target="_blank" rel="noopener">安全通信</a>，并在Internet上广泛使用。在HTTPS中，使用<a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener">传输层安全协议</a>（TLS）或(以前)使用安全套接字层（SSL）对<a href="https://en.wikipedia.org/wiki/Communication_protocol" target="_blank" rel="noopener">通信协议</a>进行加密。因此，该协议也被称为<strong>HTTP over TLS</strong>，或<strong>over SSL的HTTP</strong>。</p>
+<p>HTTPS的主要动机是对访问的<a href="https://en.wikipedia.org/wiki/Website" target="_blank" rel="noopener">网站</a>进行<a href="https://en.wikipedia.org/wiki/Authentication" target="_blank" rel="noopener">身份验证</a>，以及在传输过程中保护交换数据的<a href="https://en.wikipedia.org/wiki/Information_privacy" target="_blank" rel="noopener">隐私</a>和<a href="https://en.wikipedia.org/wiki/Data_integrity" target="_blank" rel="noopener">完整性</a>。它可以防止<a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank" rel="noopener">中间人攻击</a>，并且客户端与服务器之间的双向通信<a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation" target="_blank" rel="noopener">加密</a>可以保护通信免遭<a href="https://en.wikipedia.org/wiki/Eavesdropping" target="_blank" rel="noopener">窃听</a>和<a href="https://en.wikipedia.org/wiki/Tamper-evident#Tampering" target="_blank" rel="noopener">篡改</a>。<a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-httpse-4" target="_blank" rel="noopener">[4] </a><a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-5" target="_blank" rel="noopener">[5]</a>实际上，这可以合理地保证人们在与预期的网站进行通信而不受攻击者的干扰。</p>
+</blockquote>
+<p>数据加密传输，是HTTP和HTTPS之间的本质性区别</p>
+<p>HTTPS特点：</p>
+<ol>
+<li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
+<li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
+<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改</li>
+</ol>
+<p>HTTPS 协议就是 HTTP+SSL/TLS，即在 HTTP 基础上加入 SSL /TLS 层，提供了内容加密、身份认证和数据完整性3大功能，目的就是为了加密数据，用于安全的数据传输。</p>
+<h3 id="HTTPS工作原理"><a href="#HTTPS工作原理" class="headerlink" title="HTTPS工作原理"></a>HTTPS工作原理</h3><p>客户端使用HTTPS方式与web服务器通信的基本步骤</p>
+<ol>
+<li>客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
+<li>Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
+<li>客户端的浏览器与Web服务器开始协商SSL/TLS连接的安全等级，也就是信息加密的等级。</li>
+<li>客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
+<li>Web服务器利用自己的私钥解密出会话密钥。</li>
+<li>Web服务器利用会话密钥加密与客户端之间的通信。</li>
+</ol>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/30/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/" rel="tag">https</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">http协议详解</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '9um8B04v28kv3b2vHiIOeL3U-gzGzoHsz',
+        app_key: 'nRQoroDFBKPChSxs12SduMCl',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        LY
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        <div class="Ebeian-info">
+          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
+          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/playlist">歌单</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
+      startDelay: 0,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=475218187&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+
+</html>
