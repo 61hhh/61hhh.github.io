@@ -138,19 +138,19 @@ var _hmt = _hmt || [];
 
 <h3 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h3><p>百度解释：Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应HTML页面的访问请求。  简单来说Tomcat就是一个运行Java的网络服务器，也是JSP和servlet的容器</p>
 <h3 id="下载配置"><a href="#下载配置" class="headerlink" title="下载配置"></a>下载配置</h3><p>tomcat可以在<a href="https://tomcat.apache.org/" target="_blank" rel="noopener">官网</a>直接下载，点击左侧download选择版本后，再根据自己的版本选择压缩包下载即可，下载完成后解压（建议解压到D盘，C盘可能会出现拒绝访问问题）</p>
-<p><img src="https://ae01.alicdn.com/kf/Hcbeb78f92871439fad842dbe67de0190h.jpg" alt=""></p>
+<p><img src="http://img2.salute61.top/Tomcat1.png" alt="下载地址"></p>
 <p>解压完成后，在环境变量中配置，在系统变量中新建，变量名为<code>CATALINA_HOME</code>，变量值即为安装目录（是tomcat整个的安装目录！）</p>
-<img src="https://ae01.alicdn.com/kf/H030647ae575844e4bc6a50a030a70b02a.jpg" style="zoom:50%">
+<img src="http://img2.salute61.top/Tomcat2.png" style="zoom:67%;"  >
 
 <p>然后在系统变量的path变量中添加<code>%CATALINA_HOME%\bin</code>，一路确认返回即可。</p>
 <p>Tomcat的运行需要JDK的支持，在命令行中输入<code>java -version</code>查看Java版本，在 JDK1.8 环境下能够正常运行，如果是在12.0版本，1.7版本，Tomcat不能够正常启动！其他JDK版本具体测试，JDK自行百度</p>
 <p>准备好后在命令行中输入<code>startup.bat</code>即可进入tomcat<strong>（此时新产生的命令行窗口不能关闭！）</strong>，在浏览器中输入<code>localhost:8080</code>查看到相应页面即成功配置！</p>
-<img src="https://ae01.alicdn.com/kf/H4d9bd880e851487fa9bcc84ec2e86f69z.jpg">
+<img src="http://img2.salute61.top/Tomcat3.png">
 
 <p>1 启动错误，一闪而退可能是端口被占用，tomcat默认的是8080端口，可以在到安装目录下的conf/server.xml文件中修改端口</p>
-<p><img src="https://ae01.alicdn.com/kf/H2f6d525c2ff8410e9481eacea20b52a9Z.jpg" alt=""></p>
+<p><img src="http://img2.salute61.top/Tomcat4.png" alt=""></p>
 <p>2 如果出现乱码，可以在安装目录的conf文件夹下，找到logging.properties文件，打开修改UTF-8为GBK即可</p>
-<p><img src="https://ae01.alicdn.com/kf/H1480a8a65c914eb69ffbd80fdf99fbfes.jpg" alt=""></p>
+<p><img src="http://img2.salute61.top/Tomcat5.png" alt=""></p>
 <h3 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h3><p>部署前我们需要先了解Tomcat安装目录的文件结构，最好的方法就是在官网看文档<strong>（适用于所有软件、框架的学习）</strong>，在documentation选择自己下载的版本，进入后overview查看</p>
 <ul>
 <li>/bin：启动、关闭和一些其他的脚本文件，在Unix系统是.sh文件在window是.bat文件</li>
@@ -164,7 +164,7 @@ var _hmt = _hmt || [];
 <ul>
 <li><p>内嵌式部署：直接将你的web app放在上述的webapps目录下，然后<code>localhost:8080/你的web app文件夹/资源文件.html</code>即可查看。</p>
 <p>具体演示：在webapps目录下新建test目录，新建一个firstweb.html文件，编写html代码，然后在浏览器中输入<code>localhost:8080/test/firstweb.html</code>即可访问</p>
-<img src="https://ae01.alicdn.com/kf/H8a8ffc9678a3441aa72ac7bef8a8403d0.jpg" style="zoom:33%;" />
+<img src="http://img2.salute61.top/Tomcat6.png" style="zoom:33%;" />
 
 
 
@@ -175,10 +175,9 @@ var _hmt = _hmt || [];
 <p>在之前的test目录下创建second.html文件，编写代码，然后创建WEB-INF目录，新建web.xml文件，由于我们自己是不知道规范格式咋写的，可以直接将test同级目录的ROOT目录中的web.xml代码copy过来，然后加上：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> &lt;welcome-<span class="built_in">file</span>-<span class="built_in">list</span>&gt;</span><br><span class="line">&lt;welcome-<span class="built_in">file</span>&gt;secondweb.html&lt;/welcome-<span class="built_in">file</span>&gt;</span><br><span class="line"> &lt;/welcome-<span class="built_in">file</span>-<span class="built_in">list</span>&gt;</span><br></pre></td></tr></table></figure>
 
-<img src="https://ae01.alicdn.com/kf/H1dbf640d5415449dbcb404092bc61b88k.jpg" style="zoom: 50%;" />
-
+<p><img src="http://img2.salute61.top/TomcaT9.png" alt=""></p>
 <p>然后此时可以不用再指定资源文件了，直接浏览器输入<code>localhost:8080/test</code>即可看到设置的首页</p>
-<img src="https://ae01.alicdn.com/kf/Heab6d4e6a4ab4e3a9ce2e868559ae805s.jpg" style="zoom:50%;" />
+<img src="http://img2.salute61.top/Tomcat8.png" style="zoom:50%;" />
 
 
 
@@ -192,7 +191,7 @@ var _hmt = _hmt || [];
 </ul>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Context <span class="attribute">path</span>=<span class="string">""</span> <span class="attribute">docBase</span>=<span class="string">""</span>&gt;</span><br><span class="line">path:表示的是访问时输入的web项目名（即是映射路径）</span><br><span class="line">docBase：表示的是站点目录的绝对路径</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://ae01.alicdn.com/kf/H71e02e9270204034bcdb92c50aba6411F.jpg" alt=""></p>
+<p><img src="http://img2.salute61.top/Tomcat7.png" alt=""></p>
 <p>打开浏览器输入<code>localhost:8080/new/index.html</code>即可</p>
 <ul>
 <li><p>法二：在conf的Catalina的localhost目录下新建一个new.xml文件然后配置xml文件</p>
