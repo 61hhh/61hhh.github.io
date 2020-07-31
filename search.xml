@@ -311,11 +311,25 @@
 <p>常见状态码：</p>
 <ul>
 <li>200 - 请求成功</li>
-<li>301 - 资源（网页等）被永久转移到其它URL</li>
+<li>301 - 资源（网页等）被永久转移到其它URL（http重定向https即为301）</li>
 <li>404 - 请求的资源（网页等）不存在</li>
 <li>500 - 内部服务器错误</li>
 <li>502 - 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</li>
 </ul>
+<h3 id="浏览器实例"><a href="#浏览器实例" class="headerlink" title="浏览器实例"></a>浏览器实例</h3><p>以点击百度为例，查看请求行和状态行的信息</p>
+<h4 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Request URL: https:<span class="comment">//www.baidu.com/  	//请求地址</span></span><br><span class="line">Request Method: GET						<span class="comment">//请求方法</span></span><br><span class="line">Status Code: <span class="number">200</span> OK						<span class="comment">//状态码</span></span><br><span class="line">Remote Address: <span class="number">112.80</span><span class="number">.248</span><span class="number">.75</span>:<span class="number">443</span>		<span class="comment">//地址</span></span><br><span class="line">Referrer Policy: unsafe-url</span><br></pre></td></tr></table></figure>
+
+<p><strong>请求标头</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Accept: text/html......			<span class="comment">//支持的数据类型</span></span><br><span class="line">Accept-Encoding: gzip, deflate, br		<span class="comment">//编码格式</span></span><br><span class="line">Accept-Language: zh-CN,zh;q=<span class="number">0.9</span>,en;q=<span class="number">0.8</span>,en-GB;q=<span class="number">0.7</span>,en-US;q=<span class="number">0.6</span>	<span class="comment">//语言环境</span></span><br><span class="line">Cache-Control: max-age=<span class="number">0</span>		<span class="comment">//缓存控制</span></span><br><span class="line">Connection: keep-alive			<span class="comment">//连接</span></span><br><span class="line">......</span><br><span class="line">User-Agent: Mozilla/<span class="number">5.0</span> (Windows NT <span class="number">10.0</span>; Win64; x64) AppleWebKit/<span class="number">537.36</span> (KHTML, like Gecko) Chrome/<span class="number">84.0</span><span class="number">.4147</span><span class="number">.105</span> Safari/<span class="number">537.36</span> Edg/<span class="number">84.0</span><span class="number">.522</span><span class="number">.49</span>		<span class="comment">//客户端信息</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Bdpagetype: <span class="number">1</span></span><br><span class="line">Bdqid: <span class="number">0xfa9c8c0b0007119f</span></span><br><span class="line">Cache-Control: <span class="keyword">private</span>					<span class="comment">//缓存控制</span></span><br><span class="line">Connection: keep-alive					<span class="comment">//连接</span></span><br><span class="line">Content-Encoding: gzip</span><br><span class="line">Content-Type: text/html;charset=utf-<span class="number">8</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a><strong>URL</strong></h3><p>HTTP使用URI来传输数据和建立连接。URL(统一资源定位符)是一类特殊的URI，</p>
 <p>一般形式：</p>
 <blockquote>
@@ -338,19 +352,6 @@
 </li>
 <li>于是网站就能追踪用户31d5b4c6d4c620ads15（即用户A）在该网站的活动</li>
 </ul>
-<h3 id="HTTPS简介"><a href="#HTTPS简介" class="headerlink" title="HTTPS简介"></a>HTTPS简介</h3><p><strong>HTTP协议是一种使用明文数据传输的网络协议。</strong>这样会存在很大的隐患——数据在传输过程中可能会被截获，截获者因此可以获取你的信息，甚至篡改你发送的数据，导致服务器接收到错误的数据！！！</p>
-<p>因此在HTTP协议基础上增加数据加密，即为HTTPS，他的维基百科定义如下</p>
-<blockquote>
-<p><strong>安全超文本传输协议</strong>（<strong>HTTPS</strong>）是<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" rel="noopener">超文本传输协议</a>（HTTP）的扩展。它用于在<a href="https://en.wikipedia.org/wiki/Network_operating_system" target="_blank" rel="noopener">计算机网络上</a>进行<a href="https://en.wikipedia.org/wiki/Secure_communications" target="_blank" rel="noopener">安全通信</a>，并在Internet上广泛使用。在HTTPS中，使用<a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener">传输层安全协议</a>（TLS）或(以前)使用安全套接字层（SSL）对<a href="https://en.wikipedia.org/wiki/Communication_protocol" target="_blank" rel="noopener">通信协议</a>进行加密。因此，该协议也被称为<strong>HTTP over TLS</strong>，或<strong>over SSL的HTTP</strong>。</p>
-<p>HTTPS的主要动机是对访问的<a href="https://en.wikipedia.org/wiki/Website" target="_blank" rel="noopener">网站</a>进行<a href="https://en.wikipedia.org/wiki/Authentication" target="_blank" rel="noopener">身份验证</a>，以及在传输过程中保护交换数据的<a href="https://en.wikipedia.org/wiki/Information_privacy" target="_blank" rel="noopener">隐私</a>和<a href="https://en.wikipedia.org/wiki/Data_integrity" target="_blank" rel="noopener">完整性</a>。它可以防止<a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank" rel="noopener">中间人攻击</a>，并且客户端与服务器之间的双向通信<a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation" target="_blank" rel="noopener">加密</a>可以保护通信免遭<a href="https://en.wikipedia.org/wiki/Eavesdropping" target="_blank" rel="noopener">窃听</a>和<a href="https://en.wikipedia.org/wiki/Tamper-evident#Tampering" target="_blank" rel="noopener">篡改</a>。<a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-httpse-4" target="_blank" rel="noopener">[4] </a><a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-5" target="_blank" rel="noopener">[5]</a>实际上，这可以合理地保证人们在与预期的网站进行通信而不受攻击者的干扰。</p>
-</blockquote>
-<p>数据加密传输，是HTTP和HTTPS之间的本质性区别，其实除了这个之外，HTTPS网站和HTTP网站还有其他地方不同。</p>
-<p>HTTPS特点：</p>
-<ol>
-<li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
-<li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
-<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改</li>
-</ol>
 ]]></content>
       <categories>
         <category>面试</category>
@@ -6100,7 +6101,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-puxfTGEQ" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-PmZxxdmH" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
