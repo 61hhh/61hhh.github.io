@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    https协议详解 |  Salute
+    网络安全基础知识 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-https协议详解" class="article article-type-post" itemscope
+  <article id="post-网络安全基础知识" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  https协议详解
+  网络安全基础知识
 </h1>
  
 
@@ -81,12 +81,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/07/30/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-date">
+      <a href="/2020/07/30/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="article-date">
   <time datetime="2020-07-30T12:25:24.000Z" itemprop="datePublished">2020-07-30</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a> / <a class="article-category-link" href="/categories/%E9%9D%A2%E8%AF%95/%E8%AE%A1%E7%BD%91/">计网</a>
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a> / <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%BD%91/">计网</a>
   </div>
 
       
@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2.5k</span>
+            <span class="post-count">3.5k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">8 分钟</span>
+            <span class="post-count">12 分钟</span>
         </span>
     </span>
 </div>
@@ -131,6 +131,8 @@ var _hmt = _hmt || [];
 
       
       <h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><p>在介绍HTTPS协议之前，因该先了解网络安全的知识，这样才能知道为什么HTTP协议升级为HTTPS协议。</p>
+<a id="more"></a>
+
 <h3 id="网络安全问题概述"><a href="#网络安全问题概述" class="headerlink" title="网络安全问题概述"></a>网络安全问题概述</h3><p>计算机网络通信主要面临两大类威胁，即<strong>主动攻击</strong>与<strong>被动攻击</strong></p>
 <p>被动攻击指：攻击者从网络上窃取他人通信内容，通常称为截获。被动攻击中，攻击者只是观察和分析某一个<u>协议数据单元PDU</u>而不干扰信息流，主要通过观察协议控制信息部分了解正在通信的协议实体地址和身份、研究PDU的长度和传输的频度，也称<u>流量分析</u>。</p>
 <p>主动攻击有以下几种形式：</p>
@@ -197,29 +199,57 @@ var _hmt = _hmt || [];
 </ul>
 <p>上述过程中A仅对报文签名，未对报文保密，因此接获到密文D<sub>SK<sub>A</sub></sub>(X)后，可以通过查手册知道公钥PK<sub>A</sub>从而知道报文内容X。可以使用A、B两者的公钥实现保密和签名</p>
 <p><img src="http://img2.salute61.top/https%E4%BF%9D%E5%AF%86%26%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D.png" alt=""></p>
-<h3 id="鉴别"><a href="#鉴别" class="headerlink" title="鉴别"></a>鉴别</h3><h3 id="密钥分配"><a href="#密钥分配" class="headerlink" title="密钥分配"></a>密钥分配</h3><h2 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p><strong>HTTP协议是一种使用明文数据传输的网络协议。</strong>这样会存在很大的隐患——数据在传输过程中可能会被截获，截获者因此可以获取你的信息，甚至篡改你发送的数据，导致服务器接收到错误的数据！！！</p>
-<p>因此在HTTP协议基础上增加数据加密，即为HTTPS，他的维基百科定义如下</p>
-<blockquote>
-<p><strong>安全超文本传输协议</strong>（<strong>HTTPS</strong>）是<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" rel="noopener">超文本传输协议</a>（HTTP）的扩展。它用于在<a href="https://en.wikipedia.org/wiki/Network_operating_system" target="_blank" rel="noopener">计算机网络上</a>进行<a href="https://en.wikipedia.org/wiki/Secure_communications" target="_blank" rel="noopener">安全通信</a>，并在Internet上广泛使用。在HTTPS中，使用<a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener">传输层安全协议</a>（TLS）或(以前)使用安全套接字层（SSL）对<a href="https://en.wikipedia.org/wiki/Communication_protocol" target="_blank" rel="noopener">通信协议</a>进行加密。因此，该协议也被称为<strong>HTTP over TLS</strong>，或<strong>over SSL的HTTP</strong>。</p>
-<p>HTTPS的主要动机是对访问的<a href="https://en.wikipedia.org/wiki/Website" target="_blank" rel="noopener">网站</a>进行<a href="https://en.wikipedia.org/wiki/Authentication" target="_blank" rel="noopener">身份验证</a>，以及在传输过程中保护交换数据的<a href="https://en.wikipedia.org/wiki/Information_privacy" target="_blank" rel="noopener">隐私</a>和<a href="https://en.wikipedia.org/wiki/Data_integrity" target="_blank" rel="noopener">完整性</a>。它可以防止<a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank" rel="noopener">中间人攻击</a>，并且客户端与服务器之间的双向通信<a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation" target="_blank" rel="noopener">加密</a>可以保护通信免遭<a href="https://en.wikipedia.org/wiki/Eavesdropping" target="_blank" rel="noopener">窃听</a>和<a href="https://en.wikipedia.org/wiki/Tamper-evident#Tampering" target="_blank" rel="noopener">篡改</a>。<a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-httpse-4" target="_blank" rel="noopener">[4] </a><a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-5" target="_blank" rel="noopener">[5]</a>实际上，这可以合理地保证人们在与预期的网站进行通信而不受攻击者的干扰。</p>
-</blockquote>
-<p>数据加密传输，是HTTP和HTTPS之间的本质性区别</p>
-<p>HTTPS特点：</p>
+<h3 id="鉴别"><a href="#鉴别" class="headerlink" title="鉴别"></a>鉴别</h3><p>鉴别(Authentication)是网络安全中非常重要的一个话题。鉴别与加密不同。<strong>鉴别是要验证通信的对方确实是自己所要通信的对象，而不是其他冒充者，并且所传送的报文是完整的，未被篡改过</strong>。</p>
+<h4 id="报文鉴别"><a href="#报文鉴别" class="headerlink" title="报文鉴别"></a>报文鉴别</h4><p><strong>1.密码散列函数</strong></p>
+<p>理论上讲上述的签名就可以实现对报文的鉴别，不过这种方法很大的一个缺点就是对较长的报文进行数字签名会是计算机负担增大很多，因此需要一个相对简单的方法——<strong>密码散列函数</strong>。前面所讲过的校验和其实就是散列函数的一种应用。散列函数有如下特点：</p>
+<p>(1)散列函数的输入长度可以很长，但是<strong>输出长度是固定的，并且较短</strong>。散列函数的输出值叫做<strong>散列值</strong>，简称散列</p>
+<p>(2)不同散列值肯定对应于不同输入，但是不同输入可能会有相同散列值。即散列函数的输入和输出是多对一的</p>
+<p>密码散列函数最重要的特点：要找到两个不同的报文，使得他们的散列密码输出相同，在计算上是不可行的</p>
+<p><img src="http://img2.salute61.top/https%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0.png" alt=""></p>
+<p><strong>2.实用密码散列函数MD5和SHA-1</strong></p>
+<p>最出名的密码散列函数MD5和SHA-1。以MD5为例，算法大致过程如下：</p>
 <ol>
-<li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
-<li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
-<li>保护数据完整性：防止传输的内容被中间人冒充或者篡改</li>
+<li>先把任意长度的报文按模2<sup>64</sup>计算余数，追加在报文后面</li>
+<li>在报文和余数之间填充1~512位，使得填充后的总长度是512的整数倍。填充的首位是1后面全0</li>
+<li>把追加的和填充的报文分割为一个个的512位数据块，每512位报文数据再分成4个128位的数据块送到不同散列函数进行4轮计算，每一轮又按32位小数据块进行运算，直到最后计算出MD5报文摘要代码(128位)</li>
 </ol>
-<p>HTTPS 协议就是 HTTP+SSL/TLS，即在 HTTP 基础上加入 SSL /TLS 层，提供了内容加密、身份认证和数据完整性3大功能，目的就是为了加密数据，用于安全的数据传输。</p>
-<h3 id="HTTPS工作原理"><a href="#HTTPS工作原理" class="headerlink" title="HTTPS工作原理"></a>HTTPS工作原理</h3><p>客户端使用HTTPS方式与web服务器通信的基本步骤</p>
+<p>这样得出的MD5报文摘要代码的每一位都与原报文的每一位有关！</p>
+<p>SHA和MD5相似，但是码长为160位（比MD5的128位多了25%），也是用512位长的数据块运算得出</p>
+<p><strong>3.报文鉴别码</strong></p>
+<p>接下来说说怎样在报文鉴别中用散列函数，基本步骤：</p>
 <ol>
-<li>客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
-<li>Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
-<li>客户端的浏览器与Web服务器开始协商SSL/TLS连接的安全等级，也就是信息加密的等级。</li>
-<li>客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
-<li>Web服务器利用自己的私钥解密出会话密钥。</li>
-<li>Web服务器利用会话密钥加密与客户端之间的通信。</li>
+<li><p>用户A根据自己的明文<em>X</em>计算出散列<em>H(X)</em>。为方便起见称其H<sub>1</sub>。</p>
+</li>
+<li><p>用户将散列H拼接在明文<em>X</em>后面，生成了拓展的报文<em>(X,H<sub>1</sub>)</em>，然后发送给B。</p>
+</li>
+<li><p>B收到拓展的报文，由于散列长度是已知的固定值，因此可将散列H<sub>1</sub>和明文X分开。B、通过散列函数运算，计算出收到的明文X的散列H<sub>2</sub>(X)，若H<sub>2</sub>=H<sub>1</sub>似乎就可以相信是A发送的，但是这是不行的（有可能攻击者伪造了一个报文M，同样计算出H<sub>2</sub>(X)后，再将拼接有散列的拓展保温发送给B，B收到拓展保温(M,H<sub>2</sub>(X) )后验证发现正常，就会出现错误！）</p>
+</li>
+<li><p>解决方法就是对散列进行一次加密</p>
+<p><img src="http://img2.salute61.top/https%E6%95%A3%E5%88%97%E5%8A%A0%E5%AF%86.png" alt=""></p>
+</li>
 </ol>
+<h4 id="实体鉴别"><a href="#实体鉴别" class="headerlink" title="实体鉴别"></a>实体鉴别</h4><p>报文鉴别是对每一个报文都要鉴别报文发送者，而实体鉴别是在系统接入的全部持续时间内对和自己通信的对方实体进行一次验证即可</p>
+<p>最简单的过程：A像远端B发送带有自己信息和口令的报文，并约定双方使用共享对称密钥K<sub>AB</sub>加密。</p>
+<img src="http://img2.salute61.top/https%E5%AE%9E%E4%BD%93%E9%89%B4%E5%88%AB.png"  />
+
+<p>这样的方法有很明显的漏洞：攻击者C可以截获A发送的报文，不需要破译，而是直接将其发送给B，使得B误认为C的身份是A，然后B向C发送本该发送给A的报文。这就叫<strong>重放攻击(replay attack)</strong>，C甚至还可以截获A的IP地址将其冒充为自己的IP（IP欺骗），使B更容易受骗。</p>
+<p>为对付重放攻击，可以使用<strong>不重数</strong>，即一个<strong>不重复使用的大随机数</strong></p>
+<p><img src="http://img2.salute61.top/https%E5%AE%9E%E4%BD%93%E9%89%B4%E5%88%AB2.png" alt=""></p>
+<p>A用明文发送身份A和一个不重数R<sub>A</sub>给B。B响应A的查问，用共享密钥K<sub>AB</sub>对R<sub>A</sub>加密后发回A，同时也给出自己的不重数R<sub>B</sub>。最后A响应B的查问，用共享密钥K<sub>AB</sub>对R<sub>B</sub>加密后发回B。（注：A与B在不同对话中必须使用不同的不重数）由于不重数不能重复使用，C在重放攻击时就无法重复使用截获的不重数</p>
+<p>即使这样，还是会有收到攻击的可能，常见的就是中间人攻击</p>
+<h3 id="密钥分配"><a href="#密钥分配" class="headerlink" title="密钥分配"></a>密钥分配</h3><p>由于密码算法是公开的，网络的安全性就完全基于密钥的保护上，因此产生了一个重要分支——密钥管理。主要包括密钥的产生、分配、注入、验证和使用</p>
+<h4 id="1-对称密钥分配"><a href="#1-对称密钥分配" class="headerlink" title="1.对称密钥分配"></a>1.对称密钥分配</h4><p>假设n个人中两两都有通信，那么就要n(n-1)/2个密钥，接近n<sup>2</sup>情况，n很大时密钥数量就会非常大</p>
+<p>目前常用的密钥分配方式是<strong>密钥分配中心KDC（Key Distribution Center）</strong>。基本流程：</p>
+<ul>
+<li>A向KDC发送明文，说明想和B通信，并给出A、B在KDC登记的身份</li>
+<li>KDC用随机数产生”一次一密”的会话密钥K<sub>AB</sub>，向A发送回答报文（用K<sub>A</sub>加密），报文包括本次会话使用的密钥K<sub>AB</sub>和请A转给B的票据(ticket)，票据包含A、B在KDC等级的身份以及会话密钥（票据用K<sub>B</sub>加密）A无法知道票据内容。</li>
+<li>B收到A转发来的票据后使用K<sub>B</sub>解密，就知道A要和自己通信，也知道了KDC为此次会话分配的密钥K<sub>AB</sub></li>
+<li>A、B就可以开始通信了</li>
+</ul>
+<p>注：在网络上传送的密钥都是经过加密的。KDC还可以在报文中加入时间戳，以防止报文截取这利用以前记录的报文进行重放攻击。</p>
+<p>目前最出名的密钥分配协议是Kerberos V5。由MIT开发，Kerberos既是鉴别协议也是KDC</p>
+<h4 id="2-公钥分配"><a href="#2-公钥分配" class="headerlink" title="2.公钥分配"></a>2.公钥分配</h4><p>在公钥密码体制中，使用<strong>认证中心CA(Certification Authority)</strong>来将公钥与对应实体<strong>绑定(binding)</strong>，它一般由政府出资建立。</p>
+<p>在IE浏览器中，选择工具/Internet选项/内容/证书。即可查看有关证书发行机构的信息。</p>
 
       
       <!-- reward -->
@@ -288,14 +318,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/30/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/30/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/" rel="tag">https</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="tag">网络安全</a></li></ul>
 
 
     </footer>
@@ -305,6 +335,15 @@ var _hmt = _hmt || [];
   
   
   <nav class="article-nav">
+    
+      <a href="/2020/07/31/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            https协议详解
+          
+        </div>
+      </a>
     
     
       <a href="/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-nav-link">

@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    http协议详解 |  Salute
+    https协议详解 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-http协议详解" class="article article-type-post" itemscope
+  <article id="post-https协议详解" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  http协议详解
+  https协议详解
 </h1>
  
 
@@ -81,8 +81,8 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-date">
-  <time datetime="2020-07-30T08:37:10.000Z" itemprop="datePublished">2020-07-30</time>
+      <a href="/2020/07/31/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-date">
+  <time datetime="2020-07-31T08:13:40.000Z" itemprop="datePublished">2020-07-31</time>
 </a>
       
   <div class="article-category">
@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">3.2k</span>
+            <span class="post-count">2.3k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">11 分钟</span>
+            <span class="post-count">8 分钟</span>
         </span>
     </span>
 </div>
@@ -130,134 +130,80 @@ var _hmt = _hmt || [];
       
 
       
-      <p>面试被问到http与https的区别，当时上课应用层主要就讲了个DNS域名系统，http一带而过https没提。。。</p>
-<p>结果今天问面试官才知道一般还是考察应用层偏多。。。运输层网络层作为信道考察较少</p>
-<p>今天好好总结一下HTTP</p>
-<a id="more"></a>
-
-<h3 id="HTTP简介"><a href="#HTTP简介" class="headerlink" title="HTTP简介"></a>HTTP简介</h3><p>超文本传输协议（英文：<strong>H</strong>yper<strong>T</strong>ext <strong>T</strong>ransfer <strong>P</strong>rotocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP是面向事务的应用层协议，是万维网的数据通信的基础。</p>
-<h3 id="原理概述"><a href="#原理概述" class="headerlink" title="原理概述"></a>原理概述</h3><p>HTTP是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。</p>
-<h3 id="HTTP工作原理"><a href="#HTTP工作原理" class="headerlink" title="HTTP工作原理"></a>HTTP工作原理</h3><h4 id="原理概念"><a href="#原理概念" class="headerlink" title="原理概念"></a>原理概念</h4><p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
-<img src="http://img2.salute61.top/http1.png" style="zoom:67%;" />
-
-<p>每个万维网都有一个服务器进程，不断监听TCP的80端口，一边发现是否有浏览器向她发送连接建立请求，一旦监听到连接建立请求并创建了TCP连接后，浏览器就向万维网发出浏览某个页面的请求，服务器响应返回相应的页面，结束后释放TCP连接</p>
-<h4 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h4><ol>
-<li>客户端连接到Web服务器<br>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接。</li>
-<li>发送HTTP请求<br>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</li>
-<li>服务器接受请求并返回HTTP响应<br>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</li>
-<li>释放连接TCP连接<br>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</li>
-<li>客户端浏览器解析HTML内容<br>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</li>
-</ol>
-<p><font color="red"><strong>例如，浏览器中输入<code>www.baidu.com</code>后流程如下：</strong></font></p>
-<ul>
-<li>浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址;</li>
-<li>解析出 IP 地址后，根据该 IP 地址和默认端口 80，和服务器建立TCP连接;</li>
-<li>浏览器发出读取文件(URL 中域名后面部分对应的文件)的HTTP 请求，该请求报文作为 TCP 三次握手的第三个报文的数据发送给服务器;</li>
-<li>服务器对浏览器请求作出响应，并把对应的 html 文本发送给浏览器;</li>
-<li>释放 TCP连接;</li>
-<li>浏览器将解析该 html 文本并渲染界面。</li>
-</ul>
-<h3 id="HTTP是无状态的"><a href="#HTTP是无状态的" class="headerlink" title="HTTP是无状态的"></a>HTTP是无状态的</h3><p>HTTP是一种不保存状态,即无状态(stateless)协议。协议自身不对请求和响应之间的通信状态进行保存。也就是说在HTTP这个级别,协议对于发送过的请求或响应都不做持久化处理。同一个客户第二次访问同一个服务器页面时，服务器的响应与第一次被访问时是相同的。</p>
-<p>无状态特性简化了服务器设计，使服务器更容易支持大量并发的HTTP请求</p>
-<h3 id="HTTP是无连接的"><a href="#HTTP是无连接的" class="headerlink" title="HTTP是无连接的"></a>HTTP是无连接的</h3><p>HTTP协议本身是无连接的，即虽然HTTP使用了TCP连接，但是在通信双方交换HTTP报文之前不需要建立HTTP连接。它的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间，并且可以提高并发性能，不能和每个用户建立长久的连接，请求一次响应一次，服务端和客户端就中断了。</p>
-<p>HTTP请求一个万维网文档所需时间是该文档的传输时间加上两倍往返时间RTT(一个用于建立TCP连接；一个用于请求和接受文档)，<u>其中TCP建立连接的三报文握手中第三个报文段中的数据就是客户端对服务器的请求报文</u></p>
-<h4 id="HTTP1-1持续连接"><a href="#HTTP1-1持续连接" class="headerlink" title="HTTP1.1持续连接"></a>HTTP1.1持续连接</h4><p>现在的http协议1.1版本不是直接就断开了，而是等一段时间，这几秒钟是等什么呢，等着用户有后续的操作，如果用户在这几秒钟之内有新的请求，那么还是通过之前的连接通道来收发消息，如果过了这几秒钟用户没有发送新的请求，那么就会断开连接，这样可以提高效率，减少短时间内建立连接的次数，因为建立连接也是耗时的。</p>
-<p>HTTP/1.1协议的持续连接有两种方式：<strong>非流水式</strong>和<strong>流水方式</strong></p>
-<p>非流水式：再客户收到前一个的响应后才发送下一个请求，节省了建立TCP连接所需的一个RTT时间</p>
-<p>流水式：在收到服务器的响应报文之前就能继续发送新的请求报文，<u>客户端访问所有的对象只需花费一个RTT时间</u></p>
-<h3 id="HTTP报文格式"><a href="#HTTP报文格式" class="headerlink" title="HTTP报文格式"></a>HTTP报文格式</h3><p>HTTP报文有两类：请求报文；响应报文</p>
-<p>两种报文就是开始行不同，各内容之间用空格隔开</p>
-<p>请求报文：方法（HTTP请求方法）、请求资源的URL、HTTP版本</p>
-<p>响应报文：HTTP版本、状态码、描述状态的短语</p>
-<p><img src="http://img2.salute61.top/http2.png" alt=""></p>
-<p><img src="http://img2.salute61.top/http3.png" alt=""></p>
-<h3 id="HTTP请求方法"><a href="#HTTP请求方法" class="headerlink" title="HTTP请求方法"></a>HTTP请求方法</h3><p><strong>OPTION</strong></p>
-<p>请求一些选项的信息。这个方法可使服务器传回该资源所支持的所有HTTP请求方法。用’*’来代替资源名称，向Web服务器发送OPTIONS请求，可以测试服务器功能是否正常运作。</p>
-<p><strong>GET</strong></p>
-<p>请求读取由URL所标志的信息。使用GET方法应该只用在读取数据，而不应当被用于产生“副作用”的操作中，例如在Web Application中。其中一个原因是GET可能会被网络蜘蛛等随意访问。</p>
-<p><strong>HEAD</strong></p>
-<p>请求读取由URL所标志的信息的首部。与GET方法一样，都是向服务器发出指定资源的请求。只不过服务器将不传回资源的本文部分。它的好处在于，使用这个方法可以在不必传输全部内容的情况下，就可以获取其中“关于该资源的信息”（元信息或称元数据）。</p>
-<p><strong>POST</strong></p>
-<p>给服务器添加信息（例如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有。</p>
-<p><strong>PUT</strong></p>
-<p>在指明的URL下上传存储一个文档</p>
-<p><strong>DELETE</strong></p>
-<p>删除指定的URL所标识的资源</p>
-<p><strong>TRACE</strong></p>
-<p>用来进行环回测试的请求报文，主要用于测试和诊断</p>
-<p><strong>CONNECT</strong></p>
-<p>用于代理服务器</p>
-<h3 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h3><p>状态码（Status-Code）分为五大类</p>
-<table>
-<thead>
-<tr>
-<th align="left">状态码分类</th>
-<th>类别&amp;原因短语</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>1xx</strong></td>
-<td>表示通知信息，如收到请求或正在处理</td>
-</tr>
-<tr>
-<td align="left"><strong>2xx</strong></td>
-<td>表示成功，如接受或知道了</td>
-</tr>
-<tr>
-<td align="left"><strong>3xx</strong></td>
-<td>表示重定向，如要完成请求还必须采取进一步行动</td>
-</tr>
-<tr>
-<td align="left"><strong>4xx</strong></td>
-<td>表示客户端的差错，如请求中有语法错误或不能完成</td>
-</tr>
-<tr>
-<td align="left"><strong>5xx</strong></td>
-<td>表示服务器的差错，如服务器失效</td>
-</tr>
-</tbody></table>
-<p>常见状态码：</p>
-<ul>
-<li>200 - 请求成功</li>
-<li>301 - 资源（网页等）被永久转移到其它URL</li>
-<li>404 - 请求的资源（网页等）不存在</li>
-<li>500 - 内部服务器错误</li>
-<li>502 - 作为网关或者代理工作的服务器尝试执行请求时，从远程服务器接收到了一个无效的响应</li>
-</ul>
-<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a><strong>URL</strong></h3><p>HTTP使用URI来传输数据和建立连接。URL(统一资源定位符)是一类特殊的URI，</p>
-<p>一般形式：</p>
-<blockquote>
-<p>协议://&lt;主机IP&gt;:&lt;端口&gt;/&lt;路径&gt;</p>
-</blockquote>
-<p>以我的博客<code>http://salute61.top/2020/07/22/操作系统--进程管理/</code>为例</p>
-<p>协议是http；<a href="http://www.salute61.top是对应主机服务器（默认省略了80端口）；/2020/07/22/操作系统--进程管理/是路径" target="_blank" rel="noopener">www.salute61.top是对应主机服务器（默认省略了80端口）；/2020/07/22/操作系统--进程管理/是路径</a></p>
-<p>后面还可以有查询（以<code>?</code>为起点，参数用<code>&amp;</code>隔开再以<code>=</code>分开参数名称与数据，通常以UTF8的URL编码，避开字符冲突的问题）;片段（以<code>#</code>字符为起点）</p>
-<h3 id="拓展：Cookie"><a href="#拓展：Cookie" class="headerlink" title="拓展：Cookie"></a>拓展：Cookie</h3><p>上面说到过HTTP是无状态的，这样简化了服务器设计，但是实际工作中网站是希望能感识别用户的。例如网上购物时，一个用户要买多个商品，将一件商品加入购物车后还想继续浏览选购；或者网站相对某些用户的访问做限制等等。。。</p>
-<p>要实现这些可以在HTTP中使用Cookie，表示在HTTP服务器和客户之间传递的状态信息。</p>
-<p><strong>Cookie工作方式</strong></p>
-<ul>
-<li>当用户A在浏览某个使用Cookie的网站时，该网站的服务器就为A产生一个唯一的识别码，并以此作为索引在服务器后端数据库中产生一个项目，然后给A的HTTP响应报文添加一个Set-Cookie首部行。<ul>
-<li>例如<code>Set-Cookie：31d5b4c6d4c620ads15</code>。</li>
-</ul>
-</li>
-<li>A收到响应后浏览器就在管理的特定Cookie文件中添加这一行。A以后继续浏览这个网站时，浏览器就会从Cookie文件中取出这个网站识别码并放到HTTP请求报文Cookie首部行中<ul>
-<li>例如<code>Cookie：31d5b4c6d4c620ads15</code>。</li>
-</ul>
-</li>
-<li>于是网站就能追踪用户31d5b4c6d4c620ads15（即用户A）在该网站的活动</li>
-</ul>
-<h3 id="HTTPS简介"><a href="#HTTPS简介" class="headerlink" title="HTTPS简介"></a>HTTPS简介</h3><p><strong>HTTP协议是一种使用明文数据传输的网络协议。</strong>这样会存在很大的隐患——数据在传输过程中可能会被截获，截获者因此可以获取你的信息，甚至篡改你发送的数据，导致服务器接收到错误的数据！！！</p>
+      <h3 id="HTTPS简介"><a href="#HTTPS简介" class="headerlink" title="HTTPS简介"></a>HTTPS简介</h3><p><strong>HTTP协议是一种使用明文数据传输的网络协议。</strong>这样会存在很大的隐患——数据在传输过程中可能会被截获，截获者因此可以获取你的信息，甚至篡改你发送的数据，导致服务器接收到错误的数据！！！</p>
 <p>因此在HTTP协议基础上增加数据加密，即为HTTPS，他的维基百科定义如下</p>
 <blockquote>
 <p><strong>安全超文本传输协议</strong>（<strong>HTTPS</strong>）是<a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol" target="_blank" rel="noopener">超文本传输协议</a>（HTTP）的扩展。它用于在<a href="https://en.wikipedia.org/wiki/Network_operating_system" target="_blank" rel="noopener">计算机网络上</a>进行<a href="https://en.wikipedia.org/wiki/Secure_communications" target="_blank" rel="noopener">安全通信</a>，并在Internet上广泛使用。在HTTPS中，使用<a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" target="_blank" rel="noopener">传输层安全协议</a>（TLS）或(以前)使用安全套接字层（SSL）对<a href="https://en.wikipedia.org/wiki/Communication_protocol" target="_blank" rel="noopener">通信协议</a>进行加密。因此，该协议也被称为<strong>HTTP over TLS</strong>，或<strong>over SSL的HTTP</strong>。</p>
 <p>HTTPS的主要动机是对访问的<a href="https://en.wikipedia.org/wiki/Website" target="_blank" rel="noopener">网站</a>进行<a href="https://en.wikipedia.org/wiki/Authentication" target="_blank" rel="noopener">身份验证</a>，以及在传输过程中保护交换数据的<a href="https://en.wikipedia.org/wiki/Information_privacy" target="_blank" rel="noopener">隐私</a>和<a href="https://en.wikipedia.org/wiki/Data_integrity" target="_blank" rel="noopener">完整性</a>。它可以防止<a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank" rel="noopener">中间人攻击</a>，并且客户端与服务器之间的双向通信<a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation" target="_blank" rel="noopener">加密</a>可以保护通信免遭<a href="https://en.wikipedia.org/wiki/Eavesdropping" target="_blank" rel="noopener">窃听</a>和<a href="https://en.wikipedia.org/wiki/Tamper-evident#Tampering" target="_blank" rel="noopener">篡改</a>。<a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-httpse-4" target="_blank" rel="noopener">[4] </a><a href="https://en.wikipedia.org/wiki/HTTPS#cite_note-5" target="_blank" rel="noopener">[5]</a>实际上，这可以合理地保证人们在与预期的网站进行通信而不受攻击者的干扰。</p>
 </blockquote>
-<p>数据加密传输，是HTTP和HTTPS之间的本质性区别，其实除了这个之外，HTTPS网站和HTTP网站还有其他地方不同。</p>
+<a id="more"></a>
+
+<p>数据加密传输，是HTTP和HTTPS之间的本质性区别</p>
 <p>HTTPS特点：</p>
 <ol>
 <li>内容加密：采用混合加密技术，中间者无法直接查看明文内容</li>
 <li>验证身份：通过证书认证客户端访问的是自己的服务器</li>
 <li>保护数据完整性：防止传输的内容被中间人冒充或者篡改</li>
+</ol>
+<p>HTTPS 协议就是 HTTP+SSL/TLS，即在 HTTP 基础上加入 SSL /TLS 层，提供了内容加密、身份认证和数据完整性3大功能，目的就是为了加密数据，用于安全的数据传输。</p>
+<h3 id="HTTPS工作原理"><a href="#HTTPS工作原理" class="headerlink" title="HTTPS工作原理"></a>HTTPS工作原理</h3><p>客户端使用HTTPS方式与web服务器通信的基本步骤</p>
+<ol>
+<li>客户使用https的URL访问Web服务器，要求与Web服务器建立SSL连接。</li>
+<li>Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。</li>
+<li>客户端的浏览器与Web服务器开始协商SSL/TLS连接的安全等级，也就是信息加密的等级。</li>
+<li>客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。</li>
+<li>Web服务器利用自己的私钥解密出会话密钥。</li>
+<li>Web服务器利用会话密钥加密与客户端之间的通信。</li>
+</ol>
+<p><img src="http://img2.salute61.top/https1.png" alt=""></p>
+<h4 id="HTTPS：TSL-SSL原理"><a href="#HTTPS：TSL-SSL原理" class="headerlink" title="HTTPS：TSL/SSL原理"></a>HTTPS：TSL/SSL原理</h4><p>HTTPS协议的主要功能基本都依赖于TLS/SSL协议。<br>TLS/SSL的功能实现主要依赖于三类基本算法：散列函数 Hash、对称加密和非对称加密，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。</p>
+<p>关于这三类算法在网络安全基础知识博文中有详细介绍</p>
+<p><strong>SSL和TLS区别</strong></p>
+<p>SSL：（Secure Socket Layer，安全套接字层），位于可靠的面向连接的网络层协议和应用层协议之间的一种协议层。SSL通过互相认证、使用数字签名确保完整性、使用加密确保私密性，以实现客户端和服务器之间的安全通讯。该协议由两层组成：SSL记录协议和SSL握手协议。</p>
+<p>TLS：(Transport Layer Security，传输层安全协议)，用于两个应用程序之间提供保密性和数据完整性。该协议由两层组成：TLS记录协议和TLS握手协议。</p>
+<h4 id="HTTP跳转HTTPS过程"><a href="#HTTP跳转HTTPS过程" class="headerlink" title="HTTP跳转HTTPS过程"></a>HTTP跳转HTTPS过程</h4><p>以进入leetcode为例：</p>
+<ul>
+<li>在浏览器中输入<a href="http://leetcode-cn.com/，浏览器与服务器三次握手；" target="_blank" rel="noopener">http://leetcode-cn.com/，浏览器与服务器三次握手；</a></li>
+<li>服务器收到请求后响应状态码301，让用户跳转到HTTPS，重新请求<a href="https://leetcode-cn.com/；" target="_blank" rel="noopener">https://leetcode-cn.com/；</a></li>
+<li>用户重新发起HTTPS请求，再次与服务器三次TCP握手</li>
+</ul>
+<h3 id="HTTP和HTTPS区别"><a href="#HTTP和HTTPS区别" class="headerlink" title="HTTP和HTTPS区别"></a>HTTP和HTTPS区别</h3><p>  1、HTTPS是加密传输协议，HTTP是名文传输协议;<br>  2、HTTPS需要用到SSL证书，而HTTP不用;<br>  3、HTTPS比HTTP更加安全，对搜索引擎更友好，利于SEO<br>  4、 HTTPS标准端口443，HTTP标准端口80;<br>  5、 HTTPS基于传输层，HTTP基于应用层;<br>  6、 HTTPS在浏览器显示绿色安全锁，HTTP没有显示;</p>
+<h3 id="HTTPS缺点"><a href="#HTTPS缺点" class="headerlink" title="HTTPS缺点"></a>HTTPS缺点</h3><ul>
+<li>HTTPS降低用户访问速度（需多次握手）</li>
+<li>网站改用 HTTPS 以后，由 HTTP 跳转到 HTTPS 的方式增加了用户访问耗时（多数网站采用 301、302 跳转）</li>
+<li>HTTPS 涉及到的安全算法会消耗 CPU 资源，需要增加服务器资源（https 访问过程需要加解密）</li>
+</ul>
+<h3 id="HTTPS优化"><a href="#HTTPS优化" class="headerlink" title="HTTPS优化"></a>HTTPS优化</h3><h5 id="1、HSTS重定向技术"><a href="#1、HSTS重定向技术" class="headerlink" title="1、HSTS重定向技术"></a>1、HSTS重定向技术</h5><p>HSTS（HTTP Strict Transport Security）技术，启用HSTS后，将保证浏览器始终连接到网站的 HTTPS 加密版本。</p>
+<ol>
+<li><p>用户在浏览器里输入 HTTP 协议进行访问时，浏览器会自动将 HTTP 转换为 HTTPS 进行访问，确保用户访问安全；</p>
+</li>
+<li><p>省去301跳转的出现，缩短访问时间；</p>
+</li>
+<li><p>能阻止基于 SSL Strip 的中间人攻击，万一证书有错误，则显示错误，用户不能回避警告，从而能够更加有效安全的保障用户的访问。</p>
+</li>
+</ol>
+<h5 id="2、TLS握手优化"><a href="#2、TLS握手优化" class="headerlink" title="2、TLS握手优化"></a>2、TLS握手优化</h5><p>​    在传输应用数据之前，客户端必须与服务端协商密钥、加密算法等信息，服务端还要把自己的证书发给客户端表明其身份，这些环节构成 TLS 握手过程。</p>
+<p>​    采用 False Start （抢先开始）技术，浏览器在与服务器完成 TLS 握手前，就开始发送请求数据，服务器在收到这些数据后，完成 TLS 握手的同时，开始发送响应数据。</p>
+<p>​    开启 False Start 功能后，数据传输时间将进一步缩短。</p>
+<h5 id="3、Session-Identifier（会话标识符）复用"><a href="#3、Session-Identifier（会话标识符）复用" class="headerlink" title="3、Session Identifier（会话标识符）复用"></a>3、Session Identifier（会话标识符）复用</h5><p>​    如果用户的一个业务请求包含了多条的加密流，客户端与服务器将会反复握手，必定会导致更多的时间损耗。或者某些特殊情况导致了对话突然中断，双方就需要重新握手，增加了用户访问时间。</p>
+<p>​    （1）服务器为每一次的会话都生成并记录一个 ID 号，然后发送给客户端；</p>
+<p>​    （2）如果客户端发起重新连接，则只要向服务器发送该 ID 号；</p>
+<p>​    （3）服务器收到客户端发来的 ID 号，然后查找自己的会话记录，匹配 ID 之后，双方就可以重新使用之前的对称加密秘钥进行数据加密传输，而不必重新生成，减少交互时间。</p>
+<h5 id="4、开启OSCP-Stapling，提高TLS握手效率"><a href="#4、开启OSCP-Stapling，提高TLS握手效率" class="headerlink" title="4、开启OSCP Stapling，提高TLS握手效率"></a>4、开启OSCP Stapling，提高TLS握手效率</h5><p>​    采用OCSP Stapling ，提升 HTTPS 性能。服务端主动获取 OCSP 查询结果并随着证书一起发送给客户端，从而客户端可直接通过 Web Server 验证证书，提高 TLS 握手效率。</p>
+<p>​    服务器模拟浏览器向 CA 发起请求，并将带有 CA 机构签名的 OCSP 响应保存到本地，然后在与客户端握手阶段，将 OCSP 响应下发给浏览器，省去浏览器的在线验证过程。由于浏览器不需要直接向 CA 站点查询证书状态，这个功能对访问速度的提升非常明显。</p>
+<h5 id="5、完全前向加密PFS，保护用户数据，预防私钥泄漏"><a href="#5、完全前向加密PFS，保护用户数据，预防私钥泄漏" class="headerlink" title="5、完全前向加密PFS，保护用户数据，预防私钥泄漏"></a>5、完全前向加密PFS，保护用户数据，预防私钥泄漏</h5><p>​    非对称加密算法 RSA，包含了公钥、私钥，其中私钥是保密不对外公开的，由于此算法既可以用于加密也可以用于签名，所以用途甚广，但是还是会遇到一些问题：</p>
+<p>（1） 假如我是一名黑客，虽然现在我不知道私钥，但是我可以先把客户端与服务器之前的传输数据（已加密）全部保存下来</p>
+<p>（2）如果某一天，服务器维护人员不小心把私钥泄露了，或者服务器被我攻破获取到了私钥</p>
+<p>（3）那我就可以利用这个私钥，破解掉之前已被我保存的数据，从中获取有用的信息</p>
+<p>​    所以为了防止上述现象发生，我们必须保护好自己的私钥。</p>
+<p>​    如果私钥确实被泄漏了，那我们改如何补救呢？那就需要PFS（perfect forward secrecy）完全前向保密功能，此功能用于客户端与服务器交换对称密钥，起到前向保密的作用，也即就算私钥被泄漏，黑客也无法破解先前已加密的数据。维基解释是：<strong>长期使用的<a href="https://zh.wikipedia.org/wiki/密钥" target="_blank" rel="noopener">主密钥</a>泄漏不会导致过去的<a href="https://zh.wikipedia.org/wiki/會話密鑰" target="_blank" rel="noopener">会话密钥</a>泄漏</strong></p>
+<p>​    实现此功能需要服务器支持以下算法和签名组合：</p>
+<p>（1）ECDHE 密钥交换、RSA 签名；</p>
+<p>（2）ECDHE 密钥交换、ECDSA 签名；</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="[https://blog.csdn.net/qq_35642036/article/details/82788421#HTTP%E4%B8%8EHTTPS%E4%BB%8B%E7%BB%8D](https://blog.csdn.net/qq_35642036/article/details/82788421#HTTP与HTTPS介绍)">HTTP与HTTPS的区别，详细介绍</a></li>
+<li><a href="https://segmentfault.com/p/1210000009272802/read" target="_blank" rel="noopener">详解全站 HTTPS 访问优化</a></li>
+<li><a href="https://blog.csdn.net/hherima/article/details/52469360" target="_blank" rel="noopener">HTTPS协议详解(二)：TLS/SSL工作原理</a></li>
 </ol>
 
       
@@ -327,14 +273,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/07/31/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/https/" rel="tag">https</a></li></ul>
 
 
     </footer>
@@ -345,19 +291,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
+    
       <a href="/2020/07/30/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            网络安全基础知识
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/07/30/kill%E4%B8%8Ekill-9/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">kill与kill-9区别</div>
+        <div class="article-nav-title">网络安全基础知识</div>
       </a>
     
   </nav>
