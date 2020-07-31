@@ -6,6 +6,8 @@
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h3><p>Mavern:项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。</p>
 <p>Maven是一个Apache的开源项目，是一个项目管理和综合工具。Maven提供了开发人员构建一个完整的生命周期框架。开发团队可以自动完成项目的基础工具建设，Maven使用标准的目录结构和默认构建生命周期。</p>
 <p>例如：两个项目A B，项目A需要依赖一些jar包，项目B也需要依赖这些jar包，那么此时如果都把jar包引入到项目中，就是在重复造轮子，我们应该把这些所有的jar包放到一个地方，需要用的时候过去取即可。</p>
+<a id="more"></a>
+
 <h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><ul>
 <li>在<a href="http://maven.apache.org/" target="_blank" rel="noopener">maven官网</a>左侧的download栏中，选择对应的maven版本下载，下载的压缩包</li>
 <li>解压，并配置环境变量</li>
@@ -6148,7 +6150,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-YUKOmMRk" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-jrABOERU" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
