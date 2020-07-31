@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">1.2k</span>
+            <span class="post-count">1.3k</span>
         </span>
     </span>
 
@@ -138,15 +138,23 @@ var _hmt = _hmt || [];
 
 <h3 id="Tomcat简介"><a href="#Tomcat简介" class="headerlink" title="Tomcat简介"></a>Tomcat简介</h3><p>百度解释：Tomcat 服务器是一个免费的开放源代码的Web 应用服务器，属于轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应HTML页面的访问请求。  简单来说Tomcat就是一个运行Java的网络服务器，也是JSP和servlet的容器</p>
 <h3 id="下载配置"><a href="#下载配置" class="headerlink" title="下载配置"></a>下载配置</h3><p>tomcat可以在<a href="https://tomcat.apache.org/" target="_blank" rel="noopener">官网</a>直接下载，点击左侧download选择版本后，再根据自己的版本选择压缩包下载即可，下载完成后解压（建议解压到D盘，C盘可能会出现拒绝访问问题）</p>
-<p><img src="http://img2.salute61.top/Tomcat1.png" alt="下载地址"></p>
+<img src="http://img2.salute61.top/Tomcat1.png" alt="下载地址" style="zoom: 67%;" />
+
 <p>解压完成后，在环境变量中配置，在系统变量中新建，变量名为<code>CATALINA_HOME</code>，变量值即为安装目录（是tomcat整个的安装目录！）</p>
-<img src="http://img2.salute61.top/Tomcat2.png" style="zoom:67%;"  >
+<img src="http://img2.salute61.top/Tomcat2.png" style="zoom: 67%;"  >
 
 <p>然后在系统变量的path变量中添加<code>%CATALINA_HOME%\bin</code>，一路确认返回即可。</p>
 <p>Tomcat的运行需要JDK的支持，在命令行中输入<code>java -version</code>查看Java版本，在 JDK1.8 环境下能够正常运行，如果是在12.0版本，1.7版本，Tomcat不能够正常启动！其他JDK版本具体测试，JDK自行百度</p>
 <p>准备好后在命令行中输入<code>startup.bat</code>即可进入tomcat<strong>（此时新产生的命令行窗口不能关闭！）</strong>，在浏览器中输入<code>localhost:8080</code>查看到相应页面即成功配置！</p>
-<img src="http://img2.salute61.top/Tomcat3.png">
+<img src="http://img2.salute61.top/Tomcat3.png" style="zoom: 67%;" >
 
+
+
+
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Tomcat的配置文件在conf/server.xml中，可以配置主机名称、访问端口号等</p>
+<p>常见端口号：Tomcat  8080；MySQL  3306；http  80；https  443；</p>
+<p>配置中的常见问题：</p>
 <p>1 启动错误，一闪而退可能是端口被占用，tomcat默认的是8080端口，可以在到安装目录下的conf/server.xml文件中修改端口</p>
 <p><img src="http://img2.salute61.top/Tomcat4.png" alt=""></p>
 <p>2 如果出现乱码，可以在安装目录的conf文件夹下，找到logging.properties文件，打开修改UTF-8为GBK即可</p>
