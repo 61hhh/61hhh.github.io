@@ -1,6 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java集合（1）概述</title>
+    <url>/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%881%EF%BC%89%E6%A6%82%E8%BF%B0/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="一、什么是集合"><a href="#一、什么是集合" class="headerlink" title="一、什么是集合"></a>一、什么是集合</h2><p>关于Java集合框架的维基百科定义如下：</p>
+<blockquote>
+<p><strong>Java集合框架</strong>(<strong>Java collections framework</strong>)是一个包含一系列实作可重复使用集合的<a href="https://zh.m.wikipedia.org/wiki/資料結構" target="_blank" rel="noopener">数据结构</a>的<a href="https://zh.m.wikipedia.org/wiki/類別_(電腦科學)" target="_blank" rel="noopener">类别</a>和<a href="https://zh.m.wikipedia.org/wiki/介面_(程式設計)" target="_blank" rel="noopener">界面</a>集合。 虽然称为“框架”，其使用方式却像个<a href="https://zh.m.wikipedia.org/wiki/函式庫" target="_blank" rel="noopener">函式库</a>。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。</p>
+</blockquote>
+<p>Java中集合是一个用于存放对象引用的容器，在开发时我们不能确定对象的数量也不能确定它们的类型，因此在存放上就不能用存放同一类型数据的数组，Java为解决这一问题，开发了集合</p>
+<p>以下是集合和数组的区别：</p>
+<ol>
+<li><p>数组和集合都是Java中的容器。</p>
+</li>
+<li><p>数组长度固定，且只能存放相同类型数据；而集合不限数量，不同类型的数据。</p>
+</li>
+<li><p>数组只能存放的相同类型数据，可以实基本数据类型也可以是引用类型。</p>
+</li>
+<li><p>集合只能存放对象。比如要存int类型，是转换为了Integer类后存入的。即会将基本数据类型转换为对应的引用类型存入</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;<span class="keyword">int</span>&gt; intList = <span class="keyword">new</span> ArrayList&lt;<span class="keyword">int</span>&gt;();<span class="comment">//此处会报错：类型参数不能是原始数据</span></span><br><span class="line">List&lt;Integer&gt; intList = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();<span class="comment">//改为对应的包装类即可</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集合存放的都是对象的引用，而非对象本身。所以我们称集合中的对象就是集合中对象的引用。对象本身还是放在堆内存中。</p>
+</li>
+</ol>
+<p>相应的Java原始类型(基本数据类型)与其对应的包装类：</p>
+<table>
+<thead>
+<tr>
+<th>原始类型(基本数据类型)</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h2 id="二、集合框架"><a href="#二、集合框架" class="headerlink" title="二、集合框架"></a>二、集合框架</h2><p>首先看一下集合的框架图</p>
+<p><img src="http://img2.salute61.top/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.gif" alt=""></p>
+<p>图中可以看到，集合主要分为Collection（集合）和Map（图）两个接口，Collection存储元素集合，Map存储键/值对映射。（其中Collection接口继承(extends)了Iterable接口，具体体现是实现了Iterator）</p>
+<ul>
+<li>Collection分别被Queue、List和Set继承。下面是一些抽象类，然后是具体类。<ul>
+<li>List被AbstractList实现，然后分为3个子类，ArrayList，LinkList和VectorList。</li>
+<li>Set被AbstractSet实现，又分为2个子类，HashSet和TreeSet。</li>
+<li>Map被AbstractMap实现，又分为2个子类，HashMap和TreeMap。</li>
+<li>Map被Hashtable实现。</li>
+</ul>
+</li>
+<li><strong>接口：</strong>是代表集合的抽象数据类型。例如 Collection、List、Set、Map 等。之所以定义多个接口，是为了以不同的方式操作集合对象</li>
+<li><strong>实现（类）：</strong>是集合接口的具体实现。从本质上讲，它们是可重复使用的数据结构，例如：ArrayList、LinkedList、HashSet、HashMap。</li>
+<li><strong>算法：</strong>是实现集合接口的对象里的方法执行的一些有用的计算，例如：搜索和排序。这些算法被称为多态，那是因为相同的方法可以在相似的接口上有着不同的实现。</li>
+</ul>
+<img src="http://img2.salute61.top/Java-coll.png" style="zoom:67%;" />
+
+
+
+
+
+<h2 id="三、Iterator迭代器"><a href="#三、Iterator迭代器" class="headerlink" title="三、Iterator迭代器"></a>三、Iterator迭代器</h2><p>它是Java集合的顶层接口（不包括map系列的集合，Map接口是map系列集合的顶层接口）</p>
+<p>　　Object next()：返回迭代器刚越过的元素的引用，返回值是Object，需要强制转换成自己需要的类型。</p>
+<p>　　boolean hasNext()：判断容器内是否还有可供访问的元素。</p>
+<p>　　void remove()：删除迭代器刚越过的元素。</p>
+<p>所以除了map系列的集合，我么都能通过迭代器来对集合中的元素进行遍历。</p>
+<p>注意：我们可以在源码中追溯到集合的顶层接口，比如Collection接口，可以看到它继承的是类Iterable</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">Iterable</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// Query Operations</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那这就得说明一下Iterator和Iterable的区别：</p>
+<p>Iterable：存在于java.util包中。　</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns an iterator over elements of type &#123;<span class="doctag">@code</span> T&#125;.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> an Iterator.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看源码可知，Iterable接口里面封装了 Iterator 接口。所以只要实现了Iterable接口的类，就可以使用Iterator迭代器了。</p>
+<p>Iterator：存在于java.util包中。核心的方法next()，hasNext()，remove()。</p>
+<h2 id="四、Collection操作简介"><a href="#四、Collection操作简介" class="headerlink" title="四、Collection操作简介"></a>四、Collection操作简介</h2><p>Collection的作用就是规定了一个集合有哪些基本的操作。在IDEA中ctrl+F12可以查看</p>
+<img src="http://img2.salute61.top/Java_Collection1.png" style="zoom:67%;" />
+
+<p>可以看到基本上是插入数据、清除数据、是否包含、是否相等、移除元素、转换数组等操作</p>
+<p>比如：</p>
+<p>　　int size()　获取元素个数</p>
+<p>　　boolean isEmpty()　是否个数为零</p>
+<p>　　boolean contains(Object element)　是否包含指定元素</p>
+<p>　　boolean add(E element)　添加元素，成功时返回true</p>
+<p>　　boolean remove(Object element)　删除元素，成功时返回true</p>
+<p>　　Iterator<E> iterator()　获取迭代器</p>
+<p>还有些操作整个集合的方法，比如：</p>
+<p>　　boolean containsAll(Collection c)     是否包含指定集合 c 的全部元素</p>
+<p>　　boolean addAll(Collection&lt;? extends E&gt; c)　添加集合 c 中所有的元素到本集合中，如果集合有改变就返回 true</p>
+<p>　　boolean removeAll(Collection&lt;?&gt; c)　删除本集合中和 c 集合中一致的元素，如果集合有改变就返回 true</p>
+<p>　　boolean retainAll(Collection c)    保留本集合中 c 集合中两者共有的，如果集合有改变就返回 true</p>
+<p>　　void clear()    删除所有元素</p>
+<p>还有对数组操作的方法：</p>
+<p>　　Object[] toArray()　返回一个包含集合中所有元素的数组</p>
+<p>　　<T> T[] toArray(T[] a)　返回一个包含集合中所有元素的数组，运行时根据集合元素的类型指定数组的类型</p>
+<p>与Collection接口相关还有一个抽象类AbstractCollection：</p>
+<p>AbstractCollection是一个抽象类，实现了Collection接口的部分功能，实现了一些最基本的通用操作，把复杂的和业务相关的延迟到子类实现。</p>
+<p>在AbstractCollection中，主要实现了contains(), isEmpty(), toArray(), remove(), clear() 这几个操作。</p>
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><a href="https://www.cnblogs.com/lixiansheng/p/11348050.html" target="_blank" rel="noopener">Java集合（一）、什么是Java集合？</a></li>
+<li><a href="https://www.runoob.com/java/java-collections.html" target="_blank" rel="noopener">Java 集合框架</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Java集合</category>
+      </categories>
+      <tags>
+        <tag>Java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>maven学习</title>
     <url>/2020/07/31/maven%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="Maven简介"><a href="#Maven简介" class="headerlink" title="Maven简介"></a>Maven简介</h3><p>Mavern:项目对象模型(POM)，可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。</p>
@@ -27,6 +161,18 @@
 <li>conf目录：maven的配置文件目录，核心文件是setting.xml</li>
 <li>lib目录：maven所需的jar包</li>
 </ul>
+<h4 id="Maven结构"><a href="#Maven结构" class="headerlink" title="Maven结构"></a>Maven结构</h4><p>setting.xml主要用于配置maven的运行环境等一系列通用的属性，是全局级别的配置文件；而pom.xml主要描述了项目的maven坐标，依赖关系，开发者需要遵循的规则，缺陷管理系统，组织和licenses，以及其他所有的项目相关因素，是项目级别的配置文件。</p>
+<p>一个maven项目的基本结构如下</p>
+<p><img src="http://img2.salute61.top/maven8.png" alt="img"></p>
+<p>项目的根目录<code>a-maven-project</code>是项目名，它有一个项目描述文件<code>pom.xml</code>，存放Java源码的目录是<code>src/main/java</code>，存放资源文件的目录是<code>src/main/resources</code>，存放测试源码的目录是<code>src/test/java</code>，存放测试资源的目录是<code>src/test/resources</code>，最后，所有编译、打包生成的文件都放在<code>target</code>目录里。这些就是一个Maven项目的标准目录结构。</p>
+<p>所有的目录结构都是约定好的标准结构，我们千万不要随意修改目录结构。使用标准结构不需要做任何配置，Maven就可以正常使用。</p>
+<p>如图是一个典型的pom文件，我们可以为要导入的jar包添加依赖</p>
+<p><img src="http://img2.salute61.top/maven7.png" alt="img"></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-logging<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>groupId</code>类似于Java的包名，通常是公司或组织名称，<code>artifactId</code>类似于Java的类名，通常是项目名称，再加上<code>version</code>，一个Maven工程就是由<code>groupId</code>，<code>artifactId</code>和<code>version</code>作为唯一标识。我们在引用其他第三方库的时候，也是通过这3个变量确定。</p>
+<p>使用<code>声明一个依赖后，Maven就会自动下载这个依赖包并把它放到classpath中。而在</code>中可以引入多个依赖。</p>
+<p>更多的maven依赖可以在要使用时去<a href="https://mvnrepository.com/" target="_blank" rel="noopener"><em>Maven</em> Repository: Search/Browse/Explore</a>查找</p>
 <h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><ul>
 <li>在<a href="http://maven.apache.org/" target="_blank" rel="noopener">maven官网</a>左侧的download栏中，选择对应的maven版本下载，下载的压缩包</li>
 <li>解压，并配置环境变量</li>
@@ -60,16 +206,73 @@
 <h4 id="Maven配置IDEA"><a href="#Maven配置IDEA" class="headerlink" title="Maven配置IDEA"></a>Maven配置IDEA</h4><p>在Setting中找到如图位置Maven设置，可以按需设置Maven</p>
 <p>下面的importing可以设置自动导入，导入内容选择等；Repositories可以选择仓库，更新仓库等。</p>
 <p><img src="http://img2.salute61.top/maven6.png" alt=""></p>
-<h3 id="Maven项目"><a href="#Maven项目" class="headerlink" title="Maven项目"></a>Maven项目</h3><p>setting.xml主要用于配置maven的运行环境等一系列通用的属性，是全局级别的配置文件；而pom.xml主要描述了项目的maven坐标，依赖关系，开发者需要遵循的规则，缺陷管理系统，组织和licenses，以及其他所有的项目相关因素，是项目级别的配置文件。</p>
-<p>如图是一个典型的pom文件，我们可以为要导入的jar包添加依赖</p>
-<p><img src="http://img2.salute61.top/maven7.png" alt=""></p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 定义本项目的依赖关系 --&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">        <span class="comment">&lt;!-- 每个dependency都对应这一个jar包 --&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="comment">&lt;!--一般情况下，maven是通过groupId、artifactId、version这三个元素值（俗称坐标）来检索该构件， 然后引入你的工程。如果别人想引用你现在开发的这个项目（前提是已开发完毕并发布到了远程仓库），--&gt;</span>   </span><br><span class="line">            <span class="comment">&lt;!--就需要在他的pom文件中新建一个dependency节点，将本项目的groupId、artifactId、version写入， maven就会把你上传的jar包下载到他的本地 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.winner.trade<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>trade-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="comment">&lt;!-- maven认为，程序对外部的依赖会随着程序的所处阶段和应用场景而变化，所以maven中的依赖关系有作用域(scope)的限制。 --&gt;</span>  </span><br><span class="line">            <span class="comment">&lt;!--scope包含如下的取值：compile（编译范围）、provided（已提供范围）、runtime（运行时范围）、test（测试范围）、system（系统范围） --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="comment">&lt;!-- 设置指依赖是否可选，默认为false,即子项目默认都继承:为true,则子项目必需显示的引入，与dependencyManagement里定义的依赖类似  --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span>false<span class="tag">&lt;/<span class="name">optional</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="comment">&lt;!-- 屏蔽依赖关系。 比如项目中使用的libA依赖某个库的1.0版，libB依赖某个库的2.0版，现在想统一使用2.0版，就应该屏蔽掉对1.0版的依赖 --&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span>  </span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>  </span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h3><p>maven依赖管理的流程：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">┌──────────────┐</span><br><span class="line">│Sample Project│</span><br><span class="line">└──────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌──────────────┐</span><br><span class="line">│     abc      │</span><br><span class="line">└──────────────┘</span><br><span class="line">        │</span><br><span class="line">        ▼</span><br><span class="line">┌──────────────┐</span><br><span class="line">│     xyz      │</span><br><span class="line">└──────────────┘</span><br></pre></td></tr></table></figure>
 
+<p>当我们声明了<code>abc</code>的依赖时，Maven自动把<code>abc</code>和<code>xyz</code>都加入了我们的项目依赖，不需要我们自己去研究<code>abc</code>是否需要依赖<code>xyz</code>。</p>
+<p>因此，Maven的第一个作用就是解决依赖管理。我们声明了自己的项目需要<code>abc</code>，Maven会自动导入<code>abc</code>的jar包，再判断出<code>abc</code>需要<code>xyz</code>，又会自动导入<code>xyz</code>的jar包，这样，最终我们的项目会依赖<code>abc</code>和<code>xyz</code>两个jar包。</p>
+<p>我们来看一个复杂依赖示例：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.2.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
+<p>当我们声明一个<code>spring-boot-starter-web</code>依赖时，Maven会自动解析并判断最终需要大概二三十个其他依赖：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">spring-boot-starter-web</span><br><span class="line">  spring-boot-starter</span><br><span class="line">    spring-boot</span><br><span class="line">    sprint-boot-autoconfigure</span><br><span class="line">    spring-boot-starter-logging</span><br><span class="line">      logback-classic</span><br><span class="line">        logback-core</span><br><span class="line">        slf4j-api</span><br><span class="line">      jcl-over-slf4j</span><br><span class="line">        slf4j-api</span><br><span class="line">      jul-to-slf4j</span><br><span class="line">        slf4j-api</span><br><span class="line">      log4j-over-slf4j</span><br><span class="line">        slf4j-api</span><br><span class="line">    spring-core</span><br><span class="line">    snakeyaml</span><br><span class="line">  spring-boot-starter-tomcat</span><br><span class="line">    tomcat-embed-core</span><br><span class="line">    tomcat-embed-el</span><br><span class="line">    tomcat-embed-websocket</span><br><span class="line">      tomcat-embed-core</span><br><span class="line">  jackson-databind</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
 
+<p>如果我们自己去手动管理这些依赖是非常费时费力的，而且出错的概率很大。</p>
+<h4 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h4><p>Maven定义了几种依赖关系，分别是<code>compile</code>、<code>test</code>、<code>runtime</code>和<code>provided</code>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">scope</th>
+<th align="left">说明</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">compile</td>
+<td align="left">编译时需要用到该jar包（默认）</td>
+<td align="left">commons-logging</td>
+</tr>
+<tr>
+<td align="left">test</td>
+<td align="left">编译Test时需要用到该jar包</td>
+<td align="left">junit</td>
+</tr>
+<tr>
+<td align="left">runtime</td>
+<td align="left">编译时不需要，但运行时需要用到</td>
+<td align="left">mysql</td>
+</tr>
+<tr>
+<td align="left">provided</td>
+<td align="left">编译时需要用到，但运行时由JDK或某个服务器提供</td>
+<td align="left">servlet-api</td>
+</tr>
+</tbody></table>
+<p>其中，默认的<code>compile</code>是最常用的，Maven会把这种类型的依赖直接放入classpath。</p>
+<p><code>test</code>依赖表示仅在测试时使用，正常运行时并不需要。最常用的<code>test</code>依赖就是JUnit：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.junit.jupiter<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit-jupiter-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>runtime</code>依赖表示编译时不需要，但运行时需要。最典型的<code>runtime</code>依赖是JDBC驱动，例如MySQL驱动：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.48<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>provided</code>依赖表示编译时需要，但运行时不需要。最典型的<code>provided</code>依赖是Servlet API，编译的时候需要，但是运行时，Servlet服务器内置了相关的jar，所以运行期不需要：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>最后一个问题是，Maven如何知道从何处下载所需的依赖？也就是相关的jar包？答案是Maven维护了一个中央仓库（<a href="https://repo1.maven.org/" target="_blank" rel="noopener">repo1.maven.org</a>），所有第三方库将自身的jar以及相关信息上传至中央仓库，Maven就可以从中央仓库把所需依赖下载到本地。</p>
+<p>Maven并不会每次都从中央仓库下载jar包。一个jar包一旦被下载过，就会被Maven自动缓存在本地目录（用户主目录的<code>.m2</code>目录），所以，除了第一次编译时因为下载需要时间会比较慢，后续过程因为有本地缓存，并不会重复下载相同的jar包。</p>
+<h4 id="唯一ID"><a href="#唯一ID" class="headerlink" title="唯一ID"></a>唯一ID</h4><p>对于某个依赖，Maven只需要3个变量即可唯一确定某个jar包：</p>
+<ul>
+<li>groupId：属于组织的名称，类似Java的包名；</li>
+<li>artifactId：该jar包自身的名称，类似Java的类名；</li>
+<li>version：该jar包的版本。</li>
+</ul>
+<p>通过上述3个变量，即可唯一确定某个jar包。Maven通过对jar包进行PGP签名确保任何一个jar包一经发布就无法修改。修改已发布jar包的唯一方法是发布一个新版本。</p>
+<p>因此，某个jar包一旦被Maven下载过，即可永久地安全缓存在本地。</p>
+<p>注：只有以<code>-SNAPSHOT</code>结尾的版本号会被Maven视为开发版本，开发版本每次都会重复下载，这种SNAPSHOT版本只能用于内部私有的Maven repo，公开发布的版本不允许出现SNAPSHOT。</p>
 <h3 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h3><ul>
 <li><a href="https://www.cnblogs.com/baizihua/p/11519509.html" target="_blank" rel="noopener">maven学习笔记(超详细总结)</a></li>
 <li><a href="https://www.bilibili.com/video/BV12J411M7Sj?p=8" target="_blank" rel="noopener">【狂神说Java】JavaWeb入门到实战</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1255945359327200" target="_blank" rel="noopener">廖雪峰——Maven基础</a></li>
 </ul>
 ]]></content>
       <categories>
@@ -6181,7 +6384,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-XMWPZYPQ" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-OsxITxnb" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
