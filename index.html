@@ -125,6 +125,10 @@ var _hmt = _hmt || [];
   <time datetime="2020-08-03T14:40:46.000Z" itemprop="datePublished">2020-08-03</time>
 </a>
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
       
       
       
@@ -139,7 +143,85 @@ var _hmt = _hmt || [];
       
 
       
-      
+      <p>a</p>
+<p>Java中的字符串处理，主要涉及三个类：<font color="red"><strong>String、StringBuffer、StringBuilder</strong></font></p>
+<p>三者共同之处：都是final类，不允许被继承。</p>
+<p>StringBuffer是线程安全，可以不需要额外的同步用于多线程中;</p>
+<p>StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了;</p>
+<p>StringBuffer与StringBuilder两者共同之处:可以通过append、indert进行字符串的操作。</p>
+<p>String实现了三个接口:Serializable、Comparable &lt; String &gt;、CharSequence</p>
+<p>StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。</p>
+<p><img src="http://img2.salute61.top/Java_String.png" alt=""></p>
+<h2 id="一、String简介"><a href="#一、String简介" class="headerlink" title="一、String简介"></a>一、String简介</h2><p>String是一个字符串常量，一般由String声明的字符串，长度是不可变的，这也是它与StringBuffer和StringBuilder最直观的一个区别。</p>
+<p>一般初始化方式：<code>String s = &quot;hello world&quot;;</code> 经过这条语句，JVM的栈内存中产生一个s变量，堆内存中产生hello world字符串对象。s指向了hello world的地址。像上面这种方式产生的字符串属于直接量字符串对象，JVM在处理这类字符串的时候，会进行缓存，产生时放入字符串池，当程序需要再次使用的时候，无需重新创建一个新的字符串，而是直接指向已存在的字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"hello world"</span>;</span><br><span class="line">String s2 = <span class="string">"hello world"</span>;</span><br><span class="line">System.out.println(s == s2);<span class="comment">//返回为true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">"I am"</span>;</span><br><span class="line">System.out.println(str);</span><br><span class="line">str = str + <span class="string">" Salute61~"</span>;</span><br><span class="line">System.out.println(str);</span><br><span class="line"><span class="comment">//I am</span></span><br><span class="line"><span class="comment">//I am Salute61~</span></span><br></pre></td></tr></table></figure>
+
+<p>String不是常量吗？可是输出好像显示str对象被更改了，其实这是一种假象，JVM对上面代码的操作流程是：</p>
+<ul>
+<li>创建String对象str，并把 “I am”赋值给str</li>
+<li>而<code>str = str + &quot; Salute61~&quot;;</code>处，JVM又创建了一个新的对象str，将原str的值加上 “ Salute61~”赋值给新的str，原str被JVM的垃圾回收机制给回收了！</li>
+</ul>
+<p>所以对String对象操作实际上是不断创建新的对象并将旧的回收的过程！因此String的执行速度比较慢</p>
+<h3 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h3><h4 id="1-length方法"><a href="#1-length方法" class="headerlink" title="1 length方法"></a>1 length方法</h4><p>public int length()：该方法用于获取字符串的长度</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the length of this string.</span></span><br><span class="line"><span class="comment">     * The length is equal to the number of &lt;a href="Character.html#unicode"&gt;Unicode</span></span><br><span class="line"><span class="comment">     * code units&lt;/a&gt; in the string.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  the length of the sequence of characters represented by this</span></span><br><span class="line"><span class="comment">     *          object.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是JDK种的原始实现，count在String类里被定义为一个整型常量：private final int count;并且不论采用哪种构造方法，最终都会为count赋值。</p>
+<h4 id="2-equals方法"><a href="#2-equals方法" class="headerlink" title="2 equals方法"></a>2 equals方法</h4><p>public boolean equals(Object anObject)：该方法用于比较给定对象是否与String相等。</p>
+<p>在equals博客中有提到，继承了Object类的equals并重写了该方法</p>
+<p>（由源码可知String的底层是基于字符数组的）</p>
+<p>Java核心技术中提到equals的一些特性：</p>
+<p>1）自反性：非空引用x，x.equals(x)应该返回true</p>
+<p>2）对称性：任意引用x、y。y.equals(x)为true时x.equals(y)也应为true</p>
+<p>3）传递性：：任意引用x、y、z。有x.equals(y)、y.equals(z)为true时，则有x.equals(z)为true</p>
+<p>4）一致性：x、y引用的对象未发生变化，那么x.equals(y)应该返回同样的结果</p>
+<p><strong>重写equals的步骤：</strong></p>
+<ol>
+<li>使用==操作符检查“实参是否为指向对象的一个引用”。</li>
+<li>使用instanceof操作符检查“实参是否为正确的类型”。</li>
+<li>把实参转换到正确的类型。</li>
+<li>对于该类中每一个“关键”域，检查实参中的域与当前对象中对应的域值是否匹配。<ul>
+<li>对于既不是float也不是double类型的基本类型的域，可以使用==操作符进行比较</li>
+<li>对于对象引用类型的域，可以递归地调用所引用的对象的equals方法 </li>
+<li>对于float类型的域，先使用Float.floatToIntBits转换成int类型的值，然后使用==操作符比较int类型的值</li>
+<li>对于double类型的域，先使用Double.doubleToLongBits转换成long类型的值，然后使用==操作符比较long类型的值。</li>
+</ul>
+</li>
+<li>当你编写完成了equals方法之后，应该检查重写的equals方法：它是否是对称的、传递的、一致的？(其他两个特性通常会自行满足)  如果答案是否定的，那么请找到这些特性未能满足的原因，再修改equals方法的代码。</li>
+</ol>
+<h4 id="3-CompareTo方法"><a href="#3-CompareTo方法" class="headerlink" title="3 CompareTo方法"></a>3 CompareTo方法</h4><p>因为String类实现了public interface Comparable &lt; T &gt; ，而Comparable接口里有唯一的方法：public int compareTo(T o)。所以，String类还有另一个字符串比较方法：compareTo()</p>
+<p>比较的方法就是选择长度较小的，左边对齐，while循环逐个比较，返回首个出现不同的字符的ASCII码值，没有就返回长度差值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(String anotherString)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len1 = value.length;</span><br><span class="line">    <span class="keyword">int</span> len2 = anotherString.value.length;</span><br><span class="line">    <span class="keyword">int</span> lim = Math.min(len1, len2);</span><br><span class="line">    <span class="keyword">char</span> v1[] = value;</span><br><span class="line">    <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (k &lt; lim) &#123;</span><br><span class="line">        <span class="keyword">char</span> c1 = v1[k];</span><br><span class="line">        <span class="keyword">char</span> c2 = v2[k];</span><br><span class="line">        <span class="keyword">if</span> (c1 != c2) &#123;</span><br><span class="line">            <span class="keyword">return</span> c1 - c2;</span><br><span class="line">        &#125;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len1 - len2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-spilt方法"><a href="#4-spilt方法" class="headerlink" title="4 spilt方法"></a>4 spilt方法</h4><p>public String[] split(String regex)：该方法用于分割字符串，得到一个String类型的数组，根据regex可知，参数是个正则表达式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.xtfggef.string;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpiltTest</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String s = <span class="string">"hello world"</span>;</span><br><span class="line">		String s1 = <span class="string">"hello.worldd"</span>;</span><br><span class="line">		String[] s2 = s.split(<span class="string">" "</span>);</span><br><span class="line">		String[] s3 = s1.split(<span class="string">"\\."</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;s2.length; i++)&#123;</span><br><span class="line">			System.out.print(s2[i]+<span class="string">" "</span>);<span class="comment">//hello world</span></span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;s3.length; j++)&#123;</span><br><span class="line">			System.out.print(s3[j]+<span class="string">" "</span>);<span class="comment">//hello worldd</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>spilt()需要注意的事项，就是当分隔符为 . 的话，处理起来不一样，必须写成\.因为.是正则表达式里的一个特殊符号，必须进行转义</p>
+<h2 id="二、StringBuilder和StringBuffer"><a href="#二、StringBuilder和StringBuffer" class="headerlink" title="二、StringBuilder和StringBuffer"></a>二、StringBuilder和StringBuffer</h2><p>StringBuilder和StringBuffer成为可变字符串类，可以理解为字符串变量，因此创建后可更改，速度比String快很多！</p>
+<p>观察其源码发现，使用<code>StringBuffer()</code>时，默认开辟16个字符的长度的空间，使用<code>public StringBuffer(int paramInt)</code>时开辟指定大小的空间，使用<code>public StringBuffer(String paramString)</code>时，开辟<code>paramString.length+16</code>大小的空间。都是调用父类的构造器super()来开辟内存。这方面StringBuffer和StringBuilder都一样，且都实现AbstractStringBuilder类。</p>
+<h3 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h3><p>二者几乎没什么区别，基本都是在调用父类的各个方法，<strong>一个重要的区别就是StringBuffer是线程安全的</strong>，内部的大多数方法前面都有关键字synchronized，这样就会有一定的性能消耗，StringBuilder是非线程安全的，所以效率要高些。</p>
+<p>以StringBuffer为例分析一下它们的方法</p>
+<h4 id="1-append"><a href="#1-append" class="headerlink" title="1 append()"></a>1 append()</h4><p>append()：就是在原来的字符串后面直接追加一个新的串，和String类相比有明显的好处——String类在追加的时候，源字符串不变（这就是为什么说String是不可变的字符串类型），和新串连接后，重新开辟一个内存。这样就会造成每次连接一个新串后，都会让之前的串报废，因此也造成了不可避免的内存泄露。</p>
+<h4 id="2-trimToSize"><a href="#2-trimToSize" class="headerlink" title="2 trimToSize()"></a>2 trimToSize()</h4><p>public synchronized void trimToSize()：该方法用于将多余的缓冲区空间释放出来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">      StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"hello erqing"</span>);</span><br><span class="line">System.out.println(<span class="string">"length:"</span>+sb.length());<span class="comment">//length:12</span></span><br><span class="line">System.out.println(<span class="string">"capacity:"</span>+sb.capacity());<span class="comment">//capacity:28</span></span><br><span class="line">sb.trimToSize();</span><br><span class="line">System.out.println(<span class="string">"trimTosize:"</span>+sb.capacity());<span class="comment">//trimTosize:12</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>注：在equals那篇博客中提到过，StringBuffer没有重写equals方法，因此时直接继承的Object的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"hello"</span>);</span><br><span class="line">StringBuffer sb2 = <span class="keyword">new</span> StringBuffer(<span class="string">"hello"</span>);</span><br><span class="line">System.out.println(sb.equals(sb2));<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><a href="https://blog.csdn.net/zhangerqing/article/details/8093919" target="_blank" rel="noopener">Java之美[从菜鸟到高手演变]之字符串</a></li>
+<li><a href="https://www.cnblogs.com/weibanggang/p/9455926.html" target="_blank" rel="noopener">java中String、StringBuffer和StringBuilder的区别(简单介绍)</a></li>
+</ul>
+
       
       <!-- reward -->
       
@@ -151,6 +233,8 @@ var _hmt = _hmt || [];
     <footer class="article-footer">
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
+
 
     </footer>
 
@@ -230,7 +314,8 @@ var _hmt = _hmt || [];
 <p>因为 Integer 在常量池中的存储范围为[-128,127]，127在这范围内，因此是直接存储于常量池的，而128不在这范围内，所以会在堆内存中创建一个新的对象来保存这个值，所以m，n分别指向了两个不同的对象地址，故而导致了不相等。</p>
 <h2 id="二、equals"><a href="#二、equals" class="headerlink" title="二、equals"></a>二、equals</h2><p>看看Java核心技术中关于equals的解释：</p>
 <p>Object类中的equals方法用于检测一个对象是否等于另外一个对象。在Object类中，这个方法用于判断两个对象是否具有相同的引用，如果有相同的引用那么一定相等。（然鹅对于多数类这种判断没啥意义）</p>
-<p>一般继承的类中都会重写equals方法，以String中重写的equals为例：先判断是不是相同地址，再比较内容，内容长度一致就逐个比较char内容</p>
+<p>Object中原生的equals方法必须满足两个对象的内容地址都一直才会返回true，同时由于Object类中原生的hashCode是参照对象地址和内容根据一定算法产生的，因此他们的hashCode也是相等的</p>
+<p>一般继承的类中都会重写equals方法。以String中重写的equals为例：先判断是不是相同地址，调整类型，再比较内容，内容长度一致就逐个比较char内容。同样String类也重写了hashCode方法，使得只要内容相等返回的hashCode也会相同</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *Object类中equals的实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *String类中的equals的实现</span></span><br><span class="line"><span class="comment"> *简单翻译下</span></span><br><span class="line"><span class="comment"> *将此字符串与指定对象进行比较。</span></span><br><span class="line"><span class="comment"> *当且仅当参数不是null且是一个String对象，表示与此对象相同的字符序列时，结果为true。</span></span><br><span class="line"><span class="comment"> * @参数  一个对象</span></span><br><span class="line"><span class="comment"> *         与这个String做对比的一个对象</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @返回  该对象是String且与要比较的String相同，返回true，否则false</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>  #compareTo(String)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>  #equalsIgnoreCase(String)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String anotherString = (String)anObject;</span><br><span class="line">        <span class="keyword">int</span> n = value.length;</span><br><span class="line">        <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">            <span class="keyword">char</span> v1[] = value;</span><br><span class="line">            <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>还是上面的示例：equals比较的内容，所以就是true</p>
@@ -255,7 +340,7 @@ var _hmt = _hmt || [];
 
 <p>如果在新类中被覆盖了equals方法，就可以用来比较内容的。但是在上面的例子中类Value并没有覆盖Object中的equals方法，而是继承了该方法，因此它就是被用来比较地址的，又v1和v2的所指向的对象不相同，故标记（1）处的v1.equals(v2)运行结果为false，标记为（2）处的v1 == v2运行结果也为false。 </p>
 </li>
-<li><p>对于String(字符串)、StringBuffer(线程安全的可变字符序列)、StringBuilder(可变字符序列)这三个类可以看博客<a href="">Java字符串</a>；</p>
+<li><p>对于String(字符串)、StringBuffer(线程安全的可变字符序列)、StringBuilder(可变字符序列)这三个类可以看博客<a href="[http://salute61.top/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/](http://salute61.top/2020/08/03/Java字符串/)">Java字符串</a>；</p>
 </li>
 </ol>
 <h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
@@ -335,7 +420,15 @@ var _hmt = _hmt || [];
       
 
       
-      
+      <h2 id="一、Set集合"><a href="#一、Set集合" class="headerlink" title="一、Set集合"></a>一、Set集合</h2><p>一个不包含重复元素的collection。更确切地讲，Set不包含满足e1.equals(e2)的元素对 e1和e2，并且最多包含一个null元素。</p>
+<p>　　Set集合由Set接口和Set接口的实现类组成，Set接口继承了Collection接口，因此包含了Collection接口的所有方法。其主要实现类有HashSet和TreeSet，在HashSet的基础上又延伸出了LinkedHashSet。</p>
+<p>HashSet和TreeSet的不同就在于如何判断两个数是否相同的方法上。</p>
+<p>　　1.HashSet判断两个对象是否相同的方法时继承自Object类的equals方法</p>
+<p>　　　　（public boolean equals(Object o)方法只可以比较是否相等，相等返回true，反之返回false）。</p>
+<p>　　2.TreeSet判断两个对象是否相同的方法则是Comparable接口中的compareTo()方法</p>
+<p>　　　　（public void int compareTo(Object o)方法不仅可以比较是否相等，还可以比较大小，如果相等返回0，调用者大于参数则返回正数，否则返回负数）</p>
+<p>所以可以得到添加到TreeSet中的对象必须实现Comparable接口。同时如果使用HashSet则最好重写equals()方法。</p>
+
       
       <!-- reward -->
       
