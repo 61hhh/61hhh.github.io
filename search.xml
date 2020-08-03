@@ -1,6 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java字符串</title>
+    <url>/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+  </entry>
+  <entry>
+    <title>Java中equals与==用法</title>
+    <url>/2020/08/03/Java%E4%B8%ADequals%E4%B8%8E-%E7%94%A8%E6%B3%95/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>有两种用法说明:</p>
+<p>一、对于字符串变量来说，使用“==”和“equals()”方法比较字符串时，其比较方法不同。</p>
+<ol>
+<li><p><code>==</code>比较两个变量本身的值，<strong>即两个对象在内存中的地址</strong>。</p>
+<p>(java中，对象的首地址是它在内存中存放的起始地址，它后面的地址是用来存放它所包含的各个属性的地址，所以内存中会用多个内存块来存放对象的各个参数，而通过这个首地址就可以找到该对象，进而可以找到该对象的各个属性)</p>
+</li>
+<li><p><code>equals()</code>比较字符串中所包含的内容是否相同。</p>
+</li>
+</ol>
+<h2 id="一、"><a href="#一、" class="headerlink" title="一、=="></a>一、==</h2><p><code>==</code>比较两个变量本身的值，<strong>即两个对象在内存中的地址</strong>。（java中，对象的首地址是它在内存中存放的起始地址，它后面的地址是用来存放它所包含的各个属性的地址，所以内存中会用多个内存块来存放对象的各个参数，而通过这个首地址就可以找到该对象，进而可以找到该对象的各个属性)</p>
+<p>上面说到==比较的是对象的内存地址，然鹅下面这个示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> a = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> b = <span class="number">100</span>;</span><br><span class="line">        System.out.println(a == b);</span><br><span class="line"></span><br><span class="line">        String s1 = <span class="string">"123"</span>;</span><br><span class="line">        String s2 = <span class="string">"123"</span>;</span><br><span class="line">        System.out.println(s1 == s2);</span><br><span class="line"></span><br><span class="line">        String s3 = <span class="keyword">new</span> String(<span class="string">"123"</span>);</span><br><span class="line">        System.out.println(s1 == s3);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img2.salute61.top/equals%26%3D%3D1.png" alt="结果"></p>
+<p>为什么会出现这样的情况？</p>
+<p>对于基本数据类型（byte，short，char，int，float，double，long，boolean）来说，他们是作为常量在方法区中的常量池里面以HashSet策略存储起来的。</p>
+<p>因此我们写下<code>String s1 = &quot;123&quot;</code> 时，JVM会去常量池里找，不存在就创建一个新对象；而<code>String s2 = &quot;123&quot;</code>也是一样，在常量池里找到了<code>&quot;123&quot;</code>，就直接将s2指向之前的对象<code>“123”</code>（一个常量只会对应一块内存地址），所以此时用<code>==</code>判断的话返回是true</p>
+<p>另外，对于基本数据的包装类型（Byte, Short, Character，Integer，Float, Double，Long,  Boolean）除了Float和Double之外，其他的六种都是实现了常量池的，因此对于这些数据类型而言，一般我们也可以直接通过==来判断是否相等。</p>
+<p>那么下面这个示例：输出的为啥是true   false 呢？</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Integer i1 = <span class="number">127</span>;</span><br><span class="line">Integer i2 = <span class="number">127</span>;</span><br><span class="line">System.out.println(i1 == i2);<span class="comment">//true</span></span><br><span class="line">Integer m = <span class="number">128</span>;</span><br><span class="line">Integer n = <span class="number">128</span>;</span><br><span class="line">System.out.println(m == n);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>因为 Integer 在常量池中的存储范围为[-128,127]，127在这范围内，因此是直接存储于常量池的，而128不在这范围内，所以会在堆内存中创建一个新的对象来保存这个值，所以m，n分别指向了两个不同的对象地址，故而导致了不相等。</p>
+<h2 id="二、equals"><a href="#二、equals" class="headerlink" title="二、equals"></a>二、equals</h2><p>看看Java核心技术中关于equals的解释：</p>
+<p>Object类中的equals方法用于检测一个对象是否等于另外一个对象。在Object类中，这个方法用于判断两个对象是否具有相同的引用，如果有相同的引用那么一定相等。（然鹅对于多数类这种判断没啥意义）</p>
+<p>一般继承的类中都会重写equals方法，以String中重写的equals为例：先判断是不是相同地址，再比较内容，内容长度一致就逐个比较char内容</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *Object类中equals的实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *String类中的equals的实现</span></span><br><span class="line"><span class="comment"> *简单翻译下</span></span><br><span class="line"><span class="comment"> *将此字符串与指定对象进行比较。</span></span><br><span class="line"><span class="comment"> *当且仅当参数不是null且是一个String对象，表示与此对象相同的字符序列时，结果为true。</span></span><br><span class="line"><span class="comment"> * @参数  一个对象</span></span><br><span class="line"><span class="comment"> *         与这个String做对比的一个对象</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @返回  该对象是String且与要比较的String相同，返回true，否则false</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>  #compareTo(String)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>  #equalsIgnoreCase(String)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String anotherString = (String)anObject;</span><br><span class="line">        <span class="keyword">int</span> n = value.length;</span><br><span class="line">        <span class="keyword">if</span> (n == anotherString.value.length) &#123;</span><br><span class="line">            <span class="keyword">char</span> v1[] = value;</span><br><span class="line">            <span class="keyword">char</span> v2[] = anotherString.value;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (n-- != <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (v1[i] != v2[i])</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还是上面的示例：equals比较的内容，所以就是true</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        String s1 = <span class="string">"123"</span>;</span><br><span class="line">        String s2 = <span class="string">"123"</span>;</span><br><span class="line">    	String s3 = <span class="keyword">new</span> String(<span class="string">"123"</span>);</span><br><span class="line">        System.out.println(s1 == s2);	<span class="comment">//false</span></span><br><span class="line">        System.out.println(s1.equals(s3);<span class="comment">//true</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<figure class="highlight dart"><table><tr><td class="code"><pre><span class="line"><span class="built_in">StringBuffer</span> s1 = <span class="keyword">new</span> <span class="built_in">StringBuffer</span>(<span class="string">"a"</span>);</span><br><span class="line"><span class="built_in">StringBuffer</span> s2 = <span class="keyword">new</span> <span class="built_in">StringBuffer</span>(<span class="string">"a"</span>);</span><br><span class="line">System.out.println(<span class="string">"s1.equals(s2):"</span>+(s1.equals(s2)));<span class="comment">//结果为false</span></span><br></pre></td></tr></table></figure>
+
+<p>解释：<u>StringBuffer类中没有重写equals方法，因此这个方法就来自Object类</u>， (Object类中的equals方法是用来比较“地址”的，所以等于false）</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于非字符串变量来说，”==”和”equals”方法的作用是相同的都是用来比较其，对象在堆内存的首地址，即用来比较两个引用变量是否指向同一个对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">      A obj1   =   <span class="keyword">new</span>  A();</span><br><span class="line">      A obj2   =   <span class="keyword">new</span>  A();</span><br><span class="line">&#125;</span><br><span class="line">     obj1==obj2　　<span class="comment">//结果为false</span></span><br><span class="line">     obj1.equals(obj2)<span class="comment">//是false</span></span><br><span class="line">　　　<span class="comment">//但是如加上这样一句：</span></span><br><span class="line">　　　obj1=obj2;　　</span><br><span class="line">　　　<span class="comment">//执行后</span></span><br><span class="line">　　　obj1==obj2  <span class="comment">//是true</span></span><br><span class="line">     obj1.equals(obj2) <span class="comment">//是true</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ol>
+<li><p>如果是基本类型比较，那么只能用==来比较，不能用equals </p>
+</li>
+<li><p>对于基本类型的包装类型，比如Boolean、Character、Byte、Shot、Integer、Long、Float、Double等的引用变量，==是比较地址的，而equals是比较内容的。</p>
+</li>
+<li><p>对于下面的示例</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Value</span> </span>&#123; </span><br><span class="line">	<span class="keyword">int</span> i; </span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EqualsMethod2</span> </span>&#123; </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123; </span><br><span class="line">		Value v1 = <span class="keyword">new</span> Value(); </span><br><span class="line">		Value v2 = <span class="keyword">new</span> Value(); </span><br><span class="line">		v1.i = v2.i = <span class="number">100</span>; </span><br><span class="line">		System.out.println(v1.equals(v2));<span class="comment">//（1）flase </span></span><br><span class="line">		System.out.println(v1 == v2);<span class="comment">//（2）false</span></span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在新类中被覆盖了equals方法，就可以用来比较内容的。但是在上面的例子中类Value并没有覆盖Object中的equals方法，而是继承了该方法，因此它就是被用来比较地址的，又v1和v2的所指向的对象不相同，故标记（1）处的v1.equals(v2)运行结果为false，标记为（2）处的v1 == v2运行结果也为false。 </p>
+</li>
+<li><p>对于String(字符串)、StringBuffer(线程安全的可变字符序列)、StringBuilder(可变字符序列)这三个类可以看博客<a href="">Java字符串</a>；</p>
+</li>
+</ol>
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><p>Java核心技术 Object—equals</p>
+</li>
+<li><p><a href="https://www.cnblogs.com/weibanggang/p/9457757.html" target="_blank" rel="noopener">java中equals以及==的用法(简单介绍)</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/lcsy000/article/details/82782864" target="_blank" rel="noopener">在java中==和equals()的区别</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java集合（三）Set接口</title>
+    <url>/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%89%EF%BC%89Set%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script>]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Java集合</category>
+      </categories>
+      <tags>
+        <tag>Java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java集合（二）List接口</title>
+    <url>/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="一、Collection接口"><a href="#一、Collection接口" class="headerlink" title="一、Collection接口"></a>一、Collection接口</h2><p>Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等</p>
+<p><img src="http://img2.salute61.top/java_Collection2.png" alt=""></p>
+<a id="more"></a>
+
+<h3 id="1-Collection的常用功能"><a href="#1-Collection的常用功能" class="headerlink" title="1.Collection的常用功能"></a>1.Collection的常用功能</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="number">1</span>. 添加功能</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span></span><br><span class="line"><span class="function">        添加一个元素</span></span><br><span class="line"><span class="function">    <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection c)</span>  </span></span><br><span class="line"><span class="function">        添加一批元素</span></span><br><span class="line"><span class="function">2. 删除功能</span></span><br><span class="line"><span class="function">   <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span></span><br><span class="line"><span class="function">       删除一个元素</span></span><br><span class="line"><span class="function">3. 判断功能</span></span><br><span class="line"><span class="function">   <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span> </span></span><br><span class="line"><span class="function">       判断集合是否包含指定的元素</span></span><br><span class="line"><span class="function">   <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">       判断集合是否为空<span class="params">(集合中没有元素)</span></span></span><br><span class="line"><span class="function">4. 获取功能</span></span><br><span class="line"><span class="function">   <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">      获取集合的长度</span></span><br><span class="line"><span class="function">5. 转换功能</span></span><br><span class="line"><span class="function">   Object[] <span class="title">toArray</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">       把集合转换为数组</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-遍历集合的方式"><a href="#2-遍历集合的方式" class="headerlink" title="2.遍历集合的方式"></a>2.遍历集合的方式</h3><p>普通的for循环，需要索引，对数组支持的集合操作更方便</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        list.add(<span class="string">"Hello"</span>);</span><br><span class="line">        list.add(<span class="string">"Java"</span>);</span><br><span class="line">        list.add(<span class="string">"World"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++)&#123;</span><br><span class="line">            String s = (String) list.get(i);</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>迭代器遍历，可以遍历任何集合，与传统的迭代器（例如C++标准模板库的迭代器）不同</p>
+<ul>
+<li>C++ STL中迭代器是根据数组索引建模的，给定迭代器可以查看指定位置上的元素，就像知道索引 i 可以查看数组a[i]一样，不需要查找元素就可以将迭代器前移</li>
+<li>Java迭代器的查找操作和位置变更是紧密相连的，查找一个元素唯一的方法是调用next，执行查找操作的同时迭代器位置前移</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;String&gt; c = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        c.add(<span class="string">"Hello"</span>);</span><br><span class="line">        c.add(<span class="string">"Java"</span>);</span><br><span class="line">        c.add(<span class="string">"World"</span>);</span><br><span class="line">        <span class="comment">//获取迭代器对象</span></span><br><span class="line">        Iterator&lt;String&gt; it = c.iterator();</span><br><span class="line">        <span class="comment">//hasNext()判断是否有下一个元素，如果有就用next()获取</span></span><br><span class="line">        <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">            <span class="comment">//获取下一个元素</span></span><br><span class="line">            String s = it.next();</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>for-each循环</strong>：用更简洁的方式表达同样的操作。编译器将for each循环翻译为带有迭代器的循环</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;String&gt; c = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        c.add(<span class="string">"Hello"</span>);</span><br><span class="line">        c.add(<span class="string">"Java"</span>);</span><br><span class="line">        c.add(<span class="string">"World"</span>);</span><br><span class="line">        <span class="comment">//高级for遍历集合</span></span><br><span class="line">        <span class="keyword">for</span> (String s : c)&#123;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">        <span class="comment">//高级for遍历数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a : arr)&#123;</span><br><span class="line">            System.out.println(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="二、List集合"><a href="#二、List集合" class="headerlink" title="二、List集合"></a>二、List集合</h2><p>List集合包含List接口及其实现类。List集合有以下特点：</p>
+<ol>
+<li>集合元素允许重复</li>
+<li>集合元素有序</li>
+<li>元素可以通过索引访问</li>
+</ol>
+<p>常用的实现类有：ArrayList、LinkedList、Vector。</p>
+<h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList是List接口的典型实现类，本质上，ArrayList是对象引用的一个变长数组。</p>
+<p>ArrayList是List接口的可变数组的实现。实现了所有可选列表操作，并允许包括null在内的所有元素。除了实现List接口外，此类还提供了一些方法来操作内部用来存储列表的数组的大小。</p>
+<p>每个ArrayList实例都有一个初始容量，该容量用来储存列表元素的数组大小。<strong>默认初始容量为10。</strong></p>
+<p>ArrayList底层采用数组实现，因此它的优点是适合随机查找和遍历，缺点是不适合插入和删除。</p>
+<p>注：<font color="red">Arrays.asList(…) 方法返回的 List 集合既不是 ArrayList 实例，也不是 Vector 实例。 Arrays.asList(…)返回值是一个固定长度的 List 集合。</font></p>
+<h4 id="1-1-添加元素"><a href="#1-1-添加元素" class="headerlink" title="1.1 添加元素"></a>1.1 添加元素</h4><p>使用ArrayList添加元素有如下方法</p>
+<ul>
+<li>set(int index, E element)：替换数组中已经存在的元素内容。</li>
+<li>add(E e)：将元素添加到集合的末尾</li>
+<li>add(int index, E element)：将元素添加到指定的索引位置</li>
+<li>addAll(Collection&lt;? extends E&gt; c)：按照指定Collection的迭代器所返回的元素顺序，将该Collection中的所有元素添加到此列表的尾部。</li>
+<li>addAll(inr index, Collection&lt;? extends E&gt; c)：从指定的位置开始，将指定collection中的所有元素插入到此列表中</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; platformList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加元素</span></span><br><span class="line">myList.add(<span class="string">"靓仔"</span>);</span><br><span class="line">myList.add(<span class="string">"你好"</span>);</span><br><span class="line">myList.add(<span class="string">"leslie"</span>);</span><br><span class="line">myList.add(<span class="string">"cheung"</span>);</span><br><span class="line"><span class="comment">// 添加重复元素,会添加成功,因为List支持添加重复元素</span></span><br><span class="line">myList.add(<span class="string">"你好"</span>);</span><br><span class="line">myList.add(<span class="string">"靓仔"</span>);</span><br><span class="line"></span><br><span class="line">myList.add(<span class="number">3</span>, <span class="string">"个人博客"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-获取元素"><a href="#1-2-获取元素" class="headerlink" title="1.2  获取元素"></a>1.2  获取元素</h4><p>获取ArrayList中指定索引处的元素的使用方法  get()：获取指定位置上的元素</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">"索引为3的元素为："</span> + myList.get(<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+
+<p>如果指定的索引超出了集合的最大索引，比如<code>myList.get(10010)</code>就会抛出异常<code>java.lang.IndexOutOfBoundsException</code>：</p>
+<h4 id="1-3-获取集合元素个数"><a href="#1-3-获取集合元素个数" class="headerlink" title="1.3 获取集合元素个数"></a>1.3 获取集合元素个数</h4><p>获取ArrayList元素个数的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">"myList的元素个数为："</span> + myList.size());</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-删除元素"><a href="#1-4-删除元素" class="headerlink" title="1.4 删除元素"></a>1.4 删除元素</h4><p>使用ArrayList删除元素有以下两个重载：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>E remove(int index);</code>是删除集合中指定索引处的元素，<code>boolean remove(Object o);</code>是删除集合中的指定元素。</p>
+<p>使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 指定索引删除重复的元素 "你好" "靓仔"</span></span><br><span class="line">myList.remove(<span class="number">4</span>);</span><br><span class="line">myList.remove(<span class="number">4</span>);</span><br><span class="line"><span class="comment">// 删除指定元素 "个人博客"</span></span><br><span class="line">myList.remove(<span class="string">"靓仔"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-修改元素"><a href="#1-5-修改元素" class="headerlink" title="1.5 修改元素"></a>1.5 修改元素</h4><p>修改ArrayList中指定索引处的元素值的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">myList.set(<span class="number">0</span>, <span class="string">"salute"</span>);</span><br><span class="line">myList.set(<span class="number">1</span>, <span class="string">"LiuYi"</span>);</span><br><span class="line">myList.set(<span class="number">2</span>, <span class="string">"Bob Dylan"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-6-判断集合是否为空"><a href="#1-6-判断集合是否为空" class="headerlink" title="1.6 判断集合是否为空"></a>1.6 判断集合是否为空</h4><p>判断ArrayList是否为空的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">System.out.println(<span class="string">"isEmpty:"</span> + myList.isEmpty());</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-7-清空集合"><a href="#1-7-清空集合" class="headerlink" title="1.7 清空集合"></a>1.7 清空集合</h4><p>清空ArrayList中所有元素的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">myList.clear();</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>小结</strong>：</p>
+<ul>
+<li>ArrayLlist内部是由数组来实现的。在存放数据的数组长度不够时，会进行扩容，即增加数组长度。扩展为原来的1.5倍。</li>
+<li>由于是数组来实现，所以，优点是查找元素很快。可以通过下标查找元素，查找效率高。缺点是每次添加和删除元素都会进行大量的数组元素移动。长度不够会扩容。效率底下。</li>
+<li>ArrayList每次的增、删、改操作都伴随着数组的复制和元素的移动。这意味着新的内存空间的开辟。</li>
+</ul>
+<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList也是List接口的实现类，内部使用链表结构存储数据</p>
+<ul>
+<li>分配内存空间不是必须是连续的；</li>
+<li>插入、删除操作很快，只要修改前后指针就OK了，时间复杂度为O(1)；</li>
+<li>访问比较慢，必须得从第一个元素开始遍历，时间复杂度为O(n)；</li>
+</ul>
+<p>LinkedList类的代码声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractSequentialList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">Deque</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="comment">//。。。。。。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LinkedList类的使用方法和ArrayList基本一样，只需修改下声明处的代码即可：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; platformList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-push、pop、poll"><a href="#2-1-push、pop、poll" class="headerlink" title="2.1 push、pop、poll"></a>2.1 push、pop、poll</h4><ol>
+<li>void push(E e)：与addFirst一样，实际上它就是addFirst； </li>
+<li>E pop()：与removeFirst一样，实际上它就是removeFirst； </li>
+<li>E poll()：查询并移除第一个元素；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        linkedList.push(<span class="string">"first"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"third"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"four"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"five"</span>);</span><br><span class="line">        System.out.println(linkedList);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"pop: "</span> + linkedList.pop());</span><br><span class="line">        <span class="comment">//pop: five</span></span><br><span class="line">        System.out.println(<span class="string">"after pop: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//after pop: [four,third,second,second,first]</span></span><br><span class="line">        System.out.println(<span class="string">"poll: "</span> + linkedList.poll());</span><br><span class="line">        <span class="comment">//poll: four</span></span><br><span class="line">        System.out.println(<span class="string">"after poll: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//after poll: [third,second,second,first]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>push、pop的操作很接近stack的操作。</p>
+<p>在链表为空时，poll与pop的区别：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"pop: "</span> + linkedList.poll());</span><br><span class="line">        <span class="comment">//pop: null</span></span><br><span class="line">        System.out.println(<span class="string">"poll: "</span> + linkedList.pop());</span><br><span class="line">        <span class="comment">//poll报错: Exception in thread "main" java.util.NoSuchElementException</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-peek"><a href="#2-2-peek" class="headerlink" title="2.2 peek"></a>2.2 peek</h4><p>获取元素，可以指定第一个peekFirst，也可以时最后一个peekLast，只能获取不会移除</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        linkedList.push(<span class="string">"first"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"third"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"four"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"five"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first]</span></span><br><span class="line">        System.out.println(<span class="string">"peek: "</span> + linkedList.peek());</span><br><span class="line">        <span class="comment">//peek: five</span></span><br><span class="line">        System.out.println(<span class="string">"peekFirst: "</span> + linkedList.peekFirst());</span><br><span class="line">        <span class="comment">//peekFirst: five</span></span><br><span class="line">        System.out.println(<span class="string">"peekLast: "</span> + linkedList.peekLast());</span><br><span class="line">        <span class="comment">//peekLast: first</span></span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first]</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果没找到对应元素，输出为null</span></span><br><span class="line">        LinkedList&lt;String&gt; linkedList2 = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        System.out.println(<span class="string">"linkedList2: "</span> + linkedList2);</span><br><span class="line">        System.out.println(<span class="string">"peek: "</span> + linkedList2.peek());</span><br><span class="line">        System.out.println(<span class="string">"peekFirst: "</span> + linkedList2.peekFirst());</span><br><span class="line">        System.out.println(<span class="string">"peekLast: "</span> + linkedList2.peekLast());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-3-offer"><a href="#2-3-offer" class="headerlink" title="2.3 offer"></a>2.3 offer</h4><ol>
+<li>boolean offer(E e)：在链表尾部插入一个元素； </li>
+<li>boolean offerFirst(E e)：与addFirst一样，实际上它就是addFirst； </li>
+<li>boolean offerLast(E e)：与addLast一样，实际上它就是addLast；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        linkedList.push(<span class="string">"first"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"third"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"four"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"five"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first]</span></span><br><span class="line">        linkedList.offer(<span class="string">"six"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first,six]</span></span><br><span class="line">        linkedList.offerFirst(<span class="string">"zero"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [zero,five,four,third,second,second,first,six]</span></span><br><span class="line">        linkedList.offerLast(<span class="string">"seven"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [zero,five,four,third,second,second,first,six,seven]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector也是List接口的实现类，内部也是通过数组来实现。</p>
+<p>java.util.vector提供了向量类(Vector)以实现类似动态数组的功能。<br>创建了一个向量类的对象后，可以往其中随意插入不同类的对象，即不需顾及类型也不需预先选定向量的容量，并可以方便地进行查找。</p>
+<p>对于预先不知或者不愿预先定义数组大小，并且需要频繁地进行查找，插入，删除工作的情况，可以考虑使用向量类。</p>
+<p>向量类提供了三种构造方法：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> vector() </span><br><span class="line"><span class="keyword">public</span> vector(<span class="built_in">int</span> initialcapacity,<span class="built_in">int</span> capacityIncrement) </span><br><span class="line"><span class="keyword">public</span> vector(<span class="built_in">int</span> initialcapacity)</span><br></pre></td></tr></table></figure>
+
+<p>使用第一种方法系统会自动对向量进行管理，若使用后两种方法，则系统将根据参数，initialcapacity设定向量对象的容量（即向量对象可存储数据的大小），当真正存放的数据个数超过容量时。系统会扩充向量对象存储容量。</p>
+<p>参数capacityincrement给定了每次扩充的扩充值。当capacityincrement为0的时候，则每次扩充一倍，利用这个功能可以优化存储。</p>
+<p>Vector类的代码声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Vector</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与ArrayList不同的是，<strong>Vector是线程安全的</strong>，即某一时刻只有一个线程能够写Vector，避免多线程同时写而引起的不一致性。不过这也造成Vector的缺点：实现线程的同步需要额外的花费，因此它的访问速度会比ArrayList慢一些。</p>
+<p>可以认为Vector是ArrayList在多线程环境下的实现版本。所以Vector类的使用方法和ArrayList基本一样，只需修改下声明处的代码即可：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; platformList = <span class="keyword">new</span> Vector&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>由于要支持线程同步，因此Vector类的很多方法都有synchronized关键字，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> elementCount == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> elementCount;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(E obj)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="number">1</span>);</span><br><span class="line">    elementData[elementCount++] = obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、ArrayList、LinkedList、Vector区别"><a href="#三、ArrayList、LinkedList、Vector区别" class="headerlink" title="三、ArrayList、LinkedList、Vector区别"></a>三、ArrayList、LinkedList、Vector区别</h2><h3 id="1-底层实现"><a href="#1-底层实现" class="headerlink" title="1 底层实现"></a>1 底层实现</h3><p><strong>ArrayList和Vector是基于数组实现的，LinkedList是基于双向链表实现的。</strong></p>
+<p>这也就导致ArrayList适合随机查找和遍历，而LinkedList适合动态插入和删除元素。</p>
+<h3 id="2-线程安全性"><a href="#2-线程安全性" class="headerlink" title="2 线程安全性"></a>2 线程安全性</h3><p><strong>ArrayList和LinkedList是线程不安全的，Vector是线程安全的。</strong></p>
+<p>Vector可以看做是ArrayList在多线程环境下的另一种实现方式，这也导致了Vector的效率没有ArraykList和LinkedList高。</p>
+<p>如果要在并发环境下使用ArrayList或者LinkedList，可以调用Collections类的synchronizedList()方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Collections.synchronizedList(myList);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-扩容机制"><a href="#3-扩容机制" class="headerlink" title="3 扩容机制"></a>3 扩容机制</h3><p><strong>ArrayList和Vector都是使用Object类型的数组（Object[ ] array）来存储数据的，ArrayList的默认容量是10，Vector的默认容量是0。</strong></p>
+<p>当向这两种类型中添加元素时，若容量不够，就会进行扩容，扩容的本质是产生一个新数组，将原数组的数据复制到新数组，再将新的元素添加到新数组中，使用的方法是<code>Arrays.copyOf()</code>，其中<strong>ArrayList扩容后的容量是之前的1.5倍，Vector默认情况下扩容后的容量是之前的2倍</strong>。</p>
+<p>查看ArrayList的源码，就明白为什么会这样扩容：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateCapacity</span><span class="params">(Object[] elementData, <span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">         <span class="keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> minCapacity;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     modCount++;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// overflow-conscious code</span></span><br><span class="line">     <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">      	 grow(minCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// overflow-conscious code</span></span><br><span class="line">     <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">     <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = minCapacity;</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">     <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">     elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最核心的代码就是<code>int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);</code>，所以ArrayList扩容后的容量是之前的1.5倍。</p>
+<p>查看Vector的源码，就明白为什么会这样扩容：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(E obj)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="number">1</span>);</span><br><span class="line">    elementData[elementCount++] = obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityHelper</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// overflow-conscious code</span></span><br><span class="line">        <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">            grow(minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_ARRAY_SIZE = Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// overflow-conscious code</span></span><br><span class="line">     <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">     <span class="keyword">int</span> newCapacity = oldCapacity + ((capacityIncrement &gt; <span class="number">0</span>) ?</span><br><span class="line">                                      capacityIncrement : oldCapacity);</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = minCapacity;</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">     elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最核心的代码就是<code>int newCapacity = oldCapacity + ((capacityIncrement &gt; 0) ?capacityIncrement : oldCapacity);</code>，所以Vector默认情况下扩容后的容量是之前的2倍。</p>
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><p><a href="https://www.cnblogs.com/zwwhnly/p/11265599.html" target="_blank" rel="noopener">Java集合系列(二)：ArrayList、LinkedList、Vector的使用方法及区别</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/lixiansheng/p/11349369.html" target="_blank" rel="noopener">Java集合（三）、继承自Collection接口的List接口</a></p>
+</li>
+<li><p>Java核心技术 卷一：集合</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Java集合</category>
+      </categories>
+      <tags>
+        <tag>Java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java集合（一）概述</title>
     <url>/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Java集合是Java SE中的内容，也是非常重要的一部分，但是由于我学习Java SE只是课堂学习，缺少实际项目推动，代码练习也不多，基本上这些知识都是学完就忘。。所以去网上找一些博客，结合Java核心技术做一个笔记</p>
@@ -5486,8 +5754,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -5577,8 +5845,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -5908,8 +6176,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -5929,8 +6197,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -6416,7 +6684,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-JsVjAhie" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-fWuOmJGH" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
@@ -6627,8 +6895,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
@@ -6830,8 +7098,8 @@
         <category>hexo</category>
       </categories>
       <tags>
-        <tag>web</tag>
         <tag>hexo</tag>
+        <tag>web</tag>
       </tags>
   </entry>
 </search>

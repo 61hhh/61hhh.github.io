@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="learn to live,learn to love" />
+   
+  <meta name="description" content="Be Yourself" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Java集合（二）List接口 |  Salute
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-161190166-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-Java集合（二）List接口" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Java集合（二）List接口
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2020-08-03T01:19:03.000Z" itemprop="datePublished">2020-08-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">14 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="一、Collection接口"><a href="#一、Collection接口" class="headerlink" title="一、Collection接口"></a>一、Collection接口</h2><p>Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等</p>
+<p><img src="http://img2.salute61.top/java_Collection2.png" alt=""></p>
+<a id="more"></a>
+
+<h3 id="1-Collection的常用功能"><a href="#1-Collection的常用功能" class="headerlink" title="1.Collection的常用功能"></a>1.Collection的常用功能</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 添加功能</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span></span><br><span class="line"><span class="function">        添加一个元素</span></span><br><span class="line"><span class="function">    <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection c)</span>  </span></span><br><span class="line"><span class="function">        添加一批元素</span></span><br><span class="line"><span class="function">2. 删除功能</span></span><br><span class="line"><span class="function">   <span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span> </span></span><br><span class="line"><span class="function">       删除一个元素</span></span><br><span class="line"><span class="function">3. 判断功能</span></span><br><span class="line"><span class="function">   <span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span> </span></span><br><span class="line"><span class="function">       判断集合是否包含指定的元素</span></span><br><span class="line"><span class="function">   <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">       判断集合是否为空<span class="params">(集合中没有元素)</span></span></span><br><span class="line"><span class="function">4. 获取功能</span></span><br><span class="line"><span class="function">   <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">      获取集合的长度</span></span><br><span class="line"><span class="function">5. 转换功能</span></span><br><span class="line"><span class="function">   Object[] <span class="title">toArray</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">       把集合转换为数组</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-遍历集合的方式"><a href="#2-遍历集合的方式" class="headerlink" title="2.遍历集合的方式"></a>2.遍历集合的方式</h3><p>普通的for循环，需要索引，对数组支持的集合操作更方便</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        list.add(<span class="string">"Hello"</span>);</span><br><span class="line">        list.add(<span class="string">"Java"</span>);</span><br><span class="line">        list.add(<span class="string">"World"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size(); i++)&#123;</span><br><span class="line">            String s = (String) list.get(i);</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>迭代器遍历，可以遍历任何集合，与传统的迭代器（例如C++标准模板库的迭代器）不同</p>
+<ul>
+<li>C++ STL中迭代器是根据数组索引建模的，给定迭代器可以查看指定位置上的元素，就像知道索引 i 可以查看数组a[i]一样，不需要查找元素就可以将迭代器前移</li>
+<li>Java迭代器的查找操作和位置变更是紧密相连的，查找一个元素唯一的方法是调用next，执行查找操作的同时迭代器位置前移</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;String&gt; c = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        c.add(<span class="string">"Hello"</span>);</span><br><span class="line">        c.add(<span class="string">"Java"</span>);</span><br><span class="line">        c.add(<span class="string">"World"</span>);</span><br><span class="line">        <span class="comment">//获取迭代器对象</span></span><br><span class="line">        Iterator&lt;String&gt; it = c.iterator();</span><br><span class="line">        <span class="comment">//hasNext()判断是否有下一个元素，如果有就用next()获取</span></span><br><span class="line">        <span class="keyword">while</span>(it.hasNext())&#123;</span><br><span class="line">            <span class="comment">//获取下一个元素</span></span><br><span class="line">            String s = it.next();</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>for-each循环</strong>：用更简洁的方式表达同样的操作。编译器将for each循环翻译为带有迭代器的循环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Collection&lt;String&gt; c = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        c.add(<span class="string">"Hello"</span>);</span><br><span class="line">        c.add(<span class="string">"Java"</span>);</span><br><span class="line">        c.add(<span class="string">"World"</span>);</span><br><span class="line">        <span class="comment">//高级for遍历集合</span></span><br><span class="line">        <span class="keyword">for</span> (String s : c)&#123;</span><br><span class="line">            System.out.println(s);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line">        <span class="comment">//高级for遍历数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a : arr)&#123;</span><br><span class="line">            System.out.println(a);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="二、List集合"><a href="#二、List集合" class="headerlink" title="二、List集合"></a>二、List集合</h2><p>List集合包含List接口及其实现类。List集合有以下特点：</p>
+<ol>
+<li>集合元素允许重复</li>
+<li>集合元素有序</li>
+<li>元素可以通过索引访问</li>
+</ol>
+<p>常用的实现类有：ArrayList、LinkedList、Vector。</p>
+<h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList是List接口的典型实现类，本质上，ArrayList是对象引用的一个变长数组。</p>
+<p>ArrayList是List接口的可变数组的实现。实现了所有可选列表操作，并允许包括null在内的所有元素。除了实现List接口外，此类还提供了一些方法来操作内部用来存储列表的数组的大小。</p>
+<p>每个ArrayList实例都有一个初始容量，该容量用来储存列表元素的数组大小。<strong>默认初始容量为10。</strong></p>
+<p>ArrayList底层采用数组实现，因此它的优点是适合随机查找和遍历，缺点是不适合插入和删除。</p>
+<p>注：<font color="red">Arrays.asList(…) 方法返回的 List 集合既不是 ArrayList 实例，也不是 Vector 实例。 Arrays.asList(…)返回值是一个固定长度的 List 集合。</font></p>
+<h4 id="1-1-添加元素"><a href="#1-1-添加元素" class="headerlink" title="1.1 添加元素"></a>1.1 添加元素</h4><p>使用ArrayList添加元素有如下方法</p>
+<ul>
+<li>set(int index, E element)：替换数组中已经存在的元素内容。</li>
+<li>add(E e)：将元素添加到集合的末尾</li>
+<li>add(int index, E element)：将元素添加到指定的索引位置</li>
+<li>addAll(Collection&lt;? extends E&gt; c)：按照指定Collection的迭代器所返回的元素顺序，将该Collection中的所有元素添加到此列表的尾部。</li>
+<li>addAll(inr index, Collection&lt;? extends E&gt; c)：从指定的位置开始，将指定collection中的所有元素插入到此列表中</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; platformList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 添加元素</span></span><br><span class="line">myList.add(<span class="string">"靓仔"</span>);</span><br><span class="line">myList.add(<span class="string">"你好"</span>);</span><br><span class="line">myList.add(<span class="string">"leslie"</span>);</span><br><span class="line">myList.add(<span class="string">"cheung"</span>);</span><br><span class="line"><span class="comment">// 添加重复元素,会添加成功,因为List支持添加重复元素</span></span><br><span class="line">myList.add(<span class="string">"你好"</span>);</span><br><span class="line">myList.add(<span class="string">"靓仔"</span>);</span><br><span class="line"></span><br><span class="line">myList.add(<span class="number">3</span>, <span class="string">"个人博客"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-获取元素"><a href="#1-2-获取元素" class="headerlink" title="1.2  获取元素"></a>1.2  获取元素</h4><p>获取ArrayList中指定索引处的元素的使用方法  get()：获取指定位置上的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"索引为3的元素为："</span> + myList.get(<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+
+<p>如果指定的索引超出了集合的最大索引，比如<code>myList.get(10010)</code>就会抛出异常<code>java.lang.IndexOutOfBoundsException</code>：</p>
+<h4 id="1-3-获取集合元素个数"><a href="#1-3-获取集合元素个数" class="headerlink" title="1.3 获取集合元素个数"></a>1.3 获取集合元素个数</h4><p>获取ArrayList元素个数的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"myList的元素个数为："</span> + myList.size());</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-删除元素"><a href="#1-4-删除元素" class="headerlink" title="1.4 删除元素"></a>1.4 删除元素</h4><p>使用ArrayList删除元素有以下两个重载：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>E remove(int index);</code>是删除集合中指定索引处的元素，<code>boolean remove(Object o);</code>是删除集合中的指定元素。</p>
+<p>使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 指定索引删除重复的元素 "你好" "靓仔"</span></span><br><span class="line">myList.remove(<span class="number">4</span>);</span><br><span class="line">myList.remove(<span class="number">4</span>);</span><br><span class="line"><span class="comment">// 删除指定元素 "个人博客"</span></span><br><span class="line">myList.remove(<span class="string">"靓仔"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-5-修改元素"><a href="#1-5-修改元素" class="headerlink" title="1.5 修改元素"></a>1.5 修改元素</h4><p>修改ArrayList中指定索引处的元素值的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myList.set(<span class="number">0</span>, <span class="string">"salute"</span>);</span><br><span class="line">myList.set(<span class="number">1</span>, <span class="string">"LiuYi"</span>);</span><br><span class="line">myList.set(<span class="number">2</span>, <span class="string">"Bob Dylan"</span>);</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-6-判断集合是否为空"><a href="#1-6-判断集合是否为空" class="headerlink" title="1.6 判断集合是否为空"></a>1.6 判断集合是否为空</h4><p>判断ArrayList是否为空的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"isEmpty:"</span> + myList.isEmpty());</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-7-清空集合"><a href="#1-7-清空集合" class="headerlink" title="1.7 清空集合"></a>1.7 清空集合</h4><p>清空ArrayList中所有元素的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myList.clear();</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>小结</strong>：</p>
+<ul>
+<li>ArrayLlist内部是由数组来实现的。在存放数据的数组长度不够时，会进行扩容，即增加数组长度。扩展为原来的1.5倍。</li>
+<li>由于是数组来实现，所以，优点是查找元素很快。可以通过下标查找元素，查找效率高。缺点是每次添加和删除元素都会进行大量的数组元素移动。长度不够会扩容。效率底下。</li>
+<li>ArrayList每次的增、删、改操作都伴随着数组的复制和元素的移动。这意味着新的内存空间的开辟。</li>
+</ul>
+<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList也是List接口的实现类，内部使用链表结构存储数据</p>
+<ul>
+<li>分配内存空间不是必须是连续的；</li>
+<li>插入、删除操作很快，只要修改前后指针就OK了，时间复杂度为O(1)；</li>
+<li>访问比较慢，必须得从第一个元素开始遍历，时间复杂度为O(n)；</li>
+</ul>
+<p>LinkedList类的代码声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractSequentialList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">Deque</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="comment">//。。。。。。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LinkedList类的使用方法和ArrayList基本一样，只需修改下声明处的代码即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; platformList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-push、pop、poll"><a href="#2-1-push、pop、poll" class="headerlink" title="2.1 push、pop、poll"></a>2.1 push、pop、poll</h4><ol>
+<li>void push(E e)：与addFirst一样，实际上它就是addFirst； </li>
+<li>E pop()：与removeFirst一样，实际上它就是removeFirst； </li>
+<li>E poll()：查询并移除第一个元素；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        linkedList.push(<span class="string">"first"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"third"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"four"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"five"</span>);</span><br><span class="line">        System.out.println(linkedList);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"pop: "</span> + linkedList.pop());</span><br><span class="line">        <span class="comment">//pop: five</span></span><br><span class="line">        System.out.println(<span class="string">"after pop: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//after pop: [four,third,second,second,first]</span></span><br><span class="line">        System.out.println(<span class="string">"poll: "</span> + linkedList.poll());</span><br><span class="line">        <span class="comment">//poll: four</span></span><br><span class="line">        System.out.println(<span class="string">"after poll: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//after poll: [third,second,second,first]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>push、pop的操作很接近stack的操作。</p>
+<p>在链表为空时，poll与pop的区别：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"pop: "</span> + linkedList.poll());</span><br><span class="line">        <span class="comment">//pop: null</span></span><br><span class="line">        System.out.println(<span class="string">"poll: "</span> + linkedList.pop());</span><br><span class="line">        <span class="comment">//poll报错: Exception in thread "main" java.util.NoSuchElementException</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-peek"><a href="#2-2-peek" class="headerlink" title="2.2 peek"></a>2.2 peek</h4><p>获取元素，可以指定第一个peekFirst，也可以时最后一个peekLast，只能获取不会移除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        linkedList.push(<span class="string">"first"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"third"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"four"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"five"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first]</span></span><br><span class="line">        System.out.println(<span class="string">"peek: "</span> + linkedList.peek());</span><br><span class="line">        <span class="comment">//peek: five</span></span><br><span class="line">        System.out.println(<span class="string">"peekFirst: "</span> + linkedList.peekFirst());</span><br><span class="line">        <span class="comment">//peekFirst: five</span></span><br><span class="line">        System.out.println(<span class="string">"peekLast: "</span> + linkedList.peekLast());</span><br><span class="line">        <span class="comment">//peekLast: first</span></span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first]</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">//如果没找到对应元素，输出为null</span></span><br><span class="line">        LinkedList&lt;String&gt; linkedList2 = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        System.out.println(<span class="string">"linkedList2: "</span> + linkedList2);</span><br><span class="line">        System.out.println(<span class="string">"peek: "</span> + linkedList2.peek());</span><br><span class="line">        System.out.println(<span class="string">"peekFirst: "</span> + linkedList2.peekFirst());</span><br><span class="line">        System.out.println(<span class="string">"peekLast: "</span> + linkedList2.peekLast());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-3-offer"><a href="#2-3-offer" class="headerlink" title="2.3 offer"></a>2.3 offer</h4><ol>
+<li>boolean offer(E e)：在链表尾部插入一个元素； </li>
+<li>boolean offerFirst(E e)：与addFirst一样，实际上它就是addFirst； </li>
+<li>boolean offerLast(E e)：与addLast一样，实际上它就是addLast；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;String&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        linkedList.push(<span class="string">"first"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"second"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"third"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"four"</span>);</span><br><span class="line">        linkedList.push(<span class="string">"five"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first]</span></span><br><span class="line">        linkedList.offer(<span class="string">"six"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [five,four,third,second,second,first,six]</span></span><br><span class="line">        linkedList.offerFirst(<span class="string">"zero"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [zero,five,four,third,second,second,first,six]</span></span><br><span class="line">        linkedList.offerLast(<span class="string">"seven"</span>);</span><br><span class="line">        System.out.println(<span class="string">"linkedList: "</span> + linkedList);</span><br><span class="line">        <span class="comment">//linkedList: [zero,five,four,third,second,second,first,six,seven]</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector也是List接口的实现类，内部也是通过数组来实现。</p>
+<p>java.util.vector提供了向量类(Vector)以实现类似动态数组的功能。<br>创建了一个向量类的对象后，可以往其中随意插入不同类的对象，即不需顾及类型也不需预先选定向量的容量，并可以方便地进行查找。</p>
+<p>对于预先不知或者不愿预先定义数组大小，并且需要频繁地进行查找，插入，删除工作的情况，可以考虑使用向量类。</p>
+<p>向量类提供了三种构造方法：</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> vector() </span><br><span class="line"><span class="keyword">public</span> vector(<span class="built_in">int</span> initialcapacity,<span class="built_in">int</span> capacityIncrement) </span><br><span class="line"><span class="keyword">public</span> vector(<span class="built_in">int</span> initialcapacity)</span><br></pre></td></tr></table></figure>
+
+<p>使用第一种方法系统会自动对向量进行管理，若使用后两种方法，则系统将根据参数，initialcapacity设定向量对象的容量（即向量对象可存储数据的大小），当真正存放的数据个数超过容量时。系统会扩充向量对象存储容量。</p>
+<p>参数capacityincrement给定了每次扩充的扩充值。当capacityincrement为0的时候，则每次扩充一倍，利用这个功能可以优化存储。</p>
+<p>Vector类的代码声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Vector</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span>&#123;</span><br><span class="line">    <span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与ArrayList不同的是，<strong>Vector是线程安全的</strong>，即某一时刻只有一个线程能够写Vector，避免多线程同时写而引起的不一致性。不过这也造成Vector的缺点：实现线程的同步需要额外的花费，因此它的访问速度会比ArrayList慢一些。</p>
+<p>可以认为Vector是ArrayList在多线程环境下的实现版本。所以Vector类的使用方法和ArrayList基本一样，只需修改下声明处的代码即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; platformList = <span class="keyword">new</span> Vector&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>由于要支持线程同步，因此Vector类的很多方法都有synchronized关键字，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> elementCount == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> elementCount;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(E obj)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="number">1</span>);</span><br><span class="line">    elementData[elementCount++] = obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、ArrayList、LinkedList、Vector区别"><a href="#三、ArrayList、LinkedList、Vector区别" class="headerlink" title="三、ArrayList、LinkedList、Vector区别"></a>三、ArrayList、LinkedList、Vector区别</h2><h3 id="1-底层实现"><a href="#1-底层实现" class="headerlink" title="1 底层实现"></a>1 底层实现</h3><p><strong>ArrayList和Vector是基于数组实现的，LinkedList是基于双向链表实现的。</strong></p>
+<p>这也就导致ArrayList适合随机查找和遍历，而LinkedList适合动态插入和删除元素。</p>
+<h3 id="2-线程安全性"><a href="#2-线程安全性" class="headerlink" title="2 线程安全性"></a>2 线程安全性</h3><p><strong>ArrayList和LinkedList是线程不安全的，Vector是线程安全的。</strong></p>
+<p>Vector可以看做是ArrayList在多线程环境下的另一种实现方式，这也导致了Vector的效率没有ArraykList和LinkedList高。</p>
+<p>如果要在并发环境下使用ArrayList或者LinkedList，可以调用Collections类的synchronizedList()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.synchronizedList(myList);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-扩容机制"><a href="#3-扩容机制" class="headerlink" title="3 扩容机制"></a>3 扩容机制</h3><p><strong>ArrayList和Vector都是使用Object类型的数组（Object[ ] array）来存储数据的，ArrayList的默认容量是10，Vector的默认容量是0。</strong></p>
+<p>当向这两种类型中添加元素时，若容量不够，就会进行扩容，扩容的本质是产生一个新数组，将原数组的数据复制到新数组，再将新的元素添加到新数组中，使用的方法是<code>Arrays.copyOf()</code>，其中<strong>ArrayList扩容后的容量是之前的1.5倍，Vector默认情况下扩容后的容量是之前的2倍</strong>。</p>
+<p>查看ArrayList的源码，就明白为什么会这样扩容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateCapacity</span><span class="params">(Object[] elementData, <span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">         <span class="keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> minCapacity;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     modCount++;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// overflow-conscious code</span></span><br><span class="line">     <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">      	 grow(minCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// overflow-conscious code</span></span><br><span class="line">     <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">     <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = minCapacity;</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">     <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">     elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最核心的代码就是<code>int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);</code>，所以ArrayList扩容后的容量是之前的1.5倍。</p>
+<p>查看Vector的源码，就明白为什么会这样扩容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addElement</span><span class="params">(E obj)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    ensureCapacityHelper(elementCount + <span class="number">1</span>);</span><br><span class="line">    elementData[elementCount++] = obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityHelper</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// overflow-conscious code</span></span><br><span class="line">        <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">            grow(minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_ARRAY_SIZE = Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">     <span class="comment">// overflow-conscious code</span></span><br><span class="line">     <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">     <span class="keyword">int</span> newCapacity = oldCapacity + ((capacityIncrement &gt; <span class="number">0</span>) ?</span><br><span class="line">                                      capacityIncrement : oldCapacity);</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = minCapacity;</span><br><span class="line">     <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">         newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">     elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最核心的代码就是<code>int newCapacity = oldCapacity + ((capacityIncrement &gt; 0) ?capacityIncrement : oldCapacity);</code>，所以Vector默认情况下扩容后的容量是之前的2倍。</p>
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><p><a href="https://www.cnblogs.com/zwwhnly/p/11265599.html" target="_blank" rel="noopener">Java集合系列(二)：ArrayList、LinkedList、Vector的使用方法及区别</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/lixiansheng/p/11349369.html" target="_blank" rel="noopener">Java集合（三）、继承自Collection接口的List接口</a></p>
+</li>
+<li><p>Java核心技术 卷一：集合</p>
+</li>
+</ul>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%89%EF%BC%89Set%E6%8E%A5%E5%8F%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Java集合（三）Set接口
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89%E6%A6%82%E8%BF%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java集合（一）概述</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '9um8B04v28kv3b2vHiIOeL3U-gzGzoHsz',
+        app_key: 'nRQoroDFBKPChSxs12SduMCl',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        LY
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        <div class="Ebeian-info">
+          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
+          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/playlist">歌单</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+
+    <!--动态背景线条-->
+    <!-- <script color="0,0,255" opacity='0.7' zIndex="-2" count="99"
+    src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js">
+    </script> -->
+    <!--恶搞标题-->
+    <script type="text/javascript" src="../source/js/funnyTitle.js"></script>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
+      startDelay: 0,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=475218187&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+
+</html>
