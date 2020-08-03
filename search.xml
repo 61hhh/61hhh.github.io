@@ -4029,7 +4029,7 @@
 </blockquote>
 <a id="more"></a>
 
-<h2 id="拥塞的概念"><a href="#拥塞的概念" class="headerlink" title="拥塞的概念"></a>拥塞的概念</h2><p>计算机网络中的链路容量（带宽）、交换系欸但中的缓存和处理机等，都是网络的资源。在某段时间<strong>若对某一资源的需求超过了该资源所能提供的可用部分，网络性能就会变坏</strong>，这种情况就叫<strong>拥塞（ 即 ∑对资源需求 &gt;可用资源 ）</strong>，拥塞会使得整个网络的吞吐量随输入负荷增大而下降。 </p>
+<h2 id="拥塞的概念"><a href="#拥塞的概念" class="headerlink" title="拥塞的概念"></a>拥塞的概念</h2><p>计算机网络中的链路容量（带宽）、交换节点中的缓存和处理机等，都是网络的资源。在某段时间<strong>若对某一资源的需求超过了该资源所能提供的可用部分，网络性能就会变坏</strong>，这种情况就叫<strong>拥塞（ 即 ∑对资源需求 &gt;可用资源 ）</strong>，拥塞会使得整个网络的吞吐量随输入负荷增大而下降。 </p>
 <p>一般可能的想到处理方法是：1.加大节点缓存空间；2.提高链路速率。然而由于网络拥塞往往是多种因素引起的复杂问题，上面的方法可能会适得其反</p>
 <ol>
 <li>增大结点缓存：此时由于链路的容量和处理及速度并未提升，因此在队列中的绝大多数分组的排队等待时间会大大增加，引起大量的超时重传</li>
@@ -6416,7 +6416,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-OhnCevfJ" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-JtVOhVwe" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
