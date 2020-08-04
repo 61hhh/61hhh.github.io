@@ -141,7 +141,7 @@ var _hmt = _hmt || [];
 <p><font color="red">所以可以得到添加到TreeSet中的对象必须实现Comparable接口。同时如果使用HashSet建议重写equals()方法。</font></p>
 <img src="http://img2.salute61.top/Java_Set.png" style="zoom:67%;" />
 
-
+<a id="more"></a>
 
 <h2 id="二、HashSet"><a href="#二、HashSet" class="headerlink" title="二、HashSet"></a>二、HashSet</h2><p>HashSet实现了Set接口，底层是基于HashMap进行存储。遍历时不保证顺序，并不保证下次遍历的顺序和之前一样。HashSet中允许null值。</p>
 <p>HashSet底层由HashMap实现，插入的元素被当做是HashMap的key，根据hashCode值来确定集合中的位置，由于Set集合中并没有角标的概念，所以并没有像List一样提供get（）方法。当获取HashSet中某个元素时，只能通过遍历集合的方式进行equals()比较来实现；</p>
