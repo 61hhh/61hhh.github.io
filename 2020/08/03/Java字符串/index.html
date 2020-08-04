@@ -130,8 +130,7 @@ var _hmt = _hmt || [];
       
 
       
-      <p>a</p>
-<p>Java中的字符串处理，主要涉及三个类：<font color="red"><strong>String、StringBuffer、StringBuilder</strong></font></p>
+      <p>Java中的字符串处理，主要涉及三个类：<font color="red"><strong>String、StringBuffer、StringBuilder</strong></font></p>
 <p>三者共同之处：都是final类，不允许被继承。</p>
 <p>StringBuffer是线程安全，可以不需要额外的同步用于多线程中;</p>
 <p>StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了;</p>
@@ -139,6 +138,10 @@ var _hmt = _hmt || [];
 <p>String实现了三个接口:Serializable、Comparable &lt; String &gt;、CharSequence</p>
 <p>StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。</p>
 <p><img src="http://img2.salute61.top/Java_String.png" alt=""></p>
+<a id="more"></a>
+
+
+
 <h2 id="一、String简介"><a href="#一、String简介" class="headerlink" title="一、String简介"></a>一、String简介</h2><p>String是一个字符串常量，一般由String声明的字符串，长度是不可变的，这也是它与StringBuffer和StringBuilder最直观的一个区别。</p>
 <p>一般初始化方式：<code>String s = &quot;hello world&quot;;</code> 经过这条语句，JVM的栈内存中产生一个s变量，堆内存中产生hello world字符串对象。s指向了hello world的地址。像上面这种方式产生的字符串属于直接量字符串对象，JVM在处理这类字符串的时候，会进行缓存，产生时放入字符串池，当程序需要再次使用的时候，无需重新创建一个新的字符串，而是直接指向已存在的字符串。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="string">"hello world"</span>;</span><br><span class="line">String s2 = <span class="string">"hello world"</span>;</span><br><span class="line">System.out.println(s == s2);<span class="comment">//返回为true</span></span><br></pre></td></tr></table></figure>
