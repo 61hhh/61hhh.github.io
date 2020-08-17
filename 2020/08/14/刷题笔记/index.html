@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    LY&#39;s love |  Salute
+    刷题笔记 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -56,9 +56,6 @@ var _hmt = _hmt || [];
 
 
 <link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
 </head>
 
 </html>
@@ -67,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="page-" class="article article-type-page" itemscope
+  <article id="post-刷题笔记" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -75,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  LY&#39;s love
+  刷题笔记
 </h1>
  
 
@@ -83,6 +80,47 @@ var _hmt = _hmt || [];
     
 
     
+    <div class="article-meta">
+      <a href="/2020/08/14/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2020-08-14T12:00:51.000Z" itemprop="datePublished">2020-08-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a> / <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/%E5%88%B7%E9%A2%98/">刷题</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">810</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">3 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
 
     
 
@@ -92,10 +130,192 @@ var _hmt = _hmt || [];
       
 
       
-      
-    <div id="aplayer-UdIHtnVC" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="629185645" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#FF4081"
-    ></div>
+      <p>上一篇博客竟然是5天前了。。。5天时间每天瞎看看啥也没复习题也没刷。。。</p>
+<p>刚刚做了一下笔试编程，明明感觉挺简单的两道题，一道case过50%，一道看半天读懂题，不会处理直接0%。。。(看了讨论第一道题要考虑long……)</p>
+<p>刷题太少了，真的太菜了啊！！！</p>
+<p>我要把所有刷的题全部记录到这里。艹</p>
+<p>先是按照leetcode的探索来刷</p>
+<a id="more"></a>
+
+<h2 id="队列-amp-栈"><a href="#队列-amp-栈" class="headerlink" title="队列&amp;栈"></a>队列&amp;栈</h2><h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h4 id="二叉树的最近公共祖先"><a href="#二叉树的最近公共祖先" class="headerlink" title="二叉树的最近公共祖先"></a>二叉树的最近公共祖先</h4><p>思路：祖先定义——节点p在节点root的子树中，或p=root，则称root是p的祖先</p>
+<p><img src="http://img2.salute61.top/68_1.png" alt=""></p>
+<p>上图中5、1的公共祖先就是3；5、4的公共祖先就是5……</p>
+<p>题解分析里说的情况：</p>
+<ul>
+<li>p、q再root的子树中且分别在左右两侧；</li>
+<li>p、q在同侧（都在root=3的左/右子树上）<ul>
+<li>p=root，q在root的左或右子树中；<u>(这里的root是指子树的root)</u></li>
+<li>q=root，p在root的左或右子树中；<u>(这里的root是指子树的root)</u></li>
+</ul>
+</li>
+</ul>
+<p>其实我一开始不理解，有可能p、q都在root的左子树(或右子树)里啊，但是一想就明白了——比如p=6，q=2，此时的root=5而不再是整个树的3，要理解二叉树的性质——子树也是二叉树。</p>
+<p>由此可以考虑递归后序遍历，至于递归的思路很容易理解：</p>
+<ol>
+<li>p、q分别是root的左右子节点，那么公共祖先就是root</li>
+<li>p、q都是root的左节点，返回<code>lowestCommonAncestor(root.left,p,q)</code>;</li>
+<li>p、q都是root的右节点，返回<code>lowestCommonAncestor(root.right,p,q)</code>；</li>
+</ol>
+<p>边界条件：</p>
+<ul>
+<li>root==null，表示找到底了，此时还没找到，返回null</li>
+<li>root==p||root==q，那么另一个就只能是他的子结点，返回本身也就是root</li>
+<li>左子树没有证明p、q都在右侧，公共祖先就是右子树找到的节点</li>
+<li>右子树没有证明p、q都在左侧，公共祖先就是左子树找到的节点</li>
+</ul>
+<p>完整的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  *1、p q一个在左子树一个在右子树</span></span><br><span class="line"><span class="comment">  *2、p q都在左子树</span></span><br><span class="line"><span class="comment">  *3、p q都在右子树</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        <span class="keyword">if</span>(root==p || root==q)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//分析一下递归的代码</span></span><br><span class="line">        <span class="comment">//如果上面三个判断都没有表示root存在且不等于p、q</span></span><br><span class="line">        <span class="comment">//去左右子树递归查找，由于递归调用的还是lowestCommonAncestor，所以进入子树后还是判断那三个条件，也就是说要么发现了某个子树root等于p或q返回root，要么越过叶子也没有那就返回null</span></span><br><span class="line">        TreeNode left = lowestCommonAncestor(root.left,p,q);</span><br><span class="line">        TreeNode right = lowestCommonAncestor(root.right,p,q);</span><br><span class="line">        <span class="comment">//对左/右子树的递归查找都返回非null，p、q又唯一，肯定是一个在左一个在右</span></span><br><span class="line">        <span class="keyword">if</span>(left!=<span class="keyword">null</span> &amp;&amp; right!=<span class="keyword">null</span>)<span class="comment">//1</span></span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        <span class="comment">//一边返回为空一边不为空情况</span></span><br><span class="line">        <span class="keyword">if</span>(left!=<span class="keyword">null</span>)<span class="comment">//2</span></span><br><span class="line">            <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">if</span>(right!=<span class="keyword">null</span>)<span class="comment">//3</span></span><br><span class="line">            <span class="keyword">return</span> right;</span><br><span class="line">        <span class="comment">//两边都为空表示没有，返回null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面对left和right判断也可以这么写，只不过变换了一下顺序</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(left==<span class="keyword">null</span> &amp;&amp; right==<span class="keyword">null</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(left==<span class="keyword">null</span>)</span><br><span class="line">    <span class="keyword">return</span> right;</span><br><span class="line"><span class="keyword">if</span>(right==<span class="keyword">null</span>)</span><br><span class="line">    <span class="keyword">return</span> left;</span><br><span class="line"><span class="keyword">return</span> root;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       
       <!-- reward -->
       
@@ -163,13 +383,15 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/playlist/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/08/14/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/" rel="tag">code</a></li></ul>
+
 
     </footer>
 
@@ -177,6 +399,25 @@ var _hmt = _hmt || [];
 
   
   
+  <nav class="article-nav">
+    
+      <a href="/2020/08/17/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            常见排序算法总结
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Java集合（四）Map接口</div>
+      </a>
+    
+  </nav>
+
 
   
 
@@ -234,6 +475,8 @@ var _hmt = _hmt || [];
 
   
 
+  
+  
   
 
 </article>
@@ -413,6 +656,24 @@ var _hmt = _hmt || [];
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 
 
