@@ -134,7 +134,7 @@ var _hmt = _hmt || [];
 <p>三者共同之处：都是final类，不允许被继承。</p>
 <p>StringBuffer是线程安全，可以不需要额外的同步用于多线程中;</p>
 <p>StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了;</p>
-<p>StringBuffer与StringBuilder两者共同之处:可以通过append、indert进行字符串的操作。</p>
+<p>StringBuffer与StringBuilder两者共同之处:可以通过append、insert进行字符串的操作。</p>
 <p>String实现了三个接口:Serializable、Comparable &lt; String &gt;、CharSequence</p>
 <p>StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。</p>
 <p><img src="http://img2.salute61.top/Java_String.png" alt=""></p>
@@ -198,7 +198,7 @@ var _hmt = _hmt || [];
 <p>以StringBuffer为例分析一下它们的方法</p>
 <h4 id="1-append"><a href="#1-append" class="headerlink" title="1 append()"></a>1 append()</h4><p>append()：就是在原来的字符串后面直接追加一个新的串，和String类相比有明显的好处——String类在追加的时候，源字符串不变（这就是为什么说String是不可变的字符串类型），和新串连接后，重新开辟一个内存。这样就会造成每次连接一个新串后，都会让之前的串报废，因此也造成了不可避免的内存泄露。</p>
 <h4 id="2-trimToSize"><a href="#2-trimToSize" class="headerlink" title="2 trimToSize()"></a>2 trimToSize()</h4><p>public synchronized void trimToSize()：该方法用于将多余的缓冲区空间释放出来。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">      StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"hello erqing"</span>);</span><br><span class="line">System.out.println(<span class="string">"length:"</span>+sb.length());<span class="comment">//length:12</span></span><br><span class="line">System.out.println(<span class="string">"capacity:"</span>+sb.capacity());<span class="comment">//capacity:28</span></span><br><span class="line">sb.trimToSize();</span><br><span class="line">System.out.println(<span class="string">"trimTosize:"</span>+sb.capacity());<span class="comment">//trimTosize:12</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer sb = <span class="keyword">new</span> StringBuffer(<span class="string">"hello erqing"</span>);</span><br><span class="line">System.out.println(<span class="string">"length:"</span>+sb.length());<span class="comment">//length:12</span></span><br><span class="line">System.out.println(<span class="string">"capacity:"</span>+sb.capacity());<span class="comment">//capacity:28</span></span><br><span class="line">sb.trimToSize();</span><br><span class="line">System.out.println(<span class="string">"trimTosize:"</span>+sb.capacity());<span class="comment">//trimTosize:12</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -708,8 +708,7 @@ var _hmt = _hmt || [];
     
     
     
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=95796&auto=1&height=66"></iframe>
-    <!-- <iframe src="//player.bilibili.com/player.html?aid=6748068&bvid=BV16s41147cf&cid=10987967&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe> -->
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1215678&auto=0&height=66"></iframe>
 </div>
 
 <style>
