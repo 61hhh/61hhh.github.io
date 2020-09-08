@@ -31,27 +31,6 @@
       </tags>
   </entry>
   <entry>
-    <title>一次阿里面试的收获</title>
-    <url>/2020/08/22/%E4%B8%80%E6%AC%A1%E9%98%BF%E9%87%8C%E9%9D%A2%E8%AF%95%E7%9A%84%E6%94%B6%E8%8E%B7/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>由于今年的特殊情况，个人于七月放弃考研准备找工作，刚好秋招自然不能错过阿里，简历其实投的挺早，七月底就投了，但是一直感觉准备不足很仓促，也没刷题，然后刷了几天题后做了笔试，结果实在惨。。。然鹅万幸还是联系了我面试，面试下来感受还是很深刻的，最大的收获就是关于学习的思想——做不到知行合一，就不是好程序员！</p>
-<a id="more"></a>
-
-<h3 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h3><p>最大的感受就是阿里面试官很全面，因为我没有很多项目比赛经验也缺少对一些主流框架中间件的学习，所以看面经时感觉自己一无是处（这是事实啊😭）。。。面试官了解我的情况后，面试时问的问题都是专业基础知识然后结合让我个人思考、可能使用情况场景去表述，比之前哪些小公司随便问了一点就草草结束强很多，起码我明白哪些专业知识可能应用较多、哪些是我的弱项；其次就是面试官人很好，问问题也是引导式的，期间我问了几个问题也很详细的跟我解答了。整体的感受是非常好的</p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>考虑到我的个人情况，面试官的问题也是专业知识为主，问的很广不过不算特别难。大致就是项目情况、数据库的并发控制、常见数据结构及原理、排序算法。</p>
-<p>最后说感觉还可以，然后出了两个代码题，一个快速排序，一个有限内存处理海量数据排序输出。</p>
-<p><strong>结果我快速排序讲原理叭叭叭的，写起代码竟然报最–最–最基础的数组越界错误！！！</strong>然后紧张之下连错误都找不到！！！面试官也给了提示，第二题要用到第二个的排序，没办法就让我简单讲了讲思路。</p>
-<p>结束后才发现问题是索引<code>j</code>边界情况错误😭😭😭这。。。最体现一个程序员水平的地方我就掉了链子。真的心态爆炸</p>
-<p>第二道题我的大致思路：大文件无法直接读取，所以肯定要分割，基本上可以用IO的缓存流，设置大小，然后每次读到的数据排序，可以选择堆排序桶排序快排之类的，然后多次执行上述操作，结束后讲已排序的ArrayList输出到指定文件。</p>
-<h3 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h3><p>面试中面试官也跟我说，刷题的话，不仅仅是刷那种算法题，算法题可以有效巩固算法基础、开拓思路，<strong>更应该刷公司真题——那些题是大公司日常开发中可能会遇到的问题，考验的不仅仅是算法代码能力，还有你的思考问题分析问题的能力。</strong>我想这也恰恰是我所欠缺的——过于关注理论，而缺乏实际代码的编写经验，缺乏实际问题的分析处理经验</p>
-<p>还有一个问题就是程序员的基本功，我实在是不算一个合格的程序员，连Debug都不太会，也不会写简单的测试，遇到问题只会看代码分析逻辑。。。所以第一道代码题报错我就只能说着代码逻辑去看，然后发现核心思想完全没错啊，然后继续报错。。。也就是说，我仅仅是掌握了那些理论知识，可在实际中真的天差地别</p>
-<p>这次面试确实有很多值得思考的地方，不光是知识点的问题，更主要的是作为一个程序员，想提升自己想自我学习，应该怎么去做。这段时间迫于找工作的缘故，我才深切感受到，理论和实践的差距，二者并不是脱节的，相反他们联系很紧密，而我以前的学习方法一直都忽视了实践，缺少了刻意的代码的练习，对于理论的知识就不能算透彻理解！</p>
-<p>总的来说收获真的很多，主要是思想上的一些感受，以后的学习过程中一定要做到知行合一！</p>
-]]></content>
-      <tags>
-        <tag>随笔</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>面向对象分析与设计——用例</title>
     <url>/2020/08/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%E7%94%A8%E4%BE%8B/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h3 id="什么是用例？"><a href="#什么是用例？" class="headerlink" title="什么是用例？"></a>什么是用例？</h3><ul>
@@ -6358,8 +6337,8 @@
         <category>学习</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>Tomcat</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -7960,7 +7939,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-NflgUVpm" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-nzZvHTKj" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
