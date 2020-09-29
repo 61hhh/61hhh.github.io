@@ -28,6 +28,8 @@
 </ul>
 <p><font color="red">注：元素节点顺序是按照上面固定的，顺序错了会报错！</font></p>
 <p>（下面的学习顺序并不是按照结构来的，而是按照学习视频的代码去学的）</p>
+<a id="more"></a>
+
 <h3 id="环境配置（environments）"><a href="#环境配置（environments）" class="headerlink" title="环境配置（environments）"></a>环境配置（environments）</h3><p>用于配置数据库运行的环境，我们可以配置多个，实现将SQL映射到多个不同的数据库上，至于具体在哪一个上运行，通过<code>default=&quot; &quot;</code>来设置</p>
 <p>子元素节点<code>environment</code>就是一套环境，常见属性如下：</p>
 <ul>
@@ -8169,7 +8171,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-tQwGGtfo" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-ydPsLiyl" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
