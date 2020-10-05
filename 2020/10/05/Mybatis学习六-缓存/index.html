@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="learn to live,learn to love" />
+   
+  <meta name="description" content="Be Yourself" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Mybatis学习六-缓存 |  Salute
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-161190166-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-Mybatis学习六-缓存" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Mybatis学习六-缓存
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/" class="article-date">
+  <time datetime="2020-10-05T02:45:40.000Z" itemprop="datePublished">2020-10-05</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">9 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>缓存的概念：存在内存中的临时数据。将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。</p>
+<p>好处：减少和数据库的交互次数，减少系统开销，提高系统效率。</p>
+<p>常用对象：需要频繁查询且较少改变的对象</p>
+<a id="more"></a>
+
+<h3 id="Mybatis缓存特性"><a href="#Mybatis缓存特性" class="headerlink" title="Mybatis缓存特性"></a>Mybatis缓存特性</h3><p>mybatis 也提供了对缓存的支持， 分为<strong>一级缓存</strong>和<strong>二级缓存</strong>。</p>
+<ul>
+<li>默认情况下，只有一级缓存开启。（SqlSession级别的缓存，也称为本地缓存）</li>
+<li>二级缓存需要手动开启和配置，他是基于namespace级别的缓存。</li>
+<li>为了提高扩展性，MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存</li>
+</ul>
+<blockquote>
+<p>【注】狂神的视频只是简单介绍了一级二级缓存以及开启方法，我将其整理，在网上找了一些<strong>Mybatis缓存机制</strong>相关博客进行补充！</p>
+</blockquote>
+<p>在Mybatis的jar包中，找到<code>org.apache.ibatis</code>可以看到<code>cache</code>目录下的文件</p>
+<p><img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%98%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p>其中有一个Cache 接口，只有一个默认的实现类 PerpetualCache，它是用HashMap 实现的。</p>
+<h2 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h2><p><strong>概念原理：</strong></p>
+<p>之前学习过：每当我们使用MyBatis开启一次和数据库的会话，Mybatis会创建出<strong>一个SqlSession对象表示一次数据库会话</strong>。一次会话中会有多次查询，其中可能就会有很多重复的，Mybatis处理的方法是什么呢？</p>
+<p>答：MyBatis会在表示会话的SqlSession对象中建立一个缓存，将每次查询到的结果结果缓存起来，当下次查询的时候，如果判断先前有个完全一样的查询，会直接从缓存中直接将结果取出，返回给用户，不需要再进行一次数据库查询了。</p>
+<p>SqlSession只是一个Mybatis对外的接口，SqlSession将它的工作交给了Executor执行器这个角色来完成，负责完成对数据库的各种操作。当创建了一个SqlSession对象时，Mybatis会为这个对象创建一个新的Executor执行器，而缓存信息就被维护在这个Executor执行器中，Mybatis将缓存和对缓存相关的操作封装成了Cache接口中。</p>
+<img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%98localCache.png" style="zoom:67%;" />
+
+<p>由于Session级别的一级缓存实际上就是使用<strong>PerpetualCache</strong>维护的，那么<strong>PerpetualCache</strong>是怎样实现的呢？</p>
+<p><strong>PerpetualCache</strong>实现原理其实很简单，其内部就是通过一个简单的<strong>HashMap</strong>来实现的，没有其他的任何限制。</p>
+<blockquote>
+<p>这里作为Mybatis的入门，只是了解一下。</p>
+<p>更多底层的执行步骤细节、源码实现，以后再专门去学习记录！</p>
+</blockquote>
+<h3 id="一级缓存的测试"><a href="#一级缓存的测试" class="headerlink" title="一级缓存的测试"></a>一级缓存的测试</h3><p>编写接口方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapper</span> </span>&#123;</span><br><span class="line">    <span class="comment">//根据ID查询用户</span></span><br><span class="line">    <span class="function">User <span class="title">queryUserById</span><span class="params">( <span class="keyword">int</span> id)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接口对应的Mapper文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryUserById"</span> <span class="attr">resultType</span>=<span class="string">"com.liu9.pojo.User"</span>&gt;</span></span><br><span class="line">    select * from mybatis.user</span><br><span class="line">    where  id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryUserById</span><span class="params">()</span></span>&#123;</span><br><span class="line">   SqlSession session = MybatisUtils.getSession();</span><br><span class="line">   UserMapper mapper = session.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">   User user = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user);</span><br><span class="line">   User user2 = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user2);</span><br><span class="line">   System.out.println(user==user2);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到：查询语句只执行了一次！并且判断<code>user1==user2</code>结果为true</p>
+<p><img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%9801.png" alt=""></p>
+<h3 id="一级缓存生命周期"><a href="#一级缓存生命周期" class="headerlink" title="一级缓存生命周期"></a>一级缓存生命周期</h3><ul>
+<li>一级缓存是SqlSession级别的缓存，所以在SqlSession会话结束后，SqlSession对象及其内部的Executor和PerpetualCache对象都会一并释放掉</li>
+<li>SqlSession调用了close()方法时，会释放PerpetualCache对象</li>
+<li>SqlSession调用了clearCache()方法时，清空缓存，对象仍可用</li>
+<li>SqlSession调用了增删改等方法时，清空缓存，对象仍可用</li>
+</ul>
+<p>以下是四种常见的SqlSession失效情况：</p>
+<h4 id="1、不同的SqlSession"><a href="#1、不同的SqlSession" class="headerlink" title="1、不同的SqlSession"></a>1、不同的SqlSession</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryUserByIdTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtils.getSession();</span><br><span class="line">    SqlSession sqlSession2 = MybatisUtils.getSession();</span><br><span class="line"></span><br><span class="line">    UserMapper mapper = sqlSession.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    User user1 = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(user1);</span><br><span class="line">    System.out.println(<span class="string">"&lt;------------------------------------&gt;"</span>);</span><br><span class="line">    sqlSession.close();</span><br><span class="line"></span><br><span class="line">    UserMapper mapper2 = sqlSession2.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    User user2 = mapper2.queryUserById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(user2);</span><br><span class="line">    System.out.println(<span class="string">"&lt;------------------------------------&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    System.out.println(user1==user2);</span><br><span class="line">    sqlSession2.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码开启了两个SqlSession，分别执行相同的查询，输出如下：可以看到它执行了两次SQL，表明user1的缓存并没有作用到user2上！结论：<strong>每个sqlSession中的缓存相互独立</strong></p>
+<img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%9802.png" style="zoom:67%;" />
+
+
+
+<h4 id="2、sqlSession相同，查询条件不同"><a href="#2、sqlSession相同，查询条件不同" class="headerlink" title="2、sqlSession相同，查询条件不同"></a>2、sqlSession相同，查询条件不同</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryUserById</span><span class="params">()</span></span>&#123;</span><br><span class="line">   SqlSession session = MybatisUtils.getSession();</span><br><span class="line">   UserMapper mapper = session.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">   UserMapper mapper2 = session.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">   User user = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user);</span><br><span class="line">   User user2 = mapper2.queryUserById(<span class="number">2</span>);</span><br><span class="line">   System.out.println(user2);</span><br><span class="line">   System.out.println(user==user2);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个很明显，user1和user2查询的对象并不相同，user1缓存的是queryUserById(1)内容，不能复用到user2上。同样观察结果发现两次查询，判断为false</p>
+<img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%9803.png" style="zoom: 67%;" />
+
+
+
+<h4 id="3、sqlSession相同，两次查询之间执行了增删改操作"><a href="#3、sqlSession相同，两次查询之间执行了增删改操作" class="headerlink" title="3、sqlSession相同，两次查询之间执行了增删改操作"></a>3、sqlSession相同，两次查询之间执行了增删改操作</h4><p>增加方法updateUser</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//修改用户</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">updateUser</span><span class="params">(Map map)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>配置对应的SQL语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateUser"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">  update user set name = #&#123;name&#125; where id = #&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryUserById3</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession session = MybatisUtils.getSession();</span><br><span class="line">    UserMapper mapper = session.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    User user = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(user);</span><br><span class="line"></span><br><span class="line">    HashMap map = <span class="keyword">new</span> HashMap();</span><br><span class="line">    map.put(<span class="string">"name"</span>,<span class="string">"liuyi"</span>);</span><br><span class="line">    map.put(<span class="string">"id"</span>,<span class="number">4</span>);</span><br><span class="line">    mapper.updateUser(map);</span><br><span class="line"></span><br><span class="line">    User user2 = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">    System.out.println(user2);</span><br><span class="line"></span><br><span class="line">    System.out.println(user==user2);</span><br><span class="line"></span><br><span class="line">    session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在两次查询中间加入了一个update操作</p>
+<img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%9804.png" style="zoom:67%;" />
+
+
+
+<h4 id="4、sqlSession相同，手动清除一级缓存"><a href="#4、sqlSession相同，手动清除一级缓存" class="headerlink" title="4、sqlSession相同，手动清除一级缓存"></a>4、sqlSession相同，手动清除一级缓存</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryUserById</span><span class="params">()</span></span>&#123;</span><br><span class="line">   SqlSession session = MybatisUtils.getSession();</span><br><span class="line">   UserMapper mapper = session.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">   User user = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user);</span><br><span class="line"></span><br><span class="line">   session.clearCache();<span class="comment">//手动清除缓存</span></span><br><span class="line"></span><br><span class="line">   User user2 = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user2);</span><br><span class="line"></span><br><span class="line">   System.out.println(user==user2);</span><br><span class="line"></span><br><span class="line">   session.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出与上面一致，因为cache被手动清除了。</p>
+<h2 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h2><p><strong>概念原理：</strong></p>
+<p>​        二级缓存是用来解决一级缓存不能跨会话共享的问题的，范围是namespace 级别的，可以被多个SqlSession 共享（只要是同一个接口里面的相同方法，都可以共享），生命周期和应用同步。如果你的MyBatis使用了二级缓存，并且你的Mapper和select语句也配置使用了二级缓存，那么在执行select查询的时候，MyBatis会先从二级缓存中取输入，其次才是一级缓存，即MyBatis查询数据的顺序是：二级缓存  —&gt; 一级缓存 —&gt; 数据库。</p>
+<p>MyBatis 用了一个装饰器的类来维护，就是CachingExecutor。如果启用了二级缓存，MyBatis 在创建Executor 对象的时候会对Executor 进行装饰。CachingExecutor 对于查询请求，会判断二级缓存是否有缓存结果，如果有就直接返回，如果没有委派交给真正的查询器Executor 实现类，比如SimpleExecutor 来执行查询，再走到一级缓存的流程。最后会把结果缓存起来，并且返回给用户。</p>
+<p><img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%98%E4%BA%8C%E7%BA%A7Cache.png" alt=""></p>
+<h3 id="开启二级缓存"><a href="#开启二级缓存" class="headerlink" title="开启二级缓存"></a>开启二级缓存</h3><p>开启二级缓存可以参考官方文档，里面有介绍。</p>
+<p>1、开启全局缓存 【mybatis-config.xml】</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--显式地开启全局缓存--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"cacheEnabled"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、去每个mapper.xml中配置使用二级缓存，这个配置非常简单；【xxxMapper.xml】</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cache</span>/&gt;</span></span><br><span class="line">官方示例=====&gt;查看官方文档</span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span></span></span><br><span class="line"><span class="tag"> <span class="attr">eviction</span>=<span class="string">"FIFO"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">flushInterval</span>=<span class="string">"60000"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">size</span>=<span class="string">"512"</span></span></span><br><span class="line"><span class="tag"> <span class="attr">readOnly</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">这个更高级的配置创建了一个 FIFO 缓存，每隔 60 秒刷新，最多可以存储结果对象或列表的 512 个引用，而且返回的对象被认为是只读的，因此对它们进行修改可能会在不同线程中的调用者产生冲突。</span><br></pre></td></tr></table></figure>
+
+<p>3、代码测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testQueryUserById</span><span class="params">()</span></span>&#123;</span><br><span class="line">   SqlSession session = MybatisUtils.getSession();</span><br><span class="line">   SqlSession session2 = MybatisUtils.getSession();</span><br><span class="line"></span><br><span class="line">   UserMapper mapper = session.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">   UserMapper mapper2 = session2.getMapper(UserMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">   User user = mapper.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user);</span><br><span class="line">   session.close();</span><br><span class="line"></span><br><span class="line">   User user2 = mapper2.queryUserById(<span class="number">1</span>);</span><br><span class="line">   System.out.println(user2);</span><br><span class="line">   System.out.println(user==user2);</span><br><span class="line"></span><br><span class="line">   session2.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果成功，类似上面。</p>
+<p>只要开启了二级缓存，我们在同一个Mapper中的查询，可以在二级缓存中拿到数据；查出的数据都会被默认先放在一级缓存中；只有会话提交或者关闭以后，一级缓存中的数据才会转到二级缓存中</p>
+<p><strong>缓存原理图</strong></p>
+<p><img src="http://img2.salute61.top/Mybatis%E7%BC%93%E5%AD%98%E5%8E%9F%E7%90%86%E5%9B%BE.png" alt="狂神总结的原理图"></p>
+<p>第三方缓存EhCache</p>
+<p>MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存。以比较知名的EhCache为例：Ehcache是一种广泛使用的java分布式缓存，用于通用缓存；</p>
+<p>要在应用程序中使用Ehcache，需要引入依赖的jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.mybatis.caches/mybatis-ehcache --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.caches<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在mapper文件中写入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--在当前的mapper中开启自定义二级缓存--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span></span></span><br><span class="line"><span class="tag">        <span class="attr">eviction</span>=<span class="string">"FIFO"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">flushInterval</span>=<span class="string">"60000"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">size</span>=<span class="string">"512"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">readOnly</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">cache</span> <span class="attr">type</span>=<span class="string">"org.mybatis.caches.ehcache.EhcacheCache"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写ehcache.xml文件，如果在加载时未找到/ehcache.xml资源或出现问题，则将使用默认配置。</p>
+<p>【注】：详细的配置可以自行百度了解</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/wuzhenzhao/p/11103043.html" target="_blank" rel="noopener">mybatis缓存机制</a></li>
+<li><a href="https://blog.csdn.net/luanlouis/article/details/41280959" target="_blank" rel="noopener">《深入理解mybatis原理》MyBatis的一级缓存实现详解 及使用注意事项</a></li>
+</ul>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Mybatis学习五-动态SQL</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '9um8B04v28kv3b2vHiIOeL3U-gzGzoHsz',
+        app_key: 'nRQoroDFBKPChSxs12SduMCl',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        LY
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        <div class="Ebeian-info">
+          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
+          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/playlist">歌单</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+
+    <!--动态背景线条-->
+    <!-- <script color="0,0,255" opacity='0.7' zIndex="-2" count="99"
+    src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js">
+    </script> -->
+    <!--恶搞标题-->
+    <script type="text/javascript" src="../source/js/funnyTitle.js"></script>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
+      startDelay: 0,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1215678&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+
+</html>

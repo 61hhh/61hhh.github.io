@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="learn to live,learn to love" />
+   
+  <meta name="description" content="Be Yourself" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Mybatis学习四-一对多与多对一 |  Salute
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-161190166-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-Mybatis学习四-一对多与多对一" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Mybatis学习四-一对多与多对一
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/" class="article-date">
+  <time datetime="2020-10-03T09:48:30.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">8 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><p>在实际开发中，实体对象之间的关联往往是很复杂的，在查询时往往需要连表查询！mybatis 提供了高级的关联查询功能，可以很方便地将数据库获取的结果集映射到定义的Java Bean 中。以老师和学生为例，一个班主任带着多个学生，多个学生属于一个班主任名下</p>
+<a id="more"></a>
+
+
+
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>建立学生、老师两张表用于测试，</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`teacher`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`name`</span> <span class="built_in">VARCHAR</span>(<span class="number">30</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> teacher(<span class="string">`id`</span>, <span class="string">`name`</span>) <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">'秦老师'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`student`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`name`</span> <span class="built_in">VARCHAR</span>(<span class="number">30</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line"><span class="string">`tid`</span> <span class="built_in">INT</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line"><span class="keyword">KEY</span> <span class="string">`fktid`</span> (<span class="string">`tid`</span>),</span><br><span class="line"><span class="keyword">CONSTRAINT</span> <span class="string">`fktid`</span> <span class="keyword">FOREIGN</span> <span class="keyword">KEY</span> (<span class="string">`tid`</span>) <span class="keyword">REFERENCES</span> <span class="string">`teacher`</span> (<span class="string">`id`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">INNODB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`student`</span> (<span class="string">`id`</span>, <span class="string">`name`</span>, <span class="string">`tid`</span>) <span class="keyword">VALUES</span> (<span class="string">'1'</span>, <span class="string">'小明'</span>, <span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`student`</span> (<span class="string">`id`</span>, <span class="string">`name`</span>, <span class="string">`tid`</span>) <span class="keyword">VALUES</span> (<span class="string">'2'</span>, <span class="string">'小红'</span>, <span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`student`</span> (<span class="string">`id`</span>, <span class="string">`name`</span>, <span class="string">`tid`</span>) <span class="keyword">VALUES</span> (<span class="string">'3'</span>, <span class="string">'小张'</span>, <span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`student`</span> (<span class="string">`id`</span>, <span class="string">`name`</span>, <span class="string">`tid`</span>) <span class="keyword">VALUES</span> (<span class="string">'4'</span>, <span class="string">'小李'</span>, <span class="string">'1'</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="string">`student`</span> (<span class="string">`id`</span>, <span class="string">`name`</span>, <span class="string">`tid`</span>) <span class="keyword">VALUES</span> (<span class="string">'5'</span>, <span class="string">'小王'</span>, <span class="string">'1'</span>);</span><br></pre></td></tr></table></figure>
+
+<p>Lombok插件配合库函数可以省去我们自行编写构造函数、setter、getter方法的时间</p>
+<p>1、IDEA安装Lombok插件（Plugin中搜索安装）</p>
+<p>2、引入Maven依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.projectlombok/lombok --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="多对一情况"><a href="#多对一情况" class="headerlink" title="多对一情况"></a>多对一情况</h2><p>多个学生对同一个老师，就是从学生表去关联老师。</p>
+<p>编写对应的pojo实体类，利用Lombok，添加注释简化操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span> <span class="comment">//GET,SET,ToString，有参，无参构造</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">   <span class="comment">//多个学生可以是同一个老师，即多对一</span></span><br><span class="line">   <span class="keyword">private</span> Teacher teacher;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写实体类对应的接口、以及对应的mapper映射文件</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentMapper</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TeacherMapper</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在我们要做的就是查询学生信息，但是学生表里，老师的信息只有外键<code>tid</code>，而不是具体的老师姓名，要查询到真实的信息，就需要做联表查询！</p>
+<h3 id="1、按查询嵌套处理"><a href="#1、按查询嵌套处理" class="headerlink" title="1、按查询嵌套处理"></a>1、按查询嵌套处理</h3><p>通过查询嵌套来实现，就跟我们学数据库时，写的嵌套查询代码类似，是子查询</p>
+<p>编写学生的StudentMapper接口，声明函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentMapper</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询所有的学生信息,以及对应的学生信息</span></span><br><span class="line">    <span class="function">List&lt;Student&gt; <span class="title">getStudent</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写对应的StudentMapper.xml文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//mybatis.org//DTD Config 3.0//EN"</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.liu6.dao.StudentMapper"</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">   需求：获取所有学生及对应老师的信息</span></span><br><span class="line"><span class="comment">   思路：</span></span><br><span class="line"><span class="comment">       1. 获取所有学生的信息</span></span><br><span class="line"><span class="comment">       2. 根据获取的学生信息的老师ID-&gt;获取该老师的信息</span></span><br><span class="line"><span class="comment">       3. 思考问题——这样学生的结果集中应该包含老师，该如何处理呢，数据库中我们一般使用关联查询？</span></span><br><span class="line"><span class="comment">           &lt;1&gt;. 做一个结果集映射：StudentTeacher</span></span><br><span class="line"><span class="comment">           &lt;2&gt;. StudentTeacher结果集的类型为 Student</span></span><br><span class="line"><span class="comment">           &lt;3&gt;. 学生中老师的属性为teacher，对应数据库中为tid。</span></span><br><span class="line"><span class="comment">              多个 [1,...）学生关联一个老师=&gt; 一对一，一对多</span></span><br><span class="line"><span class="comment">           &lt;4&gt;. 查看官网找到：association – 一个复杂类型的关联；使用它来处理关联查询</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudents"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher"</span>&gt;</span></span><br><span class="line">    select * from student</span><br><span class="line">   <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--association关联属性 property属性名 javaType属性类型 column表中的列名--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">column</span>=<span class="string">"tid"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span> <span class="attr">select</span>=<span class="string">"getTeacher"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">   这里传递过来的id，只有一个属性的时候，下面可以写任何值</span></span><br><span class="line"><span class="comment">   association中column多参数配置：</span></span><br><span class="line"><span class="comment">       column="&#123;key=value,key=value&#125;"</span></span><br><span class="line"><span class="comment">       其实就是键值对的形式，key是传给下个sql的取值名称，value是片段一中sql查询的字段名。</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher"</span> <span class="attr">resultType</span>=<span class="string">"teacher"</span>&gt;</span></span><br><span class="line">      select * from teacher where id = #&#123;id&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在Mybatis核心配置中注册我们的mapper映射，然后编写Mytest测试代码测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TestStudent</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtils.getSession();</span><br><span class="line"></span><br><span class="line">    StudentMapper mapper = sqlSession.getMapper(StudentMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    List&lt;Student&gt; studentList = mapper.getStudents2();</span><br><span class="line">    <span class="keyword">for</span> (Student student : studentList)&#123;</span><br><span class="line">        System.out.println(</span><br><span class="line">            <span class="string">"学生名:"</span>+ student.getName()</span><br><span class="line">            +<span class="string">"\t老师:"</span>+student.getTeacher().getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img2.salute61.top/Mybatis%E4%B8%80%E5%AF%B9%E5%A4%9A01.png" alt=""></p>
+<h3 id="2、按结果嵌套查询"><a href="#2、按结果嵌套查询" class="headerlink" title="2、按结果嵌套查询"></a>2、按结果嵌套查询</h3><p>除了将查询语句嵌套，也可以按结果进行嵌套。</p>
+<p>在接口中增加方法，并编写对应的mapper映射</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">List&lt;Student&gt; <span class="title">getStudents2</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">按查询结果嵌套处理</span></span><br><span class="line"><span class="comment">思路：</span></span><br><span class="line"><span class="comment">   1. 直接查询出结果，进行结果集的映射</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudents2"</span> <span class="attr">resultMap</span>=<span class="string">"StudentTeacher2"</span> &gt;</span></span><br><span class="line">  select s.id sid, s.name sname , t.name tname</span><br><span class="line">  from student s,teacher t</span><br><span class="line">  where s.tid = t.id</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"StudentTeacher2"</span> <span class="attr">type</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"sid"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"sname"</span>/&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--关联对象property 关联对象在Student实体类中的属性--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">"teacher"</span> <span class="attr">javaType</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"tname"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写测试代码并测试（就是将上面的代码，由getStudent改为getStudent2即可），结果一样</p>
+<ul>
+<li>按照查询进行嵌套处理就像SQL中的子查询</li>
+<li>按照结果进行嵌套处理就像SQL中的联表查询</li>
+</ul>
+<h2 id="一对多情况"><a href="#一对多情况" class="headerlink" title="一对多情况"></a>一对多情况</h2><p>从学生的角度去看问题，就是多对一，那么从老师的角度去看，就刚好反过来，成了一对多。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> tid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line">   <span class="keyword">private</span> String name;</span><br><span class="line">   <span class="comment">//一个老师多个学生</span></span><br><span class="line">   <span class="keyword">private</span> List&lt;Student&gt; students;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在teacher接口中增加方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取指定老师，及老师下的所有学生</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Teacher <span class="title">getTeacher</span><span class="params">(<span class="keyword">int</span> id)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>编写对应的mapper文件，同样会有两种方式去实现</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.kuang.mapper.TeacherMapper"</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--按结果嵌套处理--&gt;</span></span><br><span class="line">   <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">   思路:</span></span><br><span class="line"><span class="comment">       1. 从学生表和老师表中查出学生id，学生姓名，老师姓名</span></span><br><span class="line"><span class="comment">       2. 对查询出来的操作做结果集映射</span></span><br><span class="line"><span class="comment">           1. 集合的话，使用collection！</span></span><br><span class="line"><span class="comment">               JavaType和ofType都是用来指定对象类型的</span></span><br><span class="line"><span class="comment">               JavaType是用来指定pojo中属性的类型</span></span><br><span class="line"><span class="comment">               ofType指定的是映射到list集合属性中pojo的类型。</span></span><br><span class="line"><span class="comment">   --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher"</span> <span class="attr">resultMap</span>=<span class="string">"TeacherStudent"</span>&gt;</span></span><br><span class="line">      select s.id sid, s.name sname , t.name tname, t.id tid</span><br><span class="line">      from student s,teacher t</span><br><span class="line">      where s.tid = t.id and t.id=#&#123;id&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"TeacherStudent"</span> <span class="attr">type</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">result</span>  <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"tname"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"students"</span> <span class="attr">ofType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"id"</span> <span class="attr">column</span>=<span class="string">"sid"</span> /&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"name"</span> <span class="attr">column</span>=<span class="string">"sname"</span> /&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">"tid"</span> <span class="attr">column</span>=<span class="string">"tid"</span> /&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--按查询嵌套处理--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getTeacher2"</span> <span class="attr">resultMap</span>=<span class="string">"TeacherStudent2"</span>&gt;</span></span><br><span class="line">    select * from teacher where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">"TeacherStudent2"</span> <span class="attr">type</span>=<span class="string">"Teacher"</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--column是一对多的外键 , 写的是一的主键的列名--&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">"students"</span> <span class="attr">javaType</span>=<span class="string">"ArrayList"</span> <span class="attr">ofType</span>=<span class="string">"Student"</span> <span class="attr">column</span>=<span class="string">"id"</span> <span class="attr">select</span>=<span class="string">"getStudentByTeacherId"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"getStudentByTeacherId"</span> <span class="attr">resultType</span>=<span class="string">"Student"</span>&gt;</span></span><br><span class="line">      select * from student where tid = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>小结</strong></p>
+<p>在一对多和多对一中，主要用到了标签<code>association</code>和<code>collection</code>，association是用于一对一和多对一，而collection是用于一对多的关系</p>
+<p>JavaType和ofType都是用来指定对象类型的</p>
+<ul>
+<li>JavaType是用来指定pojo中属性的类型</li>
+<li>ofType指定的是映射到list集合属性中pojo的类型。</li>
+</ul>
+<p>一对多和多对一是实际开发中很重要的部分，也是比较难的一块，光看视频和课堂的代码，还是不足以透彻理解啊，还是要多练习啊。。。</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Mybatis学习五-动态SQL
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Mybatis学习三-注解开发</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '9um8B04v28kv3b2vHiIOeL3U-gzGzoHsz',
+        app_key: 'nRQoroDFBKPChSxs12SduMCl',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        LY
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        <div class="Ebeian-info">
+          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
+          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/playlist">歌单</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+
+    <!--动态背景线条-->
+    <!-- <script color="0,0,255" opacity='0.7' zIndex="-2" count="99"
+    src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js">
+    </script> -->
+    <!--恶搞标题-->
+    <script type="text/javascript" src="../source/js/funnyTitle.js"></script>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
+      startDelay: 0,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1215678&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+
+</html>

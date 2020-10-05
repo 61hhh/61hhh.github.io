@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN" >
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="learn to live,learn to love" />
+   
+  <meta name="description" content="Be Yourself" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Mybatis学习五-动态SQL |  Salute
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-161190166-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article id="post-Mybatis学习五-动态SQL" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Mybatis学习五-动态SQL
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/" class="article-date">
+  <time datetime="2020-10-03T09:49:15.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">9 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>官方文档专门将动态SQL拿出来作为一个小节，可见其还是非常重要的，先看一下文档的描述：</p>
+<blockquote>
+<p>动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。</p>
+<p>使用动态 SQL 并非一件易事，但借助可用于任何 SQL 映射语句中的强大的动态 SQL 语言，MyBatis 显著地提升了这一特性的易用性。</p>
+<p>如果你之前用过 JSTL 或任何基于类 XML 语言的文本处理器，你对动态 SQL 元素可能会感觉似曾相识。在 MyBatis 之前的版本中，需要花时间了解大量的元素。借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。</p>
+<hr>
+<ul>
+<li>if</li>
+<li>choose (when, otherwise)</li>
+<li>trim (where, set)</li>
+<li>foreach</li>
+</ul>
+<hr>
+</blockquote>
+<p>看了官方文档介绍，感觉就是：对于一些复杂SQL语句需要拼接，可能自己写的时候往往会漏个逗号多个标签之类的，而动态SQL通过上面的那些标签，可以自动的帮我们拼接</p>
+<a id="more"></a>
+
+
+
+<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p>准备一个博客数据库，字段有id、作者、标题、时间、浏览量</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`blog`</span> (</span><br><span class="line"><span class="string">`id`</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'博客id'</span>,</span><br><span class="line"><span class="string">`title`</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'博客标题'</span>,</span><br><span class="line"><span class="string">`author`</span> <span class="built_in">varchar</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'博客作者'</span>,</span><br><span class="line"><span class="string">`create_time`</span> datetime <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'创建时间'</span>,</span><br><span class="line"><span class="string">`views`</span> <span class="built_in">int</span>(<span class="number">30</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">COMMENT</span> <span class="string">'浏览量'</span></span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8</span><br></pre></td></tr></table></figure>
+
+<p>使用IDUtil工具类生成随机id</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IDUtil</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">genId</span><span class="params">()</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> UUID.randomUUID().toString().replaceAll(<span class="string">"-"</span>,<span class="string">""</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Blog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> String title;</span><br><span class="line">    <span class="keyword">private</span> String author;</span><br><span class="line">    <span class="keyword">private</span> Date createTime;    <span class="comment">//属性名和字段名不一致,(因为数据库的大小写转换)可以设置mapUnderscoreToCamelCase为true实现驼峰命名转换</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> views;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写接口和配置mapper文件，并在核心配置中注册mapper</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BlogMapper</span> </span>&#123;</span><br><span class="line">    <span class="comment">//插入数据</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">addBlog</span><span class="params">(Blog blog)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询博客</span></span><br><span class="line">    <span class="function">List&lt;Blog&gt; <span class="title">queryBlog</span><span class="params">(Map map)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//查询博客</span></span><br><span class="line">    <span class="function">List&lt;Blog&gt; <span class="title">queryBlogChoose</span><span class="params">(Map map)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//更新博客</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">updateBlog</span><span class="params">(Map map)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用forEach遍历查询</span></span><br><span class="line">    <span class="function">List&lt;Blog&gt; <span class="title">queryBlogForeach</span><span class="params">(Map map)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><p><strong>需求：根据作者名字和博客名字来查询博客！如果作者名字为空，那么只根据博客名字查询，反之，则根据作者名来查询</strong>。对应上面接口的<code>queryBlog</code>方法‘</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--需求1：</span></span><br><span class="line"><span class="comment">根据作者名字和博客名字来查询博客！</span></span><br><span class="line"><span class="comment">如果作者名字为空，那么只根据博客名字查询，反之，则根据作者名来查询</span></span><br><span class="line"><span class="comment">select * from blog where title = #&#123;title&#125; and author = #&#123;author&#125;</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogIf"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"blog"</span>&gt;</span></span><br><span class="line">  select * from blog where</span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">      title = #&#123;title&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">      and author = #&#123;author&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">queryBlog</span><span class="params">()</span></span>&#123;</span><br><span class="line">        SqlSession sqlSession = MybatisUtils.getSession();</span><br><span class="line">        BlogMapper mapper = sqlSession.getMapper(BlogMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        HashMap map = <span class="keyword">new</span> HashMap();</span><br><span class="line"><span class="comment">//        map.put("title","Java如此简单");</span></span><br><span class="line">        map.put(<span class="string">"author"</span>,<span class="string">"狂神说"</span>);</span><br><span class="line">        List&lt;Blog&gt; blogList = mapper.queryBlog(map);</span><br><span class="line">        <span class="keyword">for</span>(Blog blog:blogList)&#123;</span><br><span class="line">            System.out.println(blog);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sqlSession.close();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样写我们可以看到，如果 author 等于 null，那么查询语句为 select * from user where title=#{title},但是如果title为空呢？那么查询语句为 select * from user where<font color="red"> and </font>author=#{author}，这是错误的 SQL 语句！如何解决呢？请看下面的 where 语句！</p>
+<h3 id="where语句"><a href="#where语句" class="headerlink" title="where语句"></a>where语句</h3><p>修改上面的SQL语句：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogIf"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"blog"</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">          title = #&#123;title&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">          and author = #&#123;author&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个“where”标签会知道如果它包含的标签中有返回值的话，它就插入一个‘where’。此外，如果标签返回的内容是以AND 或OR 开头的，则它会剔除掉。</p>
+<p>测试类参照之前的代码</p>
+<h3 id="set语句"><a href="#set语句" class="headerlink" title="set语句"></a>set语句</h3><p>同理，上面的对于查询 SQL 语句包含 where 关键字，如果在进行<strong>更新操作</strong>的时候，含有 set 关键词，我们怎么处理呢？对应接口中的<code>updateBlog</code>方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--注意set是用的逗号隔开--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateBlog"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">  update blog</span><br><span class="line">     <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">            title = #&#123;title&#125;,</span><br><span class="line">         <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">            author = #&#123;author&#125;</span><br><span class="line">         <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">  where id = #&#123;id&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试set</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">UpdateBlogTest</span><span class="params">()</span></span>&#123;</span><br><span class="line">    SqlSession sqlSession = MybatisUtils.getSession();</span><br><span class="line">    BlogMapper mapper = sqlSession.getMapper(BlogMapper<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">    HashMap map = <span class="keyword">new</span> HashMap();</span><br><span class="line">    <span class="comment">//采用choose标签 默认匹配第一个就结束了</span></span><br><span class="line">    map.put(<span class="string">"title"</span>,<span class="string">"Mybatis如此简单2222"</span>);</span><br><span class="line">    map.put(<span class="string">"author"</span>,<span class="string">"狂神说2333"</span>);</span><br><span class="line">    map.put(<span class="string">"id"</span>,<span class="string">"123"</span>);</span><br><span class="line">    mapper.updateBlog(map);</span><br><span class="line"></span><br><span class="line">    sqlSession.commit();</span><br><span class="line">    sqlSession.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="choose语句"><a href="#choose语句" class="headerlink" title="choose语句"></a>choose语句</h3><p>有时候，我们不想用到所有的查询条件，只想选择其中的一个，查询条件有一个满足即可，使用 choose 标签可以解决此类问题，类似于 Java 的 switch 语句，遇到一个满足条件的就返回了，对应接口的<code>queryBlogChoose</code>方法。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogChoose"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"blog"</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">                title = #&#123;title&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">              and author = #&#123;author&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">           <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">              and views = #&#123;views&#125;</span><br><span class="line">           <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试类参照之前的代码</p>
+<h3 id="提取SQL片段"><a href="#提取SQL片段" class="headerlink" title="提取SQL片段"></a>提取SQL片段</h3><p>有时候可能某个 sql 语句我们用的特别多，为了增加代码的重用性，简化代码，我们需要将这些代码抽取出来，然后使用时直接调用。</p>
+<p><strong>提取SQL片段：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"if-title-author"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">      title = #&#123;title&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">      and author = #&#123;author&#125;</span><br><span class="line">   <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>引用SQL片段：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogIf"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"blog"</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"if-title-author"</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!-- 在这里还可以引用其他的 sql 片段 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Foreach语句"><a href="#Foreach语句" class="headerlink" title="Foreach语句"></a>Foreach语句</h3><p>将数据库中前三个数据的id修改为1,2,3；需求：我们需要查询 blog 表中 id 分别为1,2,3的博客信息，即遍历前三个数据项，对应接口<code>queryBlogForeach</code>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogForeach"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"blog"</span>&gt;</span></span><br><span class="line">  select * from blog</span><br><span class="line">   <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">       <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">       collection:指定输入对象中的集合属性</span></span><br><span class="line"><span class="comment">       item:每次遍历生成的对象</span></span><br><span class="line"><span class="comment">       open:开始遍历时的拼接字符串</span></span><br><span class="line"><span class="comment">       close:结束时拼接的字符串</span></span><br><span class="line"><span class="comment">       separator:遍历对象之间需要拼接的字符串</span></span><br><span class="line"><span class="comment">       select * from blog where 1=1 and (id=1 or id=2 or id=3)</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"ids"</span>  <span class="attr">item</span>=<span class="string">"id"</span> <span class="attr">open</span>=<span class="string">"and ("</span> <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">"or"</span>&gt;</span></span><br><span class="line">          id=#&#123;id&#125;</span><br><span class="line">       <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试类参照之前的代码</p>
+<p><strong>我写的完整代码如下：</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="meta-keyword">PUBLIC</span> <span class="meta-string">"-//mybatis.org//DTD Config 3.0//EN"</span></span></span><br><span class="line"><span class="meta">        <span class="meta-string">"http://mybatis.org/dtd/mybatis-3-mapper.dtd"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">"com.liu8.dao.BlogMapper"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"addBlog"</span> <span class="attr">parameterType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        insert into mybatis.blog (id, title, author, create_time, views)</span><br><span class="line">        values (#&#123;id&#125;,#&#123;title&#125;,#&#123;author&#125;,#&#123;createTime&#125;,#&#123;views&#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">"if-title-author"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">            title = #&#123;title&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">            and author = #&#123;author&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlog"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from mybatis.blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">"if-title-author"</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogChoose"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from mybatis.blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">                    title = #&#123;title&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">                    and author = #&#123;author&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                    and views = #&#123;views&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">"updateBlog"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span>&gt;</span></span><br><span class="line">        update mybatis.blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"title != null"</span>&gt;</span></span><br><span class="line">                title = #&#123;title&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">"author != null"</span>&gt;</span></span><br><span class="line">                author = #&#123;author&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        where id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">        select * from blog where 1=1 and ( id=1 or id=2 or id=3 );</span></span><br><span class="line"><span class="comment">        传入的Collection是由map提供的</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"queryBlogForeach"</span> <span class="attr">parameterType</span>=<span class="string">"map"</span> <span class="attr">resultType</span>=<span class="string">"Blog"</span>&gt;</span></span><br><span class="line">        select * from mybatis.blog</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"ids"</span> <span class="attr">item</span>=<span class="string">"id"</span> <span class="attr">open</span>=<span class="string">"and ("</span> <span class="attr">close</span>=<span class="string">")"</span> <span class="attr">separator</span>=<span class="string">"or"</span>&gt;</span></span><br><span class="line">                id = #&#123;id&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<p>其实动态 sql 语句的编写主要问题就是拼接，所以我们可以先写出完整的原生sql语句，然后再根据动态SQL选择合适的标签将其划分！</p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong>
+              本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Mybatis学习六-缓存
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Mybatis学习四-一对多与多对一</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: '9um8B04v28kv3b2vHiIOeL3U-gzGzoHsz',
+        app_key: 'nRQoroDFBKPChSxs12SduMCl',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'monsterid',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020
+        LY
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        <div class="Ebeian-info">
+          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
+          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/playlist">歌单</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+
+    <!--动态背景线条-->
+    <!-- <script color="0,0,255" opacity='0.7' zIndex="-2" count="99"
+    src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js">
+    </script> -->
+    <!--恶搞标题-->
+    <script type="text/javascript" src="../source/js/funnyTitle.js"></script>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
+      startDelay: 0,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1215678&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+
+</html>
