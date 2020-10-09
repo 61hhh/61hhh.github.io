@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    刷题笔记_探索_数组和字符串 |  Salute
+    刷题记录-数组和字符串 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-刷题笔记_数组和字符串" class="article article-type-post" itemscope
+  <article id="post-刷题记录-数组和字符串" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  刷题笔记_探索_数组和字符串
+  刷题记录-数组和字符串
 </h1>
  
 
@@ -81,12 +81,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/08/14/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0_%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
+      <a href="/2020/08/14/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
   <time datetime="2020-08-14T12:00:51.000Z" itemprop="datePublished">2020-08-14</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%88%B7%E9%A2%98/">刷题</a>
+    <a class="article-category-link" href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/">算法题</a>
   </div>
 
       
@@ -131,12 +131,11 @@ var _hmt = _hmt || [];
 
       
       <p>上一篇博客竟然是5天前了。。。5天时间每天瞎看看啥也没复习题也没刷。。。</p>
-<p>刚刚做了一下笔试编程，明明感觉挺简单的两道题，一道case过50%，一道看半天读懂题，不会处理直接0%。。。(看了讨论第一道题要考虑long……)</p>
-<p>刷题太少了，真的太菜了啊！！！</p>
-<p>先按照leetcode的探索来刷</p>
+<p>刚刚做了一下笔试编程，明明感觉挺简单的两道题，一道case过50%，一道看半天读懂题，不会处理直接0%。。。刷题太少了，真的太菜了。</p>
+<p>先按照leetcode的探索来刷，就不抄题了</p>
 <a id="more"></a>
 
-<h2 id="数组和字符串"><a href="#数组和字符串" class="headerlink" title="数组和字符串"></a>数组和字符串</h2><h3 id="寻找数组的中心索引"><a href="#寻找数组的中心索引" class="headerlink" title="寻找数组的中心索引"></a>寻找数组的中心索引</h3><p><strong>思路</strong>：前缀和——中心索引左右两边和相等，所以先sum求出总和，然后计算右边是否等于左边<code>left == sum-left-nums[i]</code>，满足就返回，不满足就右移，直到结束。时间复杂度O(N)空间复杂度O(1)</p>
+<h1 id="数组和字符串"><a href="#数组和字符串" class="headerlink" title="数组和字符串"></a>数组和字符串</h1><h2 id="数组简介"><a href="#数组简介" class="headerlink" title="数组简介"></a>数组简介</h2><h3 id="寻找数组的中心索引"><a href="#寻找数组的中心索引" class="headerlink" title="寻找数组的中心索引"></a>寻找数组的中心索引</h3><p><strong>思路</strong>：前缀和——中心索引左右两边和相等，所以先sum求出总和，然后计算右边是否等于左边<code>left == sum-left-nums[i]</code>，满足就返回，不满足就右移，直到结束。时间复杂度O(N)空间复杂度O(1)</p>
 <p>完整代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pivotIndex</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>,left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> s:nums) sum+=s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(left== sum-left-nums[i])&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">            left+=nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -154,7 +153,7 @@ var _hmt = _hmt || [];
 
 
 
-<h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>对于矩阵中第 i 行的第 j 个元素，在旋转后，它出现在倒数第 i 列的第 j 个位置。</p>
+<h2 id="二维数组简介"><a href="#二维数组简介" class="headerlink" title="二维数组简介"></a>二维数组简介</h2><h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>对于矩阵中第 i 行的第 j 个元素，在旋转后，它出现在倒数第 i 列的第 j 个位置。</p>
 <p>matrix [row] [col] –&gt; matrix [col] [n-1-row]</p>
 <p>思路一：用辅助数组存储临时旋转的结果</p>
 <p>复杂度：时间O(N^2) 空间O(N^2)</p>
@@ -178,9 +177,7 @@ var _hmt = _hmt || [];
 
 
 
-
-
-<h3 id="最长公共前缀"><a href="#最长公共前缀" class="headerlink" title="最长公共前缀"></a>最长公共前缀</h3><p>思路一：横向扫描方式，一次遍历比较字符串，更新前缀prefix，遍历完后就可以得到最长前缀。</p>
+<h2 id="字符串简介"><a href="#字符串简介" class="headerlink" title="字符串简介"></a>字符串简介</h2><h3 id="最长公共前缀"><a href="#最长公共前缀" class="headerlink" title="最长公共前缀"></a>最长公共前缀</h3><p>思路一：横向扫描方式，一次遍历比较字符串，更新前缀prefix，遍历完后就可以得到最长前缀。</p>
 <p>时间复杂度O(mn)，m是字符串平均长度，n是字符串数量；空间复杂度O(1)</p>
 <p>思路二：纵向扫描，从前往后遍历所有字符串的第一列，相同列上字符相同就继续，否则就返回</p>
 <p>还有其他方法例如分治、二分查找等</p>
@@ -234,101 +231,7 @@ var _hmt = _hmt || [];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h2 id="双指针技巧"><a href="#双指针技巧" class="headerlink" title="双指针技巧"></a>双指针技巧</h2><h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3>
       
       <!-- reward -->
       
@@ -396,14 +299,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/08/14/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0_%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/08/14/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/" rel="tag">code</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li></ul>
 
 
     </footer>
@@ -584,6 +487,10 @@ var _hmt = _hmt || [];
     
     <li class="nav-item">
       <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/daily">每日一题</a>
     </li>
     
   </ul>

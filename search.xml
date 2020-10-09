@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>刷题记录-二叉树</title>
+    <url>/2020/10/09/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>二叉树真的很重要啊</p>
+]]></content>
+      <categories>
+        <category>算法题</category>
+      </categories>
+      <tags>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Typora+PicGo简化图床操作</title>
     <url>/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每次写博客最费劲的问题就是图片。。。直接截图的是本地图片，上传到博客无法显示，必须要用图床工具，之前我用的是七牛云的图床，但是每次还是很麻烦：<strong>截图–&gt;保存–&gt;上传–&gt;复制外联外链–&gt;粘贴外链</strong>，一个图片就要切几个页面，真让人来气嗷！</p>
@@ -1402,15 +1414,14 @@
       </tags>
   </entry>
   <entry>
-    <title>刷题笔记_探索_数组和字符串</title>
-    <url>/2020/08/14/%E5%88%B7%E9%A2%98%E7%AC%94%E8%AE%B0_%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    <title>刷题记录-数组和字符串</title>
+    <url>/2020/08/14/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>上一篇博客竟然是5天前了。。。5天时间每天瞎看看啥也没复习题也没刷。。。</p>
-<p>刚刚做了一下笔试编程，明明感觉挺简单的两道题，一道case过50%，一道看半天读懂题，不会处理直接0%。。。(看了讨论第一道题要考虑long……)</p>
-<p>刷题太少了，真的太菜了啊！！！</p>
-<p>先按照leetcode的探索来刷</p>
+<p>刚刚做了一下笔试编程，明明感觉挺简单的两道题，一道case过50%，一道看半天读懂题，不会处理直接0%。。。刷题太少了，真的太菜了。</p>
+<p>先按照leetcode的探索来刷，就不抄题了</p>
 <a id="more"></a>
 
-<h2 id="数组和字符串"><a href="#数组和字符串" class="headerlink" title="数组和字符串"></a>数组和字符串</h2><h3 id="寻找数组的中心索引"><a href="#寻找数组的中心索引" class="headerlink" title="寻找数组的中心索引"></a>寻找数组的中心索引</h3><p><strong>思路</strong>：前缀和——中心索引左右两边和相等，所以先sum求出总和，然后计算右边是否等于左边<code>left == sum-left-nums[i]</code>，满足就返回，不满足就右移，直到结束。时间复杂度O(N)空间复杂度O(1)</p>
+<h1 id="数组和字符串"><a href="#数组和字符串" class="headerlink" title="数组和字符串"></a>数组和字符串</h1><h2 id="数组简介"><a href="#数组简介" class="headerlink" title="数组简介"></a>数组简介</h2><h3 id="寻找数组的中心索引"><a href="#寻找数组的中心索引" class="headerlink" title="寻找数组的中心索引"></a>寻找数组的中心索引</h3><p><strong>思路</strong>：前缀和——中心索引左右两边和相等，所以先sum求出总和，然后计算右边是否等于左边<code>left == sum-left-nums[i]</code>，满足就返回，不满足就右移，直到结束。时间复杂度O(N)空间复杂度O(1)</p>
 <p>完整代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">pivotIndex</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>,left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> s:nums) sum+=s;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(left== sum-left-nums[i])&#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">            left+=nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1428,7 +1439,7 @@
 
 
 
-<h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>对于矩阵中第 i 行的第 j 个元素，在旋转后，它出现在倒数第 i 列的第 j 个位置。</p>
+<h2 id="二维数组简介"><a href="#二维数组简介" class="headerlink" title="二维数组简介"></a>二维数组简介</h2><h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>对于矩阵中第 i 行的第 j 个元素，在旋转后，它出现在倒数第 i 列的第 j 个位置。</p>
 <p>matrix [row] [col] –&gt; matrix [col] [n-1-row]</p>
 <p>思路一：用辅助数组存储临时旋转的结果</p>
 <p>复杂度：时间O(N^2) 空间O(N^2)</p>
@@ -1452,9 +1463,7 @@
 
 
 
-
-
-<h3 id="最长公共前缀"><a href="#最长公共前缀" class="headerlink" title="最长公共前缀"></a>最长公共前缀</h3><p>思路一：横向扫描方式，一次遍历比较字符串，更新前缀prefix，遍历完后就可以得到最长前缀。</p>
+<h2 id="字符串简介"><a href="#字符串简介" class="headerlink" title="字符串简介"></a>字符串简介</h2><h3 id="最长公共前缀"><a href="#最长公共前缀" class="headerlink" title="最长公共前缀"></a>最长公共前缀</h3><p>思路一：横向扫描方式，一次遍历比较字符串，更新前缀prefix，遍历完后就可以得到最长前缀。</p>
 <p>时间复杂度O(mn)，m是字符串平均长度，n是字符串数量；空间复杂度O(1)</p>
 <p>思路二：纵向扫描，从前往后遍历所有字符串的第一列，相同列上字符相同就继续，否则就返回</p>
 <p>还有其他方法例如分治、二分查找等</p>
@@ -1508,106 +1517,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
+<h2 id="双指针技巧"><a href="#双指针技巧" class="headerlink" title="双指针技巧"></a>双指针技巧</h2><h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3>]]></content>
       <categories>
-        <category>刷题</category>
+        <category>算法题</category>
       </categories>
       <tags>
-        <tag>code</tag>
+        <tag>leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -8816,7 +8731,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-unxPHNYg" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-bzLTjvhr" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
