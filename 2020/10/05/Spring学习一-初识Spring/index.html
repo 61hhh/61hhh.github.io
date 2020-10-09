@@ -130,8 +130,7 @@ var _hmt = _hmt || [];
       
 
       
-      <p>a</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Spring作为Java开发应用最为广泛的一个框架（甚至可以说它是默认的JavaEE框架）能做很多事，它为企业级开发提供了丰富的功能，它们的底层都依赖于两个核心特性：依赖注入【DI：Dependency injection】和面向切面编程【AOP：Aspect Oriented Programming】。可以说它的<strong>成功来源于理念，而不是技术本身</strong>！</p>
+      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Spring作为Java开发应用最为广泛的一个框架（甚至可以说它是默认的JavaEE框架）能做很多事，它为企业级开发提供了丰富的功能，它们的底层都依赖于两个核心特性：依赖注入【DI：Dependency injection】和面向切面编程【AOP：Aspect Oriented Programming】。可以说它的<strong>成功来源于理念，而不是技术本身</strong>！</p>
 <p><strong>什么是 Spring：</strong></p>
 <ol>
 <li>Spring 是一个<strong>轻量级的 DI / IoC 和 AOP 容器的开源框架</strong>，最早由 Rod Johnson创建，并在其著作<strong>《Expert one on one J2EE design and development》</strong>中进行介绍。</li>
@@ -158,7 +157,7 @@ var _hmt = _hmt || [];
 <li><strong>Spring Web 模块</strong>：Web 上下文模块建立在应用程序上下文模块之上，为基于 Web 的应用程序提供了上下文。所以，Spring 框架支持与 Jakarta Struts 的集成。Web 模块还简化了处理多部分请求以及将请求参数绑定到域对象的工作。</li>
 <li><strong>Spring MVC 框架</strong>：MVC 框架是一个全功能的构建 Web 应用程序的 MVC 实现。通过策略接口，MVC 框架变成为高度可配置的，MVC 容纳了大量视图技术，其中包括 JSP、Velocity、Tiles、iText 和 POI。</li>
 </ul>
-<h2 id="IoC基础"><a href="#IoC基础" class="headerlink" title="IoC基础"></a>IoC基础</h2><p><strong>IoC：Inverse of Control（控制反转）</strong>并不是什么技术，而是一种<strong>设计思想</strong>，就是<strong>将原本在程序中手动创建对象的控制权，交由Spring框架来管理。</strong>DI(依赖注入)是实现IoC的一种方法，也有人认为DI只是IoC的另一种说法。没有IoC的程序中 , 我们使用面向对象编程 , 对象的创建与对象间的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方，个人认为所谓控制反转就是：获得依赖对象的方式反转了。</p>
+<h2 id="IoC基础"><a href="#IoC基础" class="headerlink" title="IoC基础"></a>IoC基础</h2><p><strong>IoC：Inverse of Control（控制反转）</strong>并不是什么技术，而是一种<strong>设计思想</strong>，就是<font color="blue"><strong>将原本在程序中手动创建对象的控制权，交由Spring框架来管理。</strong></font>DI(依赖注入)是实现IoC的一种方法，也有人认为DI只是IoC的另一种说法。没有IoC的程序中 , 我们使用面向对象编程 , 对象的创建与对象间的依赖关系完全硬编码在程序中，对象的创建由程序自己控制，控制反转后将对象的创建转移给第三方，个人认为所谓控制反转就是：获得依赖对象的方式反转了。</p>
 <p>新建一个项目，参照我们原来的写法：创建Dao接口–&gt;写Dao实现类–&gt;写Service接口–&gt;写service接口实现类–&gt;测试代码。【通过service接口实现获取Dao接口，具体的实现通过接口的实现类完成】</p>
 <p>1、先写一个UserDao接口</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -290,6 +289,15 @@ var _hmt = _hmt || [];
   
   
   <nav class="article-nav">
+    
+      <a href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            Spring学习二-配置及依赖注入DI
+          
+        </div>
+      </a>
     
     
       <a href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/" class="article-nav-link">
