@@ -1517,7 +1517,120 @@
 
 
 
-<h2 id="双指针技巧"><a href="#双指针技巧" class="headerlink" title="双指针技巧"></a>双指针技巧</h2><h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3>]]></content>
+<h2 id="双指针技巧"><a href="#双指针技巧" class="headerlink" title="双指针技巧"></a>双指针技巧</h2><p>常用的有：</p>
+<ul>
+<li>左右指针：左右两端点开始，反向运动，常用于二分查找之类问题</li>
+<li>快慢指针：同一起点，通向运动，一快一慢，典型的判定链表中是否包含环</li>
+</ul>
+<h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><p>【题目要求原地修改输入数组、并用O(1)的额外空间解决问题】</p>
+<p>思路：很显然放在双指针下自然想到双指针方法。。这也算是最典型的应用了，双指针left和right从两边往中间靠拢，每次交换对应的s[left]和s[right]即可</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reverseString</span><span class="params">(<span class="keyword">char</span>[] s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s == <span class="keyword">null</span> || s.length == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = s.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">            <span class="keyword">char</span> temp = s[left];</span><br><span class="line">            s[left] = s[right];</span><br><span class="line">            s[right] = temp;</span><br><span class="line">            left ++;</span><br><span class="line">            right --;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数组拆分"><a href="#数组拆分" class="headerlink" title="数组拆分"></a>数组拆分</h3><p>思路：将长度为2n的数组分成n对，取每队的最小值min相加，使得最后的值sum最大。那我们就应该尽可能的保留大的值——假如最大和最小、第二大和第二小。。。这样每次取min都是小的；应该最大与第二大、第三大与第四大。。。这样才能做到保留大值。【实现上就是排序取奇数位】</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">arrayPairSum</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i+=<span class="number">2</span>)&#123;</span><br><span class="line">            ans+=nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="两数之和-II-输入有序数组"><a href="#两数之和-II-输入有序数组" class="headerlink" title="两数之和 II - 输入有序数组"></a>两数之和 II - 输入有序数组</h3><p>思路：因为数组已经有序了，那这就跟二分查找差不多了，只不过它多了一步——返回是下标</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] numbers, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> left =<span class="number">0</span>,right=numbers.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">            <span class="keyword">int</span> sum = numbers[left]+numbers[right];</span><br><span class="line">            <span class="keyword">if</span>(sum==target)&#123;<span class="comment">//找到了</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;left+<span class="number">1</span>,right+<span class="number">1</span>&#125;;<span class="comment">//数组下标从0开始,返回要补上</span></span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(sum&gt;target)&#123;</span><br><span class="line">                right--;<span class="comment">//右指针左移</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                left++;<span class="comment">//左指针右移</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;<span class="comment">//找不到</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h3><p>【原地移除等于目标值的元素，控制常量空间】</p>
+<p>思路：一般思路是遇到不等于目标值的就放入新数组，这样一次遍历得到的新数组即为所需的。现在要求常数空间，那就可以用快慢指针：快指针每次都移动，慢指针只有快指针的值不为目标值val才移动，若相同则停止，等下一个不同的来覆盖。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||nums.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> slow=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> fast=<span class="number">0</span>;fast&lt;nums.length;fast++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[fast]!=val)&#123;</span><br><span class="line">                nums[slow] = nums[fast];</span><br><span class="line">                slow++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> slow;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
       <categories>
         <category>算法题</category>
       </categories>
@@ -8731,7 +8844,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-cDKfGZDZ" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-LzIrBOVw" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
