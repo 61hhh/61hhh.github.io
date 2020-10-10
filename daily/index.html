@@ -89,11 +89,8 @@ var _hmt = _hmt || [];
       
 
       
-      <h3 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h3><p style="font-family: arial; color:blue; text-align:right">
-    2020-10-09
-</p>
-思路：双指针的典型应用，在labuladong的pdf上看到过，设置慢指针`slow`走一步快指针`fast`走两步，每一轮快慢指针间隔+1，这样如果有环，最后`fast`一定会追上`slow`。
-
+      <h3 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h3><p><font color="blue">2020-10-09</font></p>
+<p>思路：双指针的典型应用，在labuladong的pdf上看到过，设置慢指针<code>slow</code>走一步快指针<code>fast</code>走两步，每一轮快慢指针间隔+1，这样如果有环，最后<code>fast</code>一定会追上<code>slow</code>。</p>
 <ul>
 <li>因为先进行while循环的判断，所以如果slow和fast都初始化为head就不会进入循环体了</li>
 <li>可以改为do-while方法，这样都设置为head就没问题</li>
@@ -101,11 +98,9 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>||head.next==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head.next;</span><br><span class="line">        <span class="keyword">while</span>(slow!=fast)&#123;</span><br><span class="line">            <span class="keyword">if</span>(fast==<span class="keyword">null</span>||fast.next==<span class="keyword">null</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+<br>
 
-<h3 id="环形链表-II"><a href="#环形链表-II" class="headerlink" title="环形链表 II"></a>环形链表 II</h3><p style="font-family: arial; color:blue; text-align:right">
-    2020-10-10
-</p>
-
+<h3 id="环形链表-II"><a href="#环形链表-II" class="headerlink" title="环形链表 II"></a>环形链表 II</h3><p><font color="blue" align="center">2020-10-10</font></p>
 <p>思路：算是昨天题目的延续，不过今天要返回的是环的入口。即先判断环；再找到环入口。同样考虑一下快慢指针</p>
 <ul>
 <li><p>无环情况：fast到终点结束</p>

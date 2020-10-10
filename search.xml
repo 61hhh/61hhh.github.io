@@ -1548,7 +1548,12 @@
 
 
 
-
+<h3 id="最大连续1的个数"><a href="#最大连续1的个数" class="headerlink" title="最大连续1的个数"></a>最大连续1的个数</h3><p>思路：由0、1组成的数组中连续1的最大个数。之前没用双指针，感觉差不多</p>
+<ul>
+<li>原来思路：变量count记录当前连续1的个数，遇到0就将count存入tmp然后count置0，下次再遇到就和tmp比较，遍历一遍得到结果</li>
+<li>双指针：快指针判断，慢指针只有判断为1才前移</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//思路一</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMaxConsecutiveOnes</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>,tmp=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]==<span class="number">1</span>)&#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                tmp = Math.max(tmp,count);</span><br><span class="line">                count=<span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Math.max(tmp,count);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//双指针</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findMaxConsecutiveOnes</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> slow=<span class="number">0</span>,count=<span class="number">0</span>,fast;</span><br><span class="line">        <span class="keyword">for</span>(fast=<span class="number">0</span>;fast&lt;nums.length;fast++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[fast]==<span class="number">0</span>)&#123;</span><br><span class="line">                count = Math.max(fast-slow,count);</span><br><span class="line">                slow = fast+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(fast==nums.length-<span class="number">1</span> &amp;&amp; nums[fast]==<span class="number">1</span>)</span><br><span class="line">                count = Math.max(fast-slow+<span class="number">1</span>,count);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -8844,7 +8849,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-LzIrBOVw" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-XTQYRkLa" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
