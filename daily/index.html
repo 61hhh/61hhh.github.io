@@ -89,7 +89,11 @@ var _hmt = _hmt || [];
       
 
       
-      <h3 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h3><p><font color="blue">2020-10-09</font></p>
+      <p>大厂都要刷题 ，想拿高薪好offer也要刷题，锻炼计算机思维能力也要刷题，晚了点，但还来得及</p>
+<blockquote>
+<p>东隅已逝，桑榆非晚</p>
+</blockquote>
+<h3 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h3><p><font color="blue">2020-10-09</font></p>
 <p>思路：双指针的典型应用，在labuladong的pdf上看到过，设置慢指针<code>slow</code>走一步快指针<code>fast</code>走两步，每一轮快慢指针间隔+1，这样如果有环，最后<code>fast</code>一定会追上<code>slow</code>。</p>
 <ul>
 <li>因为先进行while循环的判断，所以如果slow和fast都初始化为head就不会进入循环体了</li>
@@ -158,11 +162,13 @@ var _hmt = _hmt || [];
 
 
 
-
-
-
-
-
+<h3 id="两两交换链表中的节点"><a href="#两两交换链表中的节点" class="headerlink" title="两两交换链表中的节点"></a>两两交换链表中的节点</h3><p>这是之前做过的一道题。。并不是<code>[1,2,3,4]</code>输出<code>[4,3,2,1]</code>而是两两交换，所以输出应该是<code>[2,1,4,3]</code>，题目要求是实际交换节点</p>
+<p>思路：常规就是递归，比较好想，要注意三点：递归结束条件、返回值、调用函数执行过程；</p>
+<ul>
+<li>递归解决：两两交换，那么交换后的1指向的就是交换后的4，如果是<code>[1,2,3,4,5,6]</code>那就是1指向4，3指向6这样，即前一个的<code>next</code>指向的是后一个的后面交换的结果，这就可以用递归。这种思路比较好理解；</li>
+<li>可以递归就可以迭代：用一个dummy节点存储，per表示当前指向的节点，每次交换的是per后面的两个节点，例如<code>per-&gt;node1-&gt;node2</code>交换完后，变成<code>per-&gt;node2-&gt;node1</code>然后再<code>per=node1</code>，进行下一轮</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span> || head.next==mull)&#123;</span><br><span class="line">            <span class="keyword">return</span> head;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode node = head.next;</span><br><span class="line">        head.next = swapPairs(node.next);</span><br><span class="line">        node.next = head;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//迭代</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">swapPairs</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        ListNode dummy=<span class="keyword">new</span> ListNode(-<span class="number">1</span>);</span><br><span class="line">        dummy.next=head;</span><br><span class="line">        ListNode per=dummy;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>((head!=<span class="keyword">null</span>)&amp;&amp;(head.next!=<span class="keyword">null</span>))&#123;</span><br><span class="line">            ListNode first=head;</span><br><span class="line">            ListNode second=first.next;</span><br><span class="line"></span><br><span class="line">            per.next=second;</span><br><span class="line">            first.next=second.next;</span><br><span class="line">            second.next=first;</span><br><span class="line"></span><br><span class="line">            per=first;</span><br><span class="line">            head=first.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dummy.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
