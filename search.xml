@@ -1,6 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>spring学习三-自动装配</title>
+    <url>/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在学习Spring自动装配和注解开发时，看狂神的视频，弹幕又刷刷刷的。。搞得人压根没看明白【看这种视频真就不能开弹幕……】只是知道了这几个标签，所以看一下《Spring实战 第四版》的装配bean章节学习一下。结合狂神的视频和书本知识，互相补充吧</p>
+<blockquote>
+<p>Spring容器负责创建应用程序中的Bean并通过DI来协调这些对象之间的关系，在描述Bean装配操作时，Spring有很大的灵活性，它提供了三种主要的装配机制：</p>
+<ul>
+<li>在XML中显式装配</li>
+<li>在Java中显式装配</li>
+<li>隐式的bean发现机制和自动装配</li>
+</ul>
+</blockquote>
+<p>作者推荐：尽可能使用自动装配机制，在必须要显式配置时，推荐使用类型安全且比XML更强大的JavaConfig。最后只有是想使用便利的XML命名空间并且在JavaConfig中没有同样的实现时才应用XML。<code>推荐：自动装配&gt;JavaConfig&gt;XML</code>。</p>
+<p>书上的顺序是自动装配-&gt;JavaConfig-&gt;XML，狂神视频是先讲XML再自动装配再JavaConfig，我以视频顺序为主，具体的知识点两者结合着做</p>
+<a id="more"></a>
+
+<p>官方文档中给出的关于XML和configuration的问题看法：</p>
+<p><img src="http://img2.salute61.top/Spring%E8%A3%85%E9%85%8D01.png" alt=""></p>
+<h2 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h2><p>书上关于自动装配的说法：</p>
+<blockquote>
+<p>Spring的自动装配需要从两个角度来实现，或者说是两个操作：</p>
+<ol>
+<li>组件扫描(component scanning)：spring会自动发现应用上下文中所创建的bean；</li>
+<li>自动装配(autowiring)：spring自动满足bean之间的依赖，也就是我们说的IoC/DI；</li>
+</ol>
+<p>组件扫描和自动装配组合就能发挥巨大威力，使得显示的配置降低到最少。</p>
+</blockquote>
+<p>下面就用实例来说明一下。</p>
+<h3 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h3><p>新建一个module叫做<code>spring05-AutoWired</code>，创建<code>pojo</code>实体类，<code>Cat  Dog</code>  都有一个<code>embark</code>的方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embark</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"汪汪汪！！！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">embark</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"喵~~"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建用户类<code>Man</code>，包含属性<code>Dog、cat、name</code>，然后生成对应的<strong>toString、set和get方法</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Cat cat;</span><br><span class="line">    <span class="keyword">private</span> Dog dog;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编写配置文件beans.xml</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">       http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dog"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Dog"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Cat"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Man"</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cat"</span> <span class="attr">ref</span>=<span class="string">"cat"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dog"</span> <span class="attr">ref</span>=<span class="string">"dog"</span>/&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"刘义"</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>编写测试类MyTest，测试上面的代码，输出的正常，表示环境搭建无误</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Test</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMethodAutowire</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"beans.xml"</span>);</span><br><span class="line">       User user = (User) context.getBean(<span class="string">"user"</span>);</span><br><span class="line">       user.getCat().shout();</span><br><span class="line">       user.getDog().shout();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出：</span></span><br><span class="line"><span class="comment">//汪汪汪！！！</span></span><br><span class="line"><span class="comment">//喵~~</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="自动装配xml配置"><a href="#自动装配xml配置" class="headerlink" title="自动装配xml配置"></a>自动装配xml配置</h3><h4 id="byName标签"><a href="#byName标签" class="headerlink" title="byName标签"></a>byName标签</h4><p><em>autowire byName (按名称自动装配)</em></p>
+<p>由于在手动配置xml过程中，常常发生字母缺漏和大小写等错误，而无法对其进行检查，使得开发效率降低。</p>
+<p>采用自动装配将避免这些错误，并且使配置简单化。</p>
+<p>修改bean配置，增加一个属性<code>autowire=&quot;byName&quot;</code></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"man"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Man"</span> <span class="attr">autowire</span>=<span class="string">"byName"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"刘义"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--再次在MyTest中测试，依旧可以成功--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>将<code>cat</code>的bean id修改为cat123，再次测试，发现报空指针<code>java.lang.NullPointerException</code>错误，这是因为采用byName规则无法找到对应的set方法，真正的set方法没有执行，对象未初始化，所以会报空指针错误！</p>
+<p><strong>总结：</strong></p>
+<p>当一个bean节点带有 autowire byName的属性时。</p>
+<ol>
+<li>将查找其类中所有的set方法名，例如setCat，获得将set去掉并且首字母小写的字符串，即cat。</li>
+<li>去spring容器中寻找是否有此字符串名称id的对象。</li>
+<li>如果有，就取出注入；如果没有，就报空指针异常。</li>
+</ol>
+<h4 id="byType标签"><a href="#byType标签" class="headerlink" title="byType标签"></a>byType标签</h4><p><em>autowire byType (按类型自动装配)</em></p>
+<p>使用byType就跟byName方式类似了，不过byType看名字就知道它是按照类型去装配。</p>
+<p>照例修改属性<code>autowire=&quot;byType&quot;</code>，然后进行测试，测试依然成功</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"man"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Man"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"刘义"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这时，我们如果再注册一个cat的bean对象：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Cat"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat2"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Cat"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"man"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Man"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"刘义"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>再次测试报错<code>NoUniqueBeanDefinitionException</code>，即bean对象不唯一，所以要注意同一类型的对象，在spring容器中必须唯一。如果不唯一，会报不唯一的异常。</p>
+<p>再次修改，删除重复的cat2，再将cat的名字改掉，重新测试，依旧能允许，说明了按类型装配队id属性的值没有要求，即id属性不会影响结果</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"catWrongId"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Cat"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"man"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Man"</span> <span class="attr">autowire</span>=<span class="string">"byType"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"刘义"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--依旧运行成功了--&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="使用注解装配"><a href="#使用注解装配" class="headerlink" title="使用注解装配"></a><font color="red">使用注解装配</font></h3><p>书上关于自动装配主要是注解实现，视频也是<strong>推荐不去使用自动装配xml配置 , 而使用注解 .</strong></p>
+<p>这里参考书，讲狂神的<code>spring03 自动装配</code>、<code>spring04 注解开发</code>整合在一起，便于直观理解</p>
+<p>使用注解前要先引入<code>context</code>约束，官方文档描述：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">    //引入<span class="attr">context</span>文件头</span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--开启属性注解支持--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@Component 等价于 &lt;bean id="name" class="com.liu.pojo.User"/&gt;</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Value</span>(<span class="string">"刘义"</span>)</span><br><span class="line">   <span class="comment">// 相当于配置文件中 &lt;property name="name" value="刘义"/&gt;</span></span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>书中出现的第一个注解标签，使用@Component注解表明该类会作为组件类，并告知Spring为该类创建bean。</p>
+<p>不过组件扫描默认是不启用的，所以还要显示配置一下Spring，从而命令它去寻找带有@Component注解的类并创建bean：</p>
+<ul>
+<li>书上采用的是创建一个对应的UserConfig类，打上@Configuration和@ComponentScan注解：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liu.pojo;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserConfig</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@ComponentScan默认扫描与配置类相同的包，即<code>com.liu.pojo</code>包下的所有子包，并查找带有@Component注解的类</p>
+<ul>
+<li>如果更倾向于使用XML启动组件扫描，也可以在xml文件中添加以下代码：</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--指定要扫描的包，这个包下的注解就会生效--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.liu.pojo"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>IDEA左侧出现一个绿色小叶子，点击就会跳转到对应的<code>ApplicationContext.xml</code>上：</p>
+<p><img src="http://img2.salute61.top/Spring%E8%A3%85%E9%85%8D02.png" alt=""></p>
+<p>在MyTest中测试上述代码是否正确：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"ApplicationContext.xml"</span>);</span><br><span class="line"></span><br><span class="line">        User user = context.getBean(<span class="string">"user"</span>, User<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        System.out.println(user.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出：刘义</span></span><br></pre></td></tr></table></figure>
+
+<p>验证OK，即@Component注解确实创建了bean！</p>
+<h5 id="为组件扫描的bean命名"><a href="#为组件扫描的bean命名" class="headerlink" title="为组件扫描的bean命名"></a>为组件扫描的bean命名</h5><p>可以看到上述代码中其实没有显式创建bean，对应的bean id也是没显式声明的，而我在测试代码中<code>getBean(&quot;user&quot;)</code>拿到了对应的bean。书上有解释：因为Spring会根据类名指定一个ID，具体来讲就是类名的第一个字母小写。</p>
+<p>那么怎样设置自己想要的id呢？查看@Component注解的源码，发现它有个value的属性，所以我们可以设置对应value，即为显式的id</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Component &#123;</span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//设置为   @Component("MyUser")</span></span><br><span class="line"><span class="comment">//对应测试的getBean中  id就为MyUser</span></span><br></pre></td></tr></table></figure>
+
+<p>书上还介绍了另一种规范：<code>@Named(&quot;MyUser&quot;)</code>……推荐还是上一个</p>
+<h5 id="设置扫描的包"><a href="#设置扫描的包" class="headerlink" title="设置扫描的包"></a>设置扫描的包</h5><p>默认情况下，使用@ComponentScan会以当前类所在的包为基础包，如果想扫描不同的包，或者多个基础包，又该怎样操作呢？书上给出了解决方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.liu.pojo;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//可以设置@ComponentScan的value：</span></span><br><span class="line"><span class="meta">@ComponentScan</span>(<span class="string">"com.liu.pojo"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserConfig</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">//@ComponentScan(basePackages=&#123;"com.liu.pojo","com.liu.dao"......&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//还可以指定接口</span></span><br><span class="line"><span class="comment">//@ComponentScan(basePackageClasses=&#123;User.Class,UserDao.Class......&#125;)</span></span><br></pre></td></tr></table></figure>
+
+<p>至于之前的另一个方式xml，基本上不用改啥，它的属性<code>&lt;context:component-scan base-package=&quot;com.liu&quot; /&gt;</code>就有设置扫描包位置。</p>
+<h4 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h4><p>上面的是自动扫描的操作，另一个就是进行自动装配，可以用@Autowired注解实现！</p>
+<ul>
+<li>@Autowired是按类型自动转配的，不支持id匹配。</li>
+<li>需要导入 <code>spring-aop</code>的包！</li>
+</ul>
+<p>将一开始的User类中的setter方法去掉，在属性上添加@Autowired注解：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Cat cat;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Dog dog;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//get方法、toSting方法......</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应的配置文件也可以简化：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dog"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Dog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Cat"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Man"</span> <span class="attr">class</span>=<span class="string">"com.liu.pojo.Man"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试，输出成功！</p>
+<ul>
+<li>@Autowired不仅能用在setter方法上，也可以用在构造器上，加在构造器上时，表示会通过该构造器来进行实例化并传入一个可以设置给对应参数类型的bean</li>
+<li>@Autowired还可以用在其他方法上，本质上都是Spring尝试去满足方法参数上所声明的依赖</li>
+</ul>
+<p>如果没有匹配的bean时，会抛出异常！</p>
+<p>解决方法：<code>@Autowired(required=false)</code> ——表示注入时容器对象bean可以为null，默认值是true。</p>
+<p>【注】在容器的启动过程中，会初始化很多bean，这也是spring的核心之一（IOC）。但是在注入的过程中，扫描到公共方法中要注入的bean，并未找到，强行注入就会注入失败。我们又不能单独的去除改方法，所以我们采取的思想就是有bean就注入，没有就不注入。解决办法就是@Autowired(required=false)。</p>
+<blockquote>
+<p>使用required属性，需要谨慎对待，如果代码中没有null检查的话，可能会报空指针异常；如果多个bean都满足依赖，Spring会报异常<code>NoUniqueBeanDefinitionException</code>，出现书后面章节所说的歧义性</p>
+</blockquote>
+<h5 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h5><ul>
+<li>@Autowired是根据类型自动装配<code>(byType)</code>的，加上@Qualifier则可以根据<code>byName</code>的方式自动装配</li>
+<li>@Qualifier不能单独使用。</li>
+</ul>
+<p>修改配置文件内容：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dog1"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Dog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dog2"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Dog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat1"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Cat"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat2"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Cat"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果没加@Qualifier代码就会直接报红，因为@Autowired按类型装配，此时同一类型对象不唯一，无法装配；加上@Qualifier后，类型装配不行的话就会再查找name，就能通过了~</p>
+<h4 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h4><ul>
+<li>@Resource如有指定的name属性，先按该属性进行byName方式查找装配；</li>
+<li>其次再进行默认的byName方式进行装配；</li>
+<li>如果以上都不成功，则按byType的方式自动装配。</li>
+<li>都不成功，则报异常。</li>
+</ul>
+<p>1 测试一下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">   <span class="comment">//如果允许对象为null，设置required = false,默认为true</span></span><br><span class="line">   <span class="meta">@Resource</span>(name = <span class="string">"cat2"</span>)</span><br><span class="line">   <span class="keyword">private</span> Cat cat;</span><br><span class="line">   <span class="meta">@Resource</span></span><br><span class="line">   <span class="keyword">private</span> Dog dog;</span><br><span class="line">   <span class="keyword">private</span> String str;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对应配置文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dog"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Dog"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat1"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Cat"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cat2"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.Cat"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"user"</span> <span class="attr">class</span>=<span class="string">"com.kuang.pojo.User"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>测试结果正常！</p>
+<p>将@Resource的name属性去掉，cat2去掉，再次测试，依然正常，说明上述的方法正确</p>
+<h2 id="JavaConifg装配bean"><a href="#JavaConifg装配bean" class="headerlink" title="JavaConifg装配bean"></a>JavaConifg装配bean</h2><p>有时我们不得不使用显式装配，比如想将第三方类库装配到自己的应用中时，肯定不能在它的类上添加注解，所以就只能显式装配了。</p>
+<p>JavaConfig的实现是通过注解完成的，因此先介绍一下注解开发</p>
+<h3 id="注解开发"><a href="#注解开发" class="headerlink" title="注解开发"></a>注解开发</h3><p>Spring4之后使用spring注解要引入aop包，在配置文件当中，还得要引入一个context约束</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xmlns:aop="http:</span>//<span class="attr">www.springframework.org</span>/<span class="attr">schema</span>/<span class="attr">aop</span>"</span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">	https://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Bean的实现"><a href="#Bean的实现" class="headerlink" title="Bean的实现"></a>Bean的实现</h4><p>之前都是在xml中使用 bean 的标签进行bean注入，但是实际开发中完全可以使用注解</p>
+<p>1、配置要扫描的包（会包含bean对象的）</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--指定要扫描的包，这个包下的注解就会生效--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.liu"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、在指定包下编写类，添加注解</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//@Component 等价于 &lt;bean id="name" class="com.liu.pojo.User"/&gt;</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="comment">//等价于&lt;property name="name" value="刘义"/&gt;</span></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"刘义"</span>)</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【注】：这里在<code>String name</code>上添加了注解<code>@Value</code>相当于通过注解注入了属性值，如果有提供set方法，可以在set方法生添加<code>@Value(&quot;值&quot;)</code>；</p>
+<p>3、编写测试类测试代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> ClassPathXmlApplicationContext(<span class="string">"ApplicationContext.xml"</span>);</span><br><span class="line"></span><br><span class="line">        User user = context.getBean(<span class="string">"user"</span>, User<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        System.out.println(user.name);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//输出：刘义</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="衍生注解"><a href="#衍生注解" class="headerlink" title="衍生注解"></a>衍生注解</h4><p>使用注解的目的就是为了简化配置文件，进一步简化开发、提高效率</p>
+<p><strong>@Component的三个衍生注解</strong></p>
+<p>为了更好的分层，Spring可以使用其他的三个注解</p>
+<ul>
+<li>@Controller：web层</li>
+<li>@Service：service层</li>
+<li>@Repository：dao层</li>
+</ul>
+<p>Spring会扫描这些注释，自动识别为对应的层去管理</p>
+<p><strong>作用域@Scope</strong></p>
+<ul>
+<li>singleton：默认的，表示Spring会采用单例模式创建对象。关闭工厂后所有对象也随之销毁</li>
+<li>prototype：多例模式。关闭工厂后所有对象不会全销毁，内部垃圾回收机制会回收</li>
+</ul>
+<h3 id="JavaConfig装配"><a href="#JavaConfig装配" class="headerlink" title="JavaConfig装配"></a>JavaConfig装配</h3><p>JavaConfig 原来是 Spring 的一个子项目，它通过 Java 类的方式提供 Bean 的定义信息，在 Spring4 的版本， JavaConfig 已正式成为 Spring4 的核心功能 。</p>
+<p>1、首先还是定义一个pojo实体类User</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: Salute61</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2020/10/2 16:10</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: some description</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"刘义616161"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"User&#123;"</span> +</span><br><span class="line">                <span class="string">"name='"</span> + name + <span class="string">'\''</span> +</span><br><span class="line">                <span class="string">'&#125;'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、新建一个Config包，创建一个liuConfig文件</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">liuConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> User();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【注】<code>@Configuration</code>标签表示这是一个配置类，在类中添加<code>@Bean</code>标签，通过方法去注册一个bean，返回值就是bean的类型，方法名就是bean的id</p>
+<p>3、编写测试代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ApplicationContext context = <span class="keyword">new</span> AnnotationConfigApplicationContext(liuConfig<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        User user = (User) context.getBean(<span class="string">"getUser"</span>);</span><br><span class="line">        System.out.println(user.getName());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//输出：刘义616161</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以继续再编写另外的Config代码，通过<code>@Import(xxx.class)</code>方式导入合并其他的配置类</p>
+]]></content>
+      <categories>
+        <category>Java框架</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>刷题记录-二叉树</title>
     <url>/2020/10/09/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>二叉树真的很重要啊</p>
@@ -194,6 +404,7 @@
 <blockquote>
 <p>创建一个bean定义，其实质是用该bean定义对应的类来创建真正实例的“配方(recipe)”。把bean定义看成一个配方很重要，它与class很类似，只根据一张“配方”就可以创建多个实例。不仅可以控制注入到对象中的各种依赖和配置值，还可以控制该对象的作用域。这样可以灵活选择所建对象的作用域，而不必在Java Class级定义作用域。Spring Framework支持五种作用域</p>
 </blockquote>
+<p>以下是常见的四种作用域的定义内容：</p>
 <h3 id="1、SingleTon"><a href="#1、SingleTon" class="headerlink" title="1、SingleTon"></a>1、SingleTon</h3><p>当一个bean的作用域为Singleton，那么Spring IoC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。</p>
 <p>Singleton是单例类型，就是在创建容器时就同时自动创建了一个bean的对象，不管你是否使用，他都存在了，每次获取到的对象都是同一个对象（上面演示代码中就有出现）。注意，Singleton作用域是Spring中的缺省作用域。</p>
 <p><img src="https://docs.spring.io/spring-framework/docs/5.2.0.RELEASE/spring-framework-reference/images/singleton.png" alt="示意图"></p>
@@ -8931,7 +9142,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-XrsseuBg" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-mLEQKKdG" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>

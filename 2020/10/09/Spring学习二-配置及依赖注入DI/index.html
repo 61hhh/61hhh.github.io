@@ -247,6 +247,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>创建一个bean定义，其实质是用该bean定义对应的类来创建真正实例的“配方(recipe)”。把bean定义看成一个配方很重要，它与class很类似，只根据一张“配方”就可以创建多个实例。不仅可以控制注入到对象中的各种依赖和配置值，还可以控制该对象的作用域。这样可以灵活选择所建对象的作用域，而不必在Java Class级定义作用域。Spring Framework支持五种作用域</p>
 </blockquote>
+<p>以下是常见的四种作用域的定义内容：</p>
 <h3 id="1、SingleTon"><a href="#1、SingleTon" class="headerlink" title="1、SingleTon"></a>1、SingleTon</h3><p>当一个bean的作用域为Singleton，那么Spring IoC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。</p>
 <p>Singleton是单例类型，就是在创建容器时就同时自动创建了一个bean的对象，不管你是否使用，他都存在了，每次获取到的对象都是同一个对象（上面演示代码中就有出现）。注意，Singleton作用域是Spring中的缺省作用域。</p>
 <p><img src="https://docs.spring.io/spring-framework/docs/5.2.0.RELEASE/spring-framework-reference/images/singleton.png" alt="示意图"></p>
