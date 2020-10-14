@@ -103,6 +103,81 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-spring学习四-静态-动态代理" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"
+    >spring学习四-静态/动态代理</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" class="article-date">
+  <time datetime="2020-10-14T07:38:16.000Z" itemprop="datePublished">2020-10-14</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在对象中可能会有一些公共的行为，例如日志记录、权限验证等，如果每个对象都写上这些就会造成冗余。对此AOP【Aspect Oriented Programming面向切面编程】提供了一种方式：将通用的方法抽离出来并封装，定义为独立的切面，在合适的时机将其横向切入业务流程指定的位置中</p>
+<p><img src="http://img2.salute61.top/PicGo/SpringAOP1.png" alt=""></p>
+<p>因为Spring的AOP主要作用就是通过不修改源代码的方式，将非核心的功能代码织入，来实现对方法的增强，而它实现的原理，关键就在于使用代理模式</p>
+<p>代理模式的分类：静态代理；动态代理</p>
+      
+      <a class="article-more-link" href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-spring学习三-自动装配" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -767,102 +842,6 @@ var _hmt = _hmt || [];
 </ul>
       
       <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybaits学习二-Mybatis配置文件" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"
-    >Mybaits学习二:Mybatis配置文件</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="article-date">
-  <time datetime="2020-09-28T09:40:42.000Z" itemprop="datePublished">2020-09-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Mybatis最重要的就是它的配置，而配置包含了Mybatis的至关重要的设置和属性等信息，官方文档中也专门给出一节来讲配置文件。本篇博客也是以<a href="https://mybatis.org/mybatis-3/zh/" target="_blank" rel="noopener">官方中文文档</a>为主要依据记笔记</p>
-<p>可以ctrl+鼠标左键查看mybatis-config.xml头部的dtd头文件，点进去可以看到配置文件的element。MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息。 配置文档的顶层结构如下：</p>
-<ul>
-<li>configuration（配置）<ul>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#properties" target="_blank" rel="noopener">properties（属性）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#settings" target="_blank" rel="noopener">settings（设置）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#typeAliases" target="_blank" rel="noopener">typeAliases（类型别名）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#typeHandlers" target="_blank" rel="noopener">typeHandlers（类型处理器）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#objectFactory" target="_blank" rel="noopener">objectFactory（对象工厂）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#plugins" target="_blank" rel="noopener">plugins（插件）</a></li>
-<li>environments（环境配置）<ul>
-<li>environment（环境变量）<ul>
-<li>transactionManager（事务管理器）</li>
-<li>dataSource（数据源）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider" target="_blank" rel="noopener">databaseIdProvider（数据库厂商标识）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#mappers" target="_blank" rel="noopener">mappers（映射器）</a></li>
-</ul>
-</li>
-</ul>
-<p><font color="red">注：元素节点顺序是按照上面固定的，顺序错了会报错！</font></p>
-<p>（下面的学习顺序并不是按照结构来的，而是按照学习视频的代码去学的）</p>
-      
-      <a class="article-more-link" href="/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">阅读更多...</a>
       
       
       <!-- reward -->
