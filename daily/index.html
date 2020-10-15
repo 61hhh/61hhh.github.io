@@ -182,11 +182,13 @@ var _hmt = _hmt || [];
 
 
 
+<br>
 
-
-
-
-
+<h3 id="填充每个节点的下一个右侧节点指针"><a href="#填充每个节点的下一个右侧节点指针" class="headerlink" title="填充每个节点的下一个右侧节点指针"></a>填充每个节点的下一个右侧节点指针</h3><p><font color="blue">2020-10-15</font></p>
+<p><img src="http://img2.salute61.top/PicGo/%E5%A1%AB%E5%85%85%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9.png" alt="填充右侧节点"></p>
+<p>思路：题目要求每一层都是指向右边，最右边的指向null，对于root节点1没有兄弟节点，所以看它的子节点，<code>root.left.next = root.right</code>，而到了第二层，左子树2有兄弟右子树3，要完成将两棵树连在一起，就需要将左子树的右子节点和右子树的左子节点相连，当前左子树的root是2，那么对应的即<code>root.right.next=root.next.left</code>。然后递归遍历左右子树。</p>
+<p>【注】对应的也可以用迭代实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Node <span class="title">connect</span><span class="params">(Node root)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//为空||叶子节点</span></span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span> || root.left==<span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        <span class="comment">//设置next指向</span></span><br><span class="line">        root.left.next = root.right;</span><br><span class="line">        <span class="comment">//next指向非空时(left.next=right),此时left的子树右节点next指向right子树左节点(跨两颗树指向)</span></span><br><span class="line">        <span class="keyword">if</span>(root.next!=<span class="keyword">null</span>)</span><br><span class="line">            root.right.next=root.next.left;</span><br><span class="line">        <span class="comment">//递归左子树右子树</span></span><br><span class="line">        connect(root.left);</span><br><span class="line">        connect(root.right);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
