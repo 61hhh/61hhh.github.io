@@ -103,6 +103,89 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Mybatis学习三-注解开发" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/"
+    >Mybatis学习三-注解开发</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" class="article-date">
+  <time datetime="2020-10-03T09:47:44.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="依赖倒转原则-DIP"><a href="#依赖倒转原则-DIP" class="headerlink" title="依赖倒转原则(DIP)"></a>依赖倒转原则(DIP)</h2><p>在面向对象分析与设计中，有一个很重要的原则——依赖倒转原则，定义如下</p>
+<blockquote>
+<p>高层模块不应该依赖低层模块，它们都应该依赖抽象；抽象不应该依赖于细节；细节应该依赖于抽象。</p>
+<p>另一种表述：<strong>要针对接口编程，不要针对实现编程。</strong></p>
+</blockquote>
+<p>DIP是6大原则中最难以实现的原则，它是实现开闭原则的重要途径。关键仍然是”抽象”，抽象属于高层，细节属于低层，低层依赖于高层，而不是高层依赖于低层，这正是依赖倒置的真谛。</p>
+<p>依赖倒转的好处</p>
+<ul>
+<li>可以通过抽象使各个类或模块的实现彼此独立，不互相影响，<strong>实现模块间的松耦合（也是本质）</strong>；</li>
+<li>可以规避一些非技术因素引起的问题（例如需求变化导致的工作量剧增的情况）</li>
+<li>可以促进并行开发</li>
+</ul>
+      
+      <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Mybaits学习二-Mybatis配置文件" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -808,86 +891,6 @@ var _hmt = _hmt || [];
 <p><img src="http://img2.salute61.top/Java_String.png" alt=""></p>
       
       <a class="article-more-link" href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Java中equals与-用法" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/08/03/Java%E4%B8%ADequals%E4%B8%8E-%E7%94%A8%E6%B3%95/"
-    >Java中equals与==用法</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/08/03/Java%E4%B8%ADequals%E4%B8%8E-%E7%94%A8%E6%B3%95/" class="article-date">
-  <time datetime="2020-08-03T13:39:02.000Z" itemprop="datePublished">2020-08-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>有两种用法说明:</p>
-<p>一、对于字符串变量来说，使用“==”和“equals()”方法比较字符串时，其比较方法不同。</p>
-<ol>
-<li><p><code>==</code>比较两个变量本身的值，<strong>即两个对象在内存中的地址</strong>。</p>
-<p>(java中，对象的首地址是它在内存中存放的起始地址，它后面的地址是用来存放它所包含的各个属性的地址，所以内存中会用多个内存块来存放对象的各个参数，而通过这个首地址就可以找到该对象，进而可以找到该对象的各个属性)</p>
-</li>
-<li><p><code>equals()</code>比较字符串中所包含的内容是否相同。</p>
-</li>
-</ol>
-      
-      <a class="article-more-link" href="/2020/08/03/Java%E4%B8%ADequals%E4%B8%8E-%E7%94%A8%E6%B3%95/">阅读更多...</a>
       
       
       <!-- reward -->
