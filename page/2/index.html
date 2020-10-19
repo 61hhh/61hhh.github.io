@@ -103,6 +103,78 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Mybatis学习四-一对多与多对一" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/"
+    >Mybatis学习四-一对多与多对一</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/" class="article-date">
+  <time datetime="2020-10-03T09:48:30.000Z" itemprop="datePublished">2020-10-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><p>在实际开发中，实体对象之间的关联往往是很复杂的，在查询时往往需要连表查询！mybatis 提供了高级的关联查询功能，可以很方便地将数据库获取的结果集映射到定义的Java Bean 中。以老师和学生为例，一个班主任带着多个学生，多个学生属于一个班主任名下</p>
+      
+      <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Mybatis学习三-注解开发" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -812,85 +884,6 @@ var _hmt = _hmt || [];
 <p>对于面向对象的开发来讲也分为三个过程：OOA（面向对象系统分析）、OOD（面向对象设计）、OOP（面向对象编程）。</p>
       
       <a class="article-more-link" href="/2020/08/04/Java%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Java字符串" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/"
-    >Java字符串</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
-  <time datetime="2020-08-03T14:40:46.000Z" itemprop="datePublished">2020-08-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java/">Java</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Java中的字符串处理，主要涉及三个类：<font color="red"><strong>String、StringBuffer、StringBuilder</strong></font></p>
-<p>三者共同之处：都是final类，不允许被继承。</p>
-<p>StringBuffer是线程安全，可以不需要额外的同步用于多线程中;</p>
-<p>StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了;</p>
-<p>StringBuffer与StringBuilder两者共同之处:可以通过append、insert进行字符串的操作。</p>
-<p>String实现了三个接口:Serializable、Comparable &lt; String &gt;、CharSequence</p>
-<p>StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。</p>
-<p><img src="http://img2.salute61.top/Java_String.png" alt=""></p>
-      
-      <a class="article-more-link" href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/">阅读更多...</a>
       
       
       <!-- reward -->

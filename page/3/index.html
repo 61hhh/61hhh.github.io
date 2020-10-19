@@ -103,6 +103,85 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Java字符串" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/"
+    >Java字符串</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="article-date">
+  <time datetime="2020-08-03T14:40:46.000Z" itemprop="datePublished">2020-08-03</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>Java中的字符串处理，主要涉及三个类：<font color="red"><strong>String、StringBuffer、StringBuilder</strong></font></p>
+<p>三者共同之处：都是final类，不允许被继承。</p>
+<p>StringBuffer是线程安全，可以不需要额外的同步用于多线程中;</p>
+<p>StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了;</p>
+<p>StringBuffer与StringBuilder两者共同之处:可以通过append、insert进行字符串的操作。</p>
+<p>String实现了三个接口:Serializable、Comparable &lt; String &gt;、CharSequence</p>
+<p>StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。</p>
+<p><img src="http://img2.salute61.top/Java_String.png" alt=""></p>
+      
+      <a class="article-more-link" href="/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Java中equals与-用法" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -763,86 +842,6 @@ var _hmt = _hmt || [];
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-操作系统——设备管理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/07/27/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/"
-    >操作系统——设备管理</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/07/27/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/" class="article-date">
-  <time datetime="2020-07-27T13:38:35.000Z" itemprop="datePublished">2020-07-27</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a> / <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/OS/">OS</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><ul>
-<li>输入输出控制方式</li>
-<li>缓冲区的管理</li>
-<li>设备分配和设备处理</li>
-<li>磁盘调度</li>
-<li>虚拟设备</li>
-<li>对通道的理解</li>
-<li>Spooling技术。</li>
-</ul>
-      
-      <a class="article-more-link" href="/2020/07/27/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OS%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="tag">OS知识点</a></li></ul>
 
 
     </footer>
