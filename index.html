@@ -103,6 +103,140 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Servlet学习一-Servlet入门" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/04/Servlet%E5%AD%A6%E4%B9%A0%E4%B8%80-Servlet%E5%85%A5%E9%97%A8/"
+    >Servlet学习一-Servlet入门</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/11/04/Servlet%E5%AD%A6%E4%B9%A0%E4%B8%80-Servlet%E5%85%A5%E9%97%A8/" class="article-date">
+  <time datetime="2020-11-04T07:58:30.000Z" itemprop="datePublished">2020-11-04</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>s</p>
+<h2 id="Servlet简介"><a href="#Servlet简介" class="headerlink" title="Servlet简介"></a>Servlet简介</h2><p>Java Servlet 是运行在 <strong>Web 服务器或应用服务器上</strong>的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104160436506.png" alt="Servlet架构"></p>
+<p>作用：处理浏览器带来的HTTP请求，并返回一个响应给浏览器，从而实现浏览器和服务器的交互</p>
+<p>开发步骤：</p>
+<ol>
+<li>编写一个Servlet程序</li>
+<li>部署到Web服务器</li>
+</ol>
+<p>【注】：我们一般将Servlet部署在如Tomcat之类的服务器上，关于Tomcat的介绍，可以看之前的博客：<a href="http://salute61.top/2020/07/05/Tomcat%E5%AD%A6%E4%B9%A0/">Tomcat学习</a></p>
+<h2 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h2><p>1、新建一个maven项目，然后删除原来的项目结构（即原来的src目录），在主项目的pom.xml中导入依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet.jsp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jsp-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、创建modules，勾选Create from archetype，选择webapp创建</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104162246668.png" alt="image-20201104162246668"></p>
+<h2 id="Servlet程序编写"><a href="#Servlet程序编写" class="headerlink" title="Servlet程序编写"></a>Servlet程序编写</h2><p>1、在上面创建的Servlet modules的webapp目录下新建Java和resources目录并标记，编写helloServlet类继承httpServlet并重写doGet和doPost方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">helloServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="comment">//由于get和post只是请求的不同方式，因此可以互相调用，对应逻辑相同</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进入doGet！"</span>);</span><br><span class="line">        </span><br><span class="line">        PrintWriter writer = resp.getWriter();</span><br><span class="line">        writer.print(<span class="string">"helloServlet"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"进入post！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、在web.xml中配置，使得浏览器发出的请求能到达对应的Servlet</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee</span></span></span><br><span class="line"><span class="tag"><span class="string">                         http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">version</span>=<span class="string">"4.0"</span></span></span><br><span class="line"><span class="tag">         &gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--servlet注册--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>helloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.liu.servlet.helloServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--servlet请求路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>helloServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/helloServlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、IDEA中配置Tomcat</p>
+<ul>
+<li><p>在右上角Run–Edit Configuration</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104164343123.png" alt="image-20201104164343123"></p>
+</li>
+<li><p>在Server右侧的Configure…找到本地的Tomcat服务器，查看JRE版本和项目要保持一致、在上面的Deployment中点击+号找到我们的Servlet项目，添加Application context路径，启动访问</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104165240454.png" alt="image-20201104165240454"></p>
+</li>
+</ul>
+<p>【注】：启动的时候报错<code>Error:java: Compilation failed: internal java compiler error</code>，应该是项目的JDK版本设置不一致，在Project Structure–&gt;Project和Setting–Java Complier中将JDK版本都设为一致的即可！</p>
+<h3 id="浏览器通过配置定位到对应Servlet的步骤"><a href="#浏览器通过配置定位到对应Servlet的步骤" class="headerlink" title="浏览器通过配置定位到对应Servlet的步骤"></a><strong>浏览器通过配置定位到对应Servlet的步骤</strong></h3><ul>
+<li>首先浏览器通过<a href="http://localhost:8080/s1找到web.xml中的`" target="_blank" rel="noopener">http://localhost:8080/s1找到web.xml中的`</a><url-pattern>`；</li>
+<li>匹配到url-pattern后找到Servlet的名字helloServlet</li>
+<li>helloServlet对应的路径为<code>com.liu.servlet.helloServlet</code>，获取到对应的doGet和doPost方法</li>
+</ul>
+<h2 id="Servlet创建方式"><a href="#Servlet创建方式" class="headerlink" title="Servlet创建方式"></a>Servlet创建方式</h2><p>Servlet常见的创建方式有三种，我们用的继承HTTPServlet就属于其中一种，查看HttpServlet类图如下：</p>
+<img src="http://img2.salute61.top/PicGo/HttpServlet.png" alt="HttpServlet"  />
+
+<p>上面已经展示了继承HttpServlet类实现，还有另外两种继承GenericServlet和实现Servlet方式。</p>
+<p>GenericServlet类继承了Servlet接口，主要作用就是实现了Servlet接口中的方法，简化了编写Servlet步骤</p>
+<h2 id="Servlet生命周期"><a href="#Servlet生命周期" class="headerlink" title="Servlet生命周期"></a>Servlet生命周期</h2><p>1、创建一个类，实现Servlet接口</p>
+<ul>
+<li>ctrl+o可以看到有5个方法需要重写：init【初始化】、getServletConfig【获取Servlet配置】、service【服务】、getServletInfo【获取Servlet服务信息】、destroy【销毁服务】</li>
+<li>可以猜到service中应该是对应的服务代码，在service中编写代码</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testServlet</span> <span class="keyword">implements</span> <span class="title">Servlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletConfig <span class="title">getServletConfig</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req, ServletResponse res)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        res.getWriter().write(<span class="string">"helloWorld!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getServletInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、配置web.xml文件，部署到Tomcat中，键入<a href="http://localhost:8080/s1/testServlet访问" target="_blank" rel="noopener">http://localhost:8080/s1/testServlet访问</a></p>
+<ul>
+<li><p>可以发现，第一次访问时init方法和service方法被执行，后续再进入/testServlet只会执行service方法</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104172052959.png" alt="image-20201104172052959"></p>
+</li>
+<li><p>关闭tomcat服务器，destroy方法被调用了</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104172155166.png" alt="image-20201104172155166"></p>
+</li>
+</ul>
+<p>Servlet生命周期</p>
+<ol>
+<li>加载Servlet。Tomcat第一次访问Servlet时，<strong>会由Tomcat负责创建Servlet的实例</strong></li>
+<li>初始化。Servlet实例被初始化后，在访问时，Tomcat会调用init()方法初始化对象（仅执行一次）</li>
+<li>处理服务。浏览器每次访问Servlet时都会调用service()方法处理请求服务</li>
+<li>销毁。Tomcat关闭时要删除相关的Servlet，会自动调用destroy()方法，释放所占的资源</li>
+</ol>
+<p><img src="http://img2.salute61.top/PicGo/image-20201104174537836.png" alt="image-20201104174537836"></p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Spring学习六-整合Mybatis" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -762,92 +896,6 @@ var _hmt = _hmt || [];
 <p>常用对象：需要频繁查询且较少改变的对象</p>
       
       <a class="article-more-link" href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybatis学习五-动态SQL" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/"
-    >Mybatis学习五-动态SQL</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/" class="article-date">
-  <time datetime="2020-10-03T09:49:15.000Z" itemprop="datePublished">2020-10-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>官方文档专门将动态SQL拿出来作为一个小节，可见其还是非常重要的，先看一下文档的描述：</p>
-<blockquote>
-<p>动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。</p>
-<p>使用动态 SQL 并非一件易事，但借助可用于任何 SQL 映射语句中的强大的动态 SQL 语言，MyBatis 显著地提升了这一特性的易用性。</p>
-<p>如果你之前用过 JSTL 或任何基于类 XML 语言的文本处理器，你对动态 SQL 元素可能会感觉似曾相识。在 MyBatis 之前的版本中，需要花时间了解大量的元素。借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。</p>
-<hr>
-<ul>
-<li>if</li>
-<li>choose (when, otherwise)</li>
-<li>trim (where, set)</li>
-<li>foreach</li>
-</ul>
-<hr>
-</blockquote>
-<p>看了官方文档介绍，感觉就是：对于一些复杂SQL语句需要拼接，可能自己写的时候往往会漏个逗号多个标签之类的，而动态SQL通过上面的那些标签，可以自动的帮我们拼接</p>
-      
-      <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/">阅读更多...</a>
       
       
       <!-- reward -->
