@@ -103,6 +103,87 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Java集合（四）Map接口" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/"
+    >Java集合（四）Map接口</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/" class="article-date">
+  <time datetime="2020-08-09T06:35:28.000Z" itemprop="datePublished">2020-08-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="一、Map接口简述"><a href="#一、Map接口简述" class="headerlink" title="一、Map接口简述"></a>一、Map接口简述</h2><p><code>public interface Map&lt;K,V&gt;</code>集合采取<strong>键值对(key-value)方式</strong>存储数据，<u>其中key必须唯一；value可以不唯一且value对象类型也可以是Map</u>，类似数组中的元素还可以是数组。例如：学生教务系统中，学号和学生信息就是一个key-value映射，学号是唯一的，信息可能就名字，也可能是姓名年龄专业的一个数据结构。存储时是学号和学生信息一对放一起存进去</p>
+<p>Map集合和Set集合很像，因为Set集合的底层就是使用了Map。</p>
+<p>Map集合是键值对形式存储值的，所以遍历Map集合无非就是获取键和值，根据实际需求，进行获取键和值。</p>
+<p>Map接口提供三种collection试图，允许以键集、值集或键-值集映射关系集的形式查看某个映射的内容。映射顺序 定义为迭代器在映射的 collection 视图上返回其元素的顺序。某些映射实现可明确保证其顺序，如 TreeMap 类；另一些映射实现则不保证顺序，如 HashMap 类。</p>
+<p>注：</p>
+<p>将可变对象用作映射键时必须格外小心。当对象是映射中某个键时，如果以影响 equals 比较的方式更改了对象的值，则映射的行为将是不确定的。此项禁止的一种特殊情况是不允许某个映射将自身作为一个键包含。虽然允许某个映射将自身作为值包含，但请格外小心：在这样的映射上 equals 和 hashCode 方法的定义将不再是明确的。</p>
+<p>所有通用的映射实现类应该提供两个“标准的”构造方法：</p>
+<p>一个 void（无参数）构造方法，用于创建空映射；</p>
+<p>一个是带有单个 Map 类型参数的构造方法，用于创建一个与其参数具有相同键-值映射关系的新映射。</p>
+<p>实际上，后一个构造方法允许用户复制任意映射，生成所需类的一个等价映射。尽管无法强制执行此建议（因为接口不能包含构造方法），但是 JDK 中所有通用的映射实现都遵从它。</p>
+      
+      <a class="article-more-link" href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Java类与对象" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -778,80 +859,6 @@ var _hmt = _hmt || [];
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" rel="tag">网络安全</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-http协议详解" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"
-    >http协议详解</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/" class="article-date">
-  <time datetime="2020-07-30T08:37:10.000Z" itemprop="datePublished">2020-07-30</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a> / <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%BD%91/">计网</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>面试被问到http与https的区别，当时上课应用层主要就讲了个DNS域名系统，http一带而过https没提。。。</p>
-<p>结果今天问面试官才知道一般还是考察应用层偏多。。。运输层网络层作为信道考察较少</p>
-<p>今天好好总结一下HTTP</p>
-      
-      <a class="article-more-link" href="/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http/" rel="tag">http</a></li></ul>
 
 
     </footer>
