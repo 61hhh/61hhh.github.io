@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    LY&#39;s love |  Salute
+    Java自动装拆箱 |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -56,9 +56,6 @@ var _hmt = _hmt || [];
 
 
 <link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
-<link rel="stylesheet" href="\assets\css\APlayer.min.css" class="aplayer-style-marker">
-<script src="\assets\js\APlayer.min.js" class="aplayer-script-marker"></script>
-<script src="\assets\js\Meting.min.js" class="meting-script-marker"></script>
 </head>
 
 </html>
@@ -67,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="page-" class="article article-type-page" itemscope
+  <article id="post-Java自动装拆箱" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -75,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  LY&#39;s love
+  Java自动装拆箱
 </h1>
  
 
@@ -83,6 +80,47 @@ var _hmt = _hmt || [];
     
 
     
+    <div class="article-meta">
+      <a href="/2020/11/09/Java%E8%87%AA%E5%8A%A8%E8%A3%85%E6%8B%86%E7%AE%B1/" class="article-date">
+  <time datetime="2020-11-09T07:46:42.000Z" itemprop="datePublished">2020-11-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5 分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
 
     
 
@@ -92,10 +130,154 @@ var _hmt = _hmt || [];
       
 
       
-      
-    <div id="aplayer-TADStgTX" class="aplayer aplayer-tag-marker meting-tag-marker"
-         data-id="629185645" data-server="netease" data-type="playlist" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#FF4081"
-    ></div>
+      <p>今天面试，面试官很照顾我，问的都是基础，结果我一直拉跨。。。之前学的时候记过笔记的知识都忘，重要的基础知识细节记不清、自动装拆箱不了解。。。</p>
+<blockquote>
+<p>学而时习之啊</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h2><p>当时回顾就看了一眼，8中基本数据类型，结果问到存储格式和包装类型就懵逼。。。</p>
+<p>Java有四种八类基本数据类型，除此之外其他的都是对象即引用类型。JDK1.5后为基本数据类型引入了对应的包装类</p>
+<p><strong>1.1 基本数据类型可以分为：</strong></p>
+<ul>
+<li>整数类型：byte、short、int、long</li>
+<li>浮点数型：float、double</li>
+<li>字符类型：char</li>
+<li>布尔类型：boolean</li>
+</ul>
+<p>【注】Java中数据类型不存在无符号的，即他们的取值范围是固定的</p>
+<p><strong>1.2 为什么int的范围是[-2,147,483,648 , 2,147,483,647]？</strong></p>
+<p>先说一个字节<code>byte</code>的范围：一个字节8位，最高位表示正负号，所以实际是<strong>[10000000，01111111]</strong>。即<strong>[-2<sup>^</sup>7，2<sup>^</sup>7-1]</strong></p>
+<p><code>int</code>：是4字节32位，然后最高位0、1表示正负号，所以实际是31位数据，即<strong>[-2<sup>^</sup>sup&gt;31，2<sup>^</sup>31-1]</strong>。所以得到的结果是<strong>[-2,147,483,648 , 2,147,483,647]</strong>。同理其他的数据类型也是</p>
+<p><strong>1.3 基本数据类型的作用</strong>：</p>
+<p>在Java中new的对象是存储在堆中的，我们使用都是通过栈中的引用来操作，对于这种常用的数据类型还要每个都去new就很麻烦且浪费资源，所以Java和C++一样提供这些基本数据类型，它们的变量不会在堆上创建，而是直接在栈内存中存储，因此更加高效。</p>
+<h2 id="2、包装类型"><a href="#2、包装类型" class="headerlink" title="2、包装类型"></a>2、包装类型</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>默认值</th>
+<th>存储格式</th>
+<th>数据范围</th>
+<th>包装类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>short</td>
+<td>0</td>
+<td>2 个字节</td>
+<td>-32,768 到 32,767</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>0</td>
+<td>4 个字节</td>
+<td>-2,147,483,648 到 2,147,483,647</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>0</td>
+<td>1 个字节</td>
+<td>-128 到 127</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>char</td>
+<td>空</td>
+<td>2 个字节</td>
+<td>Unicode 的字符范围：<code>\u0000</code>（即为 0）到 <code>\uffff</code>（即为 65,535）</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>long</td>
+<td>0L 或 0l</td>
+<td>8 个字节</td>
+<td>-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0F 或 0.0f</td>
+<td>4 个字节</td>
+<td>32 位 IEEEE-754 单精度范围</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>0.0 或 0.0D(d)</td>
+<td>8 个字节</td>
+<td>64 位 IEEE-754 双精度范围</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>false</td>
+<td>1 位</td>
+<td>true 或 false</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<p><strong>2.1 自动拆箱与装箱</strong></p>
+<p>简单说，装箱就是自动将基本数据类型转化为对应的包装类，拆箱就是自动将包装类转化为基本数据类型。</p>
+<p><strong>2.2为什么要这样做</strong></p>
+<ul>
+<li>因为Java是面向对象语言，很多地方都需要使用对象而不是基本数据类型。比如，在集合类中，我们是无法将int 、double等类型放进去的。因为集合的容器要求元素是Object类型。</li>
+<li>为泛型提供支持。因为泛型默认是Object类型</li>
+<li>更多的属性和方法。让基本类型有了对象的特性，为其添加属性和方法，丰富了基本类型的操作</li>
+</ul>
+<p><strong>2.3 实现原理</strong></p>
+<p>编写代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">autoboxing</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Integer totalPac = <span class="number">100</span>;</span><br><span class="line">        <span class="keyword">int</span> totalNum = totalPac;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译之后，用指令<code>javap -c autoboxing</code>反编译字节码文件得到如下代码：</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201109174638916.png" alt="image-20201109174638916"></p>
+<p>在执行上面的代码时，系统实际执行的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Integer totalPac = <span class="number">100</span>;</span><br><span class="line"><span class="comment">//对应👇</span></span><br><span class="line">Integer totalPac = Integer.valueOf(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> totalNum = totalPac;</span><br><span class="line"><span class="comment">//对应👇</span></span><br><span class="line"><span class="keyword">int</span> totalNum = totalPac.intValue();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自动装箱采用的都是valueOf()方法实现，拆箱都是通过包装类对象的对应xxValue()方法实现</p>
+<p>当然不同包装类的方法会有所不同，其中Integer、Short、Byte、Character、Long这几个类的valueOf方法的实现是类似的；Double、Float的valueOf方法的实现是直接返回新建对象。</p>
+</blockquote>
+<ul>
+<li><p>查看<code>valueOf</code>源码</p>
+<p>源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以把low和high理解为Integer的边界：如果<code>i</code>大于127或小于-128就创建一个Integer对象返回；否则就执行<code>cache[i+ (-IntegerCache.low)]</code>；<code>cache</code>是<code>IntegerCache</code>类的一个Integer类型final数组对象，即<code>valueOf()</code>返回的都是Integer对象。所以装箱会创建对应的对象，消耗内存。cache用于缓存。</p>
+</li>
+<li><p>再看<code>intValue</code>源码</p>
+<p>就是返回Integer对象的value属性值。【<code>Integer</code>对象有属性：<code>private final int value;</code>】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">intValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>cache缓存</strong></p>
+<p>当需要进行自动装箱时，创建对象之前先从<code>IntegerCache.cache</code>中寻找，如果数字在-128至127之间时，会直接使用缓存中的对象，而不是重新创建一个对象。如果没找到才使用new新建对象。</p>
+<p>所以如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Integer num1 = <span class="number">100</span>;</span><br><span class="line">Integer num2 = <span class="number">100</span>;</span><br><span class="line">System.out.println(num1==num2);<span class="comment">//true</span></span><br><span class="line">Integer num3 = <span class="number">500</span>;</span><br><span class="line">Integer num4 = <span class="number">500</span>;</span><br><span class="line">System.out.println(num3==num4);<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>具体代码实现可以看源码<code>IntegerCache</code>部分</p>
+</li>
+</ul>
+<h2 id="3、拆装箱的应用场景"><a href="#3、拆装箱的应用场景" class="headerlink" title="3、拆装箱的应用场景"></a>3、拆装箱的应用场景</h2><ul>
+<li><p><strong>&lt;1&gt;数据类型的比较</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer num = <span class="number">100</span>;</span><br><span class="line">System.out.println(num==<span class="number">100</span>? <span class="string">"yes!"</span>:<span class="string">"no!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>实际上比较的是<code>num.valueOf()</code></p>
+</li>
+<li><p><strong>&lt;2&gt;集合类保存基本数据类型</strong></p>
+<p>在Java中集合类只能接收对象类型，但是我们总是直接往ArrayList中直接add整数，因为系统已经自动为我们转换了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">autoboxing</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;++i)&#123;</span><br><span class="line">            list.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img2.salute61.top/PicGo/image-20201109180630089.png" alt="image-20201109180630089"></p>
+</li>
+<li><p><strong>&lt;3&gt;包装类的运算</strong></p>
+<p>对于包装类，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer num1 = <span class="number">10</span>;</span><br><span class="line">Integer num2 = <span class="number">15</span>;</span><br><span class="line">System.out.println(num1+num2);</span><br></pre></td></tr></table></figure>
+
+<p>Integer对象是不能直接运算的，但是这样运行也可以，因为默认会变成<code>num1.intValue() + num2.intValue()</code></p>
+</li>
+</ul>
+
       
       <!-- reward -->
       
@@ -163,13 +345,15 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/playlist/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/11/09/Java%E8%87%AA%E5%8A%A8%E8%A3%85%E6%8B%86%E7%AE%B1/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java%E5%9F%BA%E7%A1%80/" rel="tag">Java基础</a></li></ul>
+
 
     </footer>
 
@@ -177,6 +361,16 @@ var _hmt = _hmt || [];
 
   
   
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/11/05/Servlet%E5%AD%A6%E4%B9%A0%E4%BA%8C-ServletContext%E5%8F%8A%E5%BA%94%E7%94%A8%E3%80%81ServletConfig/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Servlet学习二-ServletContext及应用、ServletConfig</div>
+      </a>
+    
+  </nav>
+
 
   
 
@@ -234,6 +428,8 @@ var _hmt = _hmt || [];
 
   
 
+  
+  
   
 
 </article>
@@ -417,6 +613,24 @@ var _hmt = _hmt || [];
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 
 
