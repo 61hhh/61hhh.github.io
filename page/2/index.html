@@ -103,6 +103,81 @@ var _hmt = _hmt || [];
     
     
     
+    <article id="post-Spring学习二-配置及依赖注入DI" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/"
+    >Spring学习二-配置及依赖注入DI</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/" class="article-date">
+  <time datetime="2020-10-09T06:05:00.000Z" itemprop="datePublished">2020-10-09</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="Spring应用"><a href="#Spring应用" class="headerlink" title="Spring应用"></a>Spring应用</h2><p>IoC的基本思想了解了，就可以尝试应用Spring了。以项目hello为例，学习一下使用Spring的基本流程。</p>
+<p>这是第一部分：演示一遍Spring；后面还有Spring依赖注入方式说明；bean作用域说明。</p>
+<h3 id="导入jar包"><a href="#导入jar包" class="headerlink" title="导入jar包"></a>导入jar包</h3><p>在maven仓库中搜Spring，可以看到很多依赖，我们选择<code>spring-webmvc</code>来导入，它能导入其他需要的文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.10.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Spring学习一-初识Spring" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -823,83 +898,6 @@ var _hmt = _hmt || [];
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%94%A8%E4%BE%8B/" rel="tag">用例</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-常见排序算法总结" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/08/17/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/"
-    >常见排序算法总结</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/08/17/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/" class="article-date">
-  <time datetime="2020-08-17T08:23:29.000Z" itemprop="datePublished">2020-08-17</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a> / <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95/">算法</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>今天做面试题，好几道排序的，结果排序我都忘光了。。。今天好好再整理回顾一下</p>
-<p>网上查找了几篇博客，结合《算法4》简要记录常见排序算法</p>
-<p><strong>PS：</strong>今天阿里面试一道简单的快排，我硬是数组越界找不到错误。。。<font color="red">之前敲代码也是只写核心算法部分的逻辑，都没有完整的跑出一个程序！！！总以为理解核心算法思想就等于写出好的算法代码，实在是太肤浅了！！！</font></p>
-<blockquote>
-<p>懂不代表会。<strong>就理论而言，理论和实践并无差异，但真付诸实行，差异即开始呈现。</strong></p>
-</blockquote>
-      
-      <a class="article-more-link" href="/2020/08/17/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="tag">排序算法</a></li></ul>
 
 
     </footer>
