@@ -13,7 +13,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    刷题记录-二叉树 |  Salute
+    Servlet学习四-Cookie和Session |  Salute
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -64,7 +64,7 @@ var _hmt = _hmt || [];
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-刷题记录-二叉树" class="article article-type-post" itemscope
+  <article id="post-Servlet学习四-Cookie和Session" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,7 +72,7 @@ var _hmt = _hmt || [];
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  刷题记录-二叉树
+  Servlet学习四-Cookie和Session
 </h1>
  
 
@@ -81,12 +81,12 @@ var _hmt = _hmt || [];
 
     
     <div class="article-meta">
-      <a href="/2020/10/09/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/" class="article-date">
-  <time datetime="2020-10-09T12:51:02.000Z" itemprop="datePublished">2020-10-09</time>
+      <a href="/2020/11/15/Servlet%E5%AD%A6%E4%B9%A0%E5%9B%9B-Cookie%E5%92%8CSession/" class="article-date">
+  <time datetime="2020-11-15T05:34:20.000Z" itemprop="datePublished">2020-11-15</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a> / <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95/">算法</a>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
   </div>
 
       
@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">9</span>
+            <span class="post-count">2k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">1 分钟</span>
+            <span class="post-count">7 分钟</span>
         </span>
     </span>
 </div>
@@ -116,6 +116,8 @@ var _hmt = _hmt || [];
 
     
     
+    <div class="tocbot"></div>
+
 
 
 
@@ -128,7 +130,116 @@ var _hmt = _hmt || [];
       
 
       
-      <p>二叉树真的很重要啊</p>
+      <h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><p>会话跟踪是Web应用中常见的技术，用来跟踪用户的整个访问。例如用户打开浏览器，在浏览器中点击了多个标签页，访问不同的资源，然后关闭浏览器，整个过程可以称为一次会话。</p>
+<p>常见的会话跟踪技术有Cookie和Session，Cookie出现时间更早些，在《计算机网络》课程中有讲到过。Cookie是通过客户端记录来确定用户身份信息；Session是通过服务器端记录来确定用户身份信息。</p>
+<p>通过会话跟踪技术，我们可以实现很多常见的功能：密码保存、购物车信息、商品推荐等</p>
+<a id="more"></a>
+
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>以购物为例，用户对商品的所有操作应该属于一次会话，用户添加商品A到购物车后返回主界面，再次添加时无法判断这是否已经在购物车内【由于Web应用程序采用的是无状态的HTTP协议进行数据传输：<strong>一旦数据交换完毕连接就会断开，再次交互时需要建立新的连接</strong>。因此服务器无法跟踪用户的会话】</p>
+<p>为了解决这个问题，引入了Cookie机制。W3C组织提出了：为解决HTTP无状态连接的问题，<strong>服务器给每个客户端颁发一个通行证，访问时携带通行证，这样服务器就能确认用户信息</strong>，这个通行证就是Cookie。</p>
+<p>Cookie实际上是一个记录用户信息的文本数据。客户端请求服务器，如果服务器要记录客户端状态，就使用response向客户端颁发一个Cookie，客户端将其保存，再次请求时浏览器会将请求网址连同Cookie一同提交，服务器检查Cookie确定用户信息。</p>
+<p>【查看Cookie的操作】：在浏览器网址栏中输入<code>javascript:alert(document.cookie)</code>回车即可；或者F12在控制台输出同样指令也行。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201115141148663.png" alt="image-20201115141148663"></p>
+<p>我们访问很多网站时，他也会在网站底部提示：是否允许保存Cookie</p>
+<h3 id="2、Cookie举例"><a href="#2、Cookie举例" class="headerlink" title="2、Cookie举例"></a>2、Cookie举例</h3><h4 id="2-1、API及属性方法"><a href="#2-1、API及属性方法" class="headerlink" title="2.1、API及属性方法"></a>2.1、API及属性方法</h4><p>Java中将Cookie封装在<code>Javax.servlet.http.cookie</code>类中。每个Cookie都是该Cookie类的对象。服务器通过操作Cookie类对象对客户端Cookie进行操作。</p>
+<ul>
+<li>通过<strong><code>request.getCookie()</code>获取客户端提交的所有Cookie</strong>（以Cookie[]数组形式返回）；</li>
+<li>通过<strong><code>response.addCookie(Cookiecookie)</code>向客户端设置Cookie；</strong>它用于在响应头中增加一个Set-Cookie头字段</li>
+</ul>
+<p>常见属性方法：【这里直接将别的博客整理的拿过来作为参考】</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String name</td>
+<td>该Cookie的名称。Cookie一旦创建，名称便不可更改</td>
+</tr>
+<tr>
+<td>Object value</td>
+<td>该Cookie的值。如果值为Unicode字符，需要为字符编码。如果值为二进制数据，则需要使用BASE64编码</td>
+</tr>
+<tr>
+<td><strong>int maxAge</strong></td>
+<td><strong>该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为–1</strong></td>
+</tr>
+<tr>
+<td>boolean secure</td>
+<td>该Cookie是否仅被使用安全协议传输。安全协议。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false</td>
+</tr>
+<tr>
+<td>String path</td>
+<td>该Cookie的使用路径。如果设置为“/sessionWeb/”，则只有contextPath为“/sessionWeb”的程序可以访问该Cookie。如果设置为“/”，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为“/”</td>
+</tr>
+<tr>
+<td>String domain</td>
+<td>可以访问该Cookie的域名。如果设置为“.google.com”，则所有以“google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.”</td>
+</tr>
+<tr>
+<td>String comment</td>
+<td>该Cookie的用处说明。浏览器显示Cookie信息的时候显示该说明</td>
+</tr>
+<tr>
+<td>int version</td>
+<td>该Cookie使用的版本号。0表示遵循Netscape的Cookie规范，1表示遵循W3C的RFC 2109规范</td>
+</tr>
+</tbody></table>
+<p>方法</p>
+<ul>
+<li>public Cookie(String name,String value)</li>
+<li>setValue与getValue⽅法</li>
+<li>setPath与getPath⽅法</li>
+<li>setDomain与getDomain⽅法</li>
+<li>getName⽅法</li>
+</ul>
+<p>编写代码如下：验证Cookie</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CookieTest</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        resp.setContentType(<span class="string">"txt/html;charset=UTF-8"</span>);</span><br><span class="line">        <span class="comment">//创建Cookie对象</span></span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"username"</span>,<span class="string">"LiuYi"</span>);</span><br><span class="line">        <span class="comment">//设置时间</span></span><br><span class="line">        cookie.setMaxAge(<span class="number">1000</span>);</span><br><span class="line">        <span class="comment">//给浏览器颁发Cookie</span></span><br><span class="line">        resp.addCookie(cookie);</span><br><span class="line">        resp.getWriter().write(<span class="string">"向浏览器颁发了用户名Cookie！"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【记得要设置Cookie的时间】在<code>web.xml</code>中注册，打开页面会下载Cookie文件，打开即为我们的Cookie信息。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201115145147399.png" alt="image-20201115145147399"></p>
+<h3 id="3、Cookie特性"><a href="#3、Cookie特性" class="headerlink" title="3、Cookie特性"></a>3、Cookie特性</h3><h4 id="3-1、Cookie有效期"><a href="#3-1、Cookie有效期" class="headerlink" title="3.1、Cookie有效期"></a>3.1、Cookie有效期</h4><p>Cookie中有个属性叫<code>maxAge</code>，它决定了Cookie的有效期，<strong>通过<code>setMaxAge</code>与<code>getMaxAge</code>⽅法来设置<code>maxAge</code>属性</strong>。</p>
+<ul>
+<li><p>如果<code>maxAge</code>属性为正数，则表示该Cookie会在<code>maxAge</code>秒之后自动失效。浏览器会将对应的Cookie持久化到硬盘中。无论客户关闭了浏览器还是电脑，只要还在<code>maxAge</code>秒之前，登录网站时该Cookie仍然有效</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新建Cookie</span></span><br><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"username"</span>,<span class="string">"LiuYi"</span>);</span><br><span class="line"><span class="comment">// 设置生命周期为MAX_VALUE</span></span><br><span class="line">cookie.setMaxAge(Integer.MAX_VALUE);</span><br><span class="line"><span class="comment">// 输出到客户端</span></span><br><span class="line">response.addCookie(cookie);</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>如果<code>maxAge</code>为负数，则表示该Cookie是临时的，仅在本浏览器窗口内有效，关闭窗口后该Cookie即失效。<code>maxAge</code>为负数的Cookie不会被持久化。Cookie信息保存在浏览器内存中，因此关闭浏览器该Cookie就消失了。Cookie默认的<code>maxAge</code>值为–1。</p>
+<p>因此上面的代码如果没有写<code>setMaxAge</code>的话，就不会下载到本地文件。</p>
+</li>
+<li><p><code>maxAge</code>设置为0，表示<strong>删除Cookie</strong>。Cookie机制没有提供删除Cookie的方法，因此通过设置该Cookie即时失效实现删除Cookie的效果。失效的Cookie会被浏览器从Cookie文件或者内存中删除</p>
+</li>
+</ul>
+<h4 id="3-2、Cookie不可跨域性"><a href="#3-2、Cookie不可跨域性" class="headerlink" title="3.2、Cookie不可跨域性"></a>3.2、Cookie不可跨域性</h4><p>由于很多网站都会使用Cookie，例如<code>baidu.com</code>颁发了Cookie、<code>bilibili.com</code>颁发了Cookie。那么我们在访问B站时，浏览器会不会把百度的Cookie也上传过去？或者百度会不会修改B站的Cookie？</p>
+<p>其实是不会的。因为<strong>Cookie有一个特性：不可跨域性</strong>。即访问百度时浏览器只会携带百度的Cookie，百度能操作的也只有百度的Cookie！</p>
+<p>由于Cookie是保存在客户端的，因此对Cookie的管理是由浏览器进行的。浏览器会根据网址域名来判断该网站能否操作另一网站的Cookie。例如根据域名<code>baidu.com</code>得知它不能操作<code>bilibili.com</code>的域名、<code>img.baidu.com</code>和<code>baidu.com</code>都是百度但是二者不能操作对方的Cookie······</p>
+<h4 id="3-3、Cookie编码"><a href="#3-3、Cookie编码" class="headerlink" title="3.3、Cookie编码"></a>3.3、Cookie编码</h4><p>中英文的字符编码是不同的。中文采用的是4字符的Unicode字符、英文采用的是2字节的ASCII编码。因此在Cookie中设置中文时要对Unicode字符进行编码，否则会出现乱码错误</p>
+<h4 id="3-4、Cookie修改删除"><a href="#3-4、Cookie修改删除" class="headerlink" title="3.4、Cookie修改删除"></a>3.4、Cookie修改删除</h4><p>Cookie并没有直接提供修改删除的操作。</p>
+<ul>
+<li>如果要修改某个Cookie，实际操作是创建同名Cookie添加到Response中覆盖原来的。</li>
+<li>删除Cookie在上面有说过，就是设置Cookie的时间为0然后添加到浏览器。</li>
+</ul>
+<p>【注：新建的的Cookie除了value和maxAge，其余的属性要和原来的Cookie保持一致】</p>
+<h4 id="3-5、Cookie的域名"><a href="#3-5、Cookie的域名" class="headerlink" title="3.5、Cookie的域名"></a>3.5、Cookie的域名</h4><p>Cookie有domain属性，可以设置访问改Cookie的域名，例如<code>.baidu.com</code>，则所有<code>.baiu.com</code>结尾的域名都可以访问该Cookie【注意第一个字符必须为<code>&quot;.&quot;</code>】</p>
+<ul>
+<li><code>baidu.com</code>颁发的Cookie是不会提交到<code>bilibili.com</code>上的；</li>
+<li>同一个一级域名下的子域名也不能交接Cookie。例如：<code>goole.com</code>和<code>images.goole.com</code>的Cookie也不能访问。</li>
+</ul>
+<p><strong>验证</strong></p>
+<p>（1）修改C盘的host文件(路径：<code>C:\Windows\System32\drivers\etc</code>)，设置localhost及Tomcat的虚拟主机</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201115153643497.png" alt="image-20201115153643497"></p>
+<p>（2）</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://segmentfault.com/a/1190000013129480" target="_blank" rel="noopener">Servlet第五篇【介绍会话技术、Cookie的API、详解、应用】</a></li>
+<li><a href="https://segmentfault.com/a/1190000013130309" target="_blank" rel="noopener">Servlet第六篇【Session介绍、API、生命周期、应用、与Cookie区别】</a></li>
+<li><a href="https://www.cnblogs.com/l199616j/p/11195667.html" target="_blank" rel="noopener">cookie和session的详解与区别</a></li>
+</ul>
 
       
       <!-- reward -->
@@ -197,14 +308,14 @@ var _hmt = _hmt || [];
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/10/09/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95-%E4%BA%8C%E5%8F%89%E6%A0%91/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://salute61.top/2020/11/15/Servlet%E5%AD%A6%E4%B9%A0%E5%9B%9B-Cookie%E5%92%8CSession/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
 
 
     </footer>
@@ -215,19 +326,10 @@ var _hmt = _hmt || [];
   
   <nav class="article-nav">
     
-      <a href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            spring学习三-自动装配
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/" class="article-nav-link">
+      <a href="/2020/11/09/Servlet%E5%AD%A6%E4%B9%A0%E4%B8%89-req%E5%92%8Cresp/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Typora+PicGo简化图床操作</div>
+        <div class="article-nav-title">Servlet学习三-req和resp</div>
       </a>
     
   </nav>
