@@ -96,7 +96,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">2k</span>
+            <span class="post-count">3.7k</span>
         </span>
     </span>
 
@@ -105,7 +105,7 @@ var _hmt = _hmt || [];
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">7 分钟</span>
+            <span class="post-count">14 分钟</span>
         </span>
     </span>
 </div>
@@ -226,12 +226,78 @@ var _hmt = _hmt || [];
 <li>删除Cookie在上面有说过，就是设置Cookie的时间为0然后添加到浏览器。</li>
 </ul>
 <p>【注：新建的的Cookie除了value和maxAge，其余的属性要和原来的Cookie保持一致】</p>
-<h4 id="3-5、Cookie的域名"><a href="#3-5、Cookie的域名" class="headerlink" title="3.5、Cookie的域名"></a>3.5、Cookie的域名</h4><p>Cookie有domain属性，可以设置访问改Cookie的域名，例如<code>.baidu.com</code>，则所有<code>.baiu.com</code>结尾的域名都可以访问该Cookie【注意第一个字符必须为<code>&quot;.&quot;</code>】</p>
-<ul>
-<li><code>baidu.com</code>颁发的Cookie是不会提交到<code>bilibili.com</code>上的；</li>
-<li>同一个一级域名下的子域名也不能交接Cookie。例如：<code>goole.com</code>和<code>images.goole.com</code>的Cookie也不能访问。</li>
+<h4 id="3-5、Cookie的域名"><a href="#3-5、Cookie的域名" class="headerlink" title="3.5、Cookie的域名"></a>3.5、Cookie的域名</h4><p>Cookie是不可跨域的，<code>www.baidu.com</code>颁发的Cookie是不会提交到<code>www.bilibili.com</code>上的。这个特性保证了网站不能非法获取其他网站的Cookie。同一个一级域名下的子域名也不能交接Cookie。例如：<code>goole.com</code>和<code>images.goole.com</code>的Cookie也不能访问。</p>
+<p>Cookie有domain属性，可以设置访问改Cookie的域名，例如<code>.baidu.com</code>，则所有<code>.baiu.com</code>结尾的域名都可以访问该Cookie【注意第一个字符必须为<code>&quot;.&quot;</code>】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie1 = <span class="keyword">new</span> Cookie(<span class="string">"time"</span>,<span class="string">"20201111"</span>);<span class="comment">//创建Cookie</span></span><br><span class="line">cookie1.setDomain(<span class="string">".liuyirespect.com"</span>);<span class="comment">//设置Cookie的有效域名</span></span><br><span class="line">cookie1.setPath(<span class="string">"/"</span>);<span class="comment">//设置路径</span></span><br><span class="line">cookie1.setMaxAge(Integer.MAX_VALUE);<span class="comment">//设置有效期</span></span><br><span class="line">resp.addCookie(cookie1);<span class="comment">//resp输出</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-6、Cookie的路径"><a href="#3-6、Cookie的路径" class="headerlink" title="3.6、Cookie的路径"></a>3.6、Cookie的路径</h4><p>Cookie的domain属性决定了访问Cookie的域名，而path属性决定了访问Cookie的路径。</p>
+<p>默认Cookie是当前域名都可以使用它，假设我们只允许<code>cookieServlet</code>可以使用，那就设置对应<code>cookieServlet</code>的路径即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie1 = <span class="keyword">new</span> Cookie(<span class="string">"time"</span>,<span class="string">"20201111"</span>);<span class="comment">//创建Cookie</span></span><br><span class="line">cookie1.setPath(<span class="string">"/cookieServlet"</span>);<span class="comment">//设置路径</span></span><br><span class="line">resp.addCookie(cookie1);<span class="comment">//resp输出</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-7、Cookie的安全性"><a href="#3-7、Cookie的安全性" class="headerlink" title="3.7、Cookie的安全性"></a>3.7、Cookie的安全性</h4><p>由于HTTP协议无状态不安全，所以如果不想Cookie在不安全的协议中传输，可以设置对应Cookie的Secure属性为true，则浏览器只会在HTTPS和SSL等安全协议中传输</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Cookie cookie1 = <span class="keyword">new</span> Cookie(<span class="string">"time"</span>,<span class="string">"20201111"</span>);<span class="comment">//创建Cookie</span></span><br><span class="line">cookie1.setSecure(<span class="keyword">true</span>);<span class="comment">//设置安全属性</span></span><br><span class="line">resp.addCookie(cookie1);<span class="comment">//resp输出</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img2.salute61.top/PicGo/image-20201126073935429.png" alt="image-20201126073935429"></p>
+<p>【注】secure只是保证Cookie在安全的协议中传输，但是对于Cookie本身没有做任何安全操作，因此要提高安全性，可以在程序中对Cookie进行加密操作</p>
+<h3 id="4、Cookie举例"><a href="#4、Cookie举例" class="headerlink" title="4、Cookie举例"></a>4、Cookie举例</h3><h4 id="4-1、显示访问时间"><a href="#4-1、显示访问时间" class="headerlink" title="4.1、显示访问时间"></a>4.1、显示访问时间</h4><p>编写代码如下，并在web.xml中注册</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CookieDemo01</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        <span class="comment">//设置编码</span></span><br><span class="line">        req.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">        resp.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//打印输出</span></span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Cookie是服务器从客户端获取的</span></span><br><span class="line">        Cookie[] cookies = req.getCookies();<span class="comment">//cookies数组表示可能有多个cookie</span></span><br><span class="line">        <span class="comment">//判断cookie</span></span><br><span class="line">        <span class="keyword">if</span>(cookies!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="comment">//存在的话</span></span><br><span class="line">            out.write(<span class="string">"上一次的访问时间是："</span>);</span><br><span class="line">            <span class="comment">//获取上一次的cookie</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;cookies.length;i++)&#123;</span><br><span class="line">                Cookie cookie = cookies[i];</span><br><span class="line">                <span class="keyword">if</span>(cookie.getName().equals(<span class="string">"lastTime"</span>))&#123;</span><br><span class="line">                    <span class="keyword">long</span> l = Long.parseLong(cookie.getValue());</span><br><span class="line">                    Date date = <span class="keyword">new</span> Date((l));</span><br><span class="line">                    out.write(date.toLocaleString());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            out.write(<span class="string">"第一次访问本站！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//服务器响应给客户端的cookie</span></span><br><span class="line">        Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">"lastTime"</span>, System.currentTimeMillis() + <span class="string">""</span>);</span><br><span class="line">        <span class="comment">//设置有效期</span></span><br><span class="line">        cookie.setMaxAge(<span class="number">24</span>*<span class="number">60</span>*<span class="number">60</span>);</span><br><span class="line"></span><br><span class="line">        resp.addCookie(cookie);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">        doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果如图：</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201126074829511.png" alt="image-20201126074829511"></p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><h3 id="1、介绍-1"><a href="#1、介绍-1" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>看一下百度的Session定义</p>
+<blockquote>
+<p>Session：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的 Web页时，如果该用户还没有会话，则Web服务器将自动创建一个 Session对象。当会话过期或被放弃后，服务器将终止该会话。Session 对象最常见的一个用法就是存储用户的首选项。注意会话状态仅在支持cookie的浏览器中保留。</p>
+</blockquote>
+<p>也就是说：Session是<strong>服务器端使用的一种记录客户端状态的机制</strong>。</p>
+<p>创建Session的同时，服务器会为该Session生成唯一的Session id，而这个Session id在随后的请求中会被用来重新获得已经创建的Session；在Session被创建之后，就可以调用Session相关的方法往Session中增加内容了，而这些内容只会保存在服务器中，发到客户端的只有Session id；当客户端再次发送请求的时候，会将这个Session id带上，服务器接受到请求之后就会依据Session id找到相应的Session，从而再次使用之。</p>
+<p>把访问网络应用比作参加宴会。Cookie相当于请帖，来宾【客户端】出示请帖进入宴会，而Session相当于嘉宾表，主人【服务器】拿着嘉宾表来确认是否邀请了对应的嘉宾。</p>
+<h4 id="1-1、Cookie的优点"><a href="#1-1、Cookie的优点" class="headerlink" title="1.1、Cookie的优点"></a>1.1、Cookie的优点</h4><ul>
+<li>Session使用上比Cookie简单；</li>
+<li>Session存储更多样化，Cookie只能存储字符串，Session还可以存储对象</li>
 </ul>
-<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<h3 id="2、Session特性"><a href="#2、Session特性" class="headerlink" title="2、Session特性"></a>2、Session特性</h3><h4 id="2-1、Session的生命周期和有效期"><a href="#2-1、Session的生命周期和有效期" class="headerlink" title="2.1、Session的生命周期和有效期"></a>2.1、Session的生命周期和有效期</h4><p><strong>Session是在用户第一次访问服务器的时候自动创建的</strong>，对应的Session对象保存在内存中【只有访问jsp、servlet等程序时才会创建Session，而访问HTML、IMAGE等静态资源时并不会创建。也可以使用req.getSession(true)】</p>
+<p>Session生成后，只要用户继续访问，服务器都会认为该Session活跃(active)了一次，就会更新Session的最后访问时间。</p>
+<p>对于长期没有活跃的Session，服务器会把它从内存中删除，这样的目的就是为了避免内存溢出【Session内容相比Cookie较复杂，所以如果大量Session放在服务器中会导致内存溢出】，有一个超时时间属性<code>maxInactiveInterval</code>，默认是30分钟，过了超时时间都没有访问的就自动失效了，可以通过<code>getMaxInactiveInterval()</code>方法获取。修改方法如下：</p>
+<ul>
+<li><p>1、在<code>tomcat/conf/web.xml</code>中修改。对所有的web应用都有效。默认是20分钟</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">session-config</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">session-timeout</span>&gt;</span>20<span class="tag">&lt;/<span class="name">session-timeout</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">session-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、在对应应用的web.xml中设置。发生冲突时以自己应用中的web.xml为准。</p>
+</li>
+<li><p>3、通过<code>setMaxInactiveInterval()</code>方法修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置Session最⻓超时时间为60秒，这⾥的单位是秒</span></span><br><span class="line">httpSession.setMaxInactiveInterval(<span class="number">60</span>);</span><br><span class="line">System.out.println(httpSession.getMaxInactiveInterval());</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<h4 id="2-2、Session的域对象特性"><a href="#2-2、Session的域对象特性" class="headerlink" title="2.2、Session的域对象特性"></a>2.2、Session的域对象特性</h4><p>Session常见的API如下：</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201128074433997.png" alt="image-20201128074433997"></p>
+<p>可以看到，Session和ServletContext有类似的方法，即Session也是一个域对象。只要Session对象没有被销毁，就可以通过它来实现通信。</p>
+<h4 id="2-3、Session实现原理"><a href="#2-3、Session实现原理" class="headerlink" title="2.3、Session实现原理"></a>2.3、Session实现原理</h4><p>我们的一个Session对应一个用户，一个浏览器的会话会产生一个Session，那么再用另一个浏览器打开相同的会话会产生另一个Session。即服务器能为不同的用户提供不同Session</p>
+<p>由于HTTP是无状态协议，因此Session无法根据HTTP连接来判断是否为同一客户。<strong>因此服务器向客户端发送一个名为JSESSIONID的Cookie，它的值为该Session的id【即<code>HttpSession.getId()</code>的返回值】</strong>，Session根据该Cookie来判断是否为同一用户。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201128091027056.png" alt="image-20201128091027056"></p>
+<p>这个Cookie的MaxAge是-1，即只有在当前浏览器使用，不会存储在硬盘中</p>
+<p>所以：</p>
+<ul>
+<li>访问使用Session的网页应用1时，服务器会自动创建名为JSESSIONID的Cookie并颁发给用户浏览器。</li>
+<li>使用同一浏览器访问服务器的网页应用2时，浏览器会将Cookie值传给服务器，服务器根据此得知该用户使用的是哪一个Session。</li>
+<li>采用新的会话浏览器时，用户浏览器是没有对应Cookie的，所以服务器无法判断用户的Session。</li>
+</ul>
+<h4 id="2-3、URL地址重写"><a href="#2-3、URL地址重写" class="headerlink" title="2.3、URL地址重写"></a>2.3、URL地址重写</h4><p>如果浏览器禁止了Cookie，或者它本身不支持Cookie时【比如手机浏览器很多不支持】，对应的解决方法是采用<strong>URL地址重写</strong>。它的原理是将该用户的Session的id信息重写到URL地址中，服务器解析重写后的URL获取Session的id。</p>
+<p>它使用的方法如下：</p>
+<ul>
+<li><code>encodeURL(String url)</code></li>
+<li><code>encodeRedirectURL(String url)</code></li>
+</ul>
+<p>这两个方法会自动判断是否支持Cookie。如果支持，重写后的URL就不会带有JSESSIONID。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://segmentfault.com/a/1190000013129480" target="_blank" rel="noopener">Servlet第五篇【介绍会话技术、Cookie的API、详解、应用】</a></li>
 <li><a href="https://segmentfault.com/a/1190000013130309" target="_blank" rel="noopener">Servlet第六篇【Session介绍、API、生命周期、应用、与Cookie区别】</a></li>
 <li><a href="https://www.cnblogs.com/l199616j/p/11195667.html" target="_blank" rel="noopener">cookie和session的详解与区别</a></li>
