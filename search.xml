@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SSM学习排错记录</title>
+    <url>/2021/03/04/SSM%E5%AD%A6%E4%B9%A0%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>这两天实习，框架都没学，疯狂看视频写代码，然后遇到超级多问题。。。有些还重复遇到，并且解决方法还不一样</p>
+<p>所以在此记录下我写代码中遇到的Bug和找到的解决方法</p>
+<a id="more"></a>
+
+<p><strong>【问题】：</strong></p>
+<p>在学SpringMVC时，运行项目出现<code>java: 程序包org.springframework.web.bind.annotation不存在</code> 的错误。</p>
+<p><img src="http://img2.salute61.top/PicGo/%E7%A8%8B%E5%BA%8F%E5%8C%85%E4%B8%8D%E5%AD%98%E5%9C%A8.png" alt=""></p>
+<p><strong>【解决方法】：</strong></p>
+<ul>
+<li>网上方案都是说在Setting中的maven下勾选上Runner中的第一个选项，但是我试了没用。。。<img src="http://img2.salute61.top/PicGo/image-20210304163534162.png" alt="image-20210304163534162"></li>
+<li>也有说maven刷新问题，在右侧maven中clean再install。试了还是没用。。。</li>
+<li>最后我换了低版本的maven依赖，然后再试发现可以了</li>
+</ul>
+<p><strong>【问题】：</strong></p>
+<p>在看狂神网课SSM整合的部分，项目点击跳转到allBook页面时报错如图。网上找了好多方法都不行，把gitee上别人完整的项目down下来跑还是报这个错。。。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20210304164826388.png" alt="image-20210304164826388"></p>
+<p><strong>【解决方法】：</strong></p>
+<p>对照根本原因的字段去网上搜，好多不同的方法</p>
+<ul>
+<li><pre><code>`org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: `
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  找到的问题说mapper映射文件有问题，我对照着视频、博客和别人的项目检查，没有发现问题。。。</span><br><span class="line"></span><br><span class="line"><span class="deletion">-</span></span><br></pre></td></tr></table></figure>
+Error querying database.Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+查询数据库失败
+<figure class="highlight dust"><table><tr><td class="code"><pre><span class="line"><span class="xml">  找到的问题是`mysql`配置文件`db.properties`或者`mysql`驱动有问题（比如说配置文件中多输入了空格；`mysql`驱动版本是8.x）我都检查了还是不行。。。</span></span><br><span class="line"><span class="xml">  </span></span><br><span class="line"><span class="xml">- 它指示error可能是`dao`层的那个mapper文件和接口，检查过后发现都没问题。。。</span></span><br><span class="line"></span><br><span class="line"><span class="xml">- 在`StackOverFlow`上搜到的问题，找到的回答差不多，毕竟打印的错误信息就是说不能连接到数据库。。。逐个排查到最后，感觉应该是数据源的问题，毕竟其他的`dao`层啊、`mysql`驱动啊、`database`配置文件都完全没问题。我的数据源是C3P0</span></span><br><span class="line"></span><br><span class="line"><span class="xml">  ```xml</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 配置连接池属性 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.driver&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.url&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.username&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.password&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">  </span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- c3p0连接池的私有属性 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span> <span class="attr">value</span>=<span class="string">"30"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span> <span class="attr">value</span>=<span class="string">"10"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 关闭连接后不自动commit --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"autoCommitOnClose"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 获取连接超时时间 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"checkoutTimeout"</span> <span class="attr">value</span>=<span class="string">"10000"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 当获取连接失败重试次数 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireRetryAttempts"</span> <span class="attr">value</span>=<span class="string">"2"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+c3p0是配置狂神视频里直接拿过来的，也没了解过。。我换成了初始的mysql
+
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+折磨了一整天的问题没了，可以进入。完全是向Bug妥协了。。。</code></pre></li>
+<li><p><strong>【PS】</strong>：在网上找了一下别人的<code>mvc</code>项目配置<code>c3p0</code>的文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.driver&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.url&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.username&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.password&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>发现可以跳转！！！</p>
+<p>然后对比了一下发现就是原来的就多了私有配置，删除了后也可以运行！c3p0文档、底层原理啥的还没看过，不过终于算是会用了。。。</p>
+</li>
+</ul>
+<p><strong>【问题】：</strong></p>
+<p><strong>【解决方法】：</strong></p>
+]]></content>
+      <categories>
+        <category>记录</category>
+      </categories>
+      <tags>
+        <tag>SSM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetbook-数组和字符串</title>
     <url>/2020/12/06/leetbook-%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><code>leetcode</code>上的探索专栏很不错，顺着他的顺序去刷题能比较系统的清晰的锻炼一下。</p>
@@ -9995,7 +10045,7 @@
 <figure class="highlight django"><table><tr><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- 简单示例 (id, server, type)  --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" %&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="comment">&lt;!-- 进阶示例 --&gt;</span></span></span><br><span class="line"><span class="template-tag">&#123;% <span class="name">meting</span> "60198" "netease" "playlist" "autoplay" "mutex:false" "listmaxheight:340px" "preload:none" "theme:#ad7a86"%&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>有关 <code>
-    <div id="aplayer-kPCbizeL" class="aplayer aplayer-tag-marker meting-tag-marker"
+    <div id="aplayer-LWODnpbk" class="aplayer aplayer-tag-marker meting-tag-marker"
          data-id="undefined" data-server="undefined" data-type="undefined" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"
     ></div></code> 的选项列表如下:</p>
 <table>
