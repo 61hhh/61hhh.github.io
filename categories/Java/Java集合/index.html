@@ -1,273 +1,531 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+
+<html lang="zh-CN" >
 
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="learn to live,learn to love" />
+   
+  <meta name="description" content="Be Yourself" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Salute
+    Java集合 |  Salute
   </title>
-  <meta name="description" content="Be Yourself">
+  <meta name="generator" content="hexo-theme-yilia-plus">
   
-  <meta name="author" content="LY">
-
-  <meta http-equiv="Cache-Control" content="no-transform"/>
-  <meta http-equiv="Cache-Control" content="no-siteapp">
-  <meta name="theme-color" content="#1e2327">
-  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
-
-  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="/favicon.ico" />
   
+  
+<link rel="stylesheet" href="/dist/main.css">
 
   
+<link rel="stylesheet" href="/css/custom.css">
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+  
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+  
+  
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-161190166-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
 </head>
 
-<body id="replica-app">
+</html>
 
-<nav class="navbar-wrapper">
-  <div class="navbar">
-    <div class="container clearfix">
-      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+<body>
+  <div id="app">
+    <main class="content on">
+      <section class="outer">
+  <article class="articles">
+    
+    
+    <h1 class="page-type-title">Java集合</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2020" class="archive-year">2020</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  <time datetime="2020-08-09T06:35:28.000Z" itemprop="datePublished">08/09</time>
+</a>
+       
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/"
+    >Java集合（四）Map接口</a> 
+</h2>
+ 
 
-      <div class="navbar-search float-left desktop-only">
-        <div class="navbar-search-form">
-          <label for="gsc-i-id1">This website</label>
-          <div id="google-search">
-            <gcse:search></gcse:search>
-          </div>
+    </header>
+    
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+  </div>
+
+    
+    
+  </div>
+</article>
+      
+  
+  
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%89%EF%BC%89Set%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  <time datetime="2020-08-03T13:21:17.000Z" itemprop="datePublished">08/03</time>
+</a>
+       
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%89%EF%BC%89Set%E6%8E%A5%E5%8F%A3/"
+    >Java集合（三）Set接口</a> 
+</h2>
+ 
+
+    </header>
+    
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+  </div>
+
+    
+    
+  </div>
+</article>
+      
+  
+  
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  <time datetime="2020-08-03T01:19:03.000Z" itemprop="datePublished">08/03</time>
+</a>
+       
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/"
+    >Java集合（二）List接口</a> 
+</h2>
+ 
+
+    </header>
+    
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+  </div>
+
+    
+    
+  </div>
+</article>
+      
+  
+  
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89%E6%A6%82%E8%BF%B0/" class="archive-article-date">
+  <time datetime="2020-08-02T14:13:24.000Z" itemprop="datePublished">08/02</time>
+</a>
+       
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89%E6%A6%82%E8%BF%B0/"
+    >Java集合（一）概述</a> 
+</h2>
+ 
+
+    </header>
+    
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java/">Java</a> / <a class="article-category-link" href="/categories/Java/Java%E9%9B%86%E5%90%88/">Java集合</a>
+  </div>
+
+    
+    
+  </div>
+</article>
+      
+      
+    </div>
+  </div>
+  
+  
+
+  
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2020-2021
+        LY
+      </li>
+      <li>
+        
+        Powered by
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
+  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        <div class="Ebeian-info">
+          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
+          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
         </div>
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
       </div>
-
-      <ul class="navbar-nav float-left">
-        
-        <li><a href="/archives">Archives</a></li>
-        
-        
-        <li><a href="/categories">Categories</a></li>
-        
-        
-        <li><a href="/tags">Tags</a></li>
-        
-        
-        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
-        
-      </ul>
-
-      <ul class="navbar-nav user-nav float-right desktop-only">
-        <li class="user-nav-notification">
-          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
-        </li>
-        <li>
-          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
-        </li>
-        <li class="user-nav-logo">
-          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class="main-container">
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
   
-
-<div class="container-lg">
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
+  </div>
   
-
-<div class="blog-intro">
-  <div class="blog-intro-user">
-    <img class="avatar" src="https://octodex.github.com/images/baracktocat.jpg">
-    <div class="user-name">
-      <div class="blog-title">Salute</div>
-      <div class="blog-author">LY</div>
-        <ul class="user-detail mobile-only">
+  <ul class="nav nav-main">
     
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="http://salute61.top">http://salute61.top</a>
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
     </li>
-  </ul>
-    </div>
-    <div class="blog-description">
-      Be Yourself
-    </div>
-  </div>
-
-  <ul class="user-detail desktop-only">
     
-    <li>
-      <i class="fa fa-link"></i>
-      <a href="http://salute61.top">http://salute61.top</a>
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
     </li>
-  </ul>
-
-  <div class="social-media desktop-only">
-    <h4>Social Media</h4>
-    <ul>
-      
-      <li class="social-media-item"><a href="https://github.com/61hhh" target="_blank"><i class="fa fa-github"></i></a></li>
-      
-    </ul>
-  </div>
-</div>
-
-
-  <div class="blog-detail">
     
-<nav class="blog-detail-nav desktop-only">
-  <ul class="clearfix">
-    <li class="">
-      <a href="/">Overview</a></li>
-    <li class="">
-      <a href="/archives">Posts <span class="counter">65</span></a>
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
     </li>
-    <li class="selected">
-      <a href="/categories">Categories <span
-                class="counter">17</span></a></li>
-    <li class="">
-      <a href="/tags">Tags <span class="counter">31</span></a></li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/photos">相册</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/playlist">歌单</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/About-Me">关于我</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/daily">每日一题</a>
+    </li>
+    
   </ul>
 </nav>
-
-    <div class="body-secondary">
-      <ul class="archive-list">
-        
-        <li class="archive-list-item">
-          <h2><a href="/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/">Java集合（四）Map接口</a></h2>
-          <p>
-                    一、Map接口简述   public interface Map&amp;lt;K,V&amp;gt; 集合采取 键值对(key-value)方式 存储数据， 其中key必须唯一；value可以不唯一且value对象类型也可以是Map ，类似数组中的元素还可以是数组。例如：学生教务系统中，学号和学生...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/Java%E5%9F%BA%E7%A1%80/">Java基础</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/Java/"><i class="fa fa-folder-open"></i> Java</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1596954928000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%89%EF%BC%89Set%E6%8E%A5%E5%8F%A3/">Java集合（三）Set接口</a></h2>
-          <p>
-                    一、Set集合  ​        一个不包含重复元素的collection。更确切地讲， Set不包含满足e1.equals(e2)的元素对 e1和e2，并且最多包含一个null元素。  
- 　　Set集合由Set接口和Set接口的实现类组成，Set接口继承了Collection接...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/Java%E5%9F%BA%E7%A1%80/">Java基础</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/Java/"><i class="fa fa-folder-open"></i> Java</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1596460877000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/">Java集合（二）List接口</a></h2>
-          <p>
-                    一、Collection接口  Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等 
-   
-  
-
-   1.Collection的常用功能       1   2   3   4   5   6  ...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/Java%E5%9F%BA%E7%A1%80/">Java基础</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/Java/"><i class="fa fa-folder-open"></i> Java</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1596417543000).fromNow()}}</span>
-          </div>
-        </li>
-        
-        <li class="archive-list-item">
-          <h2><a href="/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89%E6%A6%82%E8%BF%B0/">Java集合（一）概述</a></h2>
-          <p>
-                  Java集合是Java SE中的内容，也是非常重要的一部分，但是由于我学习Java SE只是课堂学习，缺少实际项目推动，代码练习也不多，基本上这些知识都是学完就忘。。所以去网上找一些博客，结合Java核心技术做一个笔记 
-  
-
-   一、什么是集合  关于Java集合框架的维基百科定义...
-          </p>
-          <ul class="tag-list clearfix">
-            
-            <li class="tag-list-item"><a href="/tags/Java%E5%9F%BA%E7%A1%80/">Java基础</a></li>
-            
-          </ul>
-          <div class="post-info">
-            <span>
-              
-              <a class="category-link" href="/categories/Java/"><i class="fa fa-folder-open"></i> Java</a>
-              
-            </span>
-            <span><i class="fa fa-tag"></i> 1 </span>
-            <span>Published {{moment(1596377604000).fromNow()}}</span>
-          </div>
-        </li>
-        
-      </ul>
-    </div>
-  </div>
-</div>
-
-</div>
-
-<div class="footer-wrapper container">
-  <footer class="footer clearfix">
-    <div class="clearfix">
-    <a href="http://salute61.top" class="footer-logo">
-      <i class="fa fa-github"></i>
-    </a>
-    <ul class="footer-social-link">
-      <li>© 2019 LY</li>
-      <li><a href="http://salute61.top">Home</a></li>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
       
-      <li><a href="https://github.com/61hhh" target="_blank" rel="noopener">Github</a></li>
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
       
-    </ul>
-    <div class="footer-theme-info">
-      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica" target="_blank" rel="noopener">Replica</a>
-      by <a href="//github.com/sabrinaluo" target="_blank" rel="noopener">Hiitea</a> ❤ Powered by Hexo
-    </div>
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+
+    <!--动态背景线条-->
+    <!-- <script color="0,0,255" opacity='0.7' zIndex="-2" count="99"
+    src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js">
+    </script> -->
+    <!--恶搞标题-->
+    <script type="text/javascript" src="../source/js/funnyTitle.js"></script>
+
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
     </div>
     
-  </footer>
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
+      startDelay: 0,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 100,
+      showCursor: true
+    });
+  } catch (err) {
+  }
+
+</script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
 
 
 
-<script src="/js/main.js"></script>
 
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+  
+<script src="/js/clickLove.js"></script>
+
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1215678&auto=0&height=66"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+
 </html>
