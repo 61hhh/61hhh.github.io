@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>
+    学习排错记录 | Salute
+  </title>
+  <meta name="description" content="Be Yourself">
+  
+  <meta name="keywords" content="
+  踩坑
+  ">
+  
+  <meta name="author" content="LY">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+  
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
+        </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <header class="header-wrapper desktop-only">
+  <div class="container header-site-detail">
+    <ul class="header-toolbar">
+      <li class="clearfix">
+        <a href="/archives" class="header-toolbar-left"><i
+                  class="fa fa-file-text"></i> Posts </a>
+        <a href="/archives"
+           class="header-toolbar-right"> 65 </a>
+      </li>
+      <li>
+        <a href="/tags" class="header-toolbar-left"><i
+                  class="fa fa-tags"></i> Tags </a>
+        <a href="/tags"
+           class="header-toolbar-right"> 31 </a>
+      </li>
+      <li>
+        <a href="/categories" class="header-toolbar-left"><i
+                  class="fa fa-folder-open"></i> Categories </a>
+        <a href="/categories"
+           class="header-toolbar-right"> 17 </a>
+      </li>
+    </ul>
+    <h2 class="header-title">
+      <i class="fa fa-book text-muted"></i>
+      <a href="/">Salute</a>
+      
+      
+    </h2>
+  </div>
+
+  <div class="container">
+    <div class="header-tab-wrapper clearfix">
+      <span class="header-tab header-tab-selected"><i class="fa fa-thumbs-o-up"></i> Like</span>
+      <span class="header-tab"><i class="fa fa-share-alt"></i> Share</span>
+      <span class="header-tab"><i class="fa fa-comments-o"></i> Discussion</span>
+      <span class="header-tab"><i class="fa fa-bookmark-o"></i> Bookmark </span>
+      <span class="header-tab"><i class="fa fa-smile-o"></i> Smile <i class="fa fa-caret-down"></i></span>
+    </div>
+  </div>
+</header>
+
+
+<div class="post-container container">
+  <h3>
+    <i class="fa fa-user-o"></i>
+    LY
+
+    <span class="post-date float-right" title="{{moment(1614846674000).format('MMM DD, YYYY, h:mm:ss A')}}">
+      
+          <i class="fa fa-pencil-square-o"></i>
+      
+      {{moment(1614846674000).fromNow()}}
+    </span>
+  </h3>
+
+  <article class="post-content">
+    <h1>学习排错记录</h1>
+    <p>写个踩坑合集，把遇到的问题和解决的方法都记着，以后有问题了直接看这个，免得每次都去网上找半天😠😠😠</p>
+<p>一方面记录一下常见的错误以备不时之需，另一方面也要提升自己的检索排错能力</p>
+<a id="more"></a>
+
+<p>这两天实习，发现项目框架都没学，疯狂看视频写代码，然后遇到超级多问题。。。有些还重复遇到，并且解决方法还不一样</p>
+<p>所以在此记录下我写代码中遇到的Bug和找到的解决方法</p>
+<h3 id="【问题】：运行项目出现java-程序包org-springframework-web-bind-annotation不存在-的错误。"><a href="#【问题】：运行项目出现java-程序包org-springframework-web-bind-annotation不存在-的错误。" class="headerlink" title="【问题】：运行项目出现java: 程序包org.springframework.web.bind.annotation不存在 的错误。"></a>【问题】：运行项目出现<code>java: 程序包org.springframework.web.bind.annotation不存在</code> 的错误。</h3><p><img src="http://img2.salute61.top/PicGo/%E7%A8%8B%E5%BA%8F%E5%8C%85%E4%B8%8D%E5%AD%98%E5%9C%A8.png" alt=""></p>
+<p>【解决方法】：</p>
+<ul>
+<li>网上方案都是说在Setting中的maven下勾选上Runner中的第一个选项，但是我试了没用。。。<img src="http://img2.salute61.top/PicGo/image-20210304163534162.png" alt="image-20210304163534162"></li>
+<li>也有说maven刷新问题，在右侧maven中clean再install。试了还是没用。。。</li>
+<li>最后我换了低版本的maven依赖，然后再试发现可以了</li>
+</ul>
+<h3 id="【问题】：C3P0配置数据库，结果跳转报错"><a href="#【问题】：C3P0配置数据库，结果跳转报错" class="headerlink" title="【问题】：C3P0配置数据库，结果跳转报错"></a>【问题】：C3P0配置数据库，结果跳转报错</h3><p>在看狂神网课SSM整合的部分，项目点击跳转到allBook页面时报错如图。网上找了好多方法都不行，把gitee上别人完整的项目down下来跑还是报这个错。。。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20210304164826388.png" alt="image-20210304164826388"></p>
+<p>【解决方法】：</p>
+<p>对照根本原因的字段去网上搜，好多不同的方法</p>
+<ul>
+<li><pre><code>`org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.exceptions.PersistenceException: `
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  找到的问题说mapper映射文件有问题，我对照着视频、博客和别人的项目检查，没有发现问题。。。</span><br><span class="line"></span><br><span class="line"><span class="deletion">-</span></span><br></pre></td></tr></table></figure>
+Error querying database.Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Connections could not be acquired from the underlying database!
+查询数据库失败
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">  找到的问题是`mysql`配置文件`db.properties`或者`mysql`驱动有问题（比如说配置文件中多输入了空格；`mysql`驱动版本是8.x）我都检查了还是不行。。。</span></span><br><span class="line"><span class="xml">  </span></span><br><span class="line"><span class="xml">- 它指示error可能是`dao`层的那个mapper文件和接口，检查过后发现都没问题。。。</span></span><br><span class="line"></span><br><span class="line"><span class="xml">- 在`StackOverFlow`上搜到的问题，找到的回答差不多，毕竟打印的错误信息就是说不能连接到数据库。。。逐个排查到最后，感觉应该是数据源的问题，毕竟其他的`dao`层啊、`mysql`驱动啊、`database`配置文件都完全没问题。我的数据源是C3P0</span></span><br><span class="line"></span><br><span class="line"><span class="xml">  ```xml</span></span><br><span class="line"><span class="xml">  <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 配置连接池属性 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.driver&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.url&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.username&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">&#123;jdbc.password&#125;</span><span class="xml"><span class="tag"><span class="string">"</span> /&gt;</span></span></span><br><span class="line"><span class="xml">  </span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- c3p0连接池的私有属性 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span> <span class="attr">value</span>=<span class="string">"30"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span> <span class="attr">value</span>=<span class="string">"10"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 关闭连接后不自动commit --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"autoCommitOnClose"</span> <span class="attr">value</span>=<span class="string">"false"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 获取连接超时时间 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"checkoutTimeout"</span> <span class="attr">value</span>=<span class="string">"10000"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="comment">&lt;!-- 当获取连接失败重试次数 --&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireRetryAttempts"</span> <span class="attr">value</span>=<span class="string">"2"</span>/&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+c3p0是配置狂神视频里直接拿过来的，也没了解过。。我换成了初始的mysql
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driver&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+折磨了一整天的问题没了，可以进入。完全是向Bug妥协了。。。</code></pre></li>
+<li><p><strong>【PS】</strong>：在网上找了一下别人的<code>mvc</code>项目配置<code>c3p0</code>的文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.driver&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.url&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.username&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.password&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>发现可以跳转！！！</p>
+<p>然后对比了一下发现就是原来的就多了私有配置，删除了后也可以运行！c3p0文档、底层原理啥的还没看过，不过终于算是会用了。。。</p>
+</li>
+</ul>
+<h3 id="【问题】：Navicat查看数据库表的时候出现Error-too-many-connections"><a href="#【问题】：Navicat查看数据库表的时候出现Error-too-many-connections" class="headerlink" title="【问题】：Navicat查看数据库表的时候出现Error  too many connections"></a><strong>【问题】：</strong><code>Navicat</code>查看数据库表的时候出现<code>Error  too many connections</code></h3><p>【解决方法】：</p>
+<ul>
+<li><p>想命令行登录mysql看一下啥情况，结果也说<code>too many connections</code>，然后查了一下，<code>navicat</code>还连接着，就可以直接用<code>navicat</code>查询，网上找到的命令行查看最大连接数：<code>show VARIABLES like &quot;%max_connections%&quot;</code>。连接数只有20，所以超过连接了。。</p>
+<p><img src="http://img2.salute61.top/PicGo/image-20210319140342213.png" alt="image-20210319140342213"></p>
+</li>
+</ul>
+<h3 id="【问题】：运行npm-run-serve命令时报错npm-ERR-code-ELIFECYCLE-npm-ERR-errno-1"><a href="#【问题】：运行npm-run-serve命令时报错npm-ERR-code-ELIFECYCLE-npm-ERR-errno-1" class="headerlink" title="【问题】：运行npm run serve命令时报错npm ERR! code ELIFECYCLE  npm ERR! errno 1"></a>【问题】：运行<code>npm run serve</code>命令时报错<code>npm ERR! code ELIFECYCLE  npm ERR! errno 1</code></h3><p>【解决方法】：</p>
+<ul>
+<li>我另一个VSCode也在跑一个前端，所以我猜可能是端口占用了，把那个关闭，没有解决，检查了一下发现两个项目没用同一个端口，那就是别的问题了</li>
+<li>检查看提示，<code>node_Modules</code>缺东西，我直接全删了，然后<code>npm install</code>就好了。</li>
+</ul>
+<h3 id="【问题】：虚拟机选桥接模式不能连接外网"><a href="#【问题】：虚拟机选桥接模式不能连接外网" class="headerlink" title="【问题】：虚拟机选桥接模式不能连接外网"></a>【问题】：虚拟机选桥接模式不能连接外网</h3><p>这个真的奇怪，我想着搭个虚拟机本地部署一个fastdfs，然后按照教程步骤来，网络选桥接模式时不能ping到外网，ifconfig也看不到ip地址</p>
+<p><img src="http://img2.salute61.top/PicGo/11.png" alt=""></p>
+<p>【解决方法】：</p>
+<ul>
+<li><p>第一个：在网络编辑器中，设置桥接模式，选择与宿主机相同的网卡；使用<code>dhclient</code>分配IP地址（我用了这个指令还是没IP地址）；按照他给的文件去编辑<code>ifcfg-ens33</code>；然后重启网络。【没用】</p>
+</li>
+<li><p>第二个：我换了个方式——搜虚拟机桥接模式设置静态IP。也是编辑<code>ifcfg-ens33</code>文件，操作主要是宿主机上<code>ipconfig /all</code>查看配置，然后虚拟机照着配</p>
+</li>
+</ul>
+
+  </article>
+</div>
+
+
+    
+
+
+
+
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="http://salute61.top" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 LY</li>
+      <li><a href="http://salute61.top">Home</a></li>
+      
+      <li><a href="https://github.com/61hhh" target="_blank" rel="noopener">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica" target="_blank" rel="noopener">Replica</a>
+      by <a href="//github.com/sabrinaluo" target="_blank" rel="noopener">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

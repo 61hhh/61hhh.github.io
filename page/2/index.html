@@ -1,1244 +1,528 @@
 <!DOCTYPE html>
-
-
-<html lang="zh-CN" >
+<html lang="zh-CN">
 
 
 <head>
-  <meta charset="utf-8" />
-   
-  <meta name="keywords" content="learn to live,learn to love" />
-   
-  <meta name="description" content="Be Yourself" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>
-     Salute
+    Salute
   </title>
-  <meta name="generator" content="hexo-theme-yilia-plus">
+  <meta name="description" content="Be Yourself">
   
-  <link rel="shortcut icon" href="/favicon.ico" />
+  <meta name="author" content="LY">
+
+  <meta http-equiv="Cache-Control" content="no-transform"/>
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="theme-color" content="#1e2327">
+  <link rel="apple-touch-icon" href="https://github.githubassets.com/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://github.githubassets.com/apple-touch-icon-180x180.png">
+
+  <link rel="icon" type="image/x-icon" href="https://github.githubassets.com/favicon.ico">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   
-  
-<link rel="stylesheet" href="/dist/main.css">
-
-  
-<link rel="stylesheet" href="/css/custom.css">
-
-  
-  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
-  
-  
-
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-161190166-1', 'auto');
-ga('send', 'pageview');
-
-</script>
-
-
 
   
-<script>
-var _hmt = _hmt || [];
-(function() {
-	var hm = document.createElement("script");
-	hm.src = "https://hm.baidu.com/hm.js?2250a11354c4fb45a1a42ccbb80f9c3a";
-	var s = document.getElementsByTagName("script")[0]; 
-	s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
-
-<link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.25-csp/vue.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
 </head>
 
-</html>
-
-<body>
-  <div id="app">
-    <main class="content on">
-      
-<section class="cover">
-    
-      
-      <a class="forkMe" href="https://github.com/61hhh"
-        target="_blank"><img width="149" height="149" src="/images/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-    
-  <div class="cover-frame">
-    <div class="bg-box">
-      <img src="/images/coverMe.jpg" alt="image frame" />
-    </div>
-    <div class="cover-inner text-center text-white">
-      <h1><a href="/">Salute</a></h1>
-      <div id="subtitle-box">
-        
-        <span id="subtitle"></span>
-        
-      </div>
-      <div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="cover-learn-more">
-    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
-  </div>
-</section>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
-
-<div id="main">
-  <section class="outer">
-  <article class="articles">
-    
-    
-    
-    
-    <article id="post-spring学习四-静态-动态代理" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"
-    >spring学习四-静态/动态代理</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/" class="article-date">
-  <time datetime="2020-10-14T07:38:16.000Z" itemprop="datePublished">2020-10-14</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在对象中可能会有一些公共的行为，例如日志记录、权限验证等，如果每个对象都写上这些就会造成冗余。对此AOP【Aspect Oriented Programming面向切面编程】提供了一种方式：将通用的方法抽离出来并封装，定义为独立的切面，在合适的时机将其横向切入业务流程指定的位置中</p>
-<p><img src="http://img2.salute61.top/PicGo/SpringAOP1.png" alt=""></p>
-<p>因为Spring的AOP主要作用就是通过不修改源代码的方式，将非核心的功能代码织入，来实现对方法的增强，而它实现的原理，关键就在于使用代理模式</p>
-<p>代理模式的分类：静态代理；动态代理</p>
-      
-      <a class="article-more-link" href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-spring学习三-自动装配" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/"
-    >spring学习三-自动装配</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/" class="article-date">
-  <time datetime="2020-10-14T06:58:35.000Z" itemprop="datePublished">2020-10-14</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在学习Spring自动装配和注解开发时，看狂神的视频，弹幕又刷刷刷的。。搞得人压根没看明白【看这种视频真就不能开弹幕……】只是知道了这几个标签，所以看一下《Spring实战 第四版》的装配bean章节学习一下。结合狂神的视频和书本知识，互相补充吧</p>
-<blockquote>
-<p>Spring容器负责创建应用程序中的Bean并通过DI来协调这些对象之间的关系，在描述Bean装配操作时，Spring有很大的灵活性，它提供了三种主要的装配机制：</p>
-<ul>
-<li>在XML中显式装配</li>
-<li>在Java中显式装配</li>
-<li>隐式的bean发现机制和自动装配</li>
-</ul>
-</blockquote>
-<p>作者推荐：尽可能使用自动装配机制，在必须要显式配置时，推荐使用类型安全且比XML更强大的JavaConfig。最后只有是想使用便利的XML命名空间并且在JavaConfig中没有同样的实现时才应用XML。<code>推荐：自动装配&gt;JavaConfig&gt;XML</code>。</p>
-<p>书上的顺序是自动装配-&gt;JavaConfig-&gt;XML，狂神视频是先讲XML再自动装配再JavaConfig，我以视频顺序为主，具体的知识点两者结合着做</p>
-      
-      <a class="article-more-link" href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Typora-PicGo简化图床操作" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/"
-    >Typora+PicGo简化图床操作</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/" class="article-date">
-  <time datetime="2020-10-09T06:32:23.000Z" itemprop="datePublished">2020-10-09</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每次写博客最费劲的问题就是图片。。。直接截图的是本地图片，上传到博客无法显示，必须要用图床工具，之前我用的是七牛云的图床，但是每次还是很麻烦：<strong>截图–&gt;保存–&gt;上传–&gt;复制外联外链–&gt;粘贴外链</strong>，一个图片就要切几个页面，真让人来气嗷！</p>
-<p>更新Typora发现它竟然支持通过PiccGo上传图床了，那就得跟上节奏！</p>
-<img src="http://img2.salute61.top/PicGo/PicGo1.png" style="zoom:50%;" />
-      
-      <a class="article-more-link" href="/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E3%80%8A%E6%8A%80%E5%B7%A7%E3%80%8B/" rel="tag">《技巧》</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Spring学习二-配置及依赖注入DI" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/"
-    >Spring学习二-配置及依赖注入DI</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/" class="article-date">
-  <time datetime="2020-10-09T06:05:00.000Z" itemprop="datePublished">2020-10-09</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="Spring应用"><a href="#Spring应用" class="headerlink" title="Spring应用"></a>Spring应用</h2><p>IoC的基本思想了解了，就可以尝试应用Spring了。以项目hello为例，学习一下使用Spring的基本流程。</p>
-<p>这是第一部分：演示一遍Spring；后面还有Spring依赖注入方式说明；bean作用域说明。</p>
-<h3 id="导入jar包"><a href="#导入jar包" class="headerlink" title="导入jar包"></a>导入jar包</h3><p>在maven仓库中搜Spring，可以看到很多依赖，我们选择<code>spring-webmvc</code>来导入，它能导入其他需要的文件</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.10.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-      
-      <a class="article-more-link" href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Spring学习一-初识Spring" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/05/Spring%E5%AD%A6%E4%B9%A0%E4%B8%80-%E5%88%9D%E8%AF%86Spring/"
-    >Spring学习一-初识Spring</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/05/Spring%E5%AD%A6%E4%B9%A0%E4%B8%80-%E5%88%9D%E8%AF%86Spring/" class="article-date">
-  <time datetime="2020-10-05T07:24:48.000Z" itemprop="datePublished">2020-10-05</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Spring作为Java开发应用最为广泛的一个框架（甚至可以说它是默认的JavaEE框架）能做很多事，它为企业级开发提供了丰富的功能，它们的底层都依赖于两个核心特性：依赖注入【DI：Dependency injection】和面向切面编程【AOP：Aspect Oriented Programming】。可以说它的<strong>成功来源于理念，而不是技术本身</strong>！</p>
-<p><strong>什么是 Spring：</strong></p>
-<ol>
-<li>Spring 是一个<strong>轻量级的 DI / IoC 和 AOP 容器的开源框架</strong>，最早由 Rod Johnson创建，并在其著作<strong>《Expert one on one J2EE design and development》</strong>中进行介绍。</li>
-<li>Spring 提倡以<strong>“最小侵入性”</strong>的方式来管理应用中的代码，这意味着我们可以随时安装或者卸载 Spring</li>
-</ol>
-<ul>
-<li><strong>适用范围：任何 Java 应用</strong></li>
-<li><strong>Spring 的根本使命：简化 Java 开发</strong></li>
-</ul>
-      
-      <a class="article-more-link" href="/2020/10/05/Spring%E5%AD%A6%E4%B9%A0%E4%B8%80-%E5%88%9D%E8%AF%86Spring/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybatis学习六-缓存" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/"
-    >Mybatis学习六-缓存</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/" class="article-date">
-  <time datetime="2020-10-05T02:45:40.000Z" itemprop="datePublished">2020-10-05</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>缓存的概念：存在内存中的临时数据。将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。</p>
-<p>好处：减少和数据库的交互次数，减少系统开销，提高系统效率。</p>
-<p>常用对象：需要频繁查询且较少改变的对象</p>
-      
-      <a class="article-more-link" href="/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybatis学习五-动态SQL" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/"
-    >Mybatis学习五-动态SQL</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/" class="article-date">
-  <time datetime="2020-10-03T09:49:15.000Z" itemprop="datePublished">2020-10-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>官方文档专门将动态SQL拿出来作为一个小节，可见其还是非常重要的，先看一下文档的描述：</p>
-<blockquote>
-<p>动态 SQL 是 MyBatis 的强大特性之一。如果你使用过 JDBC 或其它类似的框架，你应该能理解根据不同条件拼接 SQL 语句有多痛苦，例如拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一个列名的逗号。利用动态 SQL，可以彻底摆脱这种痛苦。</p>
-<p>使用动态 SQL 并非一件易事，但借助可用于任何 SQL 映射语句中的强大的动态 SQL 语言，MyBatis 显著地提升了这一特性的易用性。</p>
-<p>如果你之前用过 JSTL 或任何基于类 XML 语言的文本处理器，你对动态 SQL 元素可能会感觉似曾相识。在 MyBatis 之前的版本中，需要花时间了解大量的元素。借助功能强大的基于 OGNL 的表达式，MyBatis 3 替换了之前的大部分元素，大大精简了元素种类，现在要学习的元素种类比原来的一半还要少。</p>
-<hr>
-<ul>
-<li>if</li>
-<li>choose (when, otherwise)</li>
-<li>trim (where, set)</li>
-<li>foreach</li>
-</ul>
-<hr>
-</blockquote>
-<p>看了官方文档介绍，感觉就是：对于一些复杂SQL语句需要拼接，可能自己写的时候往往会漏个逗号多个标签之类的，而动态SQL通过上面的那些标签，可以自动的帮我们拼接</p>
-      
-      <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybatis学习四-一对多与多对一" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/"
-    >Mybatis学习四-一对多与多对一</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/" class="article-date">
-  <time datetime="2020-10-03T09:48:30.000Z" itemprop="datePublished">2020-10-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="问题引入"><a href="#问题引入" class="headerlink" title="问题引入"></a>问题引入</h2><p>在实际开发中，实体对象之间的关联往往是很复杂的，在查询时往往需要连表查询！mybatis 提供了高级的关联查询功能，可以很方便地将数据库获取的结果集映射到定义的Java Bean 中。以老师和学生为例，一个班主任带着多个学生，多个学生属于一个班主任名下</p>
-      
-      <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybatis学习三-注解开发" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/"
-    >Mybatis学习三-注解开发</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/" class="article-date">
-  <time datetime="2020-10-03T09:47:44.000Z" itemprop="datePublished">2020-10-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <h2 id="依赖倒转原则-DIP"><a href="#依赖倒转原则-DIP" class="headerlink" title="依赖倒转原则(DIP)"></a>依赖倒转原则(DIP)</h2><p>在面向对象分析与设计中，有一个很重要的原则——依赖倒转原则，定义如下</p>
-<blockquote>
-<p>高层模块不应该依赖低层模块，它们都应该依赖抽象；抽象不应该依赖于细节；细节应该依赖于抽象。</p>
-<p>另一种表述：<strong>要针对接口编程，不要针对实现编程。</strong></p>
-</blockquote>
-<p>DIP是6大原则中最难以实现的原则，它是实现开闭原则的重要途径。关键仍然是”抽象”，抽象属于高层，细节属于低层，低层依赖于高层，而不是高层依赖于低层，这正是依赖倒置的真谛。</p>
-<p>依赖倒转的好处</p>
-<ul>
-<li>可以通过抽象使各个类或模块的实现彼此独立，不互相影响，<strong>实现模块间的松耦合（也是本质）</strong>；</li>
-<li>可以规避一些非技术因素引起的问题（例如需求变化导致的工作量剧增的情况）</li>
-<li>可以促进并行开发</li>
-</ul>
-      
-      <a class="article-more-link" href="/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-Mybaits学习二-Mybatis配置文件" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"
-    >Mybaits学习二:Mybatis配置文件</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="article-date">
-  <time datetime="2020-09-28T09:40:42.000Z" itemprop="datePublished">2020-09-28</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Mybatis/">Mybatis</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Mybatis最重要的就是它的配置，而配置包含了Mybatis的至关重要的设置和属性等信息，官方文档中也专门给出一节来讲配置文件。本篇博客也是以<a href="https://mybatis.org/mybatis-3/zh/" target="_blank" rel="noopener">官方中文文档</a>为主要依据记笔记</p>
-<p>可以ctrl+鼠标左键查看mybatis-config.xml头部的dtd头文件，点进去可以看到配置文件的element。MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息。 配置文档的顶层结构如下：</p>
-<ul>
-<li>configuration（配置）<ul>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#properties" target="_blank" rel="noopener">properties（属性）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#settings" target="_blank" rel="noopener">settings（设置）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#typeAliases" target="_blank" rel="noopener">typeAliases（类型别名）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#typeHandlers" target="_blank" rel="noopener">typeHandlers（类型处理器）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#objectFactory" target="_blank" rel="noopener">objectFactory（对象工厂）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#plugins" target="_blank" rel="noopener">plugins（插件）</a></li>
-<li>environments（环境配置）<ul>
-<li>environment（环境变量）<ul>
-<li>transactionManager（事务管理器）</li>
-<li>dataSource（数据源）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider" target="_blank" rel="noopener">databaseIdProvider（数据库厂商标识）</a></li>
-<li><a href="https://mybatis.org/mybatis-3/zh/configuration.html#mappers" target="_blank" rel="noopener">mappers（映射器）</a></li>
-</ul>
-</li>
-</ul>
-<p><font color="red">注：元素节点顺序是按照上面固定的，顺序错了会报错！</font></p>
-<p>（下面的学习顺序并不是按照结构来的，而是按照学习视频的代码去学的）</p>
-      
-      <a class="article-more-link" href="/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mybatis/" rel="tag">Mybatis</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-  </article>
-  
-
-  
-  <nav class="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
-  </nav>
-  
-</section>
-</div>
-
-      <footer class="footer">
-  <div class="outer">
-    <ul class="list-inline">
-      <li>
-        &copy;
-        2020-2021
-        LY
-      </li>
-      <li>
-        
-        Powered by
-        
-        
-        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
-        
-      </li>
-    </ul>
-    <ul class="list-inline">
-      <li>
-        
-        
-        <span>
-  <i>PV:<span id="busuanzi_value_page_pv"></span></i>
-  <i>UV:<span id="busuanzi_value_site_uv"></span></i>
-</span>
-        
-      </li>
-      
-      <li>
-        <!-- cnzz统计 -->
-        
-      </li>
-    </ul>
-    <ul class="list-inline">
-      <li>
-        <div class="Ebeian-info">
-          <img src="http://img.salute61.top/%E5%A4%87%E6%A1%88%E5%9B%BE.png">
-          <a href="http://www.beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">鄂ICP备20006224号-1</a>
+<body id="replica-app">
+
+<nav class="navbar-wrapper">
+  <div class="navbar">
+    <div class="container clearfix">
+      <a href="/" class="navbar-logo"><i class="fa fa-github"></i></a>
+
+      <div class="navbar-search float-left desktop-only">
+        <div class="navbar-search-form">
+          <label for="gsc-i-id1">This website</label>
+          <div id="google-search">
+            <gcse:search></gcse:search>
+          </div>
         </div>
+      </div>
+
+      <ul class="navbar-nav float-left">
+        
+        <li><a href="/archives">Archives</a></li>
+        
+        
+        <li><a href="/categories">Categories</a></li>
+        
+        
+        <li><a href="/tags">Tags</a></li>
+        
+        
+        <li class="desktop-only"><a href="/atom.xml" target="_blank">RSS</a></li>
+        
+      </ul>
+
+      <ul class="navbar-nav user-nav float-right desktop-only">
+        <li class="user-nav-notification">
+          <a><span class="user-nav-unread"></span><i class="fa fa-bell"></i></a>
+        </li>
+        <li>
+          <a><i class="fa fa-plus"></i> <i class="fa fa-caret-down"></i></a>
+        </li>
+        <li class="user-nav-logo">
+          <a><img src="https://octodex.github.com/images/baracktocat.jpg"> <i class="fa fa-caret-down"></i></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="main-container">
+  
+
+<div class="container-lg">
+  
+
+<div class="blog-intro">
+  <div class="blog-intro-user">
+    <img class="avatar" src="https://octodex.github.com/images/baracktocat.jpg">
+    <div class="user-name">
+      <div class="blog-title">Salute</div>
+      <div class="blog-author">LY</div>
+        <ul class="user-detail mobile-only">
+    
+    <li>
+      <i class="fa fa-link"></i>
+      <a href="http://salute61.top">http://salute61.top</a>
+    </li>
+  </ul>
+    </div>
+    <div class="blog-description">
+      Be Yourself
+    </div>
+  </div>
+
+  <ul class="user-detail desktop-only">
+    
+    <li>
+      <i class="fa fa-link"></i>
+      <a href="http://salute61.top">http://salute61.top</a>
+    </li>
+  </ul>
+
+  <div class="social-media desktop-only">
+    <h4>Social Media</h4>
+    <ul>
+      
+      <li class="social-media-item"><a href="https://github.com/61hhh" target="_blank"><i class="fa fa-github"></i></a></li>
+      
+    </ul>
+  </div>
+</div>
+
+
+  <div class="blog-detail">
+    
+<nav class="blog-detail-nav desktop-only">
+  <ul class="clearfix">
+    <li class="selected">
+      <a href="/">Overview</a></li>
+    <li class="">
+      <a href="/archives">Posts <span class="counter">65</span></a>
+    </li>
+    <li class="">
+      <a href="/categories">Categories <span
+                class="counter">17</span></a></li>
+    <li class="">
+      <a href="/tags">Tags <span class="counter">31</span></a></li>
+  </ul>
+</nav>
+
+    <div class="body-secondary">
+      <p class="right-title">Recent post</p>
+      <ul class="recent-post clearfix">
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2020/10/15/Spring%E5%AD%A6%E4%B9%A0%E4%BA%94-AOP%E5%AD%A6%E4%B9%A0/">Spring学习五-AOP学习</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                      AOP介绍  AOP（Aspect Oriented Programming）面向切
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/"><i class="fa fa-folder-open"></i> Java框架</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 1 </span>
+            </p>
+          </div>
+        </li>
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/">spring学习四-静态/动态代理</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                      介绍  在对象中可能会有一些公共的行为，例如日志记录、权限验证等，如果每个对象都写上
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/"><i class="fa fa-folder-open"></i> Java框架</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 1 </span>
+            </p>
+          </div>
+        </li>
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">spring学习三-自动装配</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                      前言  在学习Spring自动装配和注解开发时，看狂神的视频，弹幕又刷刷刷的。。搞得
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/"><i class="fa fa-folder-open"></i> Java框架</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 1 </span>
+            </p>
+          </div>
+        </li>
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/">Typora+PicGo简化图床操作</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                      前言  每次写博客最费劲的问题就是图片。。。直接截图的是本地图片，上传到博客无法显示
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <i class="fa fa-folder-open"></i> Uncategorized
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 1 </span>
+            </p>
+          </div>
+        </li>
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/">Spring学习二-配置及依赖注入DI</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                      Spring应用  IoC的基本思想了解了，就可以尝试应用Spring了。以项目he
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/"><i class="fa fa-folder-open"></i> Java框架</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 1 </span>
+            </p>
+          </div>
+        </li>
+        
+        <li class="recent-post-item">
+          <div class="clearfix">
+            <h5 class="post-title text-ellipsis">
+              <i class="fa fa-bars"></i>
+              <a href="/2020/10/05/Spring%E5%AD%A6%E4%B9%A0%E4%B8%80-%E5%88%9D%E8%AF%86Spring/">Spring学习一-初识Spring</a>
+            </h5>
+            <p class="post-description text-ellipsis desktop-only">
+                      介绍  Spring作为Java开发应用最为广泛的一个框架（甚至可以说它是默认的Ja
+            </p>
+            <p class="post-info desktop-only">
+              <span>
+                
+                  <a class="category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/"><i class="fa fa-folder-open"></i> Java框架</a>
+                
+              </span>
+              <span><i class="fa fa-tag"></i> 1 </span>
+            </p>
+          </div>
+        </li>
+        
+      </ul>
+      <div class="calendar-container" id="calendar">
+  <div class="calendar">
+    <h3>
+      {{posts.length}} contributions in the last year
+    </h3>
+    <div class="calendar-graph-container">
+      <div class="calendar-graph">
+        <svg width="676" height="104" @mouseout="mouseoverDate=null">
+          <g transform="translate(16, 20)">
+            <g v-for="week in calendar" :transform="week.transform">
+              <rect v-for="day in week.days"
+                    :x="day.x"
+                    :y="day.y"
+                    :fill="day.fill"
+                    @click="selectedDate=day.date"
+                    @mouseover="mouseoverDate=day.date"
+                    :class="{active:selectedDate===day.date}"
+                    data-count="{{day.posts.length}}"
+                    data-date="{{day.date}}"
+                    class="day" width="10" height="10"
+              ></rect>
+            </g>
+
+            <text v-for="month in monthLabels"
+                  :x="month.x"
+                  y="-5"
+                  class="month">{{month.text}}
+            </text>
+
+
+            <text text-anchor="start" class="wday" dx="-14" dy="8"
+                  style="display: none;">S
+            </text>
+            <text text-anchor="start" class="wday" dx="-14" dy="20">Mon</text>
+            <text text-anchor="start" class="wday" dx="-14" dy="32"
+                  style="display: none;">T
+            </text>
+            <text text-anchor="start" class="wday" dx="-14" dy="44">Wed</text>
+            <text text-anchor="start" class="wday" dx="-14" dy="57"
+                  style="display: none;">T
+            </text>
+            <text text-anchor="start" class="wday" dx="-14" dy="69">Fri</text>
+            <text text-anchor="start" class="wday" dx="-14" dy="81"
+                  style="display: none;">S
+            </text>
+          </g>
+        </svg>
+        <div class="svg-tip svg-tip-one-line"
+             v-bind:style="{ top: svgtip.top, left: svgtip.left, display: svgtip.display}">
+          <strong>{{svgtip.text}}</strong> on
+          {{moment(mouseoverDate).format('MMM DD, YYYY')}}
+        </div>
+      </div>
+      <div class="calendar-footer clearfix">
+      <span>
+        <a href="#">Learn how we count contributions.</a>
+      </span>
+        <div class="calendar-legend">
+          <span>Less</span>
+          <ul class="legend">
+            <li style="background-color: #eee"></li>
+            <li style="background-color: #d6e685"></li>
+            <li style="background-color: #8cc665"></li>
+            <li style="background-color: #44a340"></li>
+            <li style="background-color: #1e6823"></li>
+          </ul>
+          <span>More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Contribution activity</h3>
+  <div class="contribution-list">
+    <ul>
+      <li v-for="post in posts | filterBy selectedDate in 'date'">
+        <a href="{{post.url}}">{{post.title}}
+        </a>
+        <span>{{post.date}}</span>
       </li>
     </ul>
   </div>
-</footer>
-      <div class="float_btns">
-        <div class="totop" id="totop">
-  <i class="ri-arrow-up-line"></i>
 </div>
-
-<div class="todark" id="todark">
-  <i class="ri-moon-line"></i>
-</div>
-
-      </div>
-    </main>
-    <aside class="sidebar on">
-      <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-  <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="Salute"></a>
-  </div>
-  
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">主页</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">归档</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/categories">分类</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/tags">标签</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/photos">相册</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/playlist">歌单</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/About-Me">关于我</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/daily">每日一题</a>
-    </li>
-    
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      
-      <a class="nav-item-link nav-item-search"  title="搜索">
-        <i class="ri-search-line"></i>
-      </a>
-      
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="ri-rss-line"></i>
-      </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-    </aside>
-    <script>
-      if (window.matchMedia("(max-width: 768px)").matches) {
-        document.querySelector('.content').classList.remove('on');
-        document.querySelector('.sidebar').classList.remove('on');
-      }
-    </script>
-
-    <!--动态背景线条-->
-    <!-- <script color="0,0,255" opacity='0.7' zIndex="-2" count="99"
-    src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js">
-    </script> -->
-    <!--恶搞标题-->
-    <script type="text/javascript" src="../source/js/funnyTitle.js"></script>
-
-    <div id="mask"></div>
-
-<!-- #reward -->
-<div id="reward">
-  <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
-  <div class="reward-box">
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/alipay.jpg">
-      <span class="reward-type">支付宝</span>
-    </div>
-    
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/wechat.jpg">
-      <span class="reward-type">微信</span>
-    </div>
-    
-  </div>
-</div>
-    
-<script src="/js/jquery-2.0.3.min.js"></script>
-
-
-<script src="/js/lazyload.min.js"></script>
 
 
 <script>
-  try {
-    var typed = new Typed("#subtitle", {
-      strings: ['充满鲜花的世界到底在哪里', '如果它真的存在那么我一定会去', '我想在那里最高的山峰矗立'],
-      startDelay: 0,
-      typeSpeed: 100,
-      loop: true,
-      backSpeed: 100,
-      showCursor: true
-    });
-  } catch (err) {
+  var posts = [{"date":"2020-04-14","title":"hexo博客绑定域名","url":"http://salute61.top/2020/04/14/hexo%E5%8D%9A%E5%AE%A2%E7%BB%91%E5%AE%9A%E5%9F%9F%E5%90%8D/"},{"date":"2020-04-14","title":"将hexo博客部署到coding上","url":"http://salute61.top/2020/04/14/%E5%B0%86hexo%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2%E5%88%B0coding%E4%B8%8A/"},{"date":"2020-04-15","title":"git学习","url":"http://salute61.top/2020/04/15/git%E5%AD%A6%E4%B9%A0/"},{"date":"2020-04-16","title":"hexo博客提交Google和百度收录","url":"http://salute61.top/2020/04/16/hexo%E5%8D%9A%E5%AE%A2%E6%8F%90%E4%BA%A4Google%E5%92%8C%E7%99%BE%E5%BA%A6%E6%94%B6%E5%BD%95/"},{"date":"2020-04-18","title":"hexo博客加密","url":"http://salute61.top/2020/04/18/hexo%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%86/"},{"date":"2020-04-25","title":"Js中的let和const命令","url":"http://salute61.top/2020/04/25/Js%E4%B8%AD%E7%9A%84let%E5%92%8Cconst%E5%91%BD%E4%BB%A4/"},{"date":"2020-05-11","title":"UML建模--用例图","url":"http://salute61.top/2020/05/11/UML%E5%BB%BA%E6%A8%A1-%E7%94%A8%E4%BE%8B%E5%9B%BE/"},{"date":"2020-06-01","title":"Js30day","url":"http://salute61.top/2020/06/01/Js30day/"},{"date":"2020-06-04","title":"Java读取txt文件&处理","url":"http://salute61.top/2020/06/04/Java%E8%AF%BB%E5%8F%96txt%E6%96%87%E4%BB%B6&%E5%A4%84%E7%90%86/"},{"date":"2020-07-02","title":"Intent详解","url":"http://salute61.top/2020/07/02/Intent%E8%AF%A6%E8%A7%A3/"},{"date":"2020-07-02","title":"解决hexo部署GitHub报错问题","url":"http://salute61.top/2020/07/02/%E8%A7%A3%E5%86%B3hexo%E9%83%A8%E7%BD%B2GitHub%E6%8A%A5%E9%94%99%E9%97%AE%E9%A2%98/"},{"date":"2020-07-05","title":"Tomcat学习","url":"http://salute61.top/2020/07/05/Tomcat%E5%AD%A6%E4%B9%A0/"},{"date":"2020-07-06","title":"计算机网络CH1-CH3概述","url":"http://salute61.top/2020/07/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9CCH1-CH3%E6%A6%82%E8%BF%B0/"},{"date":"2020-07-08","title":"SSH连接虚拟机Linux","url":"http://salute61.top/2020/07/08/SSH%E8%BF%9E%E6%8E%A5%E8%99%9A%E6%8B%9F%E6%9C%BALinux/"},{"date":"2020-07-09","title":"ICMP协议应用","url":"http://salute61.top/2020/07/09/ICMP%E5%8D%8F%E8%AE%AE%E5%BA%94%E7%94%A8/"},{"date":"2020-07-12","title":"TCP拥塞控制详解","url":"http://salute61.top/2020/07/12/TCP%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%E8%AF%A6%E8%A7%A3/"},{"date":"2020-07-12","title":"TCP传输连接管理","url":"http://salute61.top/2020/07/12/TCP%E4%BC%A0%E8%BE%93%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86/"},{"date":"2020-07-13","title":"计算机网络CH4-CH6概述","url":"http://salute61.top/2020/07/13/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9CCH4-CH6%E6%A6%82%E8%BF%B0/"},{"date":"2020-07-21","title":"Java基础回顾——面向对象","url":"http://salute61.top/2020/07/21/Java%E5%9F%BA%E7%A1%80%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"},{"date":"2020-07-21","title":"Java基础回顾——基础语法","url":"http://salute61.top/2020/07/21/Java%E5%9F%BA%E7%A1%80%E5%9B%9E%E9%A1%BE%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/"},{"date":"2020-07-21","title":"操作系统概述","url":"http://salute61.top/2020/07/21/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/"},{"date":"2020-07-22","title":"操作系统——进程管理","url":"http://salute61.top/2020/07/22/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/"},{"date":"2020-07-25","title":"操作系统——处理机调度与死机","url":"http://salute61.top/2020/07/25/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6%E4%B8%8E%E6%AD%BB%E6%9C%BA/"},{"date":"2020-07-27","title":"操作系统——设备管理","url":"http://salute61.top/2020/07/27/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E2%80%94%E2%80%94%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86/"},{"date":"2020-07-30","title":"http协议详解","url":"http://salute61.top/2020/07/30/http%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"},{"date":"2020-07-30","title":"kill与kill-9区别","url":"http://salute61.top/2020/07/30/kill%E4%B8%8Ekill-9/"},{"date":"2020-07-30","title":"网络安全基础知识","url":"http://salute61.top/2020/07/30/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"},{"date":"2020-07-31","title":"https协议详解","url":"http://salute61.top/2020/07/31/https%E5%8D%8F%E8%AE%AE%E8%AF%A6%E8%A7%A3/"},{"date":"2020-07-31","title":"maven学习","url":"http://salute61.top/2020/07/31/maven%E5%AD%A6%E4%B9%A0/"},{"date":"2020-08-02","title":"Java集合（一）概述","url":"http://salute61.top/2020/08/02/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%80%EF%BC%89%E6%A6%82%E8%BF%B0/"},{"date":"2020-08-03","title":"Java中equals与==用法","url":"http://salute61.top/2020/08/03/Java%E4%B8%ADequals%E4%B8%8E-%E7%94%A8%E6%B3%95/"},{"date":"2020-08-03","title":"Java集合（三）Set接口","url":"http://salute61.top/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%B8%89%EF%BC%89Set%E6%8E%A5%E5%8F%A3/"},{"date":"2020-08-03","title":"Java字符串","url":"http://salute61.top/2020/08/03/Java%E5%AD%97%E7%AC%A6%E4%B8%B2/"},{"date":"2020-08-03","title":"Java集合（二）List接口","url":"http://salute61.top/2020/08/03/Java%E9%9B%86%E5%90%88%EF%BC%88%E4%BA%8C%EF%BC%89List%E6%8E%A5%E5%8F%A3/"},{"date":"2020-08-04","title":"Java类与对象","url":"http://salute61.top/2020/08/04/Java%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1/"},{"date":"2020-08-09","title":"Java集合（四）Map接口","url":"http://salute61.top/2020/08/09/Java%E9%9B%86%E5%90%88%EF%BC%88%E5%9B%9B%EF%BC%89Map%E6%8E%A5%E5%8F%A3/"},{"date":"2020-08-17","title":"常见排序算法总结","url":"http://salute61.top/2020/08/17/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/"},{"date":"2020-08-20","title":"面向对象分析与设计——用例","url":"http://salute61.top/2020/08/20/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%88%86%E6%9E%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%E7%94%A8%E4%BE%8B/"},{"date":"2020-08-24","title":"Idea中的Debug学习","url":"http://salute61.top/2020/08/24/Idea%E4%B8%AD%E7%9A%84Debug%E5%AD%A6%E4%B9%A0/"},{"date":"2020-09-28","title":"Mybaits学习二:Mybatis配置文件","url":"http://salute61.top/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%BA%8C-Mybatis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/"},{"date":"2020-09-28","title":"Mybaits学习一-第一个Mybaits程序","url":"http://salute61.top/2020/09/28/Mybaits%E5%AD%A6%E4%B9%A0%E4%B8%80-%E7%AC%AC%E4%B8%80%E4%B8%AAMybaits%E7%A8%8B%E5%BA%8F/"},{"date":"2020-10-03","title":"Mybatis学习五-动态SQL","url":"http://salute61.top/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%BA%94-%E5%8A%A8%E6%80%81SQL/"},{"date":"2020-10-03","title":"Mybatis学习四-一对多与多对一","url":"http://salute61.top/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E4%B8%80%E5%AF%B9%E5%A4%9A%E4%B8%8E%E5%A4%9A%E5%AF%B9%E4%B8%80/"},{"date":"2020-10-03","title":"Mybatis学习三-注解开发","url":"http://salute61.top/2020/10/03/Mybatis%E5%AD%A6%E4%B9%A0%E4%B8%89-%E6%B3%A8%E8%A7%A3%E5%BC%80%E5%8F%91/"},{"date":"2020-10-05","title":"Mybatis学习六-缓存","url":"http://salute61.top/2020/10/05/Mybatis%E5%AD%A6%E4%B9%A0%E5%85%AD-%E7%BC%93%E5%AD%98/"},{"date":"2020-10-05","title":"Spring学习一-初识Spring","url":"http://salute61.top/2020/10/05/Spring%E5%AD%A6%E4%B9%A0%E4%B8%80-%E5%88%9D%E8%AF%86Spring/"},{"date":"2020-10-09","title":"Spring学习二-配置及依赖注入DI","url":"http://salute61.top/2020/10/09/Spring%E5%AD%A6%E4%B9%A0%E4%BA%8C-%E9%85%8D%E7%BD%AE%E5%8F%8A%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5DI/"},{"date":"2020-10-09","title":"Typora+PicGo简化图床操作","url":"http://salute61.top/2020/10/09/Typora-PicGo%E7%AE%80%E5%8C%96%E5%9B%BE%E5%BA%8A%E6%93%8D%E4%BD%9C/"},{"date":"2020-10-14","title":"spring学习三-自动装配","url":"http://salute61.top/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E4%B8%89-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/"},{"date":"2020-10-14","title":"spring学习四-静态/动态代理","url":"http://salute61.top/2020/10/14/spring%E5%AD%A6%E4%B9%A0%E5%9B%9B-%E9%9D%99%E6%80%81-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/"},{"date":"2020-10-15","title":"Spring学习五-AOP学习","url":"http://salute61.top/2020/10/15/Spring%E5%AD%A6%E4%B9%A0%E4%BA%94-AOP%E5%AD%A6%E4%B9%A0/"},{"date":"2020-10-19","title":"Spring学习六-整合Mybatis","url":"http://salute61.top/2020/10/19/Spring%E5%AD%A6%E4%B9%A0%E5%85%AD-%E6%95%B4%E5%90%88Mybatis/"},{"date":"2020-11-04","title":"Servlet学习一-Servlet入门","url":"http://salute61.top/2020/11/04/Servlet%E5%AD%A6%E4%B9%A0%E4%B8%80-Servlet%E5%85%A5%E9%97%A8/"},{"date":"2020-11-05","title":"Servlet学习二-ServletContext及应用、ServletConfig","url":"http://salute61.top/2020/11/05/Servlet%E5%AD%A6%E4%B9%A0%E4%BA%8C-ServletContext%E5%8F%8A%E5%BA%94%E7%94%A8%E3%80%81ServletConfig/"},{"date":"2020-11-09","title":"Java自动装拆箱","url":"http://salute61.top/2020/11/09/Java%E8%87%AA%E5%8A%A8%E8%A3%85%E6%8B%86%E7%AE%B1/"},{"date":"2020-11-09","title":"Servlet学习三-req和resp","url":"http://salute61.top/2020/11/09/Servlet%E5%AD%A6%E4%B9%A0%E4%B8%89-req%E5%92%8Cresp/"},{"date":"2020-11-15","title":"Servlet学习四-Cookie和Session","url":"http://salute61.top/2020/11/15/Servlet%E5%AD%A6%E4%B9%A0%E5%9B%9B-Cookie%E5%92%8CSession/"},{"date":"2020-12-06","title":"leetbook-数组和字符串","url":"http://salute61.top/2020/12/06/leetbook-%E6%95%B0%E7%BB%84%E5%92%8C%E5%AD%97%E7%AC%A6%E4%B8%B2/"},{"date":"2021-03-04","title":"学习排错记录","url":"http://salute61.top/2021/03/04/%E5%AD%A6%E4%B9%A0%E6%8E%92%E9%94%99%E8%AE%B0%E5%BD%95/"},{"date":"2021-03-05","title":"SSM框架整合：SpringMVC+Spring+Mybatis","url":"http://salute61.top/2021/03/05/SSM%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%EF%BC%9ASpringMVC-Spring-Mybatis/"},{"date":"2021-03-10","title":"POI操作Excel","url":"http://salute61.top/2021/03/10/POI%E6%93%8D%E4%BD%9CExcel/"}];
+  var today = moment().format('YYYY-MM-DD');
+  var oneYearAgo = moment(today).subtract(1, 'years');
+  posts = posts.filter(function(post) {
+    return new Date(post.date) > oneYearAgo;
+  });
+  var monthLabels = [];
+  var monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var calendar = getCalendar(posts);
+
+  var dateRange = {
+    start: moment(oneYearAgo).format('MMM D, YYYY'),
+    end: moment().format('MMM D, YYYY')
+  }
+
+  var app = new Vue({
+    el: '#calendar',
+    data: {
+      posts: posts,
+      selectedDate: null,
+      calendar: calendar,
+      dateRange: dateRange,
+      mouseoverDate: null,
+      moment: moment,
+      monthLabels: monthLabels
+    },
+    created: function() {
+      this.selectedDate = 'none';
+    },
+    methods: {},
+    computed: {
+      svgtip: function() {
+        var date = this.mouseoverDate;
+        var display = date ? 'block' : 'none';
+        if (date) {
+          var coordinator = getIndexByDate(date);
+          var x = coordinator[0];
+          var y = coordinator[1];
+          var len = this.calendar[x].days[y].posts.length;
+          var text = len ? len + ' contributions' : 'No contributions';
+          var left = coordinator[0] * 12 - 37 + 'px';
+          coordinator[1] = coordinator[0] ? coordinator[1] : coordinator[1] + oneYearAgo.day();
+          var top = coordinator[1] * 12 + 12 - 32 + 'px';
+        }
+        return {
+          text: text,
+          left: left,
+          top: top,
+          display: display
+        }
+      }
+    }
+  });
+
+  function getCalendar(posts) {
+    // raw calendar
+    var maxCount = 0;
+    var tmr = new Date();
+    tmr.setDate(tmr.getDate() + 1);
+    var tmrStr = tmr.toISOString().slice(0, 10);
+    var date = new Date();
+    date.setYear(date.getFullYear() - 1); // start date is a year ago;
+    var calendar = [];
+    while (date.toISOString().slice(0, 10) !== tmrStr) {
+      var day = date.getDay();
+      if (day === 0 || calendar.length === 0) {
+        var x = calendar.length * 13;
+        calendar.push({
+          transform: 'translate(' + x + ',0)',
+          days: []
+        })
+      }
+
+      calendar[calendar.length - 1].days.push({
+        x: 14 - calendar.length,
+        y: day * 12,
+        date: date.toISOString().slice(0, 10),
+        posts: []
+      });
+
+      if (day === 0 && date.getDate() < 8) {
+        monthLabels.push({
+          x: 14 - calendar.length + x,
+          text: monthName[date.getMonth() - 1]
+        })
+      }
+
+      date.setDate(date.getDate() + 1);
+    }
+
+    // handle post info
+    posts.forEach(function(post) {
+      var x = getIndexByDate(post.date)[0];
+      var y = getIndexByDate(post.date)[1];
+
+      calendar[x].days[y].posts.push({
+        title: post.title,
+        url: post.url
+      });
+
+      var len = calendar[x].days[y].posts.length;
+      maxCount = Math.max(len, maxCount);
+    })
+
+    // handle fill color
+    calendar.forEach(function(week) {
+      week.days.forEach(function(day) {
+        day.fill = getColorByLength(day.posts.length, maxCount);
+      })
+    })
+
+    return calendar;
+  }
+
+  function getIndexByDate(date) {
+    date = moment(date);
+    var firstColumnLen = 7 - oneYearAgo.day();
+    var days = date.diff(oneYearAgo, 'days');
+
+    var x = days > firstColumnLen - 1 ? Math.ceil((days - firstColumnLen + 1) / 7) : 0;
+    var y = days > firstColumnLen - 1 ? date.day() : date.day() - oneYearAgo.day();
+    return [x, y];
+  }
+
+  function getColorByLength(len, max) {
+    var colors = ['#eee', '#d6e685', '#8cc665', '#44a340', '#1e6823'];
+    var colorsLen = colors.length - 1;
+    var color = len ? colors[0] : colors[1];
+    var interval = max / colorsLen;
+    if (max < colorsLen) {
+      color = colors[len];
+    } else {
+      color = colors[Math.ceil(len / interval)];
+    }
+    return color;
   }
 
 </script>
 
 
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
-<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
-
-<script src="/dist/main.js"></script>
-
-
-
-<!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
     </div>
-
-</div>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
-<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
-
-<script>
-    function viewer_init() {
-        let pswpElement = document.querySelectorAll('.pswp')[0];
-        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
-
-        $imgArr.forEach(($em, i) => {
-            $em.onclick = () => {
-                // slider展开状态
-                // todo: 这样不好，后面改成状态
-                if (document.querySelector('.left-col.show')) return
-                let items = []
-                $imgArr.forEach(($em2, i2) => {
-                    let img = $em2.getAttribute('data-idx', i2)
-                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
-                    let title = $em2.getAttribute('alt')
-                    // 获得原图尺寸
-                    const image = new Image()
-                    image.src = src
-                    items.push({
-                        src: src,
-                        w: image.width || $em2.width,
-                        h: image.height || $em2.height,
-                        title: title
-                    })
-                })
-                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
-                    index: parseInt(i)
-                });
-                gallery.init()
-            }
-        })
-    }
-    viewer_init()
-</script>
-
-
-
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-
-<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
-
-  
-<script src="/js/clickLove.js"></script>
-
-
-
-    
-    <div id="music">
-    
-    
-    
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1215678&auto=0&height=66"></iframe>
-</div>
-
-<style>
-    #music {
-        position: fixed;
-        right: 15px;
-        bottom: 0;
-        z-index: 998;
-    }
-</style>
-    
   </div>
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</div>
 
+</div>
+
+<div class="footer-wrapper container">
+  <footer class="footer clearfix">
+    <div class="clearfix">
+    <a href="http://salute61.top" class="footer-logo">
+      <i class="fa fa-github"></i>
+    </a>
+    <ul class="footer-social-link">
+      <li>© 2019 LY</li>
+      <li><a href="http://salute61.top">Home</a></li>
+      
+      <li><a href="https://github.com/61hhh" target="_blank" rel="noopener">Github</a></li>
+      
+    </ul>
+    <div class="footer-theme-info">
+      Theme <a href="//github.com/sabrinaluo/hexo-theme-replica" target="_blank" rel="noopener">Replica</a>
+      by <a href="//github.com/sabrinaluo" target="_blank" rel="noopener">Hiitea</a> ❤ Powered by Hexo
+    </div>
+    </div>
+    
+  </footer>
+</div>
+
+
+
+
+<script src="/js/main.js"></script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":150,"height":300,"position":"right","hOffset":50,"vOffset":100},"mobile":{"show":false,"scale":null},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
 </html>
