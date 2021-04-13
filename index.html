@@ -103,78 +103,6 @@ var _hmt = _hmt || [];
     
     
     
-    <article id="apache-POI操作Excel" class="article article-type-apache" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/10/POI%E6%93%8D%E4%BD%9CExcel/"
-    >POI操作Excel</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2021/03/10/POI%E6%93%8D%E4%BD%9CExcel/" class="article-date">
-  <time datetime="2021-03-10T07:26:14.000Z" itemprop="datePublished">2021-03-10</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>s</p>
-<h2 id="学习原因"><a href="#学习原因" class="headerlink" title="学习原因"></a>学习原因</h2><p>实习的一个小任务，公司做的BI创建文件数据集时，导入excel文件会出现读不到函数表达式的值（例如A1=1，B1=2，C1=A1+B1。读出来C1为0）</p>
-<p>公司用的是Apache POI，一般来说这个是有函数API可以直接调用的，在<code>StackOverFlow</code>上也找到了，不过我感觉还是过一遍的好。</p>
-<h2 id="Apache-POI"><a href="#Apache-POI" class="headerlink" title="Apache POI"></a>Apache POI</h2><p>Java操作excel可以用传统的io流，但是效率不好，Apache提供了封装好的<code>Apache POI</code>实现Java对excel的操作。</p>
-<p><img src="http://img2.salute61.top/PicGo/image-20210314145218502.png" alt="image-20210314145218502"></p>
-<p>参考</p>
-<p><a href="https://howtodoinjava.com/java/library/readingwriting-excel-files-in-java-poi-tutorial/#using_formulas" target="_blank" rel="noopener">Apache POI – Read and Write Excel File in Java</a></p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
     <article id="post-SSM框架整合：SpringMVC-Spring-Mybatis" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -831,6 +759,89 @@ var _hmt = _hmt || [];
 <p><img src="http://img2.salute61.top/PicGo/image-20201019150555265.png" alt="image-20201019150555265"></p>
       
       <a class="article-more-link" href="/2020/10/19/Spring%E5%AD%A6%E4%B9%A0%E5%85%AD-%E6%95%B4%E5%90%88Mybatis/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-Spring学习五-AOP学习" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/15/Spring%E5%AD%A6%E4%B9%A0%E4%BA%94-AOP%E5%AD%A6%E4%B9%A0/"
+    >Spring学习五-AOP学习</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/10/15/Spring%E5%AD%A6%E4%B9%A0%E4%BA%94-AOP%E5%AD%A6%E4%B9%A0/" class="article-date">
+  <time datetime="2020-10-15T09:21:48.000Z" itemprop="datePublished">2020-10-15</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/">Java框架</a> / <a class="article-category-link" href="/categories/Java%E6%A1%86%E6%9E%B6/Spring/">Spring</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="AOP介绍"><a href="#AOP介绍" class="headerlink" title="AOP介绍"></a>AOP介绍</h2><p>AOP（Aspect Oriented Programming）面向切面编程，是针对面向对象编程的一种补充，同时也是spring中第二个最核心的功能，例如可以进行权限认证，日志输出等，可以无侵入的对原来的功能进行切面加入自定义的非业务功能。</p>
+<p><strong>实现AOP的技术：</strong></p>
+<ul>
+<li>一是采用动态代理技术，利用截取消息的方式，对该消息进行装饰，以取代原有对象行为的执行；</li>
+<li>二是采用静态织入的方式，引入特定的语法创建“方面”，从而使得编译器可以在编译期间织入有关“方面”的代码。</li>
+</ul>
+<p><strong>AOP用于SpringFramwork中：</strong></p>
+<ul>
+<li>提供声明式企业服务。 最重要的服务是声明式事务管理。</li>
+<li>让用户实现自定义方面，以AOP补充其对OOP的使用。</li>
+</ul>
+<p><img src="http://img2.salute61.top/PicGo/SpringAOP01.png" alt=""></p>
+      
+      <a class="article-more-link" href="/2020/10/15/Spring%E5%AD%A6%E4%B9%A0%E4%BA%94-AOP%E5%AD%A6%E4%B9%A0/">阅读更多...</a>
       
       
       <!-- reward -->
