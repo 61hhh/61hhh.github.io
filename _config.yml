@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+title: Salute
+subtitle:
+description: Be Yourself
+keywords: "do something"
+author: LY
+language: zh-CN
+timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: http://hexo.salute61.top/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -28,7 +28,7 @@ archive_dir: archives
 category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
-skip_render:
+skip_render: README.md #部署的时候不包含的文件
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -94,10 +94,18 @@ include:
 exclude:
 ignore:
 
-# Extensions
+# Extensions 插件
 ## Plugins: https://hexo.io/plugins/
+plugins: 
+    hexo-generator-feed
+#Feed Atom 提供RSS功能
+feed:
+    type: atom
+    path: atom.xml
+
+# Themes 主题
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: yun
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -107,4 +115,4 @@ deploy:
     # coding: git@e.coding.net:salute61/61hhh.git #git@e.coding.net:salute61/61hhh.git
     github: git@github.com:61hhh/61hhh.github.io.git #git@47.92.108.230:/home/git/repos/HGBlog.git
   branch: master
-  message: Update Hexo Static Content # 自定义此次部署更新的说明
+  message: update static markdown article # 自定义此次部署更新的说明
