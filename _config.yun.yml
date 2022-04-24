@@ -1,0 +1,5 @@
+# 自定义头像图片
+# avatar:
+#   url: /images/avatar.jpg
+#   rounded: true
+#   opacity: 1
