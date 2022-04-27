@@ -15,7 +15,7 @@ social:
 # UI
 banner:
   enable: true
-  title: Salute61
+  title: 不羁的风
   border: true
   cloud:
     enable: true
@@ -29,7 +29,7 @@ bg_image:
   enable: true
   url: /images/coverMe.jpg # recomend image related to your mode
   dark: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/galaxy.jpg
-  # blur: 30px
+  # blur: 10px
   opacity: 1
 
 # Extra links 改为推荐
@@ -39,14 +39,12 @@ pages:
     icon: icon-genderless-line
     color: dodgerblue
 
-# # Show number of visitors of each article.
-# # You can visit https://www.leancloud.cn to get AppID and AppKey.
-# leancloud_visitors:
-#   enable: true
-#   app_id:  # <your app id>
-#   app_key:  # <your app key>
-#   # Required for apps from CN region
-#   server_url: https://shf8mux9.lc-cn-n1-shared.com # <your server url>
+# 显示文章访问量和评论量.
+# You can visit https://www.leancloud.cn to get AppID and AppKey.
+leancloud_visitors:
+  enable: true
+  app_id:  TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI # <your app id>
+  app_key:  MMJsM8cWGY7bEm704Dl6269n # <your app key>
 
 # https://waline.js.org/
 waline:
@@ -56,6 +54,18 @@ waline:
   # display comment count
   comment: true
 
-# 标签词云
-wordcloud:
+# # 标签词云效果
+# wordcloud:
+#   enable: true
+
+# Google分析
+google_analytics:
   enable: true
+  # GA4 采用新的GA4取代原有的通用应用
+  id: G-TGD6JKV63N
+
+# 跳过Hexo的渲染
+skip_render:
+  - README.md
+  - baidu_verify_iy61Ytn0Lm.html
+  - googled2e2ddbb7fc7dc7e.html
