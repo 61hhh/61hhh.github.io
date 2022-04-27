@@ -1,5 +1,6 @@
 ---
 title: 用hexo+github Page搭建博客
+date: 2020-04-10 08:00:00
 tags: hexo
 categories: 博客
 ---

@@ -1,5 +1,61 @@
-# 自定义头像图片
-# avatar:
-#   url: /images/avatar.jpg
-#   rounded: true
-#   opacity: 1
+social:
+  - name: RSS
+    link: /atom.xml # config.feed.path
+    icon: icon-rss-line
+    color: orange
+  - name: GitHub
+    link: https://github.com/61hhh
+    icon: icon-github-line
+    color: "#6e5494"
+  - name: E-Mail
+    link: salute61@163.com
+    icon: icon-mail-line
+    color: "#8E71C1"
+
+# UI
+banner:
+  enable: true
+  title: Salute61
+  border: true
+  cloud:
+    enable: true
+    color: "white"
+  go_down:
+    enable: true
+    icon: icon-arrow-down-s-line
+
+# 背景图
+bg_image:
+  enable: true
+  url: /images/coverMe.jpg # recomend image related to your mode
+  dark: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/galaxy.jpg
+  # blur: 30px
+  opacity: 1
+
+# Extra links 改为推荐
+pages:
+  - name: 书|影|音
+    url: /recommend/
+    icon: icon-genderless-line
+    color: dodgerblue
+
+# # Show number of visitors of each article.
+# # You can visit https://www.leancloud.cn to get AppID and AppKey.
+# leancloud_visitors:
+#   enable: true
+#   app_id:  # <your app id>
+#   app_key:  # <your app key>
+#   # Required for apps from CN region
+#   server_url: https://shf8mux9.lc-cn-n1-shared.com # <your server url>
+
+# https://waline.js.org/
+waline:
+  enable: true
+  serverURL: waline-server-sepia.vercel.app # https://your-domain.vercel.app
+  # visitor: false
+  # display comment count
+  comment: true
+
+# 标签词云
+wordcloud:
+  enable: true
