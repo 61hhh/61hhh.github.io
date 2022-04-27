@@ -116,11 +116,17 @@ deploy:
     github: git@github.com:61hhh/61hhh.github.io.git #git@47.92.108.230:/home/git/repos/HGBlog.git
   branch: master
   message: update static markdown article # 自定义此次部署更新的说明
-- type: baidu_url_submitter
+- type: baidu_url_submitter 
 
 ##主动推送
 baidu_url_submit: 
     count: 100 # 提交最新的一个链接
-    host: http://hexo.salute61.top/ # 你注册的域名
+    host: https://salute61.top/ # 百度站长平台中添加的域名
     token: KjnKjr1d6Vj1Ngpa #token后的字段
     path: baidu_urls.txt #文本文档的地址， 新链接会保存在此文本文档里
+
+# 自动生成sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
