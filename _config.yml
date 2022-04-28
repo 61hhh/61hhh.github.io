@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://hexo.salute61.top/
+url: http://hexo.salute61.top/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -94,8 +94,8 @@ include:
 exclude:
 ignore:
 
-# Extensions 插件
-## Plugins: https://hexo.io/plugins/
+
+## 插件: https://hexo.io/plugins/
 plugins: 
     hexo-generator-feed
 #Feed Atom 提供RSS功能
@@ -103,12 +103,12 @@ feed:
     type: atom
     path: atom.xml
 
-# Themes 主题
-## Themes: https://hexo.io/themes/
+
+## 主题: https://hexo.io/themes/
 theme: yun
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
+
+## Deployment Docs: https://hexo.io/docs/one-command-deployment
 deploy:
 - type: git
   repo:

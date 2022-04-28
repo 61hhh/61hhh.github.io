@@ -73,3 +73,7 @@ skip_render:
 # SEO
 # https://ziyuan.baidu.com/linksubmit/index
 baidu_push: true
+
+# https://github.com/wzpan/hexo-generator-search
+local_search:
+  enable: true
