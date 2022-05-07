@@ -27,8 +27,8 @@ banner:
 # 背景图
 bg_image:
   enable: true
-  url: /images/coverMe.jpg # recomend image related to your mode
-  dark: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/galaxy.jpg
+  url: /images/lightBG.jpg # recomend image related to your mode
+  dark: /images/darkBG.jpg
   # blur: 10px
   opacity: 1
 
@@ -54,10 +54,6 @@ waline:
   # display comment count
   comment: true
 
-# # 标签词云效果
-# wordcloud:
-#   enable: true
-
 # Google分析
 google_analytics:
   enable: true
@@ -77,3 +73,12 @@ baidu_push: true
 # https://github.com/wzpan/hexo-generator-search
 local_search:
   enable: true
+
+# Favicon
+# ---------------
+favicon: /images/iconMe.svg
+
+# Sidebar Avatar
+avatar:
+  enable: true
+  url: /images/iconMe.png
