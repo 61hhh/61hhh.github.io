@@ -82,3 +82,19 @@ favicon: /images/iconMe.svg
 avatar:
   enable: true
   url: /images/iconMe.png
+
+# 打赏
+reward:
+  enable: true
+  icon: icon-hand-coin-line
+  comment: I'm so cute. Please give me money.
+  # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
+  methods:
+    - name: 支付宝
+      path: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/AliPay.jpg
+      color: "#00A3EE"
+      icon: icon-alipay-line
+    - name: 微信支付
+      path: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/WechatPay.jpg
+      color: "#2DC100"
+      icon: icon-wechat-pay-line
