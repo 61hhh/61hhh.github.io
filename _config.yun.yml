@@ -27,8 +27,8 @@ banner:
 # 背景图
 bg_image:
   enable: true
-  url: /images/lightBG.jpg # recomend image related to your mode
-  dark: /images/darkBG.jpg
+  url: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/lightBG.jpg # recomend image related to your mode
+  dark: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/darkBG.jpg
   # blur: 10px
   opacity: 1
 
@@ -81,7 +81,7 @@ favicon: /images/iconMe.svg
 # Sidebar Avatar
 avatar:
   enable: true
-  url: /images/iconMe.png
+  url: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/iconMe.png
 
 # 打赏
 reward:

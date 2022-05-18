@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://hexo.salute61.top/
+url: https://salute61.top/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -112,7 +112,7 @@ theme: yun
 deploy:
 - type: git
   repo:
-    # coding: git@e.coding.net:salute61/61hhh.git #git@e.coding.net:salute61/61hhh.git
+    coding: https://e.coding.net/salute61/61hhh/61hhh.git
     github: git@github.com:61hhh/61hhh.github.io.git #git@47.92.108.230:/home/git/repos/HGBlog.git
   branch: master
   message: update static markdown article # 自定义此次部署更新的说明
