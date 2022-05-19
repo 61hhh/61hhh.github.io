@@ -27,8 +27,8 @@ banner:
 # 背景图
 bg_image:
   enable: true
-  url: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/lightBG.jpg # recomend image related to your mode
-  dark: https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/darkBG.jpg
+  url: /images/lightBG.jpg # https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/lightBG.jpg
+  dark: /images/darkBG.jpg #https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/darkBG.jpg
   # blur: 10px
   opacity: 1
 
