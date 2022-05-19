@@ -6,4 +6,4 @@ Hexo博客
 
 - 调整了基本的样式、域名等 
 - Google Analysis 和 百度收录
-- 部署到vercel上
+- 部署到vercel上:61hhh-github-io.vercel.app
