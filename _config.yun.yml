@@ -19,7 +19,7 @@ banner:
   border: true
   cloud:
     enable: true
-    color: "white"
+    color: "grey"
   go_down:
     enable: true
     icon: icon-arrow-down-s-line
@@ -27,17 +27,17 @@ banner:
 # 背景图
 bg_image:
   enable: true
-  url: /images/lightBG.jpg # https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/lightBG.jpg
-  dark: /images/darkBG.jpg #https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/darkBG.jpg
+  url: /images/day.jpg # https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/lightBG.jpg
+  dark: /images/night.jpg #https://cdn.jsdelivr.net/gh/61hhh/imageLake@main/darkBG.jpg
   # blur: 10px
   opacity: 1
 
 # Extra links 改为推荐
 pages:
-  - name: 书|影|音
-    url: /recommend/
+  - name: 61nav
+    url: https://61navigator.vercel.app/
     icon: icon-genderless-line
-    color: dodgerblue
+    color: "#81D8D0"
 
 # 显示文章访问量和评论量.
 # You can visit https://www.leancloud.cn to get AppID and AppKey.
