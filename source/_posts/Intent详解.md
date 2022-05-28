@@ -1,8 +1,9 @@
 ---
 title: Intent详解
-date: 2020-07-02 21:14:42
 tags: Android
 categories: 学习
+abbrlink: 89a5df9d
+date: 2020-07-02 21:14:42
 ---
 
 # Android中使用Intent的总结

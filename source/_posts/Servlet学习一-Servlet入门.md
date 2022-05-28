@@ -1,8 +1,9 @@
 ---
 title: Servlet学习一-Servlet入门
-date: 2020-11-04 15:58:30
 tags: JavaWeb
 categories: Java
+abbrlink: e7515609
+date: 2020-11-04 15:58:30
 ---
 
 ## Servlet简介

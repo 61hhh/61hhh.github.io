@@ -1,8 +1,9 @@
 ---
 title: Mybatis学习四-一对多与多对一
-date: 2020-10-03 17:48:30
 tags: Mybatis
 categories: Mybatis
+abbrlink: 125ac04c
+date: 2020-10-03 17:48:30
 ---
 
 ## 问题引入

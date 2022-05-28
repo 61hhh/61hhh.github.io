@@ -1,8 +1,9 @@
 ---
 title: 用hexo+github Page搭建博客
-date: 2020-04-10 08:00:00
 tags: hexo
 categories: 博客
+abbrlink: 6d909da5
+date: 2020-04-10 08:00:00
 ---
 基本原理：Hexo是github上一个优秀的开源博客框架，支持markdown解析文章，有多种第三方主题插件供选择。先由hexo将.md文件生成静态网页.html文件，然后上传到你创建的个人GitHub仓库，这个仓库比较特殊，相当于是github为我们提供的展示网页的资源挂载库。因此hexo+github全程的搭建免费且便捷。我们只需要自己购买一个域名解析到对应的github-page就行了。
 

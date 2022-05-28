@@ -1,8 +1,9 @@
 ---
 title: kill与kill-9区别
-date: 2020-07-30 16:09:16
 tags: Linux
 categories: 学习
+abbrlink: baea57e9
+date: 2020-07-30 16:09:16
 ---
 
 面试被问到，之前Linux课老师还提过结果答不上来。。

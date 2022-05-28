@@ -1,8 +1,9 @@
 ---
 title: Mybatis学习三-注解开发
-date: 2020-10-03 17:47:44
 tags: Mybatis
 categories: Mybatis
+abbrlink: c325d665
+date: 2020-10-03 17:47:44
 ---
 
 ## 依赖倒转原则(DIP)

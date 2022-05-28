@@ -1,9 +1,10 @@
 ---
 title: Java基础回顾——基础语法
-date: 2020-07-21 17:41:34
 tags: Java基础
 categories:
-	- Java
+  - Java
+abbrlink: 98c92646
+date: 2020-07-21 17:41:34
 ---
 
 之前上Java课时，找到一个非常好的网站[how2j](https://how2j.cn/)（**强推!!!**），结合这个网站和上课把Java SE的知识过完了，但是到现在过了这么久，用的也不是很多，所以很多知识点都有点遗忘了，现在用[实验楼](https://www.shiyanlou.com/)再过一遍知识点

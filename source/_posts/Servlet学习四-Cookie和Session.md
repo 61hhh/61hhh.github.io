@@ -1,8 +1,9 @@
 ---
 title: Servlet学习四-Cookie和Session
-date: 2020-11-15 13:34:20
 tags: JavaWeb
 categories: Java
+abbrlink: e0643af3
+date: 2020-11-15 13:34:20
 ---
 
 ## 会话

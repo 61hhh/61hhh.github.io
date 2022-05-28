@@ -1,8 +1,9 @@
 ---
 title: maven学习
-date: 2020-07-31 21:56:16
 tags: maven
 categories: 学习
+abbrlink: e5dd7f0f
+date: 2020-07-31 21:56:16
 ---
 
 ### Maven简介

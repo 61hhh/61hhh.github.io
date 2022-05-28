@@ -1,8 +1,9 @@
 ---
 atitle: 'Mybaits学习一:第一个Mybaits程序'
-date: 2020-09-28 17:36:07
 tags: Mybatis
 categories: Mybatis
+abbrlink: '0'
+date: 2020-09-28 17:36:07
 ---
 
 ### 前言

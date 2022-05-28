@@ -1,8 +1,9 @@
 ---
 title: http协议详解
-date: 2020-07-30 16:37:10
 tags: 计网
 categories: 基础
+abbrlink: 5806080f
+date: 2020-07-30 16:37:10
 ---
 
 面试被问到http与https的区别，当时上课应用层主要就讲了个DNS域名系统，http一带而过https没提。。。

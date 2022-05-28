@@ -1,8 +1,9 @@
 ---
 title: Java集合（三）Set接口
-date: 2020-08-03 21:21:17
 tags: Java基础
 categories: Java
+abbrlink: ca7445de
+date: 2020-08-03 21:21:17
 ---
 
 ## 一、Set集合

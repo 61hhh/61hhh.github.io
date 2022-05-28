@@ -1,8 +1,9 @@
 ---
 title: Java中equals与==用法
-date: 2020-08-03 21:39:02
 tags: Java基础
 categories: Java
+abbrlink: f8b67ba9
+date: 2020-08-03 21:39:02
 ---
 
 有两种用法说明:

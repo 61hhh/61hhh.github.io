@@ -1,8 +1,9 @@
 ---
 title: Spring学习六-整合Mybatis
-date: 2020-10-19 14:55:47
 tags: Spring
 categories: Spring
+abbrlink: 349c2981
+date: 2020-10-19 14:55:47
 ---
 
 ## 介绍

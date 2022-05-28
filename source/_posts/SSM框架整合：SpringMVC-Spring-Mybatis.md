@@ -1,8 +1,9 @@
 ---
 title: SSM框架整合：SpringMVC+Spring+Mybatis
-date: 2021-03-05 12:26:14
 tags: SSM
 categories: Spring
+abbrlink: 2dd9e0d6
+date: 2021-03-05 12:26:14
 ---
 
 ## 前言

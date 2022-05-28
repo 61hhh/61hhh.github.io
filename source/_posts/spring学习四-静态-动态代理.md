@@ -1,8 +1,9 @@
 ---
 title: spring学习四-静态/动态代理
-date: 2020-10-14 15:38:16
 tags: Spring
 categories: Spring
+abbrlink: f994cdda
+date: 2020-10-14 15:38:16
 ---
 
 ## 介绍

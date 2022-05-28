@@ -1,8 +1,9 @@
 ---
 title: 将hexo博客部署到coding上
-date: 2020-04-14 15:56:03
 tags: hexo
 categories: 博客
+abbrlink: '6333e931'
+date: 2020-04-14 15:56:03
 ---
 
 ### 前言

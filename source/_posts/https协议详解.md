@@ -1,8 +1,9 @@
 ---
 title: https协议详解
-date: 2020-07-31 16:13:40
 tags: 计网
 categories: 基础
+abbrlink: dc4a4f4
+date: 2020-07-31 16:13:40
 ---
 
 ### HTTPS简介

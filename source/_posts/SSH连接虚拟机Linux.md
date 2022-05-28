@@ -1,8 +1,9 @@
 ---
 title: SSH连接虚拟机Linux
-date: 2020-07-08 15:56:05
 tags: ssh
 categories: 学习
+abbrlink: 6e919bfb
+date: 2020-07-08 15:56:05
 ---
 
 看到网上的一个项目部署视频，提到配置虚拟机的Linux服务器，由于之前Linux课已经有现成的Ubuntu系统，网络配置也已经完成，只需要配置远程连接即可

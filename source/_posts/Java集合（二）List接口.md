@@ -1,8 +1,9 @@
 ---
 title: Java集合（二）List接口
-date: 2020-08-03 09:19:03
 tags: Java基础
 categories: Java
+abbrlink: 2789e08f
+date: 2020-08-03 09:19:03
 ---
 
 

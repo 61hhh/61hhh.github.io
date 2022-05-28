@@ -1,8 +1,9 @@
 ---
 title: ICMP协议应用
-date: 2020-07-09 16:03:42
 tags: 计网
 categories: 基础
+abbrlink: 26507caa
+date: 2020-07-09 16:03:42
 ---
 
 ## ICMP协议应用

@@ -1,8 +1,9 @@
 ---
 title: 解决hexo部署GitHub报错问题
-date: 2020-07-02 21:29:34
 tags: hexo
 categories: 博客
+abbrlink: c23396ba
+date: 2020-07-02 21:29:34
 ---
 
 解决GitHub部署遇到的一个小问题，虽然小问题却也困扰了一晚上，还要多积累啊。。

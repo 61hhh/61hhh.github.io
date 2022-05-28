@@ -1,8 +1,9 @@
 ---
 title: hexo博客提交Google和百度收录
-date: 2020-04-16 20:25:09
 tags: hexo
 categories: 博客
+abbrlink: 750226c4
+date: 2020-04-16 20:25:09
 ---
 
 ## 前言

@@ -1,9 +1,10 @@
 ---
 title: 虚拟机安装CentOS并配置静态IP
-date: 2021-11-26 13:56:36
 tags: CentOS
 categories: 环境
 comment: true
+abbrlink: e0a94a43
+date: 2021-11-26 13:56:36
 ---
 
 安装步骤

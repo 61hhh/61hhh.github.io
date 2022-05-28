@@ -1,8 +1,9 @@
 ---
 title: Mybatis学习五-动态SQL
-date: 2020-10-03 17:49:15
 tags: Mybatis
 categories: Mybatis
+abbrlink: 3e64f5c6
+date: 2020-10-03 17:49:15
 ---
 
 ## 介绍

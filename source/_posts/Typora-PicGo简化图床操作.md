@@ -1,8 +1,9 @@
 ---
 title: Typora+PicGo简化图床操作
-date: 2020-10-09 14:32:23
 tags: 图床
 categories: 学习
+abbrlink: f39da986
+date: 2020-10-09 14:32:23
 ---
 
 ## 前言

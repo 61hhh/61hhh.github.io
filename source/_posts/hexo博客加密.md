@@ -1,8 +1,9 @@
 ---
 title: hexo博客加密
-date: 2020-04-18 21:04:06
 tags: hexo
 categories: 博客
+abbrlink: f0a4488f
+date: 2020-04-18 21:04:06
 ---
 
 有时当我们写了一篇博客，但并不想所有人能够访问它。对于`WordPress`这很容易做到，但是对于hexo，由于是静态网页，并不能做到完全的加密。

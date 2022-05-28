@@ -1,8 +1,9 @@
 ---
 title: Js中的let和const命令
-date: 2020-04-25 22:05:26
 tags: Js
 categories: 前端基础
+abbrlink: fa6e05a2
+date: 2020-04-25 22:05:26
 ---
 
 ## 前言

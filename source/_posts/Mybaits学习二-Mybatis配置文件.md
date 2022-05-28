@@ -1,8 +1,9 @@
 ---
 title: 'Mybaits学习二:Mybatis配置文件'
-date: 2020-09-28 17:40:42
 tags: Mybatis
 categories: Mybatis
+abbrlink: 80bab4e7
+date: 2020-09-28 17:40:42
 ---
 
 Mybatis最重要的就是它的配置，而配置包含了Mybatis的至关重要的设置和属性等信息，官方文档中也专门给出一节来讲配置文件。本篇博客也是以[官方中文文档](https://mybatis.org/mybatis-3/zh/)为主要依据记笔记

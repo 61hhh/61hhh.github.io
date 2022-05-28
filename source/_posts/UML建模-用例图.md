@@ -1,8 +1,9 @@
 ---
 title: UML建模--用例图
-date: 2020-05-11 16:39:06
 tags: UML
 categories: 学习
+abbrlink: 208504bf
+date: 2020-05-11 16:39:06
 ---
 
 ## 前言

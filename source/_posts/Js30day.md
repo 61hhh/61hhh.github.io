@@ -1,8 +1,9 @@
 ---
 title: Js30day
-date: 2020-06-01 21:57:39
 tags: Js
 categories: 前端基础
+abbrlink: fcea4053
+date: 2020-06-01 21:57:39
 ---
 
 # Javascript30-纯JS代码挑战

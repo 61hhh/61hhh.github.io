@@ -1,8 +1,9 @@
 ---
 title: Servlet学习三-req和resp
-date: 2020-11-09 18:34:57
 tags: JavaWeb
 categories: Java
+abbrlink: 57c1ff86
+date: 2020-11-09 18:34:57
 ---
 
 ## 一、Request&Response简介

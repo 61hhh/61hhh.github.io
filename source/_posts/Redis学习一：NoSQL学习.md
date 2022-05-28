@@ -1,10 +1,11 @@
 ---
 title: Redis学习一：NoSQL学习
-date: 2021-11-28 00:04:16
-tags: 
-- Redis
-- NoSQL
+tags:
+  - Redis
+  - NoSQL
 categories: Redis
+abbrlink: 57551b57
+date: 2021-11-28 00:04:16
 ---
 
 作为目前最知名也是最流行的开源NoSQL数据库，Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库。因此Redis的学习很有必要。主要通过B站尚硅谷网课和配套资料免费学习。

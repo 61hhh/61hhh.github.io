@@ -1,8 +1,9 @@
 ---
 title: Java集合（一）概述
-date: 2020-08-02 22:13:24
 tags: Java基础
 categories: Java
+abbrlink: 95f49cfb
+date: 2020-08-02 22:13:24
 ---
 
 Java集合是Java SE中的内容，也是非常重要的一部分，但是由于我学习Java SE只是课堂学习，缺少实际项目推动，代码练习也不多，基本上这些知识都是学完就忘。。所以去网上找一些博客，结合Java核心技术做一个笔记

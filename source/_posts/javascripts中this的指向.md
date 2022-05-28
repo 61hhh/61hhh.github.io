@@ -1,8 +1,9 @@
 ---
 title: javascripts中this的指向
-date: 2020-04-10 19:09:28
 tags: Js
 categories: 前端基础
+abbrlink: 2d4e300a
+date: 2020-04-10 19:09:28
 ---
 
 学习Javascript时遇到说this指针的指向问题，因此查找了一些博客教程，作为个人学习的总结。

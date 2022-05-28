@@ -1,8 +1,9 @@
 ---
 title: hexo博客绑定域名
-date: 2020-04-14 12:02:00
 tags: hexo
 categories: 博客
+abbrlink: 12cd500b
+date: 2020-04-14 12:02:00
 ---
 
 搭建的博客，默认域名是GitHub下的二级域名：`61hhh.github.io`，每次输入比较麻烦，而且缺少个性化，因此购买了一个域名，并绑定到博客上。

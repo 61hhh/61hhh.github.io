@@ -1,9 +1,10 @@
 ---
 title: Java基础回顾——面向对象
-date: 2020-07-21 17:46:11
 tags: Java基础
 categories:
-	- Java
+  - Java
+abbrlink: 2d17972e
+date: 2020-07-21 17:46:11
 ---
 
 有关Java面向对象的基础知识笔记——摘自【实验楼】

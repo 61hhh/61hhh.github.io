@@ -1,8 +1,11 @@
 ---
 title: Redis学习二：基本数据类型及操作
-date: 2021-12-06 09:37:34
-tags: Redis
+tags:
+  - 中间件
+  - Redis
 categories: Redis
+abbrlink: 7af3bdf0
+date: 2021-12-06 09:37:34
 ---
 
 ## Redis简介

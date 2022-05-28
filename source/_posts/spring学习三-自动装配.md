@@ -1,8 +1,9 @@
 ---
 title: spring学习三-自动装配
-date: 2020-10-14 14:58:35
 tags: Spring
 categories: Spring
+abbrlink: 1fc32a2
+date: 2020-10-14 14:58:35
 ---
 
 ## 前言

@@ -1,8 +1,9 @@
 ---
 title: Servlet学习二-ServletContext及应用、ServletConfig
-date: 2020-11-05 15:51:21
 tags: JavaWeb
 categories: Java
+abbrlink: a72fbeb3
+date: 2020-11-05 15:51:21
 ---
 
 ## Servlet映射

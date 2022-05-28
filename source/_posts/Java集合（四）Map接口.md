@@ -1,8 +1,9 @@
 ---
 title: Java集合（四）Map接口
-date: 2020-08-09 14:35:28
 tags: Java基础
 categories: Java
+abbrlink: 2d663ae
+date: 2020-08-09 14:35:28
 ---
 
 

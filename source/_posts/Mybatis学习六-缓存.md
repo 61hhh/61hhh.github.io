@@ -1,8 +1,9 @@
 ---
 title: Mybatis学习六-缓存
-date: 2020-10-05 10:45:40
 tags: Mybatis
 categories: Mybatis
+abbrlink: 61e534eb
+date: 2020-10-05 10:45:40
 ---
 
 ## 缓存

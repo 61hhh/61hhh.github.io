@@ -1,8 +1,9 @@
 ---
 title: leetbook-数组和字符串
-date: 2020-12-06 17:27:41
 tags: leetcode
 categories: 基础
+abbrlink: 7970c1ba
+date: 2020-12-06 17:27:41
 ---
 
 `leetcode`上的探索专栏很不错，顺着他的顺序去刷题能比较系统的清晰的锻炼一下。

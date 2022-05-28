@@ -1,8 +1,9 @@
 ---
 title: Spring学习二-配置及依赖注入DI
-date: 2020-10-09 14:05:00
 tags: Spring
 categories: Spring
+abbrlink: f008a534
+date: 2020-10-09 14:05:00
 ---
 
 ## Spring应用
