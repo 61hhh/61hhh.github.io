@@ -13,7 +13,7 @@ timezone: Asia/Shanghai
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://salute61.top/
+url: https://61hhh-github-io.vercel.app/
 # 调整文章链接,短链接
 permalink: :year:month:day/:abbrlink/
 permalink_defaults:
