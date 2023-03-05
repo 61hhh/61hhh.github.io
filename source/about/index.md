@@ -2,6 +2,7 @@
 title: 关于我
 date: 2020-03-22 12:41:38
 type: "Me"
+layout: about
 ---
 
 > Valar Morghulis，Valar Dohaeris 
