@@ -1,13 +1,12 @@
 ---
 title: hexo博客ayer优化
-categories: hexo
-tags: 博客
+tags: hexo
+categories: 博客工具
 abbrlink: '12141983'
 date: 2020-03-21 22:15:15
 ---
 
-记在前面：从完成最基本的hexo博客之后，我就想着优化一下，毕竟找的主题有很多是作者没有配置留给我们自己修改的，然后再就是自己的踩坑之旅。。。各种坑各种懵比，这只是优化一，之后还会继续优化的！
->不满足是向上的齿轮  ——鲁迅
+记在前面：从完成最基本的hexo博客之后，我就想着优化一下，毕竟找的主题有很多是作者没有配置留给我们自己修改的，然后再就是自己的踩坑之旅。。。
 
 <!--more-->
 
@@ -151,9 +150,9 @@ aplyer:
 
 进入网易云网页端，找到你想要的歌曲，可以到外链播放器，点击生成查看对应代码
 
-<img src="http://img.salute61.top/netease.png"  style="zoom:50%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/netease.png"  style="zoom:50%;" />
 
-<img src="http://img.salute61.top/netease2.png"  style="zoom:50%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/netease2.png"  style="zoom:50%;" />
 
 
 
@@ -163,21 +162,21 @@ aplyer:
 
   ayer主题的作者已经实现了这一块代码，因此只需要把我复制的html替换
 
-  ![配置](http://img.salute61.top/netease%E9%85%8D%E7%BD%AE.png)
+  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165250680.png" alt="image-20230427165250680" style="zoom:80%;" />
 
 - 然后是在对应主题的_config.yml配置一下就可以了
 
-<img src="http://img.salute61.top/netease%E9%85%8D%E7%BD%AE2.png"  style="zoom:80%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165307136.png" alt="image-20230427165307136" style="zoom:80%;" />
 
 - 之后就可以在博客上看到啦
 
-![](http://img.salute61.top/netease%E6%95%88%E6%9E%9C.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165323572.png" alt="image-20230427165323572" style="zoom:80%;" />
 
 
 
 （注：网易云中很多歌曲由于版权保护不能生成外链播放器，在网上找的方法是：F12进入控制台查看代码找对应id，然后复制到对应配置。不过这个方法不一定可行，我照这样还是不能播放。。。所以还是要自己多试试几首歌，找到能直接生成外链播放器的吧。。。）
 
-<img src="http://img.salute61.top/netease%E5%BC%BA%E8%A1%8C%E5%A4%96%E9%93%BE.png" alt="外链获取" style="zoom:50%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165349009.png" alt="image-20230427165349009" style="zoom:80%;" />
 
 
 
@@ -193,11 +192,11 @@ blog中要插入图片，在网页端无法直接读取个人电脑的地址，�
 
 > **注意：**七牛云注册后的试用域名只有一个月时间，之后会收回，因此要自己绑定加速域名！
 
-![创建](http://img.salute61.top/qiniu1.png)
+![创建](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/qiniu1.png)
 
-![设置参数](http://img.salute61.top/qiniu2.png)
+![设置参数](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/qiniu2.png)
 
-![操作](http://img.salute61.top/qiniu3.png)
+![操作](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/qiniu3.png)
 
 最后就是在你的博客文章中插入外链写博客，在网站中就可以看到啦！
 
@@ -239,15 +238,15 @@ themes\ayer\lauout\_partial\google-analytics.ejs
 themes\ayer\lauout\_partial\baidu-analytics.ejs
 ```
 
-![image-20200322114644925](http://img.salute61.top/tongji1.png)
+![image-20200322114644925](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/tongji1.png)
 
 在主题配置文件_config.yml中配置一下id：
 
-![image-20200322113331239](http://img.salute61.top/tongji2.png)
+![image-20200322113331239](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/tongji2.png)
 
 Google Analytics和百度类似，找到UA码复制，在.ejs文件中替换你的js代码，在_config.yml中配置id即可。配置成功后可以在控制台看到相关信息：
 
-![image-20200322115142347](http://img.salute61.top/tongji3.png)
+![image-20200322115142347](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/tongji3.png)
 
 网站底部的UV页面访问、PV IP访问，在localhost下数值会异常，不过部署到服务器上会重新设置。
 
@@ -266,29 +265,29 @@ Valin是一款快速、简洁且高效的无后端评论系统,访问快。
 
 Valine评论使用leancloud作为线上数据库，因此要使用Valine先注册[leancloud](https://www.leancloud.cn/)账号，然后添加应用。按步骤提示创建应用后，可以在控制台看到对应ID
 
-![](http://img.salute61.top/leancloud.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/leancloud.png)
 
 然后在主题的_config.yml中配置，将复制得到AppID和AppKey粘贴到对应位置即可
 
-<img src="http://img.salute61.top/leancloud2.png" alt="comment_config" style="zoom:70%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/leancloud2.png" alt="comment_config" style="zoom: 80%;" />
 
 ### 2.Gitalk评论
 
 要使用gitalk首先要新建一个git application，填写参数
 
-<img src="http://img.salute61.top/gitalk1.png" alt="注册application" style="zoom:30%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/gitalk1.png" alt="注册application" style="zoom:30%;" />
 
 注册完成后可以在个人的settings中查看client key和 client secret，由于ayer主题已经集成gitalk插件，因此只需要复制两个key然后粘贴到主题_config.yml的对应位置
 
-![查看application key](http://img.salute61.top/gitalk2.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/gitalk2.png" alt="查看application key" style="zoom:80%;" />
 
-<img src="http://img.salute61.top/gitalk%E9%85%8D%E7%BD%AE.png" style="zoom:67%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165509984.png" alt="image-20230427165509984" style="zoom:80%;" />
 
 
 
 **注**：如果没有集成gitalk插件也可以*/layout/_partial/下新建一个comment.ejs，添加相应代码：
 
-```
+```ejs
 <link rel="stylesheet" href="<%- theme.libs.css.gitalk %>">
 <link rel="stylesheet" href="/css/my-gitalk.css">
 
@@ -314,7 +313,7 @@ Valine评论使用leancloud作为线上数据库，因此要使用Valine先注�
 
 在post页面添加代码：
 
-```
+```ejs
 {% elseif theme.gitalk.enable %}
     <%- partial('_partial/comment') %>
 {% endif %}
@@ -378,7 +377,7 @@ npm install live2d-widget-model-wanko
 
 效果演示：
 
-![wanko](http://img.salute61.top/live2d.png)
+![wanko](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/live2d.png)
 
 ## References
 

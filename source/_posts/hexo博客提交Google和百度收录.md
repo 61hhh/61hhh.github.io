@@ -1,7 +1,7 @@
 ---
 title: hexo博客提交Google和百度收录
 tags: hexo
-categories: 博客
+categories: 博客工具
 abbrlink: 750226c4
 date: 2020-04-16 20:25:09
 ---
@@ -10,7 +10,7 @@ date: 2020-04-16 20:25:09
 
 到现在位置博客算是搭建好了，但是自己写的博客别问访问不了，Github和Coding都有反爬虫机制，搜索引擎搜不到，因此我们要让搜索引擎收录我们的网站。
 
-**验证：**在百度/Google搜索框中输入`site:***(你的网站/域名)`，如果没找到说明没有被收录（必然找不到啊！），Google的验证要先翻墙。
+**验证：**在百度/Google搜索框中输入`site:***(你的网站/域名)`，如果没找到说明没有被收录，Google的验证要先科学上网。
 
 **收录步骤：**主要分为两步，一是`验证网站`，再是`链接提交`。
 
@@ -43,7 +43,7 @@ date: 2020-04-16 20:25:09
 3. 当我们编译网站`hexo generate`的时候，这个文件会被原封不动的拷贝到我们博客的`public/`根目录下。
 4. 重新编译部署，就可以点击验证—>完成验证。
 
-![](https://ae01.alicdn.com/kf/H3f8b0c4effb8448fabe53d2ea3b6b81bU.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/H3f8b0c4effb8448fabe53d2ea3b6b81bU.png" style="zoom:80%;" />
 
 
 
@@ -56,7 +56,7 @@ date: 2020-04-16 20:25:09
 
 #### (3)CNAME验证
 
-好像CNAME是最简单的，只要有域名即可
+好像CNAME是最简单的，只要有域名即可（我有域名但是没选这个。。。直接RUSH第一个了）
 
 具体步骤：添加一条新的CNAME解析：**记录类型**是*CNAME*，**主机记录**是你的token，，**记录值**是zz.baidu.com，其他默认。然后验证即可。
 
@@ -66,7 +66,7 @@ date: 2020-04-16 20:25:09
 
 **手动提交**你的站点到百度搜索，在搜索框输入`site:salute61.top`搜索不到后，下面有提交网址的选项，当然这种方法很麻烦，因为如果想让每一篇文章都能被搜索到就需要把所有的页面链接进行提交！
 
-![](https://ae01.alicdn.com/kf/H2f7b18d9dd414a85a741d4d770e3a3fdS.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/H2f7b18d9dd414a85a741d4d770e3a3fdS.png)
 
 **自动提交**显然是更好的选择，在自己网站的站长平台可以看到三种提交方式。
 
@@ -81,7 +81,7 @@ date: 2020-04-16 20:25:09
 - **及时发现：**可以缩短百度爬虫发现您站点新链接的时间，使新发布的页面可以在第一时间被百度收录
 - **保护原创：**对于网站的最新原创内容，使用主动推送功能可以快速通知到百度，使内容可以在转发之前被百度发现
 
-![](https://ae01.alicdn.com/kf/H03bfde373cab4943b4d6b91a6af11d7cb.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/H03bfde373cab4943b4d6b91a6af11d7cb.png)
 
 首先安装插件：`npm install hexo-baidu-url-submit --save`
 
@@ -106,7 +106,7 @@ baidu_url_submit:
 
 这样执行`hexo deploy`的时候，新的链接就会被推送了。成功后可以在bash中看到：
 
-![](https://ae01.alicdn.com/kf/Hb6a1d85346784508ab5bfc8eccff0f5fB.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Hb6a1d85346784508ab5bfc8eccff0f5fB.png)
 
 
 
@@ -126,7 +126,7 @@ npm install hexo-generator-baidu-sitemap --save
 
 修改url为你的博客首页，xxx.github.io或自己的域名
 
-![](https://ae01.alicdn.com/kf/Hca76c42e1527487185a2fb4f31062e79O.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Hca76c42e1527487185a2fb4f31062e79O.png)
 
 指定生成文件名和生成路径
 
@@ -142,9 +142,9 @@ baidusitemap:
 
 在自动提交—sitemap的输入框中，按格式填写。然后就可以了！等待一段时间让他收录，也可以访问该xml文件，查看详情
 
-![](https://ae01.alicdn.com/kf/H2ebfe3c5ab864cec938269a41b520a96S.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/H2ebfe3c5ab864cec938269a41b520a96S.png)
 
-![](https://pic.downk.cc/item/5ea4f3d1c2a9a83be58d3506.png)
+![image-20230427170422078](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427170422078.png)
 
 ## Google收录
 
@@ -152,15 +152,13 @@ baidusitemap:
 
 进入网站有两种方式：网域、网址前缀
 
-![](https://ae01.alicdn.com/kf/Hde6a7df83385422fbbfc930a1da6d983Y.jpg)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Hde6a7df83385422fbbfc930a1da6d983Y.jpg.jpeg)
 
 查了一下好像直接链接提交就行，直接提交sitemap。完成
 
 [帮助文档](https://support.google.com/webmasters/answer/183669?hl=zh-Hans)
 
-![](https://ae01.alicdn.com/kf/Hc2b4ff8fb80342a489a7e889936a6d70M.png)
-
-
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Hc2b4ff8fb80342a489a7e889936a6d70M.png" style="zoom:80%;" />
 
 然后就是等待他们收录了！
 

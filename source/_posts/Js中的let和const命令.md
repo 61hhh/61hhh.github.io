@@ -1,7 +1,7 @@
 ---
-title: Js中的let和const命令
-tags: Js
-categories: 前端基础
+title: JS中的let和const命令
+tags: JS
+categories: 其他记录
 abbrlink: fa6e05a2
 date: 2020-04-25 22:05:26
 ---
@@ -15,8 +15,6 @@ date: 2020-04-25 22:05:26
 在ES6之前，Js只有两种作用域：**全局变量**和**函数内局部变量**
 
 ES6中引入了两个关键字：**let**、**const**
-
-> 千淘万漉虽辛苦，吹尽狂沙始到金。		——[刘禹锡](https://so.gushiwen.org/authorv_e3c4e8cf2646.aspx)《[浪淘沙·其八](https://so.gushiwen.org/shiwenv_4a14da2eebb5.aspx)》
 
 <!--more-->
 

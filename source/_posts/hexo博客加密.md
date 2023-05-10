@@ -1,7 +1,7 @@
 ---
 title: hexo博客加密
 tags: hexo
-categories: 博客
+categories: 博客工具
 abbrlink: f0a4488f
 date: 2020-04-18 21:04:06
 ---
@@ -16,9 +16,9 @@ Github上有大神做了插件可以帮助我们。地址： [GitHub](https://gi
 
 不知道为啥，当时正常输密码查看没问题，后来输密码没反应了。。。。
 
-![](http://img.salute61.top/%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%86.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165614097.png" alt="image-20230427165614097" style="zoom:80%;" />
 
-![](http://img.salute61.top/%E5%8D%9A%E5%AE%A2%E5%8A%A0%E5%AF%862.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165637092.png" alt="image-20230427165637092" style="zoom:80%;" />
 
 ### 安装
 
@@ -64,7 +64,7 @@ message: Type the password ly61!
 + 然后找到 <% post.content %> 这段代码，通常在30行左右。
 + 使用如下的代码来替代它:
 
-```
+```ejs
 <% if(post.toc == true){ %>
   <div id="toc-div" class="toc-article" <% if (post.encrypt == true) { %>style="display:none" <% } %>>
     <strong class="toc-title">Index</strong>
@@ -82,7 +82,7 @@ message: Type the password ly61!
 
 如果不想每篇文章都输入`abstract`、`message`等字段，可以在根目录下配置：
 
-```
+```yaml
 encrypt:
   enable: true
   default_abstract: 这是一篇加密文章，内容可能是个人情感宣泄或者收费技术。如果你确实想看，请与我联系。
@@ -91,7 +91,7 @@ encrypt:
 
 #### 示例
 
-```
+```yml
 # Security
 encrypt: # hexo-blog-encrypt
   abstract: 有东西被加密了, 请输入密码查看.

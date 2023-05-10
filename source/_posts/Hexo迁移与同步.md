@@ -1,7 +1,7 @@
 ---
 title: Hexo迁移与同步
 tags: hexo
-categories: 博客
+categories: 博客工具
 abbrlink: 60a54483
 date: 2021-11-15 09:57:14
 ---
@@ -14,11 +14,11 @@ date: 2021-11-15 09:57:14
 
 首先安装必备的环境：`node`和`git`，配置GitHub的`ssh key`，按照`hexo`安装的基本步骤执行。`hexo init`生成基本的目录。
 
-![image-20211115001252492](http://img2.salute61.top/PicGo/image-20211115001252492.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211115001252492.png" alt="image-20211115001252492" style="zoom:80%;" />
 
 同时看看原来的目录结构，对比一下：
 
-![image-20211115000427145](http://img2.salute61.top/PicGo/image-20211115000427145.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211115000427145.png" alt="image-20211115000427145" style="zoom:80%;" />
 
 - 首先：`.idea`和`.vscode`是使用对应编辑器产生的，可以忽略；`node_modules`是`npm`的依赖包文件，可以忽略
 - public：是`hexo`生成的静态文件，即博客所展示的文件
@@ -45,7 +45,7 @@ hexo g #生成静态文件
 hexo s #起一个本地服务测试一下
 ```
 
-<img src="http://img2.salute61.top/PicGo/image-20211115002949384.png" alt="image-20211115002949384" style="zoom:80%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211115002949384.png" alt="image-20211115002949384" style="zoom:80%;" />
 
 成功运行！
 
@@ -59,7 +59,7 @@ hexo s #起一个本地服务测试一下
 
 如图所示，master分支提交的是hexo渲染后的文件，而不是我们本地目录所见的
 
-<img src="http://img2.salute61.top/PicGo/image-20211115003738030.png" alt="image-20211115003738030" style="zoom:80%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211115003738030.png" alt="image-20211115003738030" style="zoom:80%;" />
 
 网上搜到的hexo多端写作的方式，基本上都是在仓库再创建一个hexo分支，将本地的基础文件（上面所提到的那些）上传。然后不同终端需要记笔记的时候，先切换到hexo分支，拉取最新的代码，然后写了提交。比较像我们做开发项目的流程。
 

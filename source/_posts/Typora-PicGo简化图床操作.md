@@ -1,18 +1,16 @@
 ---
 title: Typora+PicGo简化图床操作
-tags: 图床
-categories: 学习
+tags: blog
+categories: 博客工具
 abbrlink: f39da986
 date: 2020-10-09 14:32:23
 ---
 
 ## 前言
 
-每次写博客最费劲的问题就是图片。。。直接截图的是本地图片，上传到博客无法显示，必须要用图床工具，之前我用的是七牛云的图床，但是每次还是很麻烦：**截图-->保存-->上传-->复制外联外链-->粘贴外链**，一个图片就要切几个页面。
+每次写博客最费劲的问题就是图片。。。直接截图的是本地图片，上传到博客无法显示，必须要用图床工具，之前我用的是七牛云的图床，但是每次还是很麻烦：**截图-->保存-->上传-->复制外联外链-->粘贴外链**
 
-更新Typora发现它竟然支持通过PiccGo上传图床了，这个就很不错！
-
-<img src="http://img2.salute61.top/PicGo/PicGo1.png" style="zoom:50%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/PicGo1.png" style="zoom:50%;" />
 
 <!--more-->
 
@@ -36,7 +34,7 @@ date: 2020-10-09 14:32:23
 
 以我的七牛云图床为例，配置一下对应信息，找到图床设置-->七牛图床
 
-![](http://img2.salute61.top/PicGo3.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/PicGo3.png)
 
 - 前两个AccessKey和SecretKey在个人中心的密钥管理中配置（如上图）
 
@@ -50,7 +48,7 @@ date: 2020-10-09 14:32:23
 
   如图就是以`PicGo/`为路径上传的图片：
 
-  ![](http://img2.salute61.top/PicGo/PicGo4.png)
+  ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/PicGo4.png)
 
 
 
@@ -58,7 +56,7 @@ date: 2020-10-09 14:32:23
 
 在PicGo设置/设置Server中找到对应设置，默认设置如图，基本上与不需要改，只要确定开了就行：
 
-<img src="http://img2.salute61.top/PicGo2.png" style="zoom:67%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/PicGo2.png" style="zoom:67%;" />
 
 
 
@@ -68,9 +66,9 @@ date: 2020-10-09 14:32:23
 
 找到：文件-->偏好设置-->图像，进行设置
 
-![PicGo5](http://img2.salute61.top/PicGo/PicGo5.png)
+![PicGo5](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/PicGo5.png)
 
-![PicGo6](http://img2.salute61.top/PicGo/PicGo6.png)
+![PicGo6](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/PicGo6.png)
 
 
 
@@ -82,8 +80,8 @@ date: 2020-10-09 14:32:23
 
 2. 任意截图，然后粘贴，然后出现上传图片，点击即可，效果如图：
 
-   ![image-20201009171350737](http://img2.salute61.top/PicGo/image-20201009171350737.png)
+   ![image-20201009171350737](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201009171350737.png)
 
 3. 采用快捷键插入图片：**Ctrl + Shift + I**    或者   `![]() `都可以，效果如图：
 
-   ![image-20201009171609612](http://img2.salute61.top/PicGo/image-20201009171609612.png)
+   ![image-20201009171609612](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201009171609612.png)
