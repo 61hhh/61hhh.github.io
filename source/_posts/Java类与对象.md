@@ -242,7 +242,7 @@ public class Student{
 （1）堆内存：保存对象的属性内容。堆内存需要用new关键字来分配空间；
 （2）栈内存：保存的是堆内存的地址（在这里为了分析方便，可以简单理解为栈内存保存的是对象的名字）。
 
-![](http://img2.salute61.top/Java_class.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class.png" style="zoom:80%;" />
 
 如果直接使用没有实例化的对象，就会出现报错：`Exception in thread "main" java.lang.NullPointerException`空指向异常。表示只声明了Student对现象，没有实例化（只有栈空间而没有对应的堆内存空间）
 
@@ -255,7 +255,7 @@ Student stu1 = new Student("张三",33);
 Student stu2 = stu1;
 ```
 
-![](http://img2.salute61.top/Java_class2.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class2.png" style="zoom:80%;" />
 
 一个引用同时只能指向一个对象
 
@@ -265,7 +265,7 @@ Student stu2 = stu1;
 Student stu2 = new Student("李四",18);//此时引用stu2指向新的对象
 ```
 
-![](http://img2.salute61.top/Java_class3.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class3.png" style="zoom:80%;" />
 
 再看看下面的一段代码：
 
@@ -275,7 +275,7 @@ Student stu2 = new Student("李四",18);
 Student stu2 = stu1;
 ```
 
-![](http://img2.salute61.top/Java_class4.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class4.png" style="zoom:80%;" />
 
 此时第二块堆内存空间，没有任何引用指向，这块空间就成为内存垃圾
 
@@ -350,72 +350,6 @@ class JuniorStudent extends Student implements goStudy,goTest,goGraduate{
 - 接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；
 - 一个类只能继承一个抽象类，而一个类却可以实现多个接口。
 - 抽象类是对一种事物的抽象，即对类抽象，而接口是对行为的抽象。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## 【参考】
 

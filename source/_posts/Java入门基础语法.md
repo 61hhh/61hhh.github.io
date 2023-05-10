@@ -1,17 +1,10 @@
 ---
-title: Java基础回顾——基础语法
+title: Java入门基础语法
 tags: Java基础
-categories:
-  - Java
+categories: Java
 abbrlink: 98c92646
 date: 2020-07-21 17:41:34
 ---
-
-之前上Java课时，找到一个非常好的网站[how2j](https://how2j.cn/)（**强推!!!**），结合这个网站和上课把Java SE的知识过完了，但是到现在过了这么久，用的也不是很多，所以很多知识点都有点遗忘了，现在用[实验楼](https://www.shiyanlou.com/)再过一遍知识点
-
-how2j主要是基于实践和练习为主，现在用实验楼的再过一遍
-
-<!--more-->
 
 ## Java基础语法(上)
 
@@ -189,7 +182,7 @@ int len2 = s2.length();
 
 `equals()` 方法比较是从第一字符开始，一个字符一个字符依次比较。
 
-![equals比较原理](https://doc.shiyanlou.com/document-uid79144labid1085timestamp1435503766697.png/wm)
+![equals比较原理](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/wm.png)
 
 如果想忽略掉大小写关系，比如：java 和 Java 是一样的，那怎么办呢？可以调用 `equalsIgnoreCase()` 方法，其用法与 `equals()` 一致，不过它会忽视大小写。
 
@@ -612,7 +605,7 @@ if(条件){
 }
 ```
 
-<img src="https://doc.shiyanlou.com/document-uid79144labid1051timestamp1434347907568.png/wm" alt="if语句执行过程"  />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434347907568.png" alt="if语句执行过程"  />
 
 `if...else` 语句当条件成立时，则执行 `if` 部分的代码块； 条件不成立时，则进入 `else` 部分。例如，如果一个月天数大于 30 天，则为大月，否则为小月。
 
@@ -627,7 +620,7 @@ else{
 }
 ```
 
-![if...else语句执行过程](https://doc.shiyanlou.com/document-uid79144labid1051timestamp1434347936247.png/wm)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434347936247.png" alt="if...else语句执行过程" style="zoom:80%;" />
 
 多重 `if` 语句，在条件 1 不满足的情况下，才会进行条件 2 的判断，以此向下；当前面的条件均不成立时，最终执行 `else` 块内的代码。
 
@@ -646,7 +639,7 @@ else {
 }
 ```
 
-![多重if语句](https://doc.shiyanlou.com/document-uid79144labid97timestamp1437039991806.png/wm)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid97timestamp1437039991806.png" alt="多重if语句" style="zoom:80%;" />
 
 > 注意：如果 `if`（或 `else if`，或 `else`) 条件成立时的执行语句只有一条，是可以省略大括号的！但如果执行语句有多条，那么大括号就是不可或缺的。
 
@@ -678,7 +671,7 @@ else{
 }
 ```
 
-![if的嵌套](https://doc.shiyanlou.com/document-uid79144labid1051timestamp1434348012040.png/wm)
+![if的嵌套](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348012040.png)
 
 `if` 语句练习：小明考了 78 分，60 分以上及格，80 分以上为良好，90 分以上为优秀，60 分以下要重考，编写源代码 `ScoreJudge.java`，输出小明的情况。
 
@@ -796,7 +789,7 @@ while(条件){
 
 然后重复执行 `1`、`2`， 直到循环条件不成立为止。
 
-![while的语句流程](https://doc.shiyanlou.com/document-uid79144labid1051timestamp1434348643037.png/wm)
+![while的语句流程](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348643037.png)
 
 `do-while` 语法：
 
@@ -811,7 +804,7 @@ do{
 1. 先执行一遍循环操作，然后判断循环条件是否成立。
 2. 如果条件成立，继续执行`1`、`2`，直到循环条件不成立为止。
 
-![do...while的流程](https://doc.shiyanlou.com/document-uid79144labid1051timestamp1434348718160.png/wm)
+![do...while的流程](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348718160.png)
 
 如：
 
@@ -892,7 +885,7 @@ for(循环变量初始化①; 循环条件②; 循环变量值操作③){
 (1) -> [(2)->(4)->(3)] -> [(2)->(4)->(3)] -> ... => (3) 结果为 false, 退出循环。
 ```
 
-![for的流程](https://doc.shiyanlou.com/document-uid79144labid1051timestamp1434348757545.png/wm)
+![for的流程](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348757545.png)
 
 例如，计算 100 以内不能被 3 整除的数之和：
 
@@ -1168,7 +1161,7 @@ public class PrintWeek{
 
 简单来说，数组就是相同数据类型的元素按一定顺序排列的集合。可以把它看成一个大的盒子，里面按顺序存放了多个数据类型相同的数据。
 
-![数组的定义](https://doc.shiyanlou.com/document-uid79144labid1052timestamp1434356533170.png/wm)
+![数组的定义](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1052timestamp1434356533170.png)
 
 数组中的元素都可以通过下标来访问，**下标从 0 开始，到数组长度 -1 结束**。例如，可以通过 `ages[0]` 获取数组中的第一个元素 18 ，`ages[3]` 就可以取到第四个元素 10。
 

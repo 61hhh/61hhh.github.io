@@ -29,9 +29,9 @@ date: 2020-11-05 15:51:21
 </servlet-mapping>
 ```
 
-![image-20201108182924215](http://img2.salute61.top/PicGo/image-20201108182924215.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108182924215.png" alt="image-20201108182924215" style="zoom:80%;" />
 
-![image-20201108183004543](http://img2.salute61.top/PicGo/image-20201108183004543.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108183004543.png" alt="image-20201108183004543" style="zoom:80%;" />
 
 通过`http://localhost:8080/s1/helloServlet2`和`http://localhost:8080/s1/helloServlet`访问到的实际上是同一个Servlte对象
 
@@ -123,13 +123,13 @@ public class getName extends HttpServlet {
 
 基本模型如下：
 
-![image-20201108185340531](http://img2.salute61.top/PicGo/image-20201108185340531.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108185340531.png" alt="image-20201108185340531" style="zoom:80%;" />
 
 可以看到，先访问`http://localhost:8080/s1/get`名字是null，然后访问/put后再回到/get就可以看到我们的数据了
 
-![image-20201108185725891](http://img2.salute61.top/PicGo/image-20201108185725891.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108185725891.png" alt="image-20201108185725891" style="zoom:80%;" />
 
-![image-20201108190653423](http://img2.salute61.top/PicGo/image-20201108190653423.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108190653423.png" alt="image-20201108190653423" style="zoom:80%;" />
 
 ![image-20201108185848198](http://img2.salute61.top/PicGo/image-20201108185848198.png)
 
@@ -170,7 +170,7 @@ public class contextDemo2 extends HttpServlet {
 }
 ```
 
-![image-20201108194424768](http://img2.salute61.top/PicGo/image-20201108194424768.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108194424768.png" alt="image-20201108194424768" style="zoom:80%;" />
 
 
 
@@ -213,9 +213,9 @@ public class FileServlet extends HttpServlet {
 }
 ```
 
-![image-20201108192023201](http://img2.salute61.top/PicGo/image-20201108192023201.png)
+![image-20201108192023201](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108192023201.png)
 
-<img src="http://img2.salute61.top/PicGo/fileD.jpg" style="zoom:50%;" />
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/fileD.jpg.jpeg" style="zoom:50%;" />
 
 可以看到成功下载了！
 
@@ -247,7 +247,7 @@ public class contextDemo03 extends HttpServlet {
 }
 ```
 
-![image-20201108192914059](http://img2.salute61.top/PicGo/image-20201108192914059.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108192914059.png" alt="image-20201108192914059" style="zoom:80%;" />
 
 可以看到：网址访问的是`http://localhost:8080/s1/disp`但是我们进入的是之前的/get的页面！按下F12在控制台中可以看到状态码变化。也可以通过程序输出语句检测它是否确实进入了contextDemo03中，可以在控制台中看到对应的语句输出！
 

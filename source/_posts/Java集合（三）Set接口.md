@@ -319,6 +319,5 @@ TreeSet
 
 ## 【参考】
 
-[Java集合（四）、继承自Collection接口的Set接口](https://www.cnblogs.com/lixiansheng/p/11349379.html)
-
-[Java中的Set总结](https://www.jianshu.com/p/d6cff3517688)
+- [Java集合（四）、继承自Collection接口的Set接口](https://www.cnblogs.com/lixiansheng/p/11349379.html)
+- [Java中的Set总结](https://www.jianshu.com/p/d6cff3517688)

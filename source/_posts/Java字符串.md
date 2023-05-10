@@ -6,8 +6,6 @@ abbrlink: 96b89c5
 date: 2020-08-03 22:40:46
 ---
 
-
-
 Java中的字符串处理，主要涉及三个类：<font color="red">**String、StringBuffer、StringBuilder**</font>
 
 三者共同之处：都是final类，不允许被继承。
@@ -22,11 +20,9 @@ String实现了三个接口:Serializable、Comparable < String >、CharSequence
 
 StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。
 
-![](http://img2.salute61.top/Java_String.png)
+![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_String.png)
 
 <!--more-->
-
-
 
 ## 一、String简介
 
@@ -216,6 +212,8 @@ System.out.println(sb.equals(sb2));//false
 
 - [Java之美[从菜鸟到高手演变]之字符串](https://blog.csdn.net/zhangerqing/article/details/8093919)
 - [java中String、StringBuffer和StringBuilder的区别(简单介绍)](https://www.cnblogs.com/weibanggang/p/9455926.html)
+
+
 
 
 

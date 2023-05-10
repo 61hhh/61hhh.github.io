@@ -39,7 +39,7 @@ public static void main(String[] args){
     }
 ```
 
-![结果](http://img2.salute61.top/equals%26%3D%3D1.png)
+<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230424215830342.png" alt="image-20230424215830342" style="zoom:80%;" />
 
 为什么会出现这样的情况？
 
@@ -198,6 +198,32 @@ class A
 
 - [java中equals以及==的用法(简单介绍)](https://www.cnblogs.com/weibanggang/p/9457757.html)
 - [在java中==和equals()的区别](https://blog.csdn.net/lcsy000/article/details/82782864)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

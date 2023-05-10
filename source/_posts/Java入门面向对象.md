@@ -1,8 +1,7 @@
 ---
-title: Java基础回顾——面向对象
+title: Java入门面向对象
 tags: Java基础
-categories:
-  - Java
+categories: Java
 abbrlink: 2d17972e
 date: 2020-07-21 17:46:11
 ---
@@ -137,7 +136,7 @@ $ java NewObject
 我是女性！
 ```
 
-![为对象分配内存](https://doc.shiyanlou.com/document-uid79144labid1062timestamp1434617083799.png/wm)
+![为对象分配内存](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1062timestamp1434617083799.png)
 
 创建对象后，我们就要使用对象了，使用对象无非就是对属性和方法进行操作和调用。语法如下
 
@@ -158,7 +157,7 @@ LiLei.cry();
 
 刚刚我们引入了成员变量这个概念，那什么是成员变量呢？成员变量就是指的对象的属性，是在类中定义，来描述对象的特性。还有一种变量叫局部变量，它是由类的方法定义，在方法中临时保存数据。
 
-![成员变量和局部变量](https://doc.shiyanlou.com/document-uid79144labid1062timestamp1434619940542.png/wm)
+![成员变量和局部变量](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1062timestamp1434619940542.png)
 
 在使用时注意，成员变量可以被本类的所有方法所使用，同时可以被与本类有关的其他类所使用。而局部变量只能在当前的方法中使用。
 
@@ -288,7 +287,7 @@ public final static String SHI_YAN_LOU="shiyanlou";
 
 代码中经常用到 `private` 和 `public` 修饰符，权限修饰符可以用来修饰属性和方法的访问范围。
 
-![访问范围](https://doc.shiyanlou.com/document-uid79144labid1072timestamp1434941168916.png/wm)
+![访问范围](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1072timestamp1434941168916.png)
 
 如图所示，代表了不同的访问修饰符的访问范围，比如 `private` 修饰的属性或者方法，只能在当前类中访问或者使用。`默认` 是什么修饰符都不加，默认在当前类中和同一包下都可以访问和使用。`protected` 修饰的属性或者方法，对同一包内的类和所有子类可见。`public` 修饰的属性或者方法，对所有类可见。
 
@@ -315,7 +314,7 @@ public final static String SHI_YAN_LOU="shiyanlou";
 2. 对每个值属性提供对外的公共方法访问，如创建 getter/setter（取值和赋值）方法，用于对私有属性的访问
 3. 在 getter/setter 方法里加入属性的控制语句，例如我们可以加一个判断语句，对于非法输入给予否定。
 
-![封装的步骤](https://doc.shiyanlou.com/document-uid79144labid1072timestamp1434933673483.png)
+![封装的步骤](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1072timestamp1434933673483.png)
 
 如果我们没有在属性前面添加任何修饰符，我们通过对象就可以直接对属性值进行修改，没有体现封装的特性。这在许多程序设计中都是不安全的，所以我们需要利用封装，来改进我们的代码。
 
@@ -1122,11 +1121,13 @@ package com.shiyanlou.java
 
 不仅是我们这样利用包名来区分类，系统也是这样做的。
 
-![Java系统中的包](https://doc.shiyanlou.com/document-uid79144labid1072timestamp1434937042272.png)
+![Java系统中的包](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1072timestamp1434937042272.png)
 
 **如何在不同包中使用另一个包中的类？**
 
 使用 `import` 关键字。比如要导入包 `com.shiyanlou` 下 `People` 这个类，`import com.shiyanlou.People;`。同时如果 `import com.shiyanlou.*;` 这是将包下的所有文件都导入进来，`*` 是通配符。
 
 **包的命名规范是全小写字母拼写**。
+
+
 

@@ -6,8 +6,6 @@ abbrlink: 2789e08f
 date: 2020-08-03 09:19:03
 ---
 
-
-
 ## 一、Collection接口
 
 Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等
