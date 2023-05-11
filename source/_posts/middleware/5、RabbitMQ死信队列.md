@@ -83,7 +83,7 @@ DLX 是一个普通的交换器，可以在任何队列上设置，当死信消�
 
 死信队列架构图
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657438155832-0a0a8239-7d68-4412-9e9c-cf6437f2ae7e.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657438155832-0a0a8239-7d68-4412-9e9c-cf6437f2ae7e.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -173,11 +173,11 @@ public class TTLConsumer1 {
 
 先启动消费者1再关闭，模拟消费者接收不到消息，再启动生产者
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784417355-1fe19cd7-61ee-4e83-afa6-f29aa73671a0.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784417355-1fe19cd7-61ee-4e83-afa6-f29aa73671a0.png" alt="img" style="zoom:80%;" />
 
 等到设置的过期时间10s到达后，消息就会送达到死信队列
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784627848-f85d4922-d27c-46f0-abc7-d3e6ee53fb71.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784627848-f85d4922-d27c-46f0-abc7-d3e6ee53fb71.png" alt="img" style="zoom:80%;" />
 
 以上操作完成后，启动消费者2，消费死信队列中的消息
 
@@ -205,7 +205,7 @@ public class TTLConsumer2 {
 }
 ```
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784722560-26360135-54d9-4b23-b401-3d52642e309f.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784722560-26360135-54d9-4b23-b401-3d52642e309f.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -213,19 +213,19 @@ public class TTLConsumer2 {
 
 1、将生产者代码设置TTL的部分注释
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785108809-255e6577-7f9f-4ae3-a044-91480dd085f3.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785108809-255e6577-7f9f-4ae3-a044-91480dd085f3.png" alt="img" style="zoom: 80%;" />
 
 2、修改消费者1代码，设置队列接收消息的长度
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785167054-e9f826b1-8b1b-457c-97b1-4e59cae1ea68.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785167054-e9f826b1-8b1b-457c-97b1-4e59cae1ea68.png" alt="img" style="zoom:80%;" />
 
 3、和上面示例类似，先启动消费者1再关闭，模拟正常队列无法接收消息；再发送消费者，查看消息是否到达了死信队列
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786705553-2f7fecbd-59d2-4e32-823b-4cd8f1925a8c.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786705553-2f7fecbd-59d2-4e32-823b-4cd8f1925a8c.png" alt="img" style="zoom:80%;" />
 
 4、启动消费者2消费死信队列中的消息即可
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786766060-55d7b605-9d81-4ab1-8e65-d6b54cabc5c0.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786766060-55d7b605-9d81-4ab1-8e65-d6b54cabc5c0.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -254,4 +254,4 @@ channel.basicConsume(QUEUE_NORMAL, false, deliverCallback, consumer -> {
 
 2、启动生产者后，发送10条消息。再启动消费者1和消费者2，可以查看到消费者1拒收了`INFO_5`，而消费者2消费了`INFO_5`
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657787046112-42c55314-bdc7-4649-bdb9-2c45b35da533.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657787046112-42c55314-bdc7-4649-bdb9-2c45b35da533.png" alt="img" style="zoom:80%;" />

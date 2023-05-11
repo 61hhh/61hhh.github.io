@@ -13,7 +13,7 @@ date: 2023-05-11 10:22:01
 
 相反，生产者只能将消息发送到交换器。交换器工作内容非常简单：一方面它接收来自生产者的消息，另一方面它将它们推送到队列中。交换器必须确切地知道如何处理它收到的消息。是推送到特定队列还是多个队列亦或是丢弃，而这就由交换机的类型决定。
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657175708664-46a07f76-04f2-440a-96aa-a3a225aa2738.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657175708664-46a07f76-04f2-440a-96aa-a3a225aa2738.png" alt="img" style="zoom:80%;" />
 
 交换器有几个基本类型：`fanout`、`Direct`、`topic`、`headers`。其中`headers`已经基本弃用了
 
@@ -29,7 +29,7 @@ channel.basicPublish("", QUEUE_NAME, null, msg.getBytes("UTF-8"));
 
 默认交换机会隐式地绑定到每个队列上，RoutingKey即为队列名称。默认交换机不能显式绑定或者解绑，也不能删除
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657266583824-e3d7718d-2881-4a80-be0f-548568758561.png" alt="img" style="zoom: 67%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657266583824-e3d7718d-2881-4a80-be0f-548568758561.png" alt="img" style="zoom: 67%;" />
 
 ### 临时队列
 
@@ -43,7 +43,7 @@ channel.basicPublish("", QUEUE_NAME, null, msg.getBytes("UTF-8"));
 String queueName = channel.queueDeclare().getQueue();
 ```
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657269026760-961d8b83-a75e-4224-9468-3439ea26aa57.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657269026760-961d8b83-a75e-4224-9468-3439ea26aa57.png" alt="img" style="zoom:80%;" />
 
 ### 绑定Bindings
 
@@ -55,7 +55,7 @@ String queueName = channel.queueDeclare().getQueue();
 
 `fanout`类型又称广播类型，它会将消息发送到所有队列上
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657268264623-56b3d342-177f-4d96-b300-225f581f3b82.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657268264623-56b3d342-177f-4d96-b300-225f581f3b82.png" alt="img" style="zoom:80%;" />
 
 为了说明这种模式，我们将构建一个简单的日志DEMO，生产者生产日志，两个消费者一个将日志输出到文件，一个输出到控制台
 
@@ -141,7 +141,7 @@ public class FanoutConsumer2 {
 
 可以看到消费者1成功将日志写到了指定文件中，而消费者而打印了日志，内容相同
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657268654683-dfd8d446-3946-4994-a620-d02065885fe5.png" alt="img" style="zoom:65%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657268654683-dfd8d446-3946-4994-a620-d02065885fe5.png" alt="img" style="zoom:65%;" />
 
 
 
@@ -149,7 +149,7 @@ public class FanoutConsumer2 {
 
 相比于fanout类型向所有队列广播消息，有时业务场景需要根据日志的不同级别分别输出，比如warning和error输出到文件中，info就打印到控制台，这时就不能广播消息了，此时可以使用`Direct`类型：它通过对比消息的RoutingKey和队列BindingKey，将消息发送到对应队列中。
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657270482095-66cfc377-1e2f-4483-9f88-a919e129d483.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657270482095-66cfc377-1e2f-4483-9f88-a919e129d483.png" alt="img" style="zoom:80%;" />
 
 如图的`direct交换机`绑定到了Q1、Q2，其中Q1的BindingKey是orange，Q2的BindingKey是black和green，即生产者在发送消息是的RoutingKey为orange时会发送到消息Q1、是black或green时会到Q2。加入Q1和Q2用了一样的BindingKey，那么此时的`direct`就和`fanout`效果相同了
 
@@ -239,7 +239,7 @@ public class DirectConsumer2 {
 
 效果如图
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657270418677-9e85644d-a472-486f-bf3a-4cec836605a3.png" alt="img" style="zoom: 67%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657270418677-9e85644d-a472-486f-bf3a-4cec836605a3.png" alt="img" style="zoom: 67%;" />
 
 
 
@@ -247,7 +247,7 @@ public class DirectConsumer2 {
 
 上面对广播的消息做了改造，使得可以按照不同的级别(RoutingKey)发送消息到指定队列，实现有选择的接收日志。不过direct也有一定局限性，例如info下可能是不同模块的日志，比如`info.common`、`info.msg`之类，如果都通过direct就会定义过多的BindingKey且拓展性较差，这时就可以使用`topic`类型
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657272750395-78a5e31e-ef63-4757-9a3d-858231f9ed64.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657272750395-78a5e31e-ef63-4757-9a3d-858231f9ed64.png" alt="img" style="zoom:80%;" />
 
 `topic`类型相当于”高级版的`direct`类型“，它支持在队列绑定时对RoutingKey使用通配符，其中RoutingKey由一个或多个单词组成，单词间通过`.`连接。例如：`rabbit.test.hello`、`kafka.port.what` 不过它不能超过255个字节，并且它可以使用通配符
 
@@ -362,11 +362,11 @@ public class TopicConsumer2 {
 
 运行后可以查看到名为`topic_exchange`的交换机下，有对应的三个`Bindings`
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657434093508-7a1ce8c2-bf13-43e7-97c8-a36d9573bbbf.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657434093508-7a1ce8c2-bf13-43e7-97c8-a36d9573bbbf.png" alt="img" style="zoom:80%;" />
 
 查看消费者1和消费者2的控制台，看到正确获取了响应的消息：
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657434360638-f4cc592f-5a61-4bc1-8e7a-d56550f15441.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657434360638-f4cc592f-5a61-4bc1-8e7a-d56550f15441.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -393,7 +393,7 @@ Return机制：监控交换机是否将消息发送到指定队列。对于队�
 
 
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657436096461-1ba0e68d-94ab-4319-a1c9-9f9be506b74a.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657436096461-1ba0e68d-94ab-4319-a1c9-9f9be506b74a.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -471,7 +471,7 @@ public class ReturnConsumer {
 
 如图可以看到成功调用回调方法
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657436841518-bc5f9d03-cff7-4a79-9537-ce77f2a84cab.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657436841518-bc5f9d03-cff7-4a79-9537-ce77f2a84cab.png" alt="img" style="zoom:80%;" />
 
 
 

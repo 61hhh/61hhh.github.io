@@ -49,7 +49,7 @@ spring:
 
 消费者不监听QA、QB队列，使消息进入队列后不被消费导致TTL超时进入延迟队列QD
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657795388413-69a6c47f-75f5-4da2-a15f-0258461d25a5.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657795388413-69a6c47f-75f5-4da2-a15f-0258461d25a5.png" alt="img" style="zoom:80%;" />
 
 【注】设计的缺点：每增加一个新的延时时间需求，就需要增加一个队列
 
@@ -172,7 +172,7 @@ public class DLQueueConsumer {
 
 启动项目访问：`http://localhost:8080/ttl/sendMsg/发送消息TTL`，看到控制台对应输出
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657796562162-65178fbf-195f-4b8d-8b96-a8ef196fa270.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657796562162-65178fbf-195f-4b8d-8b96-a8ef196fa270.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -184,7 +184,7 @@ public class DLQueueConsumer {
 
 缺点：如果积压在队列前面的消息延时时长很长，而后面积压的消息延时时长很短，积压时间短的消息并不会被提前放入死信队列；如果QC恰好又设置了积压上限，无法被积压的消息将直接进入延时队列，达不到延时效果
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657795689587-d017a7a4-ee2b-4530-9c65-35b1fdddc47b.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657795689587-d017a7a4-ee2b-4530-9c65-35b1fdddc47b.png" alt="img" style="zoom:80%;" />
 
 生产者添加代码：
 
@@ -201,7 +201,7 @@ public void sendMsgWithTTL(@PathVariable String msg, @PathVariable String ttlTim
 
 设置消息的TTL，值通过参数传入，实现不同消息具有不同TTL，可以对应到业务中的不同任务。只用了一个队列，但是实现了不同时间的延时
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657796306470-72d82375-4a6e-4a25-aa5d-571d75d5b467.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657796306470-72d82375-4a6e-4a25-aa5d-571d75d5b467.png" alt="img" style="zoom:80%;" />
 
 ### 插件延时
 
@@ -223,23 +223,23 @@ rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
 注意rabbitmq的版本和插件的版本，我的RabbitMQ版本为`3.8.34`，插件在GitHub上下载`3.10.x`后运行提示报错，我看报错信息部分写了`supported by the plugin: ["3.9.0-3.9.x", "3.10.0-3.10.x"]`所以我把`3.9`到`3.10`的版本都试了下但是都不行！
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657851569778-7edd7a28-9ff2-40f4-ad13-dcba855e72e4.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657851569778-7edd7a28-9ff2-40f4-ad13-dcba855e72e4.png" alt="img" style="zoom:80%;" />
 
 关于版本支持的说明，应该去GitHub上看插件说明，可以看到`3.9.x`的插件对应的是`3.9.x`的RabbitMQ，我的版本就应该选择`3.8.x`来适配
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657851815093-9a0eb06f-6fde-4e21-a886-2ac09b8ea220.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657851815093-9a0eb06f-6fde-4e21-a886-2ac09b8ea220.png" alt="img" style="zoom:80%;" />
 
 更换插件版本后即可成功，然后重启rabbitmq，在管理后台界面查看插件是否成功启用
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657851997103-89049ab2-e0d5-4627-b280-0e864015b69c.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657851997103-89049ab2-e0d5-4627-b280-0e864015b69c.png" alt="img" style="zoom:80%;" />
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657852033198-97f702f0-394e-440e-9fe0-374202e10eeb.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657852033198-97f702f0-394e-440e-9fe0-374202e10eeb.png" alt="img" style="zoom:80%;" />
 
 #### 插件延时操作
 
 这里创建了一个direct交换机和队列，结构如图
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657853374382-88325615-0dc9-4d38-a5aa-9a9ecaa8b891.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657853374382-88325615-0dc9-4d38-a5aa-9a9ecaa8b891.png" alt="img" style="zoom:80%;" />
 
 在我们自定义的交换机中，这是一种新的交换类型，该类型消息支持延迟投递机制消息传递后并不会立即投递到目标队列中，而是存储在 mnesia(一个分布式数据系统)表中，当达到投递时间时，才投递到目标队列中
 
@@ -308,7 +308,7 @@ public void receiveDelayQueue(Message msg, Channel channel) {
 
 运行后查看效果
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657853555914-5b835b41-9c83-4651-b7d9-69ef459cf9e3.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657853555914-5b835b41-9c83-4651-b7d9-69ef459cf9e3.png" alt="img" style="zoom:80%;" />
 
 
 

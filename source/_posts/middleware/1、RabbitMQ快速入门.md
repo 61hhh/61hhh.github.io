@@ -17,11 +17,11 @@ date: 2023-05-11 10:11:14
 
 1. **点对点模式**（P2P，Point to Point），也可以称作队列模型。基本组成生产者Producer、队列Queue、消费者Consumer，生产者发送消息到队列、消费者从队列中消费消息，总体是一个发->存->收的流程；其中一个队列可以存储多个生产者的消息、一个队列也可以有多个消费者，但是消费者之间对于消息的消费是竞争的，即消息只能被一个消费者消费。
 
-   <img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752853775-d629dca9-650b-45c6-82fc-f1ea314de706.png" alt="img" style="zoom:80%;" />
+   <img referrerpolicy="no-referrer" referrerpolicy="no-referrer" referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752853775-d629dca9-650b-45c6-82fc-f1ea314de706.png" alt="img" style="zoom:80%;"/>
 
-1. **发布订阅模型**（P/S，Pub/Sub），发布订阅模型中基本组成为生产者Publisher、主题Topic、订阅者Subscriber
+2. **发布订阅模型**（P/S，Pub/Sub），发布订阅模型中基本组成为生产者Publisher、主题Topic、订阅者Subscriber
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752866085-a83509a2-55ec-42f3-90a7-7dc831e8c365.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752866085-a83509a2-55ec-42f3-90a7-7dc831e8c365.png" alt="img" style="zoom:80%;" />
 
 消息中间件适用于**需要可靠的数据传送的分布式环境**。发送者将消息发送给消息服务器，消息服务器将 消息存放在若干队列中，在合适的时候再将消息 转发给接收者。实现应用程序之间的协同，优点在于能够在客户和服务器之间提供同步和异步的链接，并且在任何时刻都可以将消息进行传送或存储转发。
 
@@ -35,7 +35,7 @@ date: 2023-05-11 10:11:14
 
 由以上三点可以知道，在个人或小型的系统中其实是不需要消息队列的，消息队列应该主要应用于大型的分布式系统中，以实现系统功能解耦、提高响应率、保证高并发环境的稳定性。
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752892421-6a275339-4254-47bf-92f1-7b7d8d67c033.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752892421-6a275339-4254-47bf-92f1-7b7d8d67c033.png" alt="img" style="zoom: 80%;" />
 
 ### 1.3 主流消息队列的简单对比
 
@@ -51,7 +51,7 @@ date: 2023-05-11 10:11:14
 
 如图公众号博主【三分恶】在他的：[面渣逆袭：RocketMQ二十三问](https://mp.weixin.qq.com/s/fcyDIr6Nas8fBukByI3tEg) 中做出了详细对比：
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656746312635-45d549c0-1c5d-41b0-bd2f-27e8663c8619.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656746312635-45d549c0-1c5d-41b0-bd2f-27e8663c8619.png" alt="img" style="zoom: 80%;" />
 
 ## 2、RabbitMQ简介
 
@@ -59,7 +59,7 @@ date: 2023-05-11 10:11:14
 
 RabbitMQ是Erlang基于AMQP（Advanced Message Queuing Protocol）的实现，最初起源于金融系统，用于在分布式系统中存储转发消息
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654765818347-bc4a54a8-7d21-4002-8f78-9f73b1feb75d.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654765818347-bc4a54a8-7d21-4002-8f78-9f73b1feb75d.png" alt="img" style="zoom: 80%;" />
 
 #### RabbitMQ核心组件
 
@@ -68,13 +68,13 @@ RabbitMQ是Erlang基于AMQP（Advanced Message Queuing Protocol）的实现，�
 - Broker：消息队列服务进程，一般可以将一个Broker看作一台服务器
 - Exchange：消息队列交换机，实际上消息并不是由生产者直接投递到消息队列，而是发到交换机Exchange上，**由交换机采用相应策略将消息路由转发到对应队列中**
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654768178092-5b24deb4-f615-4bdd-aa42-27c4dcb3af9d.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654768178092-5b24deb4-f615-4bdd-aa42-27c4dcb3af9d.png" alt="img" style="zoom: 80%;" />
 
 - Queue：消息队列，存储消息的队列，RabbitMQ中消息只能存储在队列中。多个消费者可以订阅同一个队列，此时消息会采用轮询机制（Round-Robin），即消息被平摊给多个消费者，而不是所有消费者都收到所有消息
 
  【注】RabbitMQ不支持队列层面的广播消息，要实现广播需要二次开发，但不建议这么做
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654767707901-6f3e059a-9ddf-4058-afed-3b343640b22b.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654767707901-6f3e059a-9ddf-4058-afed-3b343640b22b.png" alt="img" style="zoom: 80%;" />
 
 
 
@@ -92,7 +92,7 @@ RabbitMQ是Erlang基于AMQP（Advanced Message Queuing Protocol）的实现，�
 8. 如果没有找到，则根据之前配置的属性选择丢弃或者回退
 9. 关闭信道与连接
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654767542320-5f7bcd66-2552-4ad0-9228-4797cd539962.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654767542320-5f7bcd66-2552-4ad0-9228-4797cd539962.png" alt="img" style="zoom: 80%;" />
 
 #### RabbitMQ主要特点
 
@@ -123,16 +123,16 @@ Linux安装可以参照Windows，也可以使用Docker简化安装操作
 
 2. 由于rabbitmq默认镜像是不带web管理端的，所以可以拉取management后缀的镜像，通过指令docker pull rabbitmq:3.8-management拉取
 
-   <img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654759324467-d5934078-1b18-43b9-9cad-d0da55934a08.png" alt="img" style="zoom:80%;" />
+   <img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654759324467-d5934078-1b18-43b9-9cad-d0da55934a08.png" alt="img" style="zoom:80%;" />
 
-3. 指令docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 镜像ID启动镜像<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654759352997-5654f308-267e-44fd-907e-0fde0a679a7c.png" alt="img" style="zoom:80%;" />
+3. 指令docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 镜像ID启动镜像<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654759352997-5654f308-267e-44fd-907e-0fde0a679a7c.png" alt="img" style="zoom:80%;" />
 
 - - 其中5672为rabbitmq的通信端口，而15672是web管理页面端口
   - 通过docker ps查看正在运行的容器
 
 1. 启动运行后，放行对应防火墙端口才可以访问。firewall-cmd --zone=public --add-port=5672/tcp --permanent开放对应端口，就可以正常访问了，浏览器中键入：虚拟机IP:15672，默认账户密码都是guest，登录
 
-   <img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654759730631-640e63db-3d6e-415e-8169-59565a9ac176.png" alt="img" style="zoom:80%;" />
+   <img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654759730631-640e63db-3d6e-415e-8169-59565a9ac176.png" alt="img" style="zoom:80%;" />
 
 【注】有时强制关闭虚拟机再重启恢复后，会还原虚拟机之前的状态，可以看到docker容器已经在运行，但是对应服务无法访问，通过`systemctl restart docker.service`就可以访问了
 
@@ -176,23 +176,23 @@ rabbitmqctl delete_user admin
 
 ①执行`docker exec -i -t 3ae bin/bash`进入到rabbitMq容器内部
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760021752-654720b7-eb24-4680-b871-25151972f9f3.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760021752-654720b7-eb24-4680-b871-25151972f9f3.png" alt="img" style="zoom:80%;" />
 
 ②执行 `rabbitmqctl add_user root 123456 `添加用户，用户名为root,密码为123456
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760040728-bd353bfa-20ac-4845-a06a-decdf308c4a9.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760040728-bd353bfa-20ac-4845-a06a-decdf308c4a9.png" alt="img" style="zoom:80%;" />
 
 ③执行`abbitmqctl set_permissions -p / root ".*" ".*" ".*"`赋予root用户所有权限
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760075446-e91a2b4e-f6dd-4271-b250-dd17a37e0de8.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760075446-e91a2b4e-f6dd-4271-b250-dd17a37e0de8.png" alt="img" style="zoom:80%;" />
 
 ④执行`rabbitmqctl set_user_tags root administrator`赋予root用户administrator角色
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760104338-da9692f5-ab66-47a4-abac-56c3002bde3d.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760104338-da9692f5-ab66-47a4-abac-56c3002bde3d.png" alt="img" style="zoom:80%;" />
 
 ⑤执行`rabbitmqctl list_users `查看所有用户即可看到root用户已经添加成功
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760121394-dc5c8d32-f9e3-4d57-be7e-d73603d494ea.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654760121394-dc5c8d32-f9e3-4d57-be7e-d73603d494ea.png" alt="img" style="zoom:80%;" />
 
 ⑥后续可以用root用户登录
 
@@ -220,7 +220,7 @@ rabbitmqctl delete_vhost "虚拟主机名"
 
 一个最简单的消息队列就是`producer`、`message queue`、`consumer`，现在Docker部署了队列服务，可以简单写一下生产者消费者
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654854211560-bd2d988d-79d6-43a7-936a-f73ee2b86ced.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654854211560-bd2d988d-79d6-43a7-936a-f73ee2b86ced.png" alt="img" style="zoom:80%;" />
 
 准备pom依赖
 
@@ -289,7 +289,7 @@ public class Producer {
 
 【注】如果先启动消费者，由于MQ里没有相应队列，连接会报错，要先启动生产者发送一条消息到队列中，此时可以看到MQ中创建了队列并有一条消息待消费
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654855241716-e190ae6d-b304-425b-a0be-90deaf21d68c.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654855241716-e190ae6d-b304-425b-a0be-90deaf21d68c.png" alt="img" style="zoom:80%;" />
 
 **消费者代码**
 
@@ -331,7 +331,7 @@ public class Consumer {
 }
 ```
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654854904517-acbd1a4b-eaff-488e-a422-50505ce5f9d7.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654854904517-acbd1a4b-eaff-488e-a422-50505ce5f9d7.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -382,7 +382,7 @@ public class Worker01 {
 
 由于多个消费者逻辑代码一样，没必要再去新建类copy代码，直接在IDEA的Run Configuration勾选允许多个实例运行：
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856449966-69deba9b-b0ba-4d6f-957f-f02e2aa40365.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856449966-69deba9b-b0ba-4d6f-957f-f02e2aa40365.png" alt="img" style="zoom:80%;" />
 
 运行`Worker01`后，修改提示信息为`"线程2启动   等待消费消息........"`，再次Run，得到两个不同的线程
 
@@ -408,11 +408,11 @@ public class Task01 {
 
 ④将三者都启动，输入多条数据，可以发现rabbitmq默认采取轮询策略读取消息
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856773461-66a30dd9-e6a4-4490-bc50-564a98e08872.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856773461-66a30dd9-e6a4-4490-bc50-564a98e08872.png" alt="img" style="zoom:80%;" />
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856782526-216d3d82-9384-496a-813a-bd616660f528.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856782526-216d3d82-9384-496a-813a-bd616660f528.png" alt="img" style="zoom:80%;" />
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856792692-a8b2b2d6-e673-4a6d-ab33-fc86cd3cbf17.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1654856792692-a8b2b2d6-e673-4a6d-ab33-fc86cd3cbf17.png" alt="img" style="zoom:80%;" />
 
 
 

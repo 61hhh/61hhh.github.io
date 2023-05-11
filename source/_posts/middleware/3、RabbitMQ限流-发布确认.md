@@ -13,7 +13,7 @@ date: 2023-05-11 10:21:31
 
 尚硅谷和评论区的两份笔记，都将这个叫做不公平分发，但是我在官方tutorial上看到的介绍时Fair Dispath
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657007480908-b0ed3fd5-57f1-4dfc-b21c-d93e8f3a0352.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657007480908-b0ed3fd5-57f1-4dfc-b21c-d93e8f3a0352.png" alt="img" style="zoom:80%;" />
 
 通过`fair dispatch`和手动应答来控制消费者每次处理的消息数
 
@@ -33,7 +33,7 @@ channel.basicConsume(TASK_QUEUE_NAME, autoAck, deliverCallback, cancelCallback);
 - 如果所有队列都达到积压上限，消息就会积压在队列中撑满队列，这个时候就只能添加新的消费者或者改变存储策略
 - 通常增加预取值可以提高向消费者传递消息的速度，但是无限制的自动应答或者过大值会导致消费者节点内存消耗过大，因此合理的预取值需要反复试验，通常100-300之间
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657008320923-af5cded8-cef3-42a3-8e36-7f49aabe939a.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657008320923-af5cded8-cef3-42a3-8e36-7f49aabe939a.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -115,11 +115,11 @@ public class LimitConsumer {
 
 可以看到设置了`Qos`后消费10条消息就结束了，由于将应答注释了所以不会继续消费
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657788530091-d93bc039-cf19-4333-8675-0aebef171f60.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657788530091-d93bc039-cf19-4333-8675-0aebef171f60.png" alt="img" style="zoom:80%;" />
 
 放开应答的注释，可以看到持续消费，每次`Unacked`的都是10条，速率也是每秒一条
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657788655762-690e9fe9-6818-4f97-bf62-8093423d5b2a.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657788655762-690e9fe9-6818-4f97-bf62-8093423d5b2a.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -144,7 +144,7 @@ RabbitMQ 客户端中与事务机制有关的方法有三个
 
 `channel.txSelect`将当前信道开启为事务模式后，生产者就可以发布消息给Broker服务器了，如果`channel.txCommit`提交成功了，则消息一定到达了broker了，如果在 `channel.txCommit`执行之前 broker 异常崩溃或者由于其他原因抛出异常，这个时候我们便可以捕获异常通过`channel.txRollback`回滚事务。如图是正常提交事务的，对于使用回滚需要通过`try/catch`捕获发生的异常，Publish后也不是正常的Commit，而是异常的Rollback
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657087189068-c913b1f3-55a9-487d-bab0-0508e20f83fc.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657087189068-c913b1f3-55a9-487d-bab0-0508e20f83fc.png" alt="img" style="zoom:80%;" />
 
 事务确实能够解决 producer 与 broker 之间消息确认的问题，只有消息成功被 broker 接收，事务提交才能成功，否则我们便可以在捕获异常进行事务回滚操作，同时进行消息重发，但是使用事务机制的话会降低RabbitMQ的性能。RabbitMQ提供了改进方案，即发送方确认（Confirm确认）
 
@@ -154,7 +154,7 @@ RabbitMQ 客户端中与事务机制有关的方法有三个
 
 生产者将信道设置成 confirm 模式，一旦信道进入confirm模式，所有在该信道上面发布的消息都将会被指派一个唯一的ID(从 1 开始)，一旦消息被投递到所有匹配的队列之后，broker 就会发送一个确认给生产者(包含消息的唯一 ID)，这就使得生产者知道消息已经正确到达目的队列了，如果消息和队列是可持久化的，那么确认消息会在将消息写入磁盘之后发出，broker回传给生产者的确认消息中的`delivery-tag`包含了确认消息的序列号，此外broker也可以设置`basic.ack`的 multiple参数，表示到这个序号之前的所有消息都已经得到了处理。
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657087502262-4d4a734b-ef1f-4b85-83b9-3cf1b0e60a33.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657087502262-4d4a734b-ef1f-4b85-83b9-3cf1b0e60a33.png" alt="img" style="zoom:80%;" />
 
 confirm 模式最大的好处在于他是异步的，一旦发布一条消息，生产者应用程序就可以在等信道返回确认的同时继续发送下一条消息，当消息最终得到确认之后，生产者应用便可以通过回调方法来处理该确认消息，如果RabbitMQ 因为自身内部错误导致消息丢失，就会发送一条 nack 消息， 生产者应用程序同样可以在回调方法中处理该 nack 消息。
 
@@ -196,7 +196,7 @@ public static void singleConfirm() throws Exception {
 
 可以看到每次都是`waitForConfirms`之后才发送下一条：
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657075515953-df32b9f9-2f44-4a36-a2ab-5f4bd2959ccd.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657075515953-df32b9f9-2f44-4a36-a2ab-5f4bd2959ccd.png" alt="img" style="zoom:80%;" />
 
 #### 批量确认发布
 
@@ -235,7 +235,7 @@ public static void batchConfirm() throws Exception {
 
 可以看到每一百个消息进行一次确认，当前的100个确认之前不会发送下一批，所以每批消息的确认序号都是固定增加的：
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657075878906-402f0f24-0303-4211-b687-f85932cbe6ef.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657075878906-402f0f24-0303-4211-b687-f85932cbe6ef.png" alt="img" style="zoom:80%;" />
 
 #### 异步确认发布
 
@@ -243,7 +243,7 @@ public static void batchConfirm() throws Exception {
 
 
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657075982958-f0c9af4a-80b5-4d00-8979-c61b6dc8ff9e.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657075982958-f0c9af4a-80b5-4d00-8979-c61b6dc8ff9e.png" alt="img" style="zoom:80%;" />
 
 
 
@@ -290,7 +290,7 @@ public static void asyConfirm1() throws Exception {
 
 可以看到消息的确认是异步进行的，并没有特定的串行顺序：
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657093167844-de63969a-ebb5-47a2-9555-0c09c7563351.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657093167844-de63969a-ebb5-47a2-9555-0c09c7563351.png" alt="img" style="zoom:80%;" />
 
 #### 如何处理未被确认的消息？
 
@@ -351,4 +351,4 @@ public static void asyConfirm1() throws Exception {
     }
 ```
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657093787471-61fa1944-eba6-4982-8b07-30f6fe950706.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657093787471-61fa1944-eba6-4982-8b07-30f6fe950706.png" alt="img" style="zoom:80%;" />

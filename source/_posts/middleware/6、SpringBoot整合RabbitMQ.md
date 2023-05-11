@@ -11,7 +11,7 @@ SpringBoot作为目前后端开发的主流框架，基本上系统都有应用�
 
 新建一个springboot工程
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752277077-232a359f-9940-4be4-99a9-cd3e224dde69.png" alt="img" style="zoom: 80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752277077-232a359f-9940-4be4-99a9-cd3e224dde69.png" alt="img" style="zoom: 80%;" />
 
 在Messaging选项中勾选RabbitMQ，之后卡一看到mavenpom文件中依赖`spring-boot-starter-amqp`，它继承了`amqp-client`依赖实现了amqp协议
 
@@ -134,7 +134,7 @@ public class RabbitController {
 }
 ```
 
-#### <img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752435417-4cd39d9e-5f56-4ce2-8d23-cb9086870e5a.png" alt="img" style="zoom:80%;" />
+#### <img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752435417-4cd39d9e-5f56-4ce2-8d23-cb9086870e5a.png" alt="img" style="zoom:80%;" />
 
 #### Work Queue
 
@@ -233,4 +233,4 @@ public class WorkRabbitConfig {
     }
 ```
 
- <img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752830230-99043ec3-05f8-4e47-b8a5-32752b7cc937.png" alt="img" style="zoom:80%;" />
+ <img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1656752830230-99043ec3-05f8-4e47-b8a5-32752b7cc937.png" alt="img" style="zoom:80%;" />

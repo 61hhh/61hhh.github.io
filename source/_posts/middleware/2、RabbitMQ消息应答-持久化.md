@@ -105,11 +105,11 @@ public class AckConsumer1 {
 - 消费者发送了4条消息，按照默认的轮询逻辑，text1、text3会被`AckConsumer1`消费，text2、text4会被`AckConsumer2`消费
 - 其中`AckConsumer1`处理并应答的时间较长，中途挂掉了后，未处理的text3消息会重新入队被`AckConsumer2`消费
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657004590812-b7e6d6e2-f9f2-4fc5-9e45-c0ae4f77db82.png" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657004590812-b7e6d6e2-f9f2-4fc5-9e45-c0ae4f77db82.png" style="zoom:80%;" />
 
 通过管理面板也可以看到队列中消息的状态
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657004959127-88d3b238-9175-424d-a2dd-aa7e76762332.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657004959127-88d3b238-9175-424d-a2dd-aa7e76762332.png" alt="img" style="zoom:80%;" />
 
 #### 否定应答
 
@@ -164,11 +164,11 @@ channel.queueDeclare(TASK_QUEUE_NAME, durable, false, false, null);
 
 在生产者声明队列时设置持久化参数后，可以在管理面板中查看
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657005848793-65f41b46-3f42-4fc8-8bf7-e900da2189c6.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657005848793-65f41b46-3f42-4fc8-8bf7-e900da2189c6.png" alt="img" style="zoom:80%;" />
 
 【注】如果之前创建队列`dur_queue`非持久化，再创建持久化，会报错参数不等价，反之亦然
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657006026388-328c4e4c-9129-4546-8496-05a72c76fd6b.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657006026388-328c4e4c-9129-4546-8496-05a72c76fd6b.png" alt="img" style="zoom:80%;" />
 
 ### 消息持久化
 
@@ -248,4 +248,4 @@ public class PriorityConsumer {
 
 可以看到对3取余为0的消息`0、3、6、9`被提前消费了
 
-<img src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657789513216-c636aa2d-349b-4d2b-ac3e-b89217a51ef8.png" alt="img" style="zoom:80%;" />
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657789513216-c636aa2d-349b-4d2b-ac3e-b89217a51ef8.png" alt="img" style="zoom:80%;" />
