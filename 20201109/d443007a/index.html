@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="1、基本数据类型Java有四种八类基本数据类型，除此之外其他的都是对象即引用类型。JDK1.5后为基本数据类型引入了对应的包装类 1.1 基本数据类型可以分为：  整数类型：byte、short、int、long 浮点数型：float、double 字符类型：char 布尔类型：boolean  【注】Java中数据类型不存在无符号的，即他们的取值范围是固定的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java自动装拆箱">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20201109/d443007a/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="1、基本数据类型Java有四种八类基本数据类型，除此之外其他的都是对象即引用类型。JDK1.5后为基本数据类型引入了对应的包装类 1.1 基本数据类型可以分为：  整数类型：byte、short、int、long 浮点数型：float、double 字符类型：char 布尔类型：boolean  【注】Java中数据类型不存在无符号的，即他们的取值范围是固定的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109174638916.png">
+<meta property="og:image" content="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109180630089.png">
+<meta property="article:published_time" content="2020-11-09T07:46:42.000Z">
+<meta property="article:modified_time" content="2024-03-18T13:20:55.255Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109174638916.png">
+  
+  
+  
+  <title>Java自动装拆箱 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java自动装拆箱"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-09 15:46" pubdate>
+          2020年11月9日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java自动装拆箱</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年3月18日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="1、基本数据类型"><a href="#1、基本数据类型" class="headerlink" title="1、基本数据类型"></a>1、基本数据类型</h2><p>Java有四种八类基本数据类型，除此之外其他的都是对象即引用类型。JDK1.5后为基本数据类型引入了对应的包装类</p>
+<p><strong>1.1 基本数据类型可以分为：</strong></p>
+<ul>
+<li>整数类型：byte、short、int、long</li>
+<li>浮点数型：float、double</li>
+<li>字符类型：char</li>
+<li>布尔类型：boolean</li>
+</ul>
+<p>【注】Java中数据类型不存在无符号的，即他们的取值范围是固定的</p>
+<span id="more"></span>
+
+<p><strong>1.2 为什么int的范围是[-2,147,483,648 , 2,147,483,647]？</strong></p>
+<p>先说一个字节<code>byte</code>的范围：一个字节8位，最高位表示正负号，所以实际是**[10000000，01111111]<strong>。即</strong>[-2<sup>^</sup>7，2<sup>^</sup>7-1]**</p>
+<p><code>int</code>：是4字节32位，然后最高位0、1表示正负号，所以实际是31位数据，即**[-2<sup>^31</sup>，2<sup>^31</sup>-1]<strong>。所以得到的结果是</strong>[-2,147,483,648 , 2,147,483,647]**。同理其他的数据类型也是</p>
+<p><strong>1.3 基本数据类型的作用</strong>：</p>
+<p>在Java中new的对象是存储在堆中的，我们使用都是通过栈中的引用来操作，对于这种常用的数据类型还要每个都去new就很麻烦且浪费资源，所以Java和C++一样提供这些基本数据类型，它们的变量不会在堆上创建，而是直接在栈内存中存储，因此更加高效。</p>
+<h2 id="2、包装类型"><a href="#2、包装类型" class="headerlink" title="2、包装类型"></a>2、包装类型</h2><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>默认值</th>
+<th>存储格式</th>
+<th>数据范围</th>
+<th>包装类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>short</td>
+<td>0</td>
+<td>2 个字节</td>
+<td>-32,768 到 32,767</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>0</td>
+<td>4 个字节</td>
+<td>-2,147,483,648 到 2,147,483,647</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>byte</td>
+<td>0</td>
+<td>1 个字节</td>
+<td>-128 到 127</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>char</td>
+<td>空</td>
+<td>2 个字节</td>
+<td>Unicode 的字符范围：<code>\u0000</code>（即为 0）到 <code>\uffff</code>（即为 65,535）</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>long</td>
+<td>0L 或 0l</td>
+<td>8 个字节</td>
+<td>-9,223,372,036,854,775,808 到 9,223,372,036,854,775,807</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>0.0F 或 0.0f</td>
+<td>4 个字节</td>
+<td>32 位 IEEEE-754 单精度范围</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>0.0 或 0.0D(d)</td>
+<td>8 个字节</td>
+<td>64 位 IEEE-754 双精度范围</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>false</td>
+<td>1 位</td>
+<td>true 或 false</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<p><strong>2.1 自动拆箱与装箱</strong></p>
+<p>简单说，装箱就是自动将基本数据类型转化为对应的包装类，拆箱就是自动将包装类转化为基本数据类型。</p>
+<p><strong>2.2为什么要这样做</strong></p>
+<ul>
+<li>因为Java是面向对象语言，很多地方都需要使用对象而不是基本数据类型。比如，在集合类中，我们是无法将int 、double等类型放进去的。因为集合的容器要求元素是Object类型。</li>
+<li>为泛型提供支持。因为泛型默认是Object类型</li>
+<li>更多的属性和方法。让基本类型有了对象的特性，为其添加属性和方法，丰富了基本类型的操作</li>
+</ul>
+<p><strong>2.3 实现原理</strong></p>
+<p>编写代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">autoboxing</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">Integer</span> <span class="hljs-variable">totalPac</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">totalNum</span> <span class="hljs-operator">=</span> totalPac;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>编译之后，用指令<code>javap -c autoboxing</code>反编译字节码文件得到如下代码：</p>
+<p><img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109174638916.png" srcset="/img/loading.gif" lazyload alt="image-20201109174638916"></p>
+<p>在执行上面的代码时，系统实际执行的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Integer</span> <span class="hljs-variable">totalPac</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br><span class="hljs-comment">//对应👇</span><br><span class="hljs-type">Integer</span> <span class="hljs-variable">totalPac</span> <span class="hljs-operator">=</span> Integer.valueOf(<span class="hljs-number">100</span>);<br><br><span class="hljs-type">int</span> <span class="hljs-variable">totalNum</span> <span class="hljs-operator">=</span> totalPac;<br><span class="hljs-comment">//对应👇</span><br><span class="hljs-type">int</span> <span class="hljs-variable">totalNum</span> <span class="hljs-operator">=</span> totalPac.intValue();<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>自动装箱采用的都是valueOf()方法实现，拆箱都是通过包装类对象的对应xxValue()方法实现</p>
+<p>当然不同包装类的方法会有所不同，其中Integer、Short、Byte、Character、Long这几个类的valueOf方法的实现是类似的；Double、Float的valueOf方法的实现是直接返回新建对象。</p>
+</blockquote>
+<ul>
+<li><p>查看<code>valueOf</code>源码</p>
+<p>源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Integer <span class="hljs-title function_">valueOf</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span> &#123;<br>    <span class="hljs-keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)<br>        <span class="hljs-keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Integer</span>(i);<br>&#125;<br><br><br></code></pre></td></tr></table></figure>
+
+<p>可以把low和high理解为Integer的边界：如果<code>i</code>大于127或小于-128就创建一个Integer对象返回；否则就执行<code>cache[i+ (-IntegerCache.low)]</code>；<code>cache</code>是<code>IntegerCache</code>类的一个Integer类型final数组对象，即<code>valueOf()</code>返回的都是Integer对象。所以装箱会创建对应的对象，消耗内存。cache用于缓存。</p>
+</li>
+<li><p>再看<code>intValue</code>源码</p>
+<p>就是返回Integer对象的value属性值。【<code>Integer</code>对象有属性：<code>private final int value;</code>】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">intValue</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> value;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><strong>cache缓存</strong></p>
+<p>当需要进行自动装箱时，创建对象之前先从<code>IntegerCache.cache</code>中寻找，如果数字在-128至127之间时，会直接使用缓存中的对象，而不是重新创建一个对象。如果没找到才使用new新建对象。</p>
+<p>所以如下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Integer</span> <span class="hljs-variable">num1</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">num2</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>System.out.println(num1==num2);<span class="hljs-comment">//true</span><br><span class="hljs-type">Integer</span> <span class="hljs-variable">num3</span> <span class="hljs-operator">=</span> <span class="hljs-number">500</span>;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">num4</span> <span class="hljs-operator">=</span> <span class="hljs-number">500</span>;<br>System.out.println(num3==num4);<span class="hljs-comment">//false</span><br></code></pre></td></tr></table></figure>
+
+<p>具体代码实现可以看源码<code>IntegerCache</code>部分</p>
+</li>
+</ul>
+<h2 id="3、拆装箱的应用场景"><a href="#3、拆装箱的应用场景" class="headerlink" title="3、拆装箱的应用场景"></a>3、拆装箱的应用场景</h2><ul>
+<li><p><strong>&lt;1&gt;数据类型的比较</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Integer</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;<br>System.out.println(num==<span class="hljs-number">100</span>? <span class="hljs-string">&quot;yes!&quot;</span>:<span class="hljs-string">&quot;no!&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>实际上比较的是<code>num.valueOf()</code></p>
+</li>
+<li><p><strong>&lt;2&gt;集合类保存基本数据类型</strong></p>
+<p>在Java中集合类只能接收对象类型，但是我们总是直接往ArrayList中直接add整数，因为系统已经自动为我们转换了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">autoboxing</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        ArrayList&lt;Integer&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">5</span>;++i)&#123;<br>            list.add(i);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109180630089.png" srcset="/img/loading.gif" lazyload alt="image-20201109180630089"></p>
+</li>
+<li><p><strong>&lt;3&gt;包装类的运算</strong></p>
+<p>对于包装类，比如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Integer</span> <span class="hljs-variable">num1</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;<br><span class="hljs-type">Integer</span> <span class="hljs-variable">num2</span> <span class="hljs-operator">=</span> <span class="hljs-number">15</span>;<br>System.out.println(num1+num2);<br></code></pre></td></tr></table></figure>
+
+<p>Integer对象是不能直接运算的，但是这样运行也可以，因为默认会变成<code>num1.intValue() + num2.intValue()</code></p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E5%9F%BA%E7%A1%80/">#Java基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java自动装拆箱</div>
+      <div>https://61hhh-github-io.vercel.app/20201109/d443007a/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20201109/57c1ff86/" title="Servlet学习三-req和resp">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Servlet学习三-req和resp</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20201105/a72fbeb3/" title="Servlet学习二-ServletContext及应用、ServletConfig">
+                        <span class="hidden-mobile">Servlet学习二-ServletContext及应用、ServletConfig</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
