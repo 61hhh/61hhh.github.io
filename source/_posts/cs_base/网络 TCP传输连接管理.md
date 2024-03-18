@@ -1,6 +1,6 @@
 ---
-title: TCP传输连接管理
-tags: 网络
+title: 网络 TCP传输连接管理
+tags: 计算机网络
 categories: 计算机基础
 abbrlink: 11d66177
 date: 2020-07-12 11:44:01

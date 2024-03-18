@@ -1,10 +1,11 @@
 ---
 title: MySQL-查询执行流程
-date: 2022-06-01 19:18:53
-tags: 
-- 数据库
-- MySQL
+tags:
+  - 数据库
+  - MySQL
 categories: 计算机基础
+abbrlink: afc16bf3
+date: 2022-06-01 19:18:53
 ---
 
 

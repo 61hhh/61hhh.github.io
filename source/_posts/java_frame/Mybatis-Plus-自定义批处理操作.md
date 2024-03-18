@@ -1,8 +1,9 @@
 ---
 title: Mybatis-Plus 自定义批处理操作
-date: 2022-05-11 17:35:28
 tags: Mybatis
 categories: Mybatis
+abbrlink: 65ec32cd
+date: 2022-05-11 17:35:28
 ---
 ### 一、背景
 

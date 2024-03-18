@@ -1,6 +1,6 @@
 ---
-title: http协议详解
-tags: 网络
+title: 网络 HTTP协议详解.md
+tags: 计算机网络
 categories: 计算机基础
 abbrlink: 5806080f
 date: 2020-07-30 16:37:10

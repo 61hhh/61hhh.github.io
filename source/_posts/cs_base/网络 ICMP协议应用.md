@@ -1,6 +1,6 @@
 ---
-title: ICMP协议应用
-tags: 网络
+title: 网络 ICMP协议应用.md
+tags: 计算机网络
 categories: 计算机基础
 abbrlink: 26507caa
 date: 2020-07-09 16:03:42

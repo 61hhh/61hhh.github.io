@@ -1,6 +1,6 @@
 ---
-title: TCP拥塞控制详解
-tags: 网络
+title: 网络 TCP拥塞控制详解.md
+tags: 计算机网络
 categories: 计算机基础
 abbrlink: '40665775'
 date: 2020-07-12 10:06:59
