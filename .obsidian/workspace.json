@@ -1,0 +1,150 @@
+{
+  "main": {
+    "id": "91846931993e8508",
+    "type": "split",
+    "children": [
+      {
+        "id": "4454265c950227f6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "baa602689df97f6a",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "48d31b65956611d0",
+    "type": "split",
+    "children": [
+      {
+        "id": "7efcb7d4b5c368fc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d3017a19e6f478e3",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ce97af1450138bb1",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "9689b235a5fb14f4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "e2312e279e1a064e",
+    "type": "split",
+    "children": [
+      {
+        "id": "8d8067cda69c62da",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9d829dd2bdb64005",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "95bb9c1a9ba69153",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "29c6a41ace83a956",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "5f0ce1026dd1abd0",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "baa602689df97f6a",
+  "lastOpenFiles": [
+    "source/about/index.md",
+    "source/_posts/hexo博客ayer优化.md",
+    "source/_posts/将hexo博客部署到coding上.md",
+    "scaffolds/draft.md",
+    "scaffolds/page.md",
+    "scaffolds/post.md"
+  ]
+}
