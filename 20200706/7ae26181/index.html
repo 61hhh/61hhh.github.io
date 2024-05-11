@@ -1,0 +1,1220 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="这两天在复习计算机网络，前面相对简单过的很快，结合《计算机网络——谢希仁 第7版》教材和幕布上整理得非常全面的一份文档对照着看，自己再结合个人理解，对比较重点的地方修改成了自己的语言表述，整体上算是详细的！ 幕布文档地址：谢希仁《计算机网络》| 一至六章期末复习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络 1.CH1-CH3概述">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200706/7ae26181/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="这两天在复习计算机网络，前面相对简单过的很快，结合《计算机网络——谢希仁 第7版》教材和幕布上整理得非常全面的一份文档对照着看，自己再结合个人理解，对比较重点的地方修改成了自己的语言表述，整体上算是详细的！ 幕布文档地址：谢希仁《计算机网络》| 一至六章期末复习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.mubu.com/document_image/f569fe5e-7027-406f-a313-a31e475360d3-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/a36439f3-8379-4d9f-8889-57b33776fb99-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/44e01c8a-6b34-4cfa-be90-140104c9d86b-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/9e025a71-4c74-4b82-b6c3-0583f3ca7df2-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/2759f205-6f66-4916-a3a8-08da4d29efa3-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/f929c3e3-bfdd-455f-8665-03a5b31cede3-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/7ad88da5-166f-41dc-ab69-37dab6cc779e-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/b2be1fe9-421c-4391-afe5-c14014e433cf-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/9e3760de-9d48-446e-9b00-cfeef080dd3f-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/8ea3136f-005b-45d6-904c-503be0fef6a3-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/03ea0665-d47e-41d7-98ce-0e4ce563396d-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/1ee3aae0-c64f-461e-8dd0-70a71b5315d6-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/f985b769-5234-494a-ba4a-9e8c651c935b-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/839f86d4-4937-4b8c-9bd8-0f521dcd6a60-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/65446c01-2531-43c9-954f-be35e9e4e358-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/9ba690a4-c4c9-435a-a365-0d09b7c4b8a1-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/daad6de2-4e36-425c-b94c-ff969c5ca830-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/1a9e181d-355e-4d25-9a09-fb163bd44500-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/ae5139cb-b68d-43b7-ae1d-71a2380ef13f-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/72e5207b-2bf7-4d6f-922c-838438e9fe69-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/ef3611d7-d1e8-4ce9-b365-d94487715763-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/330036b2-b4f1-4a7f-b791-1f14892457a9-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/bc261c7c-0988-4cc8-b4a1-39e635d386b2-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/eb0a0707-5eba-440d-a4ee-db4d68ef4351-7976057.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/4b713a5d-8206-480b-a1dc-03a52f7480a7-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/8ffad629-e2a9-4586-9113-a3038d77f6b8-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/03ea5d72-fdba-4ddd-b3f1-d3ccfa48b6e5-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/fbefcc08-29fc-4346-8f42-ed3505f729a6-1513806.jpg">
+<meta property="og:image" content="https://img.mubu.com/document_image/9bd7d2ef-1385-4384-bb60-5e861697bd43-1513806.jpg">
+<meta property="article:published_time" content="2020-07-06T13:49:17.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:42:11.145Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.mubu.com/document_image/f569fe5e-7027-406f-a313-a31e475360d3-1513806.jpg">
+  
+  
+  
+  <title>网络 1.CH1-CH3概述 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网络 1.CH1-CH3概述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-07-06 21:49" pubdate>
+          2020年7月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">网络 1.CH1-CH3概述</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>这两天在复习计算机网络，前面相对简单过的很快，结合《计算机网络——谢希仁 第7版》教材和幕布上整理得非常全面的一份文档对照着看，自己再结合个人理解，对比较重点的地方修改成了自己的语言表述，整体上算是详细的！</p>
+<p>幕布文档地址：<a target="_blank" rel="noopener" href="https://mubu.com/doc/explore/27334">谢希仁《计算机网络》| 一至六章期末复习</a></p>
+<span id="more"></span>
+
+<h2 id="CH1概述"><a href="#CH1概述" class="headerlink" title="CH1概述"></a>CH1概述</h2><h3 id="三网"><a href="#三网" class="headerlink" title="三网"></a>三网</h3><ul>
+<li>电信网（打电话的） 有线电视网 （看电视的） 计算机网络</li>
+</ul>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li>互联网的基本特点<ul>
+<li>连通 不管相距多远的用户都好像彼此直接连通一样</li>
+<li>资源共享</li>
+</ul>
+</li>
+<li>网络把许多计算机连接在一起，而互连网则把许多网络通过路由器连接在一起。</li>
+<li>internet 互连网，通用名词，泛指多个计算机网络互连而成的计算机网络。通信协议自行选择</li>
+<li>Internet 互联网&#x2F;因特网 指现在全球所用的这个互连网，采用TCP&#x2F;IP协议族作为通信规则，前身是美国的ARPANET</li>
+<li>互联网发现大概经历了三个阶段<ul>
+<li>单个ARPANET到互连网</li>
+<li>建成了三级结构的互联网(主干网，地区网，校园网)</li>
+<li>逐渐形成多层次的ISP结构互联网</li>
+</ul>
+</li>
+</ul>
+<h3 id="互联网的组成"><a href="#互联网的组成" class="headerlink" title="互联网的组成"></a>互联网的组成</h3><ul>
+<li>1 边缘部分 所有连接在互联网上的主机组成，这部分是用户直接使用的，用来通信（传输数据、银牌或视频）和资源共享</li>
+<li>2 核心部分 由大量网络和连接这些网络的路由器组成，这部分为边缘部分提供服务（提供连通性和交换）</li>
+<li>通信方式（主机A的某个进程和主机B上的另一个进程进行通信）<ul>
+<li>客户-服务器方式 (C&#x2F;S)<ul>
+<li>客户是服务请求方 客户程序特点:<ul>
+<li>不需要特殊硬件和复杂操作系统</li>
+<li>被用户调用后运行，在通信时主动向原地服务器发起通信。客户程序必须知道服务器的地址</li>
+</ul>
+</li>
+<li>服务器是服务提供方 服务器程序:<ul>
+<li>被动的等待接收客户请求。不需要直到客户程序的地址</li>
+<li>可同时处理多个客服请求</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>对等方式 peer to peer p2p<ul>
+<li>两台主机通信时不区分哪一个是服务请求方哪一个是服务提供方，从本质上看仍是客户——服务器方式，只是对等连接中的每一台主机既是客户又同时是服务器</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据交换方式<ul>
+<li>电路交换<ul>
+<li>交换就是按照某种方式动态地分配传输线路的资源</li>
+<li>建立连接-&gt;通话(一直占用通信资源)-&gt;释放链接<ul>
+<li>一条专用地物理通路，在通话地全部时间内，通话地两个用户始终占用端到端的通信资源</li>
+</ul>
+</li>
+<li>缺点：计算机数据具有突发性，电路交换线路地传输效率很低</li>
+</ul>
+</li>
+<li>分组交换<ul>
+<li>采用存储转发技术原理，将报文分成一个个等长数据段，加上由一些必要的控制信息组成的首部后，就构成了分组（包），首部包含了源地目的地址等信息。</li>
+<li>路由器进行分组的转发，每个分组在互联网中独立选择传输路径，分组到达一个路由器后，先暂时存储下来，查找转发表，然后从一条合适的链路转发出去。</li>
+<li>优：高效、灵活、迅速、可靠</li>
+<li>缺：时延（存储转发时排队）、开销（控制信息的携带）</li>
+</ul>
+</li>
+<li>报文交换 整个报文先到相邻结点，全部存储下来后查找转发表</li>
+</ul>
+</li>
+</ul>
+<h3 id="网络类别"><a href="#网络类别" class="headerlink" title="网络类别"></a>网络类别</h3><img src="https://img.mubu.com/document_image/f569fe5e-7027-406f-a313-a31e475360d3-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h3 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h3><ul>
+<li><p>速率（数据率&#x2F;比特率）</p>
+<ul>
+<li>单位是bit&#x2F;s 比特每秒 k&#x3D;10^3 M&#x3D;10^6 G&#x3D;10^9 T&#x3D;10^12</li>
+<li>注意计算机中的数据大小用字节B（Byte）作单位，1字节等于8比特，15GB的数据块以10G的速率传送，即15<em>2^30</em>8比特的数据块以10*10^9比特每秒的速率传输。</li>
+</ul>
+</li>
+<li><p>带宽</p>
+<ul>
+<li>单位时间内网络中的某信道所能通过的“最高数据率” 单位 bit&#x2F;s</li>
+</ul>
+</li>
+<li><p>吞吐量</p>
+<ul>
+<li>单位时间内通过某个网络的实际的数据量。对于1Gbit&#x2F;s的以太网，实际吞吐量可能是100Mbit&#x2F;s</li>
+</ul>
+</li>
+<li><p>时延 （数据从网络的一段到另一端的时间）</p>
+<ul>
+<li>1.发送时延：主机或路由器发送数据帧所需要的时间，从发送数据的第一个比特算起，到该帧的最后一个比特发送完毕所需要的时间。发送时延&#x3D;数据帧长度（bit）&#x2F;发送速率（bit&#x2F;s）。一般发生在网络适配器中（机器内部的发送机器）</li>
+<li>2.传播时延：电磁波在信道中传播一定的距离需要花费的时间，传播时延&#x3D;信道长度（m）&#x2F;电磁波在信道上的传播速率（m&#x2F;s）</li>
+<li>3.处理时延：主机收到分组后进行一定的处理，如分析分组首部、从分组中提取数据部分、进行差错检验或查找适当的路由等。·</li>
+<li>4.排队时延：分组在进入路由器后要先在输入队列中排队等待处理，待确定了转发接口后，还需要在输出队列中排队等待转发。</li>
+<li>总时延&#x3D;发送时延+传播时延+处理时延+排队时延 不能只考虑其中的哪一项</li>
+</ul>
+</li>
+<li><p>时延带宽积：时延带宽积&#x3D;传播时延*带宽 表示这样的链路可容纳多少个比特。传播时延20ms，带宽10Mbit&#x2F;s，时延带宽积为20万bit，表明连续发送数据时，当正在发送的第一个比特即将到达终点，发送端已经发送了20万个比特。</p>
+</li>
+<li><p>往返时间RTT ：从发送方发送数据开始，到发送方收到来自接收方的确认，总共经历的时间。有效数据率&#x3D;数据长度&#x2F;(发送时间+RTT) 会比原来的数据率小一些</p>
+</li>
+<li><p>利用率：信道利用率指某信道有百分之几的时间是有数据通过的。网络利用率是全网络的信道利用率的加权平均值。当某信道的利用率增大时，该信道引起的时延也就迅速增加。</p>
+<ul>
+<li><p>D0 网络空闲时的时延 D1当前时延 U 利用率 则 D1&#x3D;D0&#x2F;（1-U）</p>
+<img src="https://img.mubu.com/document_image/a36439f3-8379-4d9f-8889-57b33776fb99-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+</ul>
+<h3 id="网络协议"><a href="#网络协议" class="headerlink" title="网络协议"></a>网络协议</h3><ul>
+<li>定义：为进行网络中的数据交换而建立的规则、标准或约定</li>
+<li>语法：即数据与控制信息的结构或格式</li>
+<li>语义：即需要发出何种控制信息，完成何种动作以及做出何种响应</li>
+<li>同步：即事件实现顺序的详细说明</li>
+</ul>
+<h3 id="网络体系结构"><a href="#网络体系结构" class="headerlink" title="网络体系结构"></a>网络体系结构</h3><ul>
+<li><p>定义：计算机网络的各层及其协议的集合</p>
+</li>
+<li><p>体系结构</p>
+<img src="https://img.mubu.com/document_image/44e01c8a-6b34-4cfa-be90-140104c9d86b-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<ul>
+<li>应用层：应用层协议定义应用进程间通信和交互的规则；不同的网络应用需要有不同的协议应用层协议，域名系统DNS，HTTP,电子邮件STMP协议等。 数据单元:报文</li>
+<li>运输层：提供通用的数据传输服务。<ul>
+<li>运输层协议：传输控制协议TCP（Transmission Control Protocol）——提供面向连接的，可靠的数据传输服务，数据传输单位:报文段</li>
+<li>用户数据报协议UDP（User Datagram Protocol）——提供无连接的，尽最大努力的数据传输服务。数据传输单位：用户数据报</li>
+</ul>
+</li>
+<li>网络层：选择最佳路径，规划IP地址。传输单位：分组&#x2F;包&#x2F;IP数据报（由运输层的报文段或用户数据报封装而成）。网络层协议:IP协议和许多种路由选择协议</li>
+<li>数据链路层：将网络层的IP数据报组装成帧</li>
+<li>物理层：数据单位是 比特</li>
+</ul>
+</li>
+<li><p>一些概念</p>
+<ul>
+<li><p>PDU(protocol data unit)协议数据单元：对等层次之间传送的数据单位</p>
+<img src="https://img.mubu.com/document_image/9e025a71-4c74-4b82-b6c3-0583f3ca7df2-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://img.mubu.com/document_image/2759f205-6f66-4916-a3a8-08da4d29efa3-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+</li>
+<li><p>服务访问点 SAP (Service Access Point)：同一系统相邻两层的实体进行交互的地方</p>
+</li>
+<li><p>服务数据单元 SDU (Service Data Unit)：层与层之间交换的数据的单位</p>
+</li>
+<li><p>TCP&#x2F;IP的体系结构</p>
+<img src="https://img.mubu.com/document_image/f929c3e3-bfdd-455f-8665-03a5b31cede3-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<ul>
+<li><p>应用层和网络层都有多种协议，TCP&#x2F;IP协议可以为各式各样的应用提供服务</p>
+<img src="https://img.mubu.com/document_image/7ad88da5-166f-41dc-ab69-37dab6cc779e-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="CH2-物理层"><a href="#CH2-物理层" class="headerlink" title="CH2 物理层"></a>CH2 物理层</h2><h3 id="物理层的主要任务"><a href="#物理层的主要任务" class="headerlink" title="物理层的主要任务"></a>物理层的主要任务</h3><ul>
+<li>概念：为确定与传输媒体的接口有关的一些特性</li>
+<li>机械特性：指明接口所用接线器的形状和尺寸、引脚数目和排列、固定和锁定装置等</li>
+<li>电气特性：指明在接口电缆的各条线上出现的电压的范围</li>
+<li>功能特性：指明某条线上出现的某一电平的意义</li>
+<li>过程特性：指明对于不同功能的各种可能事件的出现顺序。</li>
+</ul>
+<h3 id="信道的交互方式"><a href="#信道的交互方式" class="headerlink" title="信道的交互方式"></a>信道的交互方式</h3><ul>
+<li>单工信道</li>
+<li>半双工信道</li>
+<li>全双工信道</li>
+</ul>
+<h3 id="基带信号"><a href="#基带信号" class="headerlink" title="基带信号"></a>基带信号</h3><ul>
+<li><p>概念:来自信源的信号</p>
+</li>
+<li><p>基带调制（编码）：对基带信号的波形进行变换，使它能够与信道特性相适应</p>
+</li>
+<li><p>带通调制：使用载波进行调制，把基带信号的频率搬移到较高的频段，并转换模拟信号。</p>
+</li>
+<li><p>带通信号：经过带通调制的信号</p>
+</li>
+<li><p>常用编码方式</p>
+<img src="https://img.mubu.com/document_image/b2be1fe9-421c-4391-afe5-c14014e433cf-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://img.mubu.com/document_image/9e3760de-9d48-446e-9b00-cfeef080dd3f-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+</li>
+<li><p>基本带通调制方法</p>
+<img src="https://img.mubu.com/document_image/8ea3136f-005b-45d6-904c-503be0fef6a3-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+<h3 id="信道的极限容量"><a href="#信道的极限容量" class="headerlink" title="信道的极限容量"></a>信道的极限容量</h3><ul>
+<li>限制码元在信道上的传输速率的因素<ul>
+<li>1.信道能通过的频率范围。信号中的许多高频分量往往不能通过信道。在任何信道中，码元传输速率是有上限的，传输速率超过此上限，就会出现严重的码间串扰问题，使接受端对码元的判决成为不可能</li>
+<li>2.信噪比<ul>
+<li>信号的平均功率和噪声的平均功率之比 S&#x2F;N，单位为分贝 信噪比（db）&#x3D;10log10(S&#x2F;N) db</li>
+<li>信道的极限信息传输速率<ul>
+<li>香农公式：C&#x3D;W*log2(1+S&#x2F;N) bit&#x2F;s W为带宽（以Hz为单位），S为信号的平均功率 N为信道内部噪声功率</li>
+<li>信道的带宽或信道中的信噪比越大，信息的极限传输速率就越高</li>
+<li>让每一个码元携带更多比特的信息量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="传输媒体"><a href="#传输媒体" class="headerlink" title="传输媒体"></a>传输媒体</h3><ul>
+<li><p>导引型传输媒体</p>
+<ul>
+<li><p>1.双绞线</p>
+<ul>
+<li><p>模拟传输和数字传输都可使用，通信距离一般为几到几十公里</p>
+</li>
+<li><p>屏蔽双绞线（带金属屏蔽层）STP 无屏蔽双绞线 UTP</p>
+</li>
+<li><p>现在最常用的UTP是5类线，大大增加了每单位的绞合次数</p>
+</li>
+<li><p>优：价格便宜性能也不错</p>
+<img src="https://img.mubu.com/document_image/03ea0665-d47e-41d7-98ce-0e4ce563396d-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>2.同轴电缆</p>
+<ul>
+<li><p>抗干扰特性好，被广泛用于传输较高速率的数据</p>
+</li>
+<li><p>带宽取决于电缆质量</p>
+<img src="https://img.mubu.com/document_image/1ee3aae0-c64f-461e-8dd0-70a71b5315d6-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>3.光缆</p>
+<ul>
+<li><p>一条光缆可包含数十至上百根光纤</p>
+</li>
+<li><p>光纤是光纤通信的传输媒体，光纤通信系统的传输带宽远远大于目前其他各种传输媒体的带宽</p>
+</li>
+<li><p>多模光纤：可以存在多条不同角度入射的光线在一条光纤中传输</p>
+</li>
+<li><p>单模光纤：光纤的直径减小到只有一个光的波长，使光线一直向前传播，而不会产生多次反射。</p>
+</li>
+<li><p>优点</p>
+<ul>
+<li>1.通信容量大</li>
+<li>2.传输损耗小，中继距离长</li>
+<li>3.抗雷电和电磁干扰性能好</li>
+<li>无串音干扰，保密性好</li>
+<li>体积小，重量轻（同轴电缆重）</li>
+</ul>
+<img src="https://img.mubu.com/document_image/f985b769-5234-494a-ba4a-9e8c651c935b-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>非导引型传输媒体</p>
+<ul>
+<li>将自由空间称为非引导型传输媒体”</li>
+<li>无线传输的频段很广</li>
+<li>短波通信：主要是靠电离层的反射，但短波信道的通信质量较差，传输速率低</li>
+<li>微波通信:在空间直线传播。分为 1.地面微波接力通信 2.卫星通信</li>
+</ul>
+</li>
+</ul>
+<h3 id="信道复用技术"><a href="#信道复用技术" class="headerlink" title="信道复用技术"></a>信道复用技术</h3><img src="https://img.mubu.com/document_image/839f86d4-4937-4b8c-9bd8-0f521dcd6a60-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<ul>
+<li><p>频分复用 FDM Frequency Division Multiplexing</p>
+<ul>
+<li><p>将整个带宽分为多份，用户在分配到一定的频带后，在通信过程中自始至终都占用这个频带。</p>
+</li>
+<li><p>频分复用的所有用户在同样的时间占用不同的带宽资源</p>
+<img src="https://img.mubu.com/document_image/65446c01-2531-43c9-954f-be35e9e4e358-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>时分复用（同步分时复用）TDM：将时间划分为一段段等长的时分复用帧。用户在每一个时分复用帧中占用固定序号的时隙。时分复用的所有用户是在不同的时间占用同样的频带宽度</p>
+<ul>
+<li><p>时分复用可能会造成线路资源的浪费。（用户没有发送数据时，时分复用帧依然被占用。）</p>
+<img src="https://img.mubu.com/document_image/9ba690a4-c4c9-435a-a365-0d09b7c4b8a1-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>统计时分复用 STDM statistic TDM（异步分时复用）</p>
+<img src="https://img.mubu.com/document_image/daad6de2-4e36-425c-b94c-ff969c5ca830-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+</li>
+<li><p>波分复用 WDM wavelength</p>
+<img src="https://img.mubu.com/document_image/1a9e181d-355e-4d25-9a09-fb163bd44500-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+</li>
+<li><p>码分复用（码分多址） code division Multiple Access</p>
+<ul>
+<li><p>各用户使用经过挑选的不同码型，因此不会造成干扰。每一个比特时间在划分成m个短的间隔，称为码片，每一个站被指派一个唯一的m bit的码片序列，如果发送1，则发送这个码片序列，如果发送0，则发送这个码片序列的反码。S-&gt;X,到达目的站X之后由X根据S的码片向量进行求内积运算，若内积值为1，则说明S发送的是1，若内积值为-1，则说明S发送的是0，若内积值为0，则说明是其他站的信号（不是S的信号）</p>
+</li>
+<li><p>有很强的抗干扰能力且不易被发现</p>
+<img src="https://img.mubu.com/document_image/ae5139cb-b68d-43b7-ae1d-71a2380ef13f-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://img.mubu.com/document_image/72e5207b-2bf7-4d6f-922c-838438e9fe69-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>SDH&#x2F;SONET :第一次真正实现了数字传输体制上的世界性标准，已成为公认的新一代理想的传输网体制</p>
+</li>
+<li><p>宽带接入技术</p>
+</li>
+</ul>
+<h2 id="CH3-数据链路层"><a href="#CH3-数据链路层" class="headerlink" title="CH3 数据链路层"></a>CH3 数据链路层</h2><h3 id="数据链路层使用的信道"><a href="#数据链路层使用的信道" class="headerlink" title="数据链路层使用的信道"></a>数据链路层使用的信道</h3><ul>
+<li>点对点信道</li>
+<li>广播信道</li>
+</ul>
+<p>数据链路层传送的是帧，把网络层交下来的IP数据报添加首部和尾部封装成帧</p>
+<h3 id="三个基本问题（数据链路层协议的共同问题）"><a href="#三个基本问题（数据链路层协议的共同问题）" class="headerlink" title="三个基本问题（数据链路层协议的共同问题）"></a>三个基本问题（数据链路层协议的共同问题）</h3><h4 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a><strong>封装成帧</strong></h4><ul>
+<li><p>封装成帧 就是在一段数据的前后分别添加首部和尾部，然后就构成了一个帧。首尾部可以确定帧的界限(帧定界)。收到的数据有明确的帧定界符才是一个完整的帧</p>
+<img src="https://img.mubu.com/document_image/ef3611d7-d1e8-4ce9-b365-d94487715763-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://img.mubu.com/document_image/330036b2-b4f1-4a7f-b791-1f14892457a9-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+<h4 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a><strong>透明传输</strong></h4><ul>
+<li><p>上层交下来的数据，不论是什么形式的比特组合，都必须能够正确传送</p>
+</li>
+<li><p>如果数据中的某个字节的二进制代码恰好和 SOH 或 EOT 一样，数据链路层就会错误地“找到帧的边界”。要采取有效措施来解决这个问题</p>
+</li>
+<li><p>解决方法：字节填充或字符填充</p>
+<img src="https://img.mubu.com/document_image/bc261c7c-0988-4cc8-b4a1-39e635d386b2-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+<h4 id="差错检测"><a href="#差错检测" class="headerlink" title="差错检测"></a><strong>差错检测</strong></h4><ul>
+<li><p>比特差错：1 可能会变成 0 而 0 也可能变成 1。</p>
+</li>
+<li><p>误码率:传输错误的比特占所传输比特总数的比率</p>
+</li>
+<li><p>循环冗余检验 CRC</p>
+<ul>
+<li><p>先把数据划分为组，每组K个比特</p>
+</li>
+<li><p>需要传输一组数据M，得先在M后面添加n位的冗余码（即后面所得的余数）再一起发送(共k＋n位)</p>
+</li>
+<li><p>发送端与接受端先商定好长度为(n+1)的除数p</p>
+</li>
+<li><p>冗余码（FCS）：M加上n个0后除以p，得一余数，该余数就是冗余码（也称帧检验序列&#x2F;校检码）。余数的个数和添加的0的个数是一样的，都是n位</p>
+</li>
+<li><p>将冗余码添加到M的尾部再进行帧的发送，一共（k+n）位。</p>
+</li>
+<li><p>接受端对把收到的每一个帧都除以除数P，若余数等于0，则无差错，就接受。若余数不为0，则判定帧有差错，就丢弃</p>
+</li>
+<li><p>除数p&#x3D;1101 对应的多项式为：X^3+X^2+1</p>
+</li>
+<li><p>（模2运算加法不进位，采用异或的方式）</p>
+<img src="https://img.mubu.com/document_image/eb0a0707-5eba-440d-a4ee-db4d68ef4351-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+</ul>
+<h3 id="PPP-点到点协议"><a href="#PPP-点到点协议" class="headerlink" title="PPP 点到点协议"></a>PPP 点到点协议</h3><p>在TCP&#x2F;IP协议族中，可靠传输由运输层的TCP协议负责，因此数据链路层的PPP协议不需要进行纠错，不需要设置序号，也不需要进行流量控制。只支持全双工链路</p>
+<h3 id="使用广播信道的数据链路层"><a href="#使用广播信道的数据链路层" class="headerlink" title="使用广播信道的数据链路层"></a>使用广播信道的数据链路层</h3><ul>
+<li><p>局域网的数据链路层</p>
+<ul>
+<li><p>局域网：网络为一个单位所占有，且地理范围和站点数目均有限</p>
+</li>
+<li><p>如何使众多用户能够合理而方便地共享通信媒体资源</p>
+<ul>
+<li>动态媒体接入控制——随机接入(主要)</li>
+</ul>
+</li>
+<li><p>适配器：计算机与局域网的连接是通过适配器进行的</p>
+<img src="https://img.mubu.com/document_image/4b713a5d-8206-480b-a1dc-03a52f7480a7-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+</li>
+<li><p><strong>CSMA&#x2F;CD协议</strong> </p>
+<ul>
+<li><p>概念：载波监听多点接入&#x2F;碰撞检测 carrier sense multiple access with collision detection</p>
+</li>
+<li><p>以太网将许多计算机都接到一根总线上，特点：当一台计算机发送数据时，总线上的所有计算机都能检测到这个数据，总线在同一时间只允许一台计算机发送数据</p>
+<ul>
+<li>以太网采用较为灵活的无连接的工作方式</li>
+<li>适配器对发送的数据帧不进行编号，也不要求对方发回确认</li>
+<li>以太网提供的服务是尽最大努力的交付，即不可靠的交付</li>
+<li>对有差错帧是否需要重传由高层来决定</li>
+<li>以太网发送的数据都采用曼彻斯特码</li>
+</ul>
+</li>
+<li><p>CSMA&#x2F;CD协议要点 半双工方式工作</p>
+<ul>
+<li>多点接入：说明这是总线型网络，有多台计算机连接在总线上</li>
+<li>载波监听：要时刻检测总线上是否有其他计算机也在发送，在发送前，发送中，每个站都必须不停地检测信道。发送前检测是为了获得发送权，发送中检测是为了及时发现是否有其他站的发送和本站的发送的碰撞</li>
+<li>碰撞检测：需要边发边监听，判断自己在发送数据时是否还有其他站点也在发送数据。B站在A站发送的数据未到达前发送B自己的帧</li>
+</ul>
+</li>
+<li><p>在CSMA&#x2F;CD协议下，一个站不可能同时接受和发送（但必须边发送边监听）。只能进行半双工通信</p>
+</li>
+<li><p>发送的不确定性:以太网不能保证某一时间内一定能把自己的数据帧成功发出去</p>
+</li>
+<li><p>争用期&#x2F;碰撞窗口：端到端往返时间2τ，经过了争用期还没有检测到碰撞，才能肯定这次发送肯定不会发生碰撞</p>
+</li>
+<li><p>截断二进制指数退避</p>
+<ul>
+<li><p>退避r倍争用期</p>
+<img src="https://img.mubu.com/document_image/8ffad629-e2a9-4586-9113-a3038d77f6b8-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+<li><p>最短帧长：争用期*速率 10Mbit&#x2F;s的以太网 争用期时长是51.2微秒 则最短帧长是512bit&#x3D;64字节</p>
+</li>
+</ul>
+</li>
+<li><p>集线器</p>
+<ul>
+<li>星型拓扑以太网的中心</li>
+<li>星形以太网10 BASE-T的标准，10代表10Mb&#x2F;s的数据率，base表示连接线上的信号是基带信号，T代表双绞线，距离不超过100m 10 BASE F F代表光纤，主要用作集线器之间的远程连接</li>
+<li>集线器特点<ul>
+<li>使用集线器的以太网在逻辑上仍是一个总线网，各站共享逻辑上的总线，使用的还是CSMA&#x2F;CD协议，并且在同一时刻至多只允许一个站发送数据</li>
+<li>集线器工作在物理层，它的每个接口仅仅简单地转发比特</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>信道利用率： 极限利用率S(max)&#x3D;T0&#x2F;T0+b b为单程端到端时延 T0为帧本身发送时间</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="MAC层"><a href="#MAC层" class="headerlink" title="MAC层"></a>MAC层</h3><ul>
+<li><p>MAC地址（硬件地址、物理地址）</p>
+<ul>
+<li><p>MAC地址长度为48位（6字节），每一个站的名字 或标识符。生产适配器时，6字节的MAC地址已被固化在适配器的ROM</p>
+</li>
+<li><p>发往本站的帧：1.单播帧 2.广播帧 （一对全体） 3.多播帧（一对多）</p>
+</li>
+<li><p>混杂方式工作的以太网适配器：只要听到有帧在以太网上传输就都接受下来</p>
+</li>
+<li><p>MAC帧格式 最短为64位，数据报最短为46位</p>
+<ul>
+<li><p>以太网传输数据以帧为单位，传送各帧时，各帧之间有一定的时间间隙，以太网有帧开始界定符，但不需要使用帧结束界定符，也不需要使用字节插入来保证透明传输。</p>
+<img src="https://img.mubu.com/document_image/03ea5d72-fdba-4ddd-b3f1-d3ccfa48b6e5-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="在数据链路层扩展以太网"><a href="#在数据链路层扩展以太网" class="headerlink" title="在数据链路层扩展以太网"></a>在数据链路层扩展以太网</h3><ul>
+<li><p>网桥：工作在数据链路层，根据MAC帧的目的地址对收到的帧进行转发和过滤，当网桥收到一个帧时，并不是向所有的接口转发此帧，而是先检查此帧的目的MAC地址，然后再确定将该帧转发到哪一个接口</p>
+</li>
+<li><p>为保证在任何两个站之间只有一条路径，透明网桥使用了生成树（Spanning tree）算法</p>
+</li>
+<li><p>以太网交换机</p>
+<ul>
+<li><p>实质为一个多接口的网桥</p>
+</li>
+<li><p>一个接口与一个单台主机或另一个以太网交换机相连。工作在全双工方式</p>
+</li>
+<li><p>相互通信的主机都是独占传输媒体，无碰撞地传输数据。</p>
+</li>
+<li><p>以太网交换机是一种即插即用设备，其内部的帧交换表（又称为地址表）是通过自学习算法自动地逐渐建立起来的</p>
+</li>
+<li><p>不使用共享协议，没有碰撞问题，因此不使用CSMA&#x2F;CD协议，而是以全双工方式工作。但是仍采用以太网的帧结构。</p>
+<img src="https://img.mubu.com/document_image/fbefcc08-29fc-4346-8f42-ed3505f729a6-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://img.mubu.com/document_image/9bd7d2ef-1385-4384-bb60-5e861697bd43-1513806.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+</li>
+</ul>
+<h3 id="虚拟局域网"><a href="#虚拟局域网" class="headerlink" title="虚拟局域网"></a>虚拟局域网</h3><ul>
+<li>概念：在虚拟局域网上的每一个站都可以收到同一个虚拟局域网上的其他站发出的广播（连接在同一个以太网交换机上的站是不能共享的）限制了接收广播信息的计算机数，使得网络不会因为传播过多的广播信息（即所谓的”广播风暴”）而引起性能恶化</li>
+</ul>
+<p>高速 以太网：100BSE-T，指双绞线上传送100Mbit&#x2F;s基带信号的星型拓扑以太网</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网络 1.CH1-CH3概述</div>
+      <div>https://61hhh-github-io.vercel.app/20200706/7ae26181/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年7月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200708/6e919bfb/" title="SSH连接虚拟机Linux">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SSH连接虚拟机Linux</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200705/2911faf4/" title="Tomcat学习">
+                        <span class="hidden-mobile">Tomcat学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

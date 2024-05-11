@@ -1,0 +1,920 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="什么是用例？ “一组用例的实例，其中每个实例都是系统执行的一系列活动，这些活动产生了对每个参与者而言可观察的返回值”（RUP）。 描述了从参与者（Actor）角度看系统（黑盒子）做了什么 WHAT。 用例是文本形式的情节描述，用以说明某参与者使用系统以实现某些目标。常见错误就是注重于次要的UML用例图，而非重要的用例文本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面向对象分析与设计——用例">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200820/b3526665/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="什么是用例？ “一组用例的实例，其中每个实例都是系统执行的一系列活动，这些活动产生了对每个参与者而言可观察的返回值”（RUP）。 描述了从参与者（Actor）角度看系统（黑盒子）做了什么 WHAT。 用例是文本形式的情节描述，用以说明某参与者使用系统以实现某些目标。常见错误就是注重于次要的UML用例图，而非重要的用例文本">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.mubu.com/document_image/beb6a533-b979-4735-bb5f-ed83661a10fa-7976057.jpg">
+<meta property="article:published_time" content="2020-08-20T09:35:40.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:42:11.148Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="软件工程">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.mubu.com/document_image/beb6a533-b979-4735-bb5f-ed83661a10fa-7976057.jpg">
+  
+  
+  
+  <title>面向对象分析与设计——用例 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="面向对象分析与设计——用例"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-20 17:35" pubdate>
+          2020年8月20日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">面向对象分析与设计——用例</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="什么是用例？"><a href="#什么是用例？" class="headerlink" title="什么是用例？"></a>什么是用例？</h3><ul>
+<li>“一组用例的实例，其中每个实例都是系统执行的一系列活动，这些活动产生了对每个参与者而言可观察的返回值”（RUP）。</li>
+<li>描述了从参与者（Actor）角度看系统（黑盒子）做了什么 WHAT。</li>
+<li><strong>用例是文本形式的情节描述，用以说明某参与者使用系统以实现某些目标。</strong>常见错误就是注重于次要的UML用例图，而非重要的用例文本</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="用例的好处"><a href="#用例的好处" class="headerlink" title="用例的好处"></a><strong>用例的好处</strong></h3><ul>
+<li>从用户的角度获取操作性需求。</li>
+<li>对系统的功能进行清晰而一致的描述。</li>
+<li>系统测试的基础。</li>
+<li>提供了从功能需求跟踪到系统中真正的类和操作的能力。</li>
+</ul>
+<p>定义：参与者、场景、用例</p>
+<ul>
+<li><p>参与者（actor） 是某些具有行为的事物，可以是人（由角色标识）、计算机系统或组织，例如：收银员。</p>
+</li>
+<li><p>场景(scenario) 是参与者和系统之间的一系列特定的活动和交互。也称为用例实例（use case instance）。场景是使用系统的一个特定情节或用例的一条执行路径。例如：使用现金成功购买商品的场景，或者由于信用卡付款而拒绝照成的购买失败场景。</p>
+</li>
+<li><p>用例(use case)  就是一组相关的成功和失败场景集合，用来描述参与者如何使用系统来实现其目标。例如：处理退货（主成功场景，交替场景）。</p>
+</li>
+<li><p>用例和用例模型</p>
+<ul>
+<li>在需求科目中定义了用例模型（Use-Case Model）。首先，这是所有书面用例的集合；同时，它是系统功能性和环境的模型。 用例是文本文档，而非图形；用例建模主要是编写文本的活动，而非制图。</li>
+</ul>
+</li>
+</ul>
+<h3 id="动机：为什么使用用例"><a href="#动机：为什么使用用例" class="headerlink" title="动机：为什么使用用例"></a>动机：为什么使用用例</h3><ul>
+<li><p>需求是很难捕获且易变的</p>
+<img src="https://img.mubu.com/document_image/beb6a533-b979-4735-bb5f-ed83661a10fa-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+</li>
+<li><p>使工作保持简单的好方法。</p>
+</li>
+<li><p>使领域专家或需求提供者自己编写（或参与编写）用例成为可能。</p>
+</li>
+<li><p>强调了用户的目标和观点。</p>
+</li>
+<li><p>与查询系统特性清单相比更强调以客户为中心。</p>
+</li>
+<li><p>用例的优越性在于能够根据需要对复杂程度和形式化程度进行增减删节。</p>
+</li>
+</ul>
+<p>用例是功能需求吗？用例是：</p>
+<ul>
+<li>需求，主要是说明系统如何工作的功能性或行为性需求。</li>
+<li>FURPS+中的F。用例强调了”F”(功能性和行为性)。</li>
+<li>在UP中，用例被推荐作为发现和定义需求的核心机制。</li>
+<li>用例定义了系统行为的契约。</li>
+<li>用例是真正的需求（尽管不是所有的需求）。</li>
+</ul>
+<h3 id="参与者的三种类型"><a href="#参与者的三种类型" class="headerlink" title="参与者的三种类型"></a>参与者的三种类型</h3><p>参与者是任何具有行为的事物，在所讨论系统（System under Discussion,SuD）调用其他系统的服务时，还包括其自身。 </p>
+<ul>
+<li><strong>主要参与者</strong>： 具有用户目标，并通过使用SuD的服务完成。通常用来发现驱动用例的用户目标。</li>
+<li><strong>协助参与者</strong>：为SuD提供服务（例如，信息服务）。自动付费授权服务即是一例。协助参与者通常是计算机系统，但也可以是组织或人。协助参与者通常是为了明确外部接口和协议。<ul>
+<li>为何确定协助参阅者？为了明确外部接口或利益。</li>
+</ul>
+</li>
+<li><strong>幕后参与者</strong>：在用例行为中具有影响或利益，但不是主要或协助参与者。例如，政府收税机构。通常是为了确保确定并满足所有必要的重要事物。如果不明确地对幕后参与者进行命名，则有时很容易忽略其影响或利益。</li>
+</ul>
+<h3 id="用例的三种形式"><a href="#用例的三种形式" class="headerlink" title="用例的三种形式"></a>用例的三种形式</h3><p><strong>摘要</strong>－－简洁的一段式概要，通常用于主成功场景。</p>
+<p>》何时使用？在早期需求分析过程中，为快速了解主体和范围使用。可能只需要几分钟编写。</p>
+<p><strong>非正式</strong>－－非正式的段落格式。用几个段落覆盖不同场景。</p>
+<p>》何时使用？同上。</p>
+<p><strong>详述</strong>－－详细编写所有步骤及各种变化，同时具有补充部分，如前置条件和成功保证。</p>
+<p>》何时使用？确定并以摘要形式编写了大量用例后，在第一次需求讨论会中，详细地编写其中少量的具有重要架构和高价值的用例。</p>
+<h4 id="详述风格"><a href="#详述风格" class="headerlink" title="详述风格"></a>详述风格</h4><p>详述用例是结构化的，它展示更多细节，并且更为深入。最为广泛的格式（alistair.cockburn.us上的模板）：</p>
+<ul>
+<li>用例名称：以动词开始</li>
+<li>范围：界定了所要设计的系统</li>
+<li>级别：用户目标级别或子功能级别（重用，如信用卡支付）。</li>
+<li>主要参与者：调用系统，使之交付服务</li>
+<li>涉众及其关注点列表：关注该用例的人及其需要。重要！能够让我们更清楚详细的系统职责</li>
+<li>前置条件：值得告知读者的，开始前必须为真的条件</li>
+<li>成功保证：值得告知读者的，成功完成必须满足的条件</li>
+<li>主成功场景：典型的、无条件的、理想方式的成功场景。§描述了满足涉众关注点的典型成功路径。通常不包括条件或分支。将所有条件和分支延迟到扩展部分进行说明。</li>
+<li>扩展：成功或失败的替代场景</li>
+<li>特殊需求：相关的非功能需求</li>
+<li>技术和数据变元表：不同的I&#x2F;O方法和数据格式</li>
+<li>发生频率：影响对实现的调查、测试和时间安排</li>
+<li>杂项：例如未解决问题。</li>
+</ul>
+<p>书上例子——<strong>《举例——详述的处理销售》</strong>要好好看看理解</p>
+<h3 id="用例准则：以无用户界面的本质风格编写用例"><a href="#用例准则：以无用户界面的本质风格编写用例" class="headerlink" title="用例准则：以无用户界面的本质风格编写用例"></a><strong>用例准则：以无用户界面的本质风格编写用例</strong></h3><ul>
+<li><font color="red"><strong>以本质风格编写用例</strong>，摒除用户界面并且关注参与者的意图。</font></li>
+<li>具体风格－－用例文本涵盖对用户界面的决策。在早期需求工作中应该避免。</li>
+<li>举例：假设在<code>管理用户</code>用例中需要标识身份和认证<ul>
+<li>本质风格：1.管理员标识自己的身份 2.系统对此身份进行验证3. 。。。。。。</li>
+<li>具体风格：1.管理员在对话框中输入ID和口令 2.系统对管理员进行验证 3.系统显示“编辑用户”界面 4.……</li>
+</ul>
+</li>
+<li>摈除用户界面于考虑之外，集中于意图。</li>
+<li><font color="red"><strong>编写简洁的用例</strong>，删除噪音词汇</font></li>
+<li><font color="red"><strong>编写黑盒用例</strong></font>，不对系统内部工作、构件或设计进行描述，通过职责描述系统。</li>
+<li><font color="red"><strong>采用参与者和参与者目标的视点</strong> </font></li>
+</ul>
+<h3 id="如何发现用例-基本过程"><a href="#如何发现用例-基本过程" class="headerlink" title="如何发现用例(基本过程)"></a>如何发现用例(基本过程)</h3><ul>
+<li><strong>①选择系统边界</strong> 系统紧紧是软件应用，还是将硬件和作用作为整体，是一个人使用，还是整个组织使用。</li>
+<li><strong>②寻找主要参与者</strong> 通过使用系统的服务实现目标的人或事。</li>
+<li><strong>③为每个参与者确定他们的目标</strong>。</li>
+<li><strong>④定义满足用户目标的用例，根据其目标对用例命名。</strong>通常，用户目标级别的用例和用户目标是一一对应的。</li>
+</ul>
+<h4 id="发现用例详细步骤"><a href="#发现用例详细步骤" class="headerlink" title="发现用例详细步骤"></a>发现用例详细步骤</h4><ul>
+<li>如何发现用例——选择系统边界<ul>
+<li>系统的边界用来说明构建的用例模型的应用范围。</li>
+<li>描述了系统被包含在内的“信封”。</li>
+<li>比如一台自助式售货机，系统内功能：售货、供货、提取销售款等功能，自动售货机之外的情况不考虑。</li>
+</ul>
+</li>
+<li><font color="red"><strong>如何发现用例——寻找主要参与者和目标</strong> </font><ul>
+<li>参与者是与系统交换数据的实体。参与者可以是用户，外部的硬件或者另外一个系统。</li>
+<li>准则：首先集体讨论主要参与者，因为这样可以为将来的研究建立框架。</li>
+<li><font color="red"><strong>什么样的问题有助于寻找参与者和目标：</strong> </font><ul>
+<li>谁来启动和停止系统。</li>
+<li>谁来完成用户管理和安全管理。</li>
+<li>谁来完成系统管理。</li>
+<li>“时间”是管理者吗。因为系统要响应时间事件而完成某些活动。</li>
+<li>系统失败时，是否存在监控进程将系统重新启动。</li>
+<li>软件升级是如何处理的，是推模式还是拉模式。</li>
+<li>除了人作为主要参与者外，还有其他外部的软件或自动机器系统调用该系统的服务吗。</li>
+<li>谁来考察系统活动或性能。</li>
+<li>谁来考察日志，是否可以远程检索。</li>
+<li>系统发生错误或故障时应通知谁。</li>
+</ul>
+</li>
+<li>如何组织参与者和目标<ul>
+<li>发现结果，将其绘制为用例图，以目标作为用例名称。</li>
+<li>或者：首先写出参与者-目标列表，复查并精华之，然后绘制用例图。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如何发现用例——定义用例<ul>
+<li>一般而言，为每一个用户目标定义用例。</li>
+<li>定义用例需要交流和参与</li>
+<li>用例的粒度问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="利用测试发现有用的用例"><a href="#利用测试发现有用的用例" class="headerlink" title="利用测试发现有用的用例"></a>利用测试发现有用的用例</h3><p><strong>老板测试</strong>：老板是付钱的人。老板必须看到可量化的价值。</p>
+<p><strong>EBP测试</strong>：EBP即基本业务过程（Elementary Business Process），定义如下： 一个人于某个时刻在一个地点所执行的行为，用以响应业务事件。该任务能够增加可量化的价值，并且以持久状态留下数据。例如，批准信用卡的信用额或者确定订购的价格。ERP测试与老板测试类似，尤其是对业务价值可量化这一限制而言。用例是在会话过程中完成的任务。用例可能只需几分钟或一个小时就能完成。正如UP的定义，用例增强可观察或可量化的业务价值，由此形成了这样的解释：系统和数据具有稳定和持久状态。</p>
+<p><strong>规模测试</strong>：用例很少由单独的活动或步骤组成，相反，用例通常应该包括多个步骤</p>
+<p>应用UML: 用例图</p>
+<ul>
+<li>在UML里, 用例图是表达用例和活动者及其之间关系的载体。</li>
+<li>用例图是模型图，用例图可包含用例，活动者以及它们之间的关系，这些关系可以是：<ul>
+<li>include(包含）</li>
+<li>extend （扩展）</li>
+<li>generalization（泛化）</li>
+</ul>
+</li>
+<li>用例图的用途是为软件系统、软件子系统、类的动态行为建模。它从两个方面对其建模对象的内容进行描述，即：<ul>
+<li>描述它们的边界。</li>
+<li>对它们进行需求分析。</li>
+</ul>
+</li>
+</ul>
+<p>应用UML: 活动图</p>
+<ul>
+<li>活动图：有助于使工作流和业务过程可视化的图。</li>
+<li>因为用例涵盖过程和工作流分析，活动图成为编写用例文本的有用的辅助措施。</li>
+</ul>
+<p>过程：在迭代方式中如何使用用例</p>
+<ul>
+<li>用例是UP和其他众多迭代方法的核心，UP提倡用例驱动开发。<ul>
+<li>功能需求首先记录在用例（用例模型）中。</li>
+<li>用例是迭代计划的重要部分，是预算的关键输入。</li>
+<li>用例实现（use-case realization)驱动设计。小组设计协作对象和子系统都是为了执行或实现用例。</li>
+<li>用例影响了用户手册和测试。</li>
+<li>功能或系统测试应该符合用例的场景。</li>
+<li>为重要用例的最常用场景创建UI”向导“或快捷方式可以方便执行常用任务。</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/">#软件工程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>面向对象分析与设计——用例</div>
+      <div>https://61hhh-github-io.vercel.app/20200820/b3526665/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年8月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200928/0/" title="">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200817/2812144/" title="常见排序算法总结">
+                        <span class="hidden-mobile">常见排序算法总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

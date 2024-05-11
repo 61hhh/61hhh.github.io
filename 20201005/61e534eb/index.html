@@ -1,0 +1,874 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="缓存缓存的概念：存在内存中的临时数据。将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。 好处：减少和数据库的交互次数，减少系统开销，提高系统效率。 常用对象：需要频繁查询且较少改变的对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis学习六-缓存">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20201005/61e534eb/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="缓存缓存的概念：存在内存中的临时数据。将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。 好处：减少和数据库的交互次数，减少系统开销，提高系统效率。 常用对象：需要频繁查询且较少改变的对象">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180957876.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Mybatis-localCache.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181057541.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181132780.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181159362.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181216600.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181235208.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181252335.png">
+<meta property="article:published_time" content="2020-10-05T02:45:40.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:52:06.679Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Mybatis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180957876.png">
+  
+  
+  
+  <title>Mybatis学习六-缓存 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Mybatis学习六-缓存"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-10-05 10:45" pubdate>
+          2020年10月5日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Mybatis学习六-缓存</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>缓存的概念：存在内存中的临时数据。将用户经常查询的数据放在缓存（内存）中，用户去查询数据就不用从磁盘上(关系型数据库数据文件)查询，从缓存中查询，从而提高查询效率，解决了高并发系统的性能问题。</p>
+<p>好处：减少和数据库的交互次数，减少系统开销，提高系统效率。</p>
+<p>常用对象：需要频繁查询且较少改变的对象</p>
+<span id="more"></span>
+
+<h3 id="Mybatis缓存特性"><a href="#Mybatis缓存特性" class="headerlink" title="Mybatis缓存特性"></a>Mybatis缓存特性</h3><p>mybatis 也提供了对缓存的支持， 分为<strong>一级缓存</strong>和<strong>二级缓存</strong>。</p>
+<ul>
+<li>默认情况下，只有一级缓存开启。（SqlSession级别的缓存，也称为本地缓存）</li>
+<li>二级缓存需要手动开启和配置，他是基于namespace级别的缓存。</li>
+<li>为了提高扩展性，MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存</li>
+</ul>
+<blockquote>
+<p>【注】狂神的视频只是简单介绍了一级二级缓存以及开启方法，我将其整理，在网上找了一些<strong>Mybatis缓存机制</strong>相关博客进行补充！</p>
+</blockquote>
+<p>在Mybatis的jar包中，找到<code>org.apache.ibatis</code>可以看到<code>cache</code>目录下的文件</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180957876.png" srcset="/img/loading.gif" lazyload alt="image-20230420180957876" style="zoom:80%;" />
+
+<p>其中有一个Cache 接口，只有一个默认的实现类 PerpetualCache，它是用HashMap 实现的。</p>
+<h2 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h2><p><strong>概念原理：</strong></p>
+<p>之前学习过：每当我们使用MyBatis开启一次和数据库的会话，Mybatis会创建出<strong>一个SqlSession对象表示一次数据库会话</strong>。一次会话中会有多次查询，其中可能就会有很多重复的，Mybatis处理的方法是什么呢？</p>
+<p>答：MyBatis会在表示会话的SqlSession对象中建立一个缓存，将每次查询到的结果结果缓存起来，当下次查询的时候，如果判断先前有个完全一样的查询，会直接从缓存中直接将结果取出，返回给用户，不需要再进行一次数据库查询了。</p>
+<p>SqlSession只是一个Mybatis对外的接口，SqlSession将它的工作交给了Executor执行器这个角色来完成，负责完成对数据库的各种操作。当创建了一个SqlSession对象时，Mybatis会为这个对象创建一个新的Executor执行器，而缓存信息就被维护在这个Executor执行器中，Mybatis将缓存和对缓存相关的操作封装成了Cache接口中。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Mybatis-localCache.png" srcset="/img/loading.gif" lazyload alt="Mybatis-localCache" style="zoom:67%;" />
+
+<p>由于Session级别的一级缓存实际上就是使用<strong>PerpetualCache</strong>维护的，那么<strong>PerpetualCache</strong>是怎样实现的呢？</p>
+<p><strong>PerpetualCache</strong>实现原理其实很简单，其内部就是通过一个简单的<strong>HashMap</strong>来实现的，没有其他的任何限制。</p>
+<blockquote>
+<p>这里作为Mybatis的入门，只是了解一下。</p>
+<p>更多底层的执行步骤细节、源码实现，以后再专门去学习记录！</p>
+</blockquote>
+<h3 id="一级缓存的测试"><a href="#一级缓存的测试" class="headerlink" title="一级缓存的测试"></a>一级缓存的测试</h3><p>编写接口方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;<br>    <span class="hljs-comment">//根据ID查询用户</span><br>    User <span class="hljs-title function_">queryUserById</span><span class="hljs-params">( <span class="hljs-type">int</span> id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接口对应的Mapper文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;queryUserById&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;com.liu9.pojo.User&quot;</span>&gt;</span><br>    select * from mybatis.user<br>    where  id = #&#123;id&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testQueryUserById</span><span class="hljs-params">()</span>&#123;<br>   <span class="hljs-type">SqlSession</span> <span class="hljs-variable">session</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br>   <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> session.getMapper(UserMapper.class);<br><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user);<br>   <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user2);<br>   System.out.println(user==user2);<br><br>   session.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到：查询语句只执行了一次！并且判断<code>user1==user2</code>结果为true</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181057541.png" srcset="/img/loading.gif" lazyload alt="image-20230420181057541" style="zoom:80%;" />
+
+
+
+<h3 id="一级缓存生命周期"><a href="#一级缓存生命周期" class="headerlink" title="一级缓存生命周期"></a>一级缓存生命周期</h3><ul>
+<li>一级缓存是SqlSession级别的缓存，所以在SqlSession会话结束后，SqlSession对象及其内部的Executor和PerpetualCache对象都会一并释放掉</li>
+<li>SqlSession调用了close()方法时，会释放PerpetualCache对象</li>
+<li>SqlSession调用了clearCache()方法时，清空缓存，对象仍可用</li>
+<li>SqlSession调用了增删改等方法时，清空缓存，对象仍可用</li>
+</ul>
+<p>以下是四种常见的SqlSession失效情况：</p>
+<h4 id="1、不同的SqlSession"><a href="#1、不同的SqlSession" class="headerlink" title="1、不同的SqlSession"></a>1、不同的SqlSession</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">queryUserByIdTest</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">SqlSession</span> <span class="hljs-variable">sqlSession</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br>    <span class="hljs-type">SqlSession</span> <span class="hljs-variable">sqlSession2</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br><br>    <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> sqlSession.getMapper(UserMapper.class);<br>    <span class="hljs-type">User</span> <span class="hljs-variable">user1</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>    System.out.println(user1);<br>    System.out.println(<span class="hljs-string">&quot;&lt;------------------------------------&gt;&quot;</span>);<br>    sqlSession.close();<br><br>    <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper2</span> <span class="hljs-operator">=</span> sqlSession2.getMapper(UserMapper.class);<br>    <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> mapper2.queryUserById(<span class="hljs-number">1</span>);<br>    System.out.println(user2);<br>    System.out.println(<span class="hljs-string">&quot;&lt;------------------------------------&gt;&quot;</span>);<br><br>    System.out.println(user1==user2);<br>    sqlSession2.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码开启了两个SqlSession，分别执行相同的查询，输出如下：可以看到它执行了两次SQL，表明user1的缓存并没有作用到user2上！结论：<strong>每个sqlSession中的缓存相互独立</strong></p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181132780.png" srcset="/img/loading.gif" lazyload alt="image-20230420181132780" style="zoom:80%;" />
+
+
+
+<h4 id="2、sqlSession相同，查询条件不同"><a href="#2、sqlSession相同，查询条件不同" class="headerlink" title="2、sqlSession相同，查询条件不同"></a>2、sqlSession相同，查询条件不同</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testQueryUserById</span><span class="hljs-params">()</span>&#123;<br>   <span class="hljs-type">SqlSession</span> <span class="hljs-variable">session</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br>   <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> session.getMapper(UserMapper.class);<br>   <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper2</span> <span class="hljs-operator">=</span> session.getMapper(UserMapper.class);<br><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user);<br>   <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> mapper2.queryUserById(<span class="hljs-number">2</span>);<br>   System.out.println(user2);<br>   System.out.println(user==user2);<br><br>   session.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个很明显，user1和user2查询的对象并不相同，user1缓存的是queryUserById(1)内容，不能复用到user2上。同样观察结果发现两次查询，判断为false</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181159362.png" srcset="/img/loading.gif" lazyload alt="image-20230420181159362" style="zoom:80%;" />
+
+
+
+<h4 id="3、sqlSession相同，两次查询之间执行了增删改操作"><a href="#3、sqlSession相同，两次查询之间执行了增删改操作" class="headerlink" title="3、sqlSession相同，两次查询之间执行了增删改操作"></a>3、sqlSession相同，两次查询之间执行了增删改操作</h4><p>增加方法updateUser</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//修改用户</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">updateUser</span><span class="hljs-params">(Map map)</span>;<br></code></pre></td></tr></table></figure>
+
+<p>配置对应的SQL语句</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">update</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;updateUser&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;map&quot;</span>&gt;</span><br>  update user set name = #&#123;name&#125; where id = #&#123;id&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">update</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>编写测试代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testQueryUserById3</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">SqlSession</span> <span class="hljs-variable">session</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br>    <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> session.getMapper(UserMapper.class);<br><br>    <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>    System.out.println(user);<br><br>    <span class="hljs-type">HashMap</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>();<br>    map.put(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;liuyi&quot;</span>);<br>    map.put(<span class="hljs-string">&quot;id&quot;</span>,<span class="hljs-number">4</span>);<br>    mapper.updateUser(map);<br><br>    <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>    System.out.println(user2);<br><br>    System.out.println(user==user2);<br><br>    session.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在两次查询中间加入了一个update操作</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181216600.png" srcset="/img/loading.gif" lazyload alt="image-20230420181216600" style="zoom:80%;" />
+
+
+
+<h4 id="4、sqlSession相同，手动清除一级缓存"><a href="#4、sqlSession相同，手动清除一级缓存" class="headerlink" title="4、sqlSession相同，手动清除一级缓存"></a>4、sqlSession相同，手动清除一级缓存</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testQueryUserById</span><span class="hljs-params">()</span>&#123;<br>   <span class="hljs-type">SqlSession</span> <span class="hljs-variable">session</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br>   <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> session.getMapper(UserMapper.class);<br><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user);<br><br>   session.clearCache();<span class="hljs-comment">//手动清除缓存</span><br><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user2);<br><br>   System.out.println(user==user2);<br><br>   session.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>输出与上面一致，因为cache被手动清除了。</p>
+<h2 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h2><p><strong>概念原理：</strong></p>
+<p>​		二级缓存是用来解决一级缓存不能跨会话共享的问题的，范围是namespace 级别的，可以被多个SqlSession 共享（只要是同一个接口里面的相同方法，都可以共享），生命周期和应用同步。如果你的MyBatis使用了二级缓存，并且你的Mapper和select语句也配置使用了二级缓存，那么在执行select查询的时候，MyBatis会先从二级缓存中取输入，其次才是一级缓存，即MyBatis查询数据的顺序是：二级缓存  —&gt; 一级缓存 —&gt; 数据库。</p>
+<p>MyBatis 用了一个装饰器的类来维护，就是CachingExecutor。如果启用了二级缓存，MyBatis 在创建Executor 对象的时候会对Executor 进行装饰。CachingExecutor 对于查询请求，会判断二级缓存是否有缓存结果，如果有就直接返回，如果没有委派交给真正的查询器Executor 实现类，比如SimpleExecutor 来执行查询，再走到一级缓存的流程。最后会把结果缓存起来，并且返回给用户。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181235208.png" srcset="/img/loading.gif" lazyload alt="image-20230420181235208" style="zoom:80%;" />
+
+
+
+<h3 id="开启二级缓存"><a href="#开启二级缓存" class="headerlink" title="开启二级缓存"></a>开启二级缓存</h3><p>开启二级缓存可以参考官方文档，里面有介绍。</p>
+<p>1、开启全局缓存 【mybatis-config.xml】</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--显式地开启全局缓存--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">setting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;cacheEnabled&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>2、去每个mapper.xml中配置使用二级缓存，这个配置非常简单；【xxxMapper.xml】</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">cache</span>/&gt;</span><br>官方示例=====&gt;查看官方文档<br><span class="hljs-tag">&lt;<span class="hljs-name">cache</span></span><br><span class="hljs-tag"> <span class="hljs-attr">eviction</span>=<span class="hljs-string">&quot;FIFO&quot;</span></span><br><span class="hljs-tag"> <span class="hljs-attr">flushInterval</span>=<span class="hljs-string">&quot;60000&quot;</span></span><br><span class="hljs-tag"> <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;512&quot;</span></span><br><span class="hljs-tag"> <span class="hljs-attr">readOnly</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span><br>这个更高级的配置创建了一个 FIFO 缓存，每隔 60 秒刷新，最多可以存储结果对象或列表的 512 个引用，而且返回的对象被认为是只读的，因此对它们进行修改可能会在不同线程中的调用者产生冲突。<br></code></pre></td></tr></table></figure>
+
+<p>3、代码测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testQueryUserById</span><span class="hljs-params">()</span>&#123;<br>   <span class="hljs-type">SqlSession</span> <span class="hljs-variable">session</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br>   <span class="hljs-type">SqlSession</span> <span class="hljs-variable">session2</span> <span class="hljs-operator">=</span> MybatisUtils.getSession();<br><br>   <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper</span> <span class="hljs-operator">=</span> session.getMapper(UserMapper.class);<br>   <span class="hljs-type">UserMapper</span> <span class="hljs-variable">mapper2</span> <span class="hljs-operator">=</span> session2.getMapper(UserMapper.class);<br><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> mapper.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user);<br>   session.close();<br><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user2</span> <span class="hljs-operator">=</span> mapper2.queryUserById(<span class="hljs-number">1</span>);<br>   System.out.println(user2);<br>   System.out.println(user==user2);<br><br>   session2.close();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结果成功，类似上面。</p>
+<p>只要开启了二级缓存，我们在同一个Mapper中的查询，可以在二级缓存中拿到数据；查出的数据都会被默认先放在一级缓存中；只有会话提交或者关闭以后，一级缓存中的数据才会转到二级缓存中</p>
+<p><strong>缓存原理图</strong></p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181252335.png" srcset="/img/loading.gif" lazyload alt="image-20230420181252335" style="zoom:80%;" />
+
+
+
+<p><strong>第三方缓存EhCache</strong></p>
+<p>MyBatis定义了缓存接口Cache。我们可以通过实现Cache接口来自定义二级缓存。以比较知名的EhCache为例：Ehcache是一种广泛使用的java分布式缓存，用于通用缓存；</p>
+<p>要在应用程序中使用Ehcache，需要引入依赖的jar包</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.mybatis.caches/mybatis-ehcache --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.mybatis.caches<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-ehcache<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.1.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>在mapper文件中写入</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--在当前的mapper中开启自定义二级缓存--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">cache</span></span><br><span class="hljs-tag">        <span class="hljs-attr">eviction</span>=<span class="hljs-string">&quot;FIFO&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">flushInterval</span>=<span class="hljs-string">&quot;60000&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">size</span>=<span class="hljs-string">&quot;512&quot;</span></span><br><span class="hljs-tag">        <span class="hljs-attr">readOnly</span>=<span class="hljs-string">&quot;true&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">cache</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;org.mybatis.caches.ehcache.EhcacheCache&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>编写ehcache.xml文件，如果在加载时未找到&#x2F;ehcache.xml资源或出现问题，则将使用默认配置。</p>
+<p>【注】：详细的配置可以自行百度了解</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wuzhenzhao/p/11103043.html">mybatis缓存机制</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/luanlouis/article/details/41280959">《深入理解mybatis原理》MyBatis的一级缓存实现详解 及使用注意事项</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Mybatis/" class="category-chain-item">Mybatis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Mybatis/">#Mybatis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Mybatis学习六-缓存</div>
+      <div>https://61hhh-github-io.vercel.app/20201005/61e534eb/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年10月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20201005/78bf396f/" title="Spring学习一-初识Spring">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Spring学习一-初识Spring</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20201003/3e64f5c6/" title="Mybatis学习五-动态SQL">
+                        <span class="hidden-mobile">Mybatis学习五-动态SQL</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

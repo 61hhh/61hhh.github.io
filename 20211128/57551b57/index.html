@@ -1,0 +1,986 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="作为目前最知名也是最流行的开源NoSQL数据库，Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库。因此Redis的学习很有必要。主要通过B站尚硅谷网课和配套资料免费学习。  网课参考：Redis 6 入门到精通 超详细 教程、尚硅谷超经典Redis教程,redis实战,阳哥版从入门到精通 笔记参考：Redi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习一：NoSQL学习">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20211128/57551b57/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="作为目前最知名也是最流行的开源NoSQL数据库，Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库。因此Redis的学习很有必要。主要通过B站尚硅谷网课和配套资料免费学习。  网课参考：Redis 6 入门到精通 超详细 教程、尚硅谷超经典Redis教程,redis实战,阳哥版从入门到精通 笔记参考：Redi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117221900849.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222128588.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222205901.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222231999.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222301900.png">
+<meta property="og:image" content="c:/Users/cestc/AppData/Roaming/Typora/typora-user-images/image-20211120213943790.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224124725.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224143458.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224154563.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224210584.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215531125.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215642374.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215851351.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215940739.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224302502.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127224409622.png">
+<meta property="article:published_time" content="2021-11-27T16:04:16.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:25:34.061Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="NoSQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117221900849.png">
+  
+  
+  
+  <title>Redis学习一：NoSQL学习 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis学习一：NoSQL学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-11-28 00:04" pubdate>
+          2021年11月28日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis学习一：NoSQL学习</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>作为目前最知名也是最流行的开源NoSQL数据库，Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库。因此Redis的学习很有必要。主要通过B站尚硅谷网课和配套资料免费学习。</p>
+<ul>
+<li>网课参考：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Rv41177Af">Redis 6 入门到精通 超详细 教程</a>、<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oW411u75R">尚硅谷超经典Redis教程,redis实战,阳哥版从入门到精通</a></li>
+<li>笔记参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011863024/article/details/107476187">Redis学习笔记</a></li>
+</ul>
+<h2 id="NoSQL入门概述-上"><a href="#NoSQL入门概述-上" class="headerlink" title="NoSQL入门概述-上"></a>NoSQL入门概述-上</h2><h3 id="1-为什么用NoSQL"><a href="#1-为什么用NoSQL" class="headerlink" title="1 为什么用NoSQL"></a>1 为什么用NoSQL</h3><p>在介绍NoSQL之前，先介绍一下应用中的SQL发展，从单机的MySQL到分库分表+缓存到集群等等，随着移动应用发展，网站程序访问量不断激增，所以对应用的数据库要求也在不断增加。</p>
+<p><strong>1.单机MySQL的美好年代</strong></p>
+<p>在90年代，一个网站的访问量一般都不大，用单个数据库完全可以轻松应付。在那个时候，更多的都是静态网页，动态交互类型的网站不多。（我们在学校做的应用基本上都是采用简单的单机MySQL）</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117221900849.png" srcset="/img/loading.gif" lazyload alt="image-20211117221900849" style="zoom:80%;" />
+
+<blockquote>
+<p>DAL dal是数据访问层的英文缩写，即为数据访问层（Data Access Layer）</p>
+</blockquote>
+<p>上述架构下，我们来看看数据存储的瓶颈是什么?</p>
+<ol>
+<li>数据量的总大小一个机器放不下时</li>
+<li>数据的索引(B+ Tree)一个机器的内存放不下时</li>
+<li>访问量(读写混合)一个实例不能承受</li>
+</ol>
+<p>如果满足了上述1or3个，进化…</p>
+<p><strong>2.Memcached(缓存)+MySQL+垂直拆分</strong></p>
+<p>后来，随着访问量的上升，几乎大部分使用MySQL架构的网站在数据库上都开始出现了性能问题，web程序不再仅仅专注在功能上，同时也在追求性能。</p>
+<p>程序员们开始大量的使用缓存技术来缓解数据库的压力，优化数据库的结构和索引。开始比较流行的是通过文件缓存来缓解数据库压力，但是当访问量继续增大的时候，多台web机器通过文件缓存不能共享，大量的小文件缓存也带了了比较高的IO压力。在这个时候，Memcached就自然的成为一个非常时尚的技术产品。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222128588.png" srcset="/img/loading.gif" lazyload alt="image-20211117222128588" style="zoom:80%;" />
+
+<p><strong>3.Mysql主从读写分离</strong></p>
+<p>由于数据库的写入压力增加，Memcached 只能缓解数据库的读取压力。读写集中在一个数据库上让数据库不堪重负，大部分网站开始使用主从复制技术来达到读写分离，以提高读写性能和读库的可扩展性。Mysql的master-slave模式成为这个时候的网站标配了。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222205901.png" srcset="/img/loading.gif" lazyload alt="image-20211117222205901" style="zoom:80%;" />
+
+<p><strong>4.分表分库+水平拆分+mysql集群</strong></p>
+<p>在Memcached的高速缓存，MySQL的主从复制， 读写分离的基础之上，这时MySQL主库的写压力开始出现瓶颈，而数据量的持续猛增，由于MyISAM使用表锁，在高并发下会出现严重的锁问题，大量的高并发MySQL应用开始使用InnoDB引擎代替MyISAM。</p>
+<p>同时，开始流行使用分表分库来缓解写压力和数据增长的扩展问题。这个时候，分表分库<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="分库：将业务相关的、频繁性的数据分在同一个数据库，将一些趋于冷的数据（如用户的名字、身份证号码等变化很少的数据）放在另外的一个库中。分表：对于复杂业务产生的大量数据，例如产生了100w条数据，放在同一个表中肯定会很慢，换个方式0-25、25-50、50-75、75-100四个分区，可以达到将数据的压力差分的目的。">[2]</span></a></sup>成了一个热门技术，是面试的热门问题也是业界讨论的热门技术问题。也就在这个时候，MySQL推出了还不太稳定的表分区，这也给技术实力一般的公司带来了希望。虽然MySQL推出了MySQL Cluster集群，但性能也不能很好满足互联网的要求，只是在高可靠性上提供了非常大的保证。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222231999.png" srcset="/img/loading.gif" lazyload alt="image-20211117222231999" style="zoom:80%;" />
+
+<p><strong>5.MySQL的扩展性瓶颈</strong></p>
+<p>MySQL数据库也经常存储一些大文本字段，导致数据库表非常的大，在做数据库恢复的时候就导致非常的慢，不容易快速恢复数据库。比如1000万4KB大小的文本就接近40GB的大小， 如果能把这些数据从MySQL省去，MySQL将变得非常的小。关系数据库很强大，但是它并不能很好的应付所有的应用场景。MySQL的扩展性差(需要复杂的技术来实现)，大数据下IO压力大，表结构更改困难，正是当前使用MySOL的开发人员面临的问题。</p>
+<p><strong>6.今天是什么样子? ?</strong></p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222301900.png" srcset="/img/loading.gif" lazyload alt="image-20211117222301900" style="zoom:80%;" />
+
+<p><strong>7.为什么用NoSQL</strong></p>
+<p>传统的RDBMS使用SQL语法来存储和查询数据。相反，NoSQL数据库系统包含可存储结构化，半结构化，非结构化和多态数据的多种数据库技术。</p>
+<img src="C:\Users\cestc\AppData\Roaming\Typora\typora-user-images\image-20211120213943790.png" srcset="/img/loading.gif" lazyload alt="image-20211120213943790" style="zoom:67%;" />
+
+<p>NoSQL数据库的概念在处理大量数据的互联网巨头（例如Google，Facebook，Amazon等）中变得很流行。使用RDBMS处理海量数据时，系统响应时间变慢。</p>
+<p>为了解决此问题，当然可以通过升级现有硬件来“横向扩展”我们的系统。但这个成本很高。这个问题的替代方案是在负载增加时将数据库负载分配到多个主机上。这种方法称为“横向扩展”。传统的SQL数据库已经不适合这些应用了，NoSQL数据库的发展也却能很好的处理这些大的数据。</p>
+<h3 id="2-NoSQL是什么"><a href="#2-NoSQL是什么" class="headerlink" title="2 NoSQL是什么"></a>2 NoSQL是什么</h3><p>NoSQL，最初被称作Non-SQL<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="NoSQL 定义：下一代数据库主要解决一些问题：非关系、分布式、开源和水平可扩展”。">[1]</span></a></sup>；后来也称作Not Only SQL，意即“不仅仅是SQL”，泛指非关系型的数据库。是一种非关系型DMS，不需要固定的架构，可以避免joins链接，并且易于扩展。</p>
+<p>NoSQL数据库可以用于具有庞大数据存储需求的分布式数据存储、大数据和实时SNS类型的Web应用程序。例如，像Twitter，Facebook，Google这样的大型公司，每天可能产生TB级的用户数据，这些类型的数据存储不需要固定的模式，无需多余操作就可以横向扩展。</p>
+<h3 id="3-NoSQL特点"><a href="#3-NoSQL特点" class="headerlink" title="3 NoSQL特点"></a>3 NoSQL特点</h3><h4 id="易扩展"><a href="#易扩展" class="headerlink" title="易扩展"></a>易扩展</h4><p>例如MySQL，出于业务需求需要拓展对象的属性时，是通过alter table添加字段，但是这是有限的，且数据库的字段类型也是有限的。并且对于社会关系等比较复杂的关系，可能需要用图、树等结构来描述，采用SQL难于拓展</p>
+<p>NoSQL数据库种类繁多，但是一个共同的特点都是去掉关系数据库的关系型特性。数据之间无关系，这样就非常容易扩展。也无形之间，在架构的层面上带来了可扩展的能力。（以常见的k-v键值对为例，key可以是数字、字符等等，value可以是字符串、对象、对象数组等等）</p>
+<h4 id="大数据量高性能"><a href="#大数据量高性能" class="headerlink" title="大数据量高性能"></a>大数据量高性能</h4><p>NoSQL数据库都具有非常高的读写性能，尤其在大数据量下，同样表现优秀。这得益于它的无关系性，数据库的结构简单。一般MySQL使用Query Cache，每次表的更新Cache就失效，是一种大粒度的Cache，在针对web2.0的交互频繁的应用，Cache性能不高。而NoSQL的Cache是记录级的，是一种细粒度的Cache，所以NoSQL在这个层面上来说就要性能高很多了。</p>
+<h4 id="多样灵活的数据模型"><a href="#多样灵活的数据模型" class="headerlink" title="多样灵活的数据模型"></a>多样灵活的数据模型</h4><p>NoSQL无需事先为要存储的数据建立字段，随时可以存储自定义的数据格式。而在关系数据库里，增删字段是一件非常麻烦的事情。如果是非常大数据量的表，增加字段简直就是一个噩梦。这点在大数据量的Web 2.0时代尤其明显。</p>
+<h4 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h4><p>NoSQL在不太影响性能的情况，就可以方便地实现高可用的架构。比如Cassandra、HBase模型，通过复制模型也能实现高可用</p>
+<h4 id="传统RDBMS-VS-NOSQL"><a href="#传统RDBMS-VS-NOSQL" class="headerlink" title="传统RDBMS VS NOSQL"></a>传统RDBMS VS NOSQL</h4><p><strong>RDBMS</strong></p>
+<ul>
+<li>高度组织化结构化数据</li>
+<li>结构化查询语言(SQL)</li>
+<li>数据和关系都存储在单独的表中</li>
+<li>数据操纵语言，数据定义语言</li>
+<li>严格的一致性</li>
+<li>基础事务</li>
+</ul>
+<p><strong>NoSQL</strong></p>
+<ul>
+<li>代表着不仅仅是SQL</li>
+<li>没有声明性查询语言</li>
+<li>没有预定义的模式</li>
+<li>键-值对存储，列存储，文档存储，图形数据库</li>
+<li>最终一致性，而非ACID属性</li>
+<li>非结构化和不可预知的数据</li>
+<li>CAP定理</li>
+<li>高性能，高可用性和可伸缩性</li>
+</ul>
+<h3 id="4-NoSQL的应用"><a href="#4-NoSQL的应用" class="headerlink" title="4.NoSQL的应用"></a>4.NoSQL的应用</h3><ul>
+<li>K-V：键值对存储</li>
+<li>Cache：缓存</li>
+<li>Persistence：数据持久化</li>
+</ul>
+<h2 id="NoSQL入门概述-下"><a href="#NoSQL入门概述-下" class="headerlink" title="NoSQL入门概述-下"></a>NoSQL入门概述-下</h2><p>以腾讯微信、阿里淘宝为例：在节假日活动时会产生海量的用户数据；数据的种类肯定也是多样的，不是仅仅在数据库中表现的varchar、int等简单类型；双十一、春节车票抢购都是对数据的实时性有非常高的要求。对应于应用发展带来的数据3v，需求架构上也产生了三高。</p>
+<table>
+<thead>
+<tr>
+<th>大数据时代的3V</th>
+<th>互联网需求的3高</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>海量Volume</td>
+<td>高并发</td>
+</tr>
+<tr>
+<td>多样Variety</td>
+<td>高可扩</td>
+</tr>
+<tr>
+<td>实时Velocity</td>
+<td>高性能</td>
+</tr>
+</tbody></table>
+<h3 id="当下NoSQL应用场景简介"><a href="#当下NoSQL应用场景简介" class="headerlink" title="当下NoSQL应用场景简介"></a>当下NoSQL应用场景简介</h3><p><strong>SQL和NoSQL双剑合璧：</strong>以阿里巴巴为例，通过分析Alibaba中文站商品信息如何存放，看看阿里巴巴中文网站首页以女装&#x2F;女包包为例</p>
+<h4 id="架构发展历程"><a href="#架构发展历程" class="headerlink" title="架构发展历程"></a>架构发展历程</h4><ol>
+<li><p>演变过程</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224124725.png" srcset="/img/loading.gif" lazyload alt="image-20230420224124725" style="zoom: 67%;" />
+</li>
+<li><p>第5代</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224143458.png" srcset="/img/loading.gif" lazyload alt="image-20230420224143458" style="zoom:67%;" />
+</li>
+<li><p>第5代架构使命</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224154563.png" srcset="/img/loading.gif" lazyload alt="image-20230420224154563" style="zoom:67%;" /></li>
+</ol>
+<p><strong>和我们相关的，多数据源类型的存储问题</strong></p>
+<p>例如一个购物网站的商品页面，会包含商品的基本信息、详情、销量、用户的评价（文字图片视频）、点赞点踩等等不同类型的信息，且信息的存放往往会采用不同的数据源。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224210584.png" srcset="/img/loading.gif" lazyload alt="image-20230420224210584" style="zoom:67%;" />
+
+<h4 id="阿里商品描述"><a href="#阿里商品描述" class="headerlink" title="阿里商品描述"></a>阿里商品描述</h4><p><strong>什么是IOE，为什么去IOE化</strong></p>
+<p>I：IBM的小型机、O：Oracle的数据库、E：EMC的高端存储。这三者在金融证券电信保险等企业有着巨大的份额，许多传统企业都是采用它们的产品，导致技术上有着严重依赖，对于公司的发展提升有着很大的弊病。</p>
+<p>去IOE化，其本意是，在阿里巴巴的IT架构中，去掉IBM的小型机、Oracle数据库、EMC存储设备，代之以自己在开源软件基础上开发的系统。借此保证企业良好的技术提升</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>内容及存储方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>商品基本信息</td>
+<td>名称、价格，出厂日期，生产厂商等趋于不变的数据<br/>关系型数据库。如MySQL</td>
+</tr>
+<tr>
+<td>商品描述、详情、评价信息(多文字类)</td>
+<td>多文字信息描述类，IO读写性能变差<br/>文档数据库MongDB</td>
+</tr>
+<tr>
+<td>商品的图片</td>
+<td>商品图片展现类。<br/>分布式的文件系统，如TFS、GTF、HDFS</td>
+</tr>
+<tr>
+<td>商品的关键字</td>
+<td>淘宝自研的ISearch</td>
+</tr>
+<tr>
+<td>商品的波段性的热点高频信息</td>
+<td>内存数据库；Tair、Redis、Memcache</td>
+</tr>
+<tr>
+<td>商品的交易、价格计算、积分累计</td>
+<td>外部系统，外部第3方支付接口<br/>支付宝</td>
+</tr>
+</tbody></table>
+<h2 id="NoSQL数据模型简介"><a href="#NoSQL数据模型简介" class="headerlink" title="NoSQL数据模型简介"></a>NoSQL数据模型简介</h2><p>以一个电商客户、订单、订购、地址模型来对比关系型数据库和非关系型数据库</p>
+<p>传统关系型数据库如何设计：先画E-R图，描述模型关联，再根据E-R设计表结构。常见的关联有1:1、1:n、n:n等。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215531125.png" srcset="/img/loading.gif" lazyload alt="image-20211127215531125" style="zoom: 67%;" />
+
+<p>NOSQL如何设计：以BSON为例，采用Json结构来表述数据的存储方式，k-v形式可以实现对象的存储。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215642374.png" srcset="/img/loading.gif" lazyload alt="image-20211127215642374" style="zoom: 67%;" />
+
+<p><strong>为什么用聚合模型来处理</strong><br>高并发的操作是不太建议用关联查询的，互联网公司用冗余数据来避免关联查询；分布式事务是支持不了太多的并发的</p>
+<h4 id="NoSQL数据库四大分类"><a href="#NoSQL数据库四大分类" class="headerlink" title="NoSQL数据库四大分类"></a>NoSQL数据库四大分类</h4><ol>
+<li><p>常见的K-V键值对：【新浪：BerkeleyDB+redis】、【美团：redis+tair】、【阿里、百度：memcache+redis】</p>
+</li>
+<li><p>文档型数据库：Bson格式为主，【CouchDB】、【MongoDB(一个基于分布式文件存储的数据库)】</p>
+</li>
+<li><p>列族：顾名思义，是按列存储数据的。最大的特点是方便存储结构化和半结构化数据，方便做数据压缩，<br>对针对某一列或者某几列的查询有非常大的IO优势。【Cassandra】、【HBase】、【分布式文件系统】</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215851351.png" srcset="/img/loading.gif" lazyload alt="image-20211127215851351" style="zoom:67%;" />
+</li>
+<li><p>图形：图关联结构，存放的不是图片数据，而是用来表示存在复杂关系的数据，社交网络、推荐系统等应用较多。【Neo4J】、【InfoGrid】</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215940739.png" srcset="/img/loading.gif" lazyload alt="image-20211127215940739" style="zoom:67%;" /></li>
+</ol>
+<h4 id="四者对比"><a href="#四者对比" class="headerlink" title="四者对比"></a>四者对比</h4><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224302502.png" srcset="/img/loading.gif" lazyload alt="image-20230420224302502" style="zoom:80%;" />
+
+
+
+<h2 id="分布式数据库CAP原理"><a href="#分布式数据库CAP原理" class="headerlink" title="分布式数据库CAP原理"></a><font color="red">分布式数据库CAP原理</font></h2><h3 id="CAP原理简介"><a href="#CAP原理简介" class="headerlink" title="CAP原理简介"></a>CAP原理简介</h3><p> 介绍分布式数据库的CAP原理之前，可以先回顾一下SQL数据库的ACID特性</p>
+<ul>
+<li><strong>A (Atomicity) 原子性</strong>：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成。</li>
+<li><strong>C (Consistency) 一致性</strong>：执行事务前后，数据库的完整性没有被破坏，数据能保持一致。</li>
+<li><strong>I (Isolation) 独立性</strong>：数据库允许多个事务进行数据操作，通过隔离性防止多个事务并发执行出现的数据不一致</li>
+<li><strong>D (Durability) 持久性</strong>：事务对数据的修改是永久的。</li>
+</ul>
+<p>分布式数据库的CAP原理：<font color="red">对于分布式计算系统来说，不可能同时满足以下三点</font></p>
+<ul>
+<li><strong>C:Consistency（强一致性）</strong>：分布式系统中的所有数据备份，在同一时刻保持同样的值。（等同于所有节点访问同一份最新的数据副本）</li>
+<li><strong>A:Availability（可用性）</strong>：保证每个请求都能获得非错的响应，但不保证响应的是最新的数据。</li>
+<li><strong>P:Partition tolerance（分区容忍性）</strong>：以实际效果而言，分区相当于对通信的时限要求。系统如果不能在时限内达成数据一致性，就意味着发生了分区的情况，必须就当前操作在C和A之间做出选择。</li>
+</ul>
+<p>根据定理，分布式系统只能满足三项中的两项而不可能满足全部三项。理解CAP理论的最简单方式是想象两个节点分处分区两侧。允许至少一个节点更新状态会导致数据不一致，即丧失了C性质。如果为了保证数据一致性，将分区一侧的节点设置为不可用，那么又丧失了A性质。除非两个节点可以互相通信，才能既保证C又保证A，这又会导致丧失P性质。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127224409622.png" srcset="/img/loading.gif" lazyload alt="image-20211127224409622" style="zoom: 75%;" />
+
+<h3 id="CAP的三进二"><a href="#CAP的三进二" class="headerlink" title="CAP的三进二"></a>CAP的三进二</h3><h4 id="CA（一致性-可用性）"><a href="#CA（一致性-可用性）" class="headerlink" title="CA（一致性+可用性）"></a>CA（一致性+可用性）</h4><p>即放弃系统的拓展性，传统的单点关系型数据库或类似架构的非分布式数据库，不存在网络分区问题。</p>
+<p>比如MySQL、Oracle等传统数据库</p>
+<h4 id="CP（一致性-容错性）"><a href="#CP（一致性-容错性）" class="headerlink" title="CP（一致性+容错性）"></a>CP（一致性+容错性）</h4><p>相当于每个请求都需要在服务器之间保持强一致性。当分区间的数据出现不一致（出现网络故障等情况），必须停止旧数据的服务，直到数据同步完成，这势必会牺牲用户的体验。</p>
+<p>典型的比如Redis、HBase，数据的一致性是基本要求，发生特殊情况优先保证数据的强一致性</p>
+<h4 id="AP（可用性-容错性）"><a href="#AP（可用性-容错性）" class="headerlink" title="AP（可用性+容错性）"></a>AP（可用性+容错性）</h4><p>仍然允许所有客户端读写，但是两个数据中心之间不再同步，它们的数据就会逐渐地变得不同，即牺牲一致性，保证可用性。</p>
+<p>AP的应用场景也很多，比如12306抢票，浏览时看到还有票（可能已经没票了），点进去下单提示没票了，购买失败。这就是在数据一致性上做出牺牲，会影响一些用户体验，但是也不至于造成用户流程的严重阻塞。</p>
+<p>但是，我们说很多网站牺牲了一致性，选择了可用性，这其实也不准确的。就比如上面的买票的例子，其实舍弃的只是强一致性。退而求其次保证了最终一致性。也就是说，虽然下单的瞬间，关于车票的库存可能存在数据不一致的情况，但是过了一段时间，还是要保证最终一致性的。</p>
+<h3 id="BASE定理"><a href="#BASE定理" class="headerlink" title="BASE定理"></a>BASE定理</h3><p>BASE是<strong>Basically Available（基本可用）</strong>、<strong>Soft state（软状态）</strong>和<strong>Eventually consistent（最终一致性）</strong>三个短语的简写。</p>
+<p>BASE是对CAP中一致性C和可用性A权衡的结果，来源于对大规模互联网系统分布式实践的结论，是基于CAP定理逐步演化而来的，其核心思想是：<font color="red"><strong>让系统放松对某一时刻数据的强一致性要求（Strong Consistency），来换取西戎整体的伸缩性和性能上的改观，结合自身业务特点，通过适当设计保证系统达到最终一致性（Eventual Consistency）</strong></font>。</p>
+<h4 id="基本可用"><a href="#基本可用" class="headerlink" title="基本可用"></a>基本可用</h4><p>什么是基本可用？它是指分布式系统在出现不可预知故障的时候，允许损失部分可用性——但请注意，这绝不等价于系统不可用，参考例子：</p>
+<ul>
+<li><strong>响应时间上的损失</strong>：正常情况下一个搜索引擎0.5秒即返回给用户结果，现在出现了异常，查询的相应时间可能变成1-2秒。</li>
+<li><strong>功能上的损失</strong>：日常购物时用户在网上买东西可以按流程顺利完成订单，但是在像双十一这种高峰期，用户访问量剧增，为了保证稳定，部分用户可能会被引导到降级页面。</li>
+</ul>
+<h4 id="软状态"><a href="#软状态" class="headerlink" title="软状态"></a>软状态</h4><p>相对于原子性而言，要求多个节点的数据副本都是一致的，这是一种“硬状态”。</p>
+<p>软状态指的是：允许系统中的数据存在中间状态，并认为该状态不影响系统的整体可用性，即允许系统在多个不同节点的数据副本存在数据延时。</p>
+<h4 id="最终一致性"><a href="#最终一致性" class="headerlink" title="最终一致性"></a>最终一致性</h4><p>软状态不能一直存在，必须有一个期限，在这段时间内可以允许数据延时，但是期限过后所有数据要达到一致状态。因此，最终一致性的本质是需要系统保证最终数据能够达到一致，而不需要实时保证系统数据的强一致性。</p>
+<p>亚马逊首席技术官Werner Vogels在于2008年发表的一篇文章中对最终一致性进行了非常详细的介绍，他认为最终一致性是一种特殊的弱一致性：系统能够保证在没有其他新的更新操作的情况下，数据最终一定能够达到一致状态，因此所有客户端对系统的数据访问都能够获取到最新的值。同时，在没有发生故障的前提下，数据达到一致状态的时间延迟，取决于网络延迟，系统负载和数据复制方案设计等因素。</p>
+<ul>
+<li>因果一致性（Causal consistency）</li>
+<li>读己之所写（Read your writes）</li>
+<li>会话一致性（Session consistency）</li>
+<li>单调读一致性（Monotonic read consistency）</li>
+<li>单调写一致性（Monotonic write consistency）</li>
+</ul>
+<p>实际上，不只是分布式系统使用最终一致性，关系型数据库在某个功能上，也是使用最终一致性的。比如备份，数据库的复制过程是需要时间的，这个复制过程中，业务读取到的值就是旧的。当然，最终还是达成了数据一致性。这也算是一个最终一致性的经典案例。</p>
+<p>总体来说BASE理论面向的是大型高可用、可扩展的分布式系统。与传统ACID特性相反，不同于ACID的强一致性模型，BASE提出通过牺牲强一致性来获得可用性，并允许数据段时间内的不一致，但是最终达到一致状态。同时，在实际分布式场景中，不同业务对数据的一致性要求不一样。因此在设计中，ACID和BASE理论往往又会结合使用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u011863024/article/details/107476187">Redis学习笔记</a></li>
+<li><a target="_blank" rel="noopener" href="https://mongoing.com/archives/docs/mongodb%E5%88%9D%E5%AD%A6%E8%80%85%E6%95%99%E7%A8%8B/nosql%E6%95%99%E7%A8%8B%EF%BC%9A%E4%BA%86%E8%A7%A3nosql%E7%9A%84%E5%8A%9F%E8%83%BD%EF%BC%8C%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%90%AB%E4%B9%89%EF%BC%8C%E4%BC%98%E5%8A%BF">NoSQL教程：了解NoSQL的功能，类型，含义，优势</a></li>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903621495095304">分布式理论(二) - BASE理论</a></li>
+</ul>
+<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>NoSQL 定义：下一代数据库主要解决一些问题：非关系、分布式、开源和水平可扩展”。
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>分库：将业务相关的、频繁性的数据分在同一个数据库，将一些趋于冷的数据（如用户的名字、身份证号码等变化很少的数据）放在另外的一个库中。分表：对于复杂业务产生的大量数据，例如产生了100w条数据，放在同一个表中肯定会很慢，换个方式0-25、25-50、50-75、75-100四个分区，可以达到将数据的压力差分的目的。
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Redis/">#Redis</a>
+      
+        <a href="/tags/NoSQL/">#NoSQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis学习一：NoSQL学习</div>
+      <div>https://61hhh-github-io.vercel.app/20211128/57551b57/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年11月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20211206/7af3bdf0/" title="Redis学习二：基本数据类型及操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis学习二：基本数据类型及操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20211126/e0a94a43/" title="Linux安装(CentOS)">
+                        <span class="hidden-mobile">Linux安装(CentOS)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

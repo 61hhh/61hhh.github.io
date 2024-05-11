@@ -1,0 +1,958 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="数组和字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetbook-数组和字符串">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20201206/7970c1ba/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="数组和字符串">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-06T09:27:41.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:42:11.140Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="leetcode">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>leetbook-数组和字符串 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="leetbook-数组和字符串"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-12-06 17:27" pubdate>
+          2020年12月6日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          64 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">leetbook-数组和字符串</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数组和字符串"><a href="#数组和字符串" class="headerlink" title="数组和字符串"></a>数组和字符串</h1><span id="more"></span>
+
+<h2 id="数组简介"><a href="#数组简介" class="headerlink" title="数组简介"></a>数组简介</h2><h3 id="寻找数组的中心索引"><a href="#寻找数组的中心索引" class="headerlink" title="寻找数组的中心索引"></a>寻找数组的中心索引</h3><p><strong>思路</strong>：前缀和——中心索引左右两边和相等，所以先sum求出总和，然后计算右边是否等于左边<code>left == sum-left-nums[i]</code>，满足就返回，不满足就右移，直到结束。时间复杂度O(N)空间复杂度O(1)</p>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">pivotIndex</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> sum=<span class="hljs-number">0</span>,left=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> s:nums) sum+=s;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.length;i++)&#123;<br>            <span class="hljs-keyword">if</span>(left== sum-left-nums[i])&#123;<br>                <span class="hljs-keyword">return</span> i;<br>            &#125;<br>            left+=nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h3><p><strong>思路</strong>：简单的二分查找代码。（当然由于数组已经有序了，直接遍历一遍也行）</p>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">searchInsert</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> target)</span> &#123;<br>        <span class="hljs-type">int</span> left=<span class="hljs-number">0</span>,right=nums.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(left&lt;=right)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">mid</span> <span class="hljs-operator">=</span> left+(right-left)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[mid]==target)<br>                <span class="hljs-keyword">return</span> mid;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(nums[mid]&lt;target)<br>                left = mid+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span> <br>                right = mid-<span class="hljs-number">1</span>;            <br>        &#125;<br>        <span class="hljs-keyword">return</span> right+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>思路：题目是要判断重叠区间，类似算法笔记贪心</p>
+<p>完整代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//参考算法笔记 区间贪心，寻找不相交区间</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[][] merge(<span class="hljs-type">int</span>[][] intervals) &#123;<br>        <span class="hljs-comment">//按起始位置由小到大排序</span><br>        Arrays.sort(intervals,(v1,v2)-&gt; v1[<span class="hljs-number">0</span>]-v2[<span class="hljs-number">0</span>] );<br>        <span class="hljs-comment">//存放每一个内部的数组</span><br>        <span class="hljs-type">int</span>[][] ans = <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[intervals.length][<span class="hljs-number">2</span>];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span>[] interval:intervals)&#123;<br>            <span class="hljs-comment">//当前数组起始位置 &gt; ans最后数组的结束位置</span><br>            <span class="hljs-comment">//将当前数组加入ans</span><br>            <span class="hljs-keyword">if</span>(index==-<span class="hljs-number">1</span> || interval[<span class="hljs-number">0</span>]&gt;ans[index][<span class="hljs-number">1</span>])<br>                ans[++index] = interval;<br>            <span class="hljs-comment">//否则将当前区间加到ans最后数组</span><br>            <span class="hljs-keyword">else</span><br>                ans[index][<span class="hljs-number">1</span>] = Math.max(ans[index][<span class="hljs-number">1</span>],interval[<span class="hljs-number">1</span>]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> Arrays.copyOf(ans, index + <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="二维数组简介"><a href="#二维数组简介" class="headerlink" title="二维数组简介"></a>二维数组简介</h2><h3 id="旋转矩阵"><a href="#旋转矩阵" class="headerlink" title="旋转矩阵"></a>旋转矩阵</h3><p>对于矩阵中第 i 行的第 j 个元素，在旋转后，它出现在倒数第 i 列的第 j 个位置。</p>
+<p>matrix [row] [col] –&gt; matrix [col] [n-1-row]</p>
+<p>思路一：用辅助数组存储临时旋转的结果</p>
+<p>复杂度：时间O(N^2) 空间O(N^2)</p>
+<p>思路二：原地旋转，前一个的列是旋转结果的行，前一个的行倒数过来是结果的列</p>
+<p>一次旋转交换四个位置</p>
+<p>[row,col] –&gt; [col,n-1-row] –&gt; [n-1-row,n-1-col] –&gt; [n-1-col,row] –&gt; [row,col]</p>
+<p>n为偶数：n^2&#x2F;4 &#x3D; n&#x2F;2 * n&#x2F;2，左上角四分之一区域</p>
+<p>n为奇数：(n^2-1)&#x2F;4 &#x3D; (n-1)&#x2F;2 * (n+1)&#x2F;2，左上角(n-1)&#x2F;2,(n+1)&#x2F;2区域</p>
+<p>注：赋值的时候反过来</p>
+<p>思路三：用翻转代替旋转，做两次翻转结果也是一样</p>
+<p>水平翻转   ：matrix [row] [col] &#x3D; matrix [n-1-row] [col]</p>
+<p>+主对角线翻转  ：matrix [row] [col] &#x3D; matrix [col] [row]</p>
+<p>&#x3D; 联立结果    ：matirx [row] [col] &#x3D; matrix [col] [n-1-row]</p>
+<p>注：水平+对角线–&gt;顺时针 对角线+水平–&gt;逆时针</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//思路二：原地翻转</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">rotate</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] matrix)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> matrix.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> row=<span class="hljs-number">0</span>;row&lt;n/<span class="hljs-number">2</span>;row++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> col=<span class="hljs-number">0</span>;col&lt;(n+<span class="hljs-number">1</span>)/<span class="hljs-number">2</span>;col++)&#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> matrix[row][col];<br>                matrix[row][col] = matrix[n-<span class="hljs-number">1</span>-col][row];<br>                matrix[n-<span class="hljs-number">1</span>-col][row] = matrix[n-<span class="hljs-number">1</span>-row][n-<span class="hljs-number">1</span>-col];<br>                matrix[n-<span class="hljs-number">1</span>-row][n-<span class="hljs-number">1</span>-col] = matrix[col][n-<span class="hljs-number">1</span>-row];<br>                matrix[col][n-<span class="hljs-number">1</span>-row] = tmp;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">//思路三</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">rotate</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] matrix)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">n</span> <span class="hljs-operator">=</span> matrix.length;<br>        <span class="hljs-comment">//水平翻转</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i &lt; n/<span class="hljs-number">2</span>;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;j++)&#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> matrix[i][j];<br>                matrix[i][j] = matrix[n-<span class="hljs-number">1</span>-i][j];<br>                matrix[n-<span class="hljs-number">1</span>-i][j] = tmp;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//对角线翻转</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)&#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> matrix[i][j];<br>                matrix[i][j] = matrix[j][i];<br>                matrix[j][i] = tmp;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="零矩阵"><a href="#零矩阵" class="headerlink" title="零矩阵"></a>零矩阵</h3><p>思路：数组中只要某个位置<code>matrix[i][j] = 0</code>那么对应<code>i</code>行<code>j</code>列全置0，所以可以用两个数组记录行列中出现0的情况，遍历二维数组做处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setZeroes</span><span class="hljs-params">(<span class="hljs-type">int</span>[][] matrix)</span> &#123;<br>        <span class="hljs-type">boolean</span>[] row = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[matrix.length];<br>        <span class="hljs-type">boolean</span>[] col = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[matrix[<span class="hljs-number">0</span>].length];<br>        <span class="hljs-comment">//记录0出现的行列值</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;matrix.length;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;matrix[<span class="hljs-number">0</span>].length;j++)&#123;<br>                <span class="hljs-keyword">if</span>(matrix[i][j]==<span class="hljs-number">0</span>)&#123;<br>                    row[i] = <span class="hljs-literal">true</span>;<br>                    col[j] = <span class="hljs-literal">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//清理行</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;matrix.length;i++)&#123;<br>            <span class="hljs-keyword">if</span>(row[i])&#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;matrix[<span class="hljs-number">0</span>].length;j++)<br>                    matrix[i][j] = <span class="hljs-number">0</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//清理列</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;matrix[<span class="hljs-number">0</span>].length;i++)&#123;<br>            <span class="hljs-keyword">if</span>(col[i])&#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;matrix.length;j++)<br>                    matrix[j][i] = <span class="hljs-number">0</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="字符串简介"><a href="#字符串简介" class="headerlink" title="字符串简介"></a>字符串简介</h2><h3 id="最长公共前缀"><a href="#最长公共前缀" class="headerlink" title="最长公共前缀"></a>最长公共前缀</h3><p>思路一：横向扫描方式，一次遍历比较字符串，更新前缀prefix，遍历完后就可以得到最长前缀。</p>
+<p>时间复杂度O(mn)，m是字符串平均长度，n是字符串数量；空间复杂度O(1)</p>
+<p>思路二：纵向扫描，从前往后遍历所有字符串的第一列，相同列上字符相同就继续，否则就返回</p>
+<p>还有其他方法例如分治、二分查找等</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestCommonPrefix</span><span class="hljs-params">(String[] strs)</span> &#123;<br>        <span class="hljs-keyword">if</span>(strs == <span class="hljs-literal">null</span> || strs.length ==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">prefix</span> <span class="hljs-operator">=</span> strs[<span class="hljs-number">0</span>];<br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> strs.length;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;count;i++)&#123;<br>            prefix = lcp(prefix,strs[i]);<br>            <span class="hljs-keyword">if</span>(prefix.length() == <span class="hljs-number">0</span>)<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> prefix;<br>    &#125;<br><br>    <span class="hljs-comment">//获取两个字符串的lcp</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">lcp</span><span class="hljs-params">(String s1,String s2)</span>&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> Math.min(s1.length(),s2.length());<br>        <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(index&lt;len &amp;&amp; s1.charAt(index)==s2.charAt(index))<br>            index++;<br>        <span class="hljs-keyword">return</span> s1.substring(<span class="hljs-number">0</span>,index);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestCommonPrefix</span><span class="hljs-params">(String[] strs)</span> &#123;<br>        <span class="hljs-keyword">if</span> (strs == <span class="hljs-literal">null</span> || strs.length == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> strs[<span class="hljs-number">0</span>].length();<span class="hljs-comment">//字符串长度</span><br>        <span class="hljs-type">int</span> <span class="hljs-variable">count</span> <span class="hljs-operator">=</span> strs.length;<span class="hljs-comment">//字符串数量</span><br>        <span class="hljs-comment">//每个字符串逐列进行比较</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; length; i++) &#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> strs[<span class="hljs-number">0</span>].charAt(i);<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">j</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; j &lt; count; j++) &#123;<br>                <span class="hljs-comment">//第j个字符串长度即为i || 对应位置字符不同</span><br>                <span class="hljs-keyword">if</span> (i == strs[j].length() || strs[j].charAt(i) != c) &#123;<br>                    <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>].substring(<span class="hljs-number">0</span>, i);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> strs[<span class="hljs-number">0</span>];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a>最长回文子串</h3><p>思路：暴力法枚举所有子串，验证是否为回文串，可以添加剪枝<code>j-i+1&gt;maxLen</code>，只有串长比maxLen大才判断。时间复杂度O(N^3)，这个暴力法自己写的都有问题。。参考一下别人的改出来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestPalindrome</span><span class="hljs-params">(String s)</span>&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> s.length();<br>        <span class="hljs-keyword">if</span>(len&lt;<span class="hljs-number">2</span>)&#123;<br>            <span class="hljs-keyword">return</span> s;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">maxLen</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//s.charAt(i)每次都会检查数组下标越界，因此先转换成字符数组</span><br>        <span class="hljs-type">char</span>[] charArray = s.toCharArray();<br>        <span class="hljs-comment">//枚举所有长度达于1的子串charArray[i...j]</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len-<span class="hljs-number">1</span>;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i+<span class="hljs-number">1</span>;j&lt;len;j++)&#123;<br>                <span class="hljs-keyword">if</span>(j-i+<span class="hljs-number">1</span>&gt;maxLen &amp;&amp; validPalindromic(charArray,i,j))&#123;<br>                    maxLen = j-i+<span class="hljs-number">1</span>;<br>                    begin = i;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span>  s.substring(begin,begin+maxLen);<br>    &#125;<br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    * 验证子串s[left...right]是否为回文串</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">validPalindromic</span><span class="hljs-params">(<span class="hljs-type">char</span>[] charArray,<span class="hljs-type">int</span> left,<span class="hljs-type">int</span> right)</span>&#123;<br>        <span class="hljs-keyword">while</span>(left&lt;right)&#123;<br>            <span class="hljs-keyword">if</span>(charArray[left]!=charArray[right])&#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>            &#125;<br>            left++;<br>            right--;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>别人的思路：动态规划。回文串具有天然的状态转移性质——一个回文串去掉首尾两个字符还是回文串。所以可以从两端判断：两端不等必然不是，相等再看里面</p>
+<ol>
+<li><p>定义状态：<code>dp[i][j]</code>表示<code>s[i...j]</code>是否为回文子串</p>
+</li>
+<li><p>状态转移方程:<code>dp[i][j]==(s[i]==s[j]) and dp[i+1][j-1]</code></p>
+<p>动态规划就是填二维表，由于<code>i&lt;=j</code>所以只看对角线以上</p>
+<p>还要考虑<code>dp[i+1][j-1]</code>可能存在边界情况。边界条件：<code>(j-1)-(i+1)+1&lt;2 --&gt; j-i&lt;3</code>即字符串长度为2或3的时候直接判断</p>
+</li>
+<li><p>判断结论：如果子串 <code>s[i+1..j-1]</code> 只有 1 个字符，即去掉两头，剩下中间部分只有1个字符，显然是回文；如果子串<code>s[i+1..j-1]</code>为空串，那么子串<code>s[i, j]</code>一定是回文子串。</p>
+</li>
+<li><p>初始化：单个字符肯定是回文串，所以对角线即<code>dp[i][i]=true</code>，不过但单个字符也不会被其他状态值参考，基本可以去除</p>
+</li>
+<li><p>输出：只要得到<code>dp[i][j]=true</code>就记录字串长度和起始位置</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">longestPalindrome</span><span class="hljs-params">(String s)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> s.length();<br>        <span class="hljs-keyword">if</span>(len&gt;<span class="hljs-number">2</span>)	<span class="hljs-keyword">return</span> s;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">manLen</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">begin</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-comment">//dp[i][j]</span><br>        <span class="hljs-type">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">boolean</span>[len][len];<br>        <span class="hljs-type">char</span>[] charArray = s.toCharArray();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)<br>            <span class="hljs-keyword">do</span>[i][i] = <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;len;j++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;j;i++)&#123;<br>                <span class="hljs-keyword">if</span>(charArray[i]!=charArray[j])<br>                    dp[i][j] = <span class="hljs-literal">false</span>;<br>        		<span class="hljs-keyword">else</span>&#123;<br>                    <span class="hljs-keyword">if</span>(j-i&lt;<span class="hljs-number">3</span>)	dp[i][j]=<span class="hljs-literal">true</span>;<br>                    <span class="hljs-keyword">else</span>		dp[i][j]=dp[i+<span class="hljs-number">1</span>][j-<span class="hljs-number">1</span>];<br>                &#125;<br>                <span class="hljs-comment">//dp[i][j]==true表示子串s[i...j]是回文串，记录长度和起始位置</span><br>                <span class="hljs-keyword">if</span>(dp[i][j]&amp;&amp;j-i+<span class="hljs-number">1</span>&gt;maxLen)&#123;<br>                    maxLen = j-i+<span class="hljs-number">1</span>;<br>                    begin = i;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> s.substring(begin,begin+maxLen);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>别人的思路：中心扩散。除了从左右两端来判断，回文串也可以从中间往两边扩散。基本想法是遍历每一个索引，以该索引为中心利用回文串对称的特点往两边扩散  </p>
+<h3 id="翻转字符串里的单词"><a href="#翻转字符串里的单词" class="headerlink" title="翻转字符串里的单词"></a>翻转字符串里的单词</h3><p>思路：一开始没想到用库函数，想着直接遍历s，开一个String数组存放单词，遇到空格就表示一个单词结束，所以只要<code>s.charAt(i)!=&#39; &#39;</code>的话就<code>word[num]+=s.charAt(i)</code>，遇到空格单词入栈和<code>num++</code>，然后将栈中元素拼接，思路没错，就是太麻烦了，效率也非常低</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">reverseWords</span><span class="hljs-params">(String s)</span> &#123;<br>        s+=<span class="hljs-string">&quot; &quot;</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> s.length();<br>        String[] word = <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[<span class="hljs-number">10010</span>];<br>        Stack&lt;String&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>&lt;&gt;();<br>        <span class="hljs-type">int</span> num=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10010</span>;i++)&#123;<br>            word[i]=<span class="hljs-string">&quot;&quot;</span>;<br>        &#125;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)&#123;<br>            <span class="hljs-keyword">if</span>(s.charAt(i)!=<span class="hljs-string">&#x27; &#x27;</span>)&#123;<br>                word[num] += s.charAt(i);<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                stack.push(word[num]);<br>                num++;<br>            &#125;<br>        &#125;<br>        String ss=<span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-keyword">while</span>(!stack.isEmpty())&#123;<br>            ss+=stack.peek();<br>            <span class="hljs-keyword">if</span>(stack.size()&gt;<span class="hljs-number">1</span>&amp;&amp;stack.peek()!=<span class="hljs-string">&quot;&quot;</span>)&#123;<br>                ss+=<span class="hljs-string">&quot; &quot;</span>;<br>            &#125;<br>            stack.pop();<br>        &#125;<br>        ss=ss.trim();<br>        <span class="hljs-keyword">return</span> ss;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>问题一：遇到<code>&quot; hello world!&quot;</code>会输出<code>&quot; world! hello &quot;</code>而不是预期的<code>&quot;world! hello&quot;</code>。。。在后面处理一下<code>ss=ss.trim()</code></p>
+<p>问题二：遇到<code>&quot;a good   example&quot;</code>时，在while循环中把<code>word[num]=&quot;&quot;</code>加了一次到stack中，所以在拼接ss时多了一个空格，导致输出<code>&quot;example   good a&quot;</code>，将判断条件由<code>stack.size()!=0</code>改为<code>stack.size()&gt;1&amp;&amp;stack.peek()!=&quot; &quot; </code>就行</p>
+<p>word数组设大一点，最后有一个输入用例非常多</p>
+<p>别人的思路：可以直接用库函数（属实不太熟悉。。。就很致命）trim去首位空格、spilt分割、reverse翻转、join再连接。一波操作带走</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">reverseWords</span><span class="hljs-params">(String s)</span> &#123;<br>        String[] words = s.trim().split(<span class="hljs-string">&quot; +&quot;</span>);<br>        Collections.reverse(Arrays.asList(words));<br>        <span class="hljs-keyword">return</span> String.join(<span class="hljs-string">&quot; &quot;</span>, words);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>别人的思路二：上面库函数面试可能不会让用，所以参考了一下别人的发现，可以考虑改进我的思路，从后往前遍历就不需要栈了，用一个双指针索引</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">reverseWords</span><span class="hljs-params">(String s)</span> &#123;<br>        s=s.trim();<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-comment">//start和end用于定位单词的首尾</span><br>        <span class="hljs-type">int</span> end=s.length()-<span class="hljs-number">1</span>,start=end;<br>        <span class="hljs-keyword">while</span>(start&gt;=<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-comment">//搜索单词</span><br>            <span class="hljs-keyword">while</span>(start&gt;=<span class="hljs-number">0</span>&amp;&amp;s.charAt(start)!=<span class="hljs-string">&#x27; &#x27;</span>)	start--;<br>            <span class="hljs-comment">//添加单词</span><br>            res.append(s.substring(start+<span class="hljs-number">1</span>,end+<span class="hljs-number">1</span>) +<span class="hljs-string">&quot; &quot;</span>);<br>            <span class="hljs-comment">//跳过空格</span><br>            <span class="hljs-keyword">while</span>(start&gt;<span class="hljs-number">0</span>&amp;&amp;s.charAt(start)==<span class="hljs-string">&#x27; &#x27;</span>)	start--;<br>            <span class="hljs-comment">//指向下个单词的尾字符</span><br>            end = start;<br>        &#125;<br>        <span class="hljs-keyword">return</span> res.toString().trim(); <br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h3 id="实现-strStr"><a href="#实现-strStr" class="headerlink" title="实现 strStr()"></a>实现 strStr()</h3><p>思路一：直接调用库函数indexOf</p>
+<p>思路二：双指针暴力遍历检测</p>
+<p>思路三：KMP算法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//思路二：双指针</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">strStr</span><span class="hljs-params">(String haystack, String needle)</span> &#123;<br>        <span class="hljs-keyword">if</span>(needle.length()==<span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span>(needle.length()&gt;haystack.length())<br>            <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">index</span> <span class="hljs-operator">=</span> -<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(i&lt;haystack.length() &amp;&amp; j&lt;needle.length())&#123;<br>            <span class="hljs-keyword">if</span>(haystack.charAt(i) == needle.charAt(j))&#123;<span class="hljs-comment">//两指针值相等</span><br>                <span class="hljs-keyword">if</span>(index == -<span class="hljs-number">1</span>)<span class="hljs-comment">//index是初始值，更新index</span><br>                    index = i;<br>                <span class="hljs-keyword">if</span>(j == needle.length()-<span class="hljs-number">1</span>)<span class="hljs-comment">//如果j是needle的最后一个，即已经遍历完就返回index</span><br>                    <span class="hljs-keyword">return</span> index;<br>                j++;<span class="hljs-comment">//needle未遍历完，继续</span><br>            &#125;<span class="hljs-keyword">else</span>&#123;<span class="hljs-comment">//指针值不相等</span><br>                <span class="hljs-keyword">if</span>(index != -<span class="hljs-number">1</span>)&#123;<span class="hljs-comment">//index不是初始值，更新i</span><br>                    i = index;<br>                    j = <span class="hljs-number">0</span>;<br>                    index = -<span class="hljs-number">1</span>;<br>                &#125;<br>            &#125;<br>            i++;<span class="hljs-comment">//i始终要后移</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="双指针技巧"><a href="#双指针技巧" class="headerlink" title="双指针技巧"></a>双指针技巧</h2><p>常用的有：</p>
+<ul>
+<li>左右指针：左右两端点开始，反向运动，常用于二分查找之类问题</li>
+<li>快慢指针：同一起点，通向运动，一快一慢，典型的判定链表中是否包含环</li>
+</ul>
+<h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><p>【题目要求原地修改输入数组、并用O(1)的额外空间解决问题】</p>
+<p>思路：很显然放在双指针下自然想到双指针方法。。这也算是最典型的应用了，双指针left和right从两边往中间靠拢，每次交换对应的s[left]和s[right]即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">reverseString</span><span class="hljs-params">(<span class="hljs-type">char</span>[] s)</span> &#123;<br>        <span class="hljs-keyword">if</span>(s == <span class="hljs-literal">null</span> || s.length == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">right</span> <span class="hljs-operator">=</span> s.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(left &lt; right)&#123;<br>            <span class="hljs-type">char</span> <span class="hljs-variable">temp</span> <span class="hljs-operator">=</span> s[left];<br>            s[left] = s[right];<br>            s[right] = temp;<br>            left ++;<br>            right --;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="数组拆分"><a href="#数组拆分" class="headerlink" title="数组拆分"></a>数组拆分</h3><p>思路：将长度为2n的数组分成n对，取每队的最小值min相加，使得最后的值sum最大。那我们就应该尽可能的保留大的值——假如最大和最小、第二大和第二小。。。这样每次取min都是小的；应该最大与第二大、第三大与第四大。。。这样才能做到保留大值。【实现上就是排序取奇数位】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">arrayPairSum</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        Arrays.sort(nums);<br>        <span class="hljs-type">int</span> <span class="hljs-variable">ans</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.length;i+=<span class="hljs-number">2</span>)&#123;<br>            ans+=nums[i];<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="两数之和-II-输入有序数组"><a href="#两数之和-II-输入有序数组" class="headerlink" title="两数之和 II - 输入有序数组"></a>两数之和 II - 输入有序数组</h3><p>思路：因为数组已经有序了，那这就跟二分查找差不多了，只不过它多了一步——返回是下标</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span>[] twoSum(<span class="hljs-type">int</span>[] numbers, <span class="hljs-type">int</span> target) &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">left</span> <span class="hljs-operator">=</span><span class="hljs-number">0</span>,right=numbers.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">while</span>(left&lt;right)&#123;<br>            <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> numbers[left]+numbers[right];<br>            <span class="hljs-keyword">if</span>(sum==target)&#123;<span class="hljs-comment">//找到了</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;left+<span class="hljs-number">1</span>,right+<span class="hljs-number">1</span>&#125;;<span class="hljs-comment">//数组下标从0开始,返回要补上</span><br>            &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(sum&gt;target)&#123;<br>                right--;<span class="hljs-comment">//右指针左移</span><br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                left++;<span class="hljs-comment">//左指针右移</span><br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">int</span>[]&#123;-<span class="hljs-number">1</span>,-<span class="hljs-number">1</span>&#125;;<span class="hljs-comment">//找不到</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h3><p>【原地移除等于目标值的元素，控制常量空间】</p>
+<p>思路：一般思路是遇到不等于目标值的就放入新数组，这样一次遍历得到的新数组即为所需的。现在要求常数空间，那就可以用快慢指针：快指针每次都移动，慢指针只有快指针的值不为目标值val才移动，若相同则停止，等下一个不同的来覆盖。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeElement</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums, <span class="hljs-type">int</span> val)</span> &#123;<br>        <span class="hljs-keyword">if</span>(nums==<span class="hljs-literal">null</span>||nums.length==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> slow=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> fast=<span class="hljs-number">0</span>;fast&lt;nums.length;fast++)&#123;<br>            <span class="hljs-keyword">if</span>(nums[fast]!=val)&#123;<br>                nums[slow] = nums[fast];<br>                slow++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> slow;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="最大连续1的个数"><a href="#最大连续1的个数" class="headerlink" title="最大连续1的个数"></a>最大连续1的个数</h3><p>思路：由0、1组成的数组中连续1的最大个数。之前没用双指针，感觉差不多</p>
+<ul>
+<li>原来思路：变量count记录当前连续1的个数，遇到0就将count存入tmp然后count置0，下次再遇到就和tmp比较，遍历一遍得到结果</li>
+<li>双指针：快指针判断，慢指针只有判断为1才前移</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//思路一</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findMaxConsecutiveOnes</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> count=<span class="hljs-number">0</span>,tmp=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;nums.length;i++)&#123;<br>            <span class="hljs-keyword">if</span>(nums[i]==<span class="hljs-number">1</span>)&#123;<br>                count++;<br>            &#125;<span class="hljs-keyword">else</span>&#123;<br>                tmp = Math.max(tmp,count);<br>                count=<span class="hljs-number">0</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> Math.max(tmp,count);<br>    &#125;<br>&#125;<br><span class="hljs-comment">//双指针</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findMaxConsecutiveOnes</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> slow=<span class="hljs-number">0</span>,count=<span class="hljs-number">0</span>,fast;<br>        <span class="hljs-keyword">for</span>(fast=<span class="hljs-number">0</span>;fast&lt;nums.length;fast++)&#123;<br>            <span class="hljs-keyword">if</span>(nums[fast]==<span class="hljs-number">0</span>)&#123;<br>                count = Math.max(fast-slow,count);<br>                slow = fast+<span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(fast==nums.length-<span class="hljs-number">1</span> &amp;&amp; nums[fast]==<span class="hljs-number">1</span>)<br>                count = Math.max(fast-slow+<span class="hljs-number">1</span>,count);<br>        &#125;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h3><p>思路：题目要找出满足和&gt;&#x3D;s的长度最小的<strong>连续</strong>子数组，我第一反应就是暴力求解，不过复杂度会比较高</p>
+<ul>
+<li>暴力想法：枚举nums每个元素<code>nums[i]</code>，作为子数组的起始，然后从<code>i</code>开始往后，直到找到<code>j</code>使得<code>nums[i]到nums[j]</code>元素之和大于等于s，更新子数组长度。复杂度O(n<sup>2</sup>)</li>
+<li>题解的双指针方法：双指针start和end，每轮<code>sum+=nums[end]</code>，满足大于等于s，就更新长度，然后执行<code>sum -= nums[start]</code>【start右移，类似滑动窗口，直到sum&lt;s，其中每次也更新长度】一轮完成后<code>end++</code>，开始下一轮</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">minSubArrayLen</span><span class="hljs-params">(<span class="hljs-type">int</span> s, <span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-keyword">if</span>(nums.length==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">len</span> <span class="hljs-operator">=</span> <span class="hljs-number">10010</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">start</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>,end = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">sum</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(end=<span class="hljs-number">0</span>;end&lt;nums.length;end++)&#123;<br>            sum += nums[end];<br>            <span class="hljs-keyword">while</span>(sum&gt;=s)&#123;<br>                len = Math.min(len,end-start+<span class="hljs-number">1</span>);<br>                sum -= nums[start++];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> len==<span class="hljs-number">10010</span>? <span class="hljs-number">0</span> : len;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h3 id="杨辉三角"><a href="#杨辉三角" class="headerlink" title="杨辉三角"></a>杨辉三角</h3><p>思路：打印杨辉三角嘛，两边是1直接<code>add(1)</code>，中间是正上面的左上方和。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;List&lt;Integer&gt;&gt; <span class="hljs-title function_">generate</span><span class="hljs-params">(<span class="hljs-type">int</span> numRows)</span> &#123;<br>        List&lt;List&lt;Integer&gt;&gt; res = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;List&lt;Integer&gt;&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;numRows;i++)&#123;<br>            ArrayList&lt;Integer&gt; sub = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;Integer&gt;();<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;=i;j++)&#123;<br>                <span class="hljs-keyword">if</span>(j==<span class="hljs-number">0</span>||j==i)&#123;<br>                    sub.add(<span class="hljs-number">1</span>);<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    sub.add(res.get(i-<span class="hljs-number">1</span>).get(j-<span class="hljs-number">1</span>)+res.get(i-<span class="hljs-number">1</span>).get(j));<br>                &#125;<br>            &#125;<br>            res.add(sub);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="杨辉三角-II"><a href="#杨辉三角-II" class="headerlink" title="杨辉三角 II"></a>杨辉三角 II</h3><p>思路：上一题返回整个，这个返回杨辉三角的第k行【进阶：空间O(k)】</p>
+<ul>
+<li><p>简单的就在k行返回；优化的思路：</p>
+<ul>
+<li><p>杨辉三角具有动态规划的性质，下一行依赖于上一行，且两边固定为1。</p>
+<p>【数组写法】数组表示很直观但是rowIndex未知，那就只能将最后的数组取前rowIndex+1位放到新数组返回</p>
+<p>【ArrayList写法】ArrayList用add会输出所有的元素，变成<code>1 11 121 1331</code>；有个set函数可以指定索引元素，但是得先有元素才行，所以最后要删除多的1</p>
+</li>
+<li><p>可以用组合公式<code>C(n,i) = n!/(i!*(n-i)!)</code></p>
+</li>
+</ul>
+</li>
+<li><p>或者先本地IDE跑出来，然后直接打表，标准O(1)解答！(因为题目限制k&lt;33)</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> List&lt;Integer&gt; <span class="hljs-title function_">getRow</span><span class="hljs-params">(<span class="hljs-type">int</span> rowIndex)</span> &#123;<br>        ArrayList&lt;Integer&gt; res = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;Integer&gt;();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=rowIndex;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i;j&gt;=<span class="hljs-number">0</span>;j--)&#123;<br>                <span class="hljs-keyword">if</span>(j==<span class="hljs-number">0</span>||j==i)&#123;<br>                    res.add(<span class="hljs-number">1</span>);<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    res.set(j,res.get(j)+res.get(j-<span class="hljs-number">1</span>));<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> res.size();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=size-<span class="hljs-number">1</span>;j&gt;=size-rowIndex;j--)&#123;<br>            res.remove(j);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="反转字符串中的单词-III"><a href="#反转字符串中的单词-III" class="headerlink" title="反转字符串中的单词 III"></a>反转字符串中的单词 III</h3><p>之前做过反转句子输出：<code>i love you</code>输出<code>you love i</code>这种，这题是反转每个单词，但是单词间位置不变：<code>i love you</code>输出<code>i evol uoy</code></p>
+<p>思路：正在刷双指针，所以一下就想到双指针方法，一个slow用于定位每个单词的开始位置，<code>fast==&#39; &#39;</code>时前一个就是单词的结束位置，然后将单词的字符反转。</p>
+<p>【写完编译不通过，才想起来Java中的String是不可变的。。。改用C++思路不变】</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>: <br>    <span class="hljs-function">string <span class="hljs-title">reverseWords</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-type">int</span> fast=<span class="hljs-number">0</span>,slow=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> fast=<span class="hljs-number">0</span>;fast&lt;s.<span class="hljs-built_in">length</span>();fast++)&#123;<br>            <span class="hljs-keyword">if</span>(s[fast]==<span class="hljs-string">&#x27; &#x27;</span>)&#123;<br>                <span class="hljs-type">int</span> j = fast<span class="hljs-number">-1</span>;<br>                <span class="hljs-comment">//exchange</span><br>                <span class="hljs-keyword">while</span>(slow&lt;j)&#123;<br>                   <span class="hljs-built_in">swap</span>(s[slow], s[j]);<br>                   slow++;<br>                   j--;<br>                &#125;<br>                <span class="hljs-comment">//update</span><br>                slow = fast+<span class="hljs-number">1</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span>(fast==s.<span class="hljs-built_in">length</span>()<span class="hljs-number">-1</span>&amp;&amp;s[fast]!=<span class="hljs-string">&#x27; &#x27;</span>)&#123;<br>                <span class="hljs-type">int</span> j = fast;<br>                <span class="hljs-keyword">while</span>(slow&lt;j)&#123;<br>                    <span class="hljs-built_in">swap</span>(s[slow], s[j]);<br>                    slow++;<br>                    j--;<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="寻找旋转排序数组中的最小值"><a href="#寻找旋转排序数组中的最小值" class="headerlink" title="寻找旋转排序数组中的最小值"></a>寻找旋转排序数组中的最小值</h3><p>看题目输入输出，好像就是找数组最小值。。。它说在某个点旋转了我也没整明白咋旋转的：<code>[0,1,2,4,5,6,7]</code>转成<code>[4,5,6,7,0,1,2]</code>。可能是说数组变成了<code>4,5,6,7</code>和<code>0,1,2</code>两个区域然后旋转了方向，所以数组不再有序了</p>
+<p>思路：</p>
+<ul>
+<li>第一眼就直接遍历一遍：复杂度O(N)</li>
+<li>改进方式：采用二分优化。但是二分需要数组有序，旋转了之后数组是乱序的，要改进一下，假设两个区域分别叫大区间和小区间<ul>
+<li>找到中间元素mid，如果<code>nums[mid]&gt;nums[right]</code>说明mid是大区间的值，那我们就应该去小区间搜索；反之表示mid是小区间的值，那就缩小范围继续</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">findMin</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-type">int</span> left=<span class="hljs-number">0</span>,right=nums.length-<span class="hljs-number">1</span>;<br>        <span class="hljs-comment">//数组未被旋转</span><br>        <span class="hljs-keyword">if</span>(nums[right]&gt;nums[<span class="hljs-number">0</span>])&#123;<br>            <span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>];<br>        &#125;<br>        <span class="hljs-keyword">while</span>(right&gt;left)<br>        &#123;<br>            <span class="hljs-type">int</span> mid=left+(right-left)/<span class="hljs-number">2</span>;<br>            <span class="hljs-keyword">if</span>(nums[mid]&gt;nums[right])<br>                left=mid+<span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">else</span><br>                right=mid;<br>        &#125;<br>        <span class="hljs-keyword">return</span> nums[left];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="删除排序数组中的重复项"><a href="#删除排序数组中的重复项" class="headerlink" title="删除排序数组中的重复项"></a>删除排序数组中的重复项</h3><p>思路：有序数组去重，也是双指针比较好想</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">removeDuplicates</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-keyword">if</span>(nums==<span class="hljs-literal">null</span>||nums.length==<span class="hljs-number">1</span>)&#123;<br>            <span class="hljs-keyword">return</span> nums.length;<br>        &#125;<br>        <span class="hljs-type">int</span> slow=<span class="hljs-number">0</span>,fast;<br>        <span class="hljs-keyword">for</span>(fast=<span class="hljs-number">1</span>;fast&lt;nums.length;fast++)&#123;<br>            <span class="hljs-keyword">if</span>(nums[fast] != nums[slow])&#123;<br>                slow++;<br>                nums[slow] = nums[fast];<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> slow+<span class="hljs-number">1</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="移动零"><a href="#移动零" class="headerlink" title="移动零"></a>移动零</h3><p>将数组<code>[0,1,2,0,3]</code>中0移到最后且保持原数组顺序，即<code>[1,2,3,0,0]</code>。</p>
+<p>最简单的思路就是再开一个数组遍历，不过题目要求原地操作，所以比较容易想到双指针操作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">moveZeroes</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums)</span> &#123;<br>        <span class="hljs-comment">//双指针</span><br>        <span class="hljs-type">int</span> slow=<span class="hljs-number">0</span>,fast=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">while</span>(fast&lt;nums.length)&#123;<br>            <span class="hljs-keyword">if</span>(nums[fast]!=<span class="hljs-number">0</span>)&#123;<br>                swap(nums,slow,fast);<br>                slow++;<br>            &#125;<br>            fast++;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">swap</span><span class="hljs-params">(<span class="hljs-type">int</span>[] nums,<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> j)</span>&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">tmp</span> <span class="hljs-operator">=</span> nums[i];<br>        nums[i] = nums[j];<br>        nums[j] = tmp;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/leetcode/">#leetcode</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">#数据结构与算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>leetbook-数组和字符串</div>
+      <div>https://61hhh-github-io.vercel.app/20201206/7970c1ba/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年12月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20210218/914c342c/" title="数据库相关核心概念">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据库相关核心概念</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20201115/e0643af3/" title="Servlet学习四-Cookie和Session">
+                        <span class="hidden-mobile">Servlet学习四-Cookie和Session</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

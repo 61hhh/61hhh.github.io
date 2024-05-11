@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="一、背景项目中有个对接同步数据的需求，大致流程是对接其他平台后把需要的数据在代码中处理保存到本项目对应库中，ORM 框架产线统一用的 Mybatis-Plus，列表批量数据保存调用的是 saveOrUpdateBatch() 方法，但是在同步开始结束 log.info 打日志发现数据量不大但是耗时比预期的长 进入 MP 的源码中查看该方法，发现它的批量操作并不是真正的批量操作，默认的 saveOr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mybatis-Plus 自定义批处理操作">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20220511/65ec32cd/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="一、背景项目中有个对接同步数据的需求，大致流程是对接其他平台后把需要的数据在代码中处理保存到本项目对应库中，ORM 框架产线统一用的 Mybatis-Plus，列表批量数据保存调用的是 saveOrUpdateBatch() 方法，但是在同步开始结束 log.info 打日志发现数据量不大但是耗时比预期的长 进入 MP 的源码中查看该方法，发现它的批量操作并不是真正的批量操作，默认的 saveOr">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511163740993.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511164158482.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511170953276.png">
+<meta property="article:published_time" content="2022-05-11T09:35:28.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:51:59.025Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Mybatis">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511163740993.png">
+  
+  
+  
+  <title>Mybatis-Plus 自定义批处理操作 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Mybatis-Plus 自定义批处理操作"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-11 17:35" pubdate>
+          2022年5月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Mybatis-Plus 自定义批处理操作</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><p>项目中有个对接同步数据的需求，大致流程是对接其他平台后把需要的数据在代码中处理保存到本项目对应库中，ORM 框架产线统一用的 Mybatis-Plus，列表批量数据保存调用的是 <code>saveOrUpdateBatch()</code> 方法，但是在同步开始结束 <code>log.info</code> 打日志发现数据量不大但是耗时比预期的长</p>
+<p>进入 MP 的源码中查看该方法，发现它的批量操作并不是真正的批量操作，默认的 <code>saveOrUpdateBatch()</code> 调用的是 SqlHelper 的 <code>executeBatch()</code>，遍历创建 sql 语句，然后按照一个 batchSize 开启一次事务提交，所以控制台输出的也是一条一条的 insert 语句</p>
+<h3 id="二、改进方法"><a href="#二、改进方法" class="headerlink" title="二、改进方法"></a>二、改进方法</h3><h4 id="1、用-Mybatis-写-xml"><a href="#1、用-Mybatis-写-xml" class="headerlink" title="1、用 Mybatis 写 xml"></a>1、用 Mybatis 写 xml</h4><p>直接通过 Mybatis 写 xml，利用 <code>&lt;foreach&gt; &lt;/foreach&gt;</code> 标签遍历待操作数据</p>
+<p>具体操作参照官方文档：<a target="_blank" rel="noopener" href="https://mybatis.org/mybatis-3/zh/dynamic-sql.html#foreach">https://mybatis.org/mybatis-3/zh/dynamic-sql.html#foreach</a></p>
+<h4 id="2、改进-MP"><a href="#2、改进-MP" class="headerlink" title="2、改进 MP"></a>2、改进 MP</h4><p>在 Mybatis-Plus 中新增有一个 sql 注入器，可以通过 sql 注入器实现批量新增删除等操作，一次注入随时可用，使用上比较方便，唯一的缺点就是在项目启动时会进行 sql 注入器注册</p>
+<h3 id="三、步骤"><a href="#三、步骤" class="headerlink" title="三、步骤"></a>三、步骤</h3><h4 id="1、自定义-BaseMapper"><a href="#1、自定义-BaseMapper" class="headerlink" title="1、自定义 BaseMapper"></a>1、自定义 BaseMapper</h4><p>创建一个自定义的 BatchMapper（名称自定义）继承 BaseMapper，在 BatchMapper 中添加自定义的方法名称</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">BatchMapper</span>&lt;T&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseMapper</span>&lt;T&gt; &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自定义的批量插入功能：mysqlSaveOrUpdateBatch</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> list 待批量插入的数据，要自动填充 <span class="hljs-doctag">@Param</span>(xxx) xxx必须是 list/collection/array 三者之一</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 操作条数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">int</span> <span class="hljs-title function_">mysqlSaveOrUpdateBatch</span><span class="hljs-params">(<span class="hljs-meta">@Param(&quot;list&quot;)</span>List&lt;T&gt; list)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="2、方法实现"><a href="#2、方法实现" class="headerlink" title="2、方法实现"></a>2、方法实现</h4><p>自定义方法的具体实现，逻辑上就是将待插入的数据拼接成 VALUES 多个参数形式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">saveOrUpdateBatchMethod</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractMethod</span> &#123;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> MappedStatement <span class="hljs-title function_">injectMappedStatement</span><span class="hljs-params">(Class&lt;?&gt; mapperClass, Class&lt;?&gt; modelClass, TableInfo tableInfo)</span> &#123;<br>        <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">sql</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&lt;script&gt;insert into %s %s values %s ON DUPLICATE KEY UPDATE %s&lt;/script&gt;&quot;</span>;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">tableName</span> <span class="hljs-operator">=</span> tableInfo.getTableName();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">fieldSql</span> <span class="hljs-operator">=</span> prepareFieldSql(tableInfo);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">modelValueSql</span> <span class="hljs-operator">=</span> prepareModelValueSql(tableInfo);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">duplicateKeySql</span> <span class="hljs-operator">=</span> prepareDuplicateKeySql(tableInfo);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">sqlResult</span> <span class="hljs-operator">=</span> String.format(sql, tableName, fieldSql, modelValueSql, duplicateKeySql);<br>        <span class="hljs-type">SqlSource</span> <span class="hljs-variable">sqlSource</span> <span class="hljs-operator">=</span> languageDriver.createSqlSource(configuration, sqlResult, modelClass);<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.addInsertMappedStatement(mapperClass, modelClass, <span class="hljs-string">&quot;mysqlSaveOrUpdateBatch&quot;</span>, sqlSource, <span class="hljs-keyword">new</span> <span class="hljs-title class_">NoKeyGenerator</span>(), <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>);<span class="hljs-comment">// 这里的名称要和Mapper中定义的一致</span><br>    &#125;<br><br>    <span class="hljs-comment">// 字段</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">prepareFieldSql</span><span class="hljs-params">(TableInfo tableInfo)</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">fieldSql</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>().append(<span class="hljs-string">&quot;(&quot;</span>);<br>        fieldSql.append(tableInfo.getKeyColumn()).append(<span class="hljs-string">&quot;,&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">columnStr</span> <span class="hljs-operator">=</span> tableInfo.getFieldList().stream().map(TableFieldInfo::getColumn).collect(Collectors.joining(<span class="hljs-string">&quot;,&quot;</span>));<br>        fieldSql.append(columnStr).append(<span class="hljs-string">&quot;)&quot;</span>);<br>        <span class="hljs-keyword">return</span> fieldSql.toString();<br>    &#125;<br><br>    <span class="hljs-comment">// 值</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">prepareModelValueSql</span><span class="hljs-params">(TableInfo tableInfo)</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">valueSql</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        valueSql.append(<span class="hljs-string">&quot;&lt;foreach collection=\&quot;list\&quot; item=\&quot;item\&quot; index=\&quot;index\&quot; open=\&quot;(\&quot; separator=\&quot;),(\&quot; close=\&quot;)\&quot;&gt;&quot;</span>);<br>        <span class="hljs-keyword">if</span> (!StringUtils.isEmpty(tableInfo.getKeyProperty())) &#123;<br>            valueSql.append(<span class="hljs-string">&quot;#&#123;item.&quot;</span>).append(tableInfo.getKeyProperty()).append(<span class="hljs-string">&quot;&#125;,&quot;</span>);<br>        &#125;<br>        tableInfo.getFieldList().forEach(x -&gt; valueSql.append(<span class="hljs-string">&quot;#&#123;item.&quot;</span>).append(x.getProperty()).append(<span class="hljs-string">&quot;&#125;,&quot;</span>));<br>        valueSql.delete(valueSql.length() - <span class="hljs-number">1</span>, valueSql.length());<br>        valueSql.append(<span class="hljs-string">&quot;&lt;/foreach&gt;&quot;</span>);<br>        <span class="hljs-keyword">return</span> valueSql.toString();<br>    &#125;<br><br>    <span class="hljs-comment">// 已存在数据执行更新</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">prepareDuplicateKeySql</span><span class="hljs-params">(TableInfo tableInfo)</span> &#123;<br>        <span class="hljs-type">StringBuilder</span> <span class="hljs-variable">duplicateKeySql</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuilder</span>();<br>        <span class="hljs-keyword">if</span> (!StringUtils.isEmpty(tableInfo.getKeyColumn())) &#123;<br>            duplicateKeySql.append(tableInfo.getKeyColumn()).append(<span class="hljs-string">&quot;=values(&quot;</span>).append(tableInfo.getKeyColumn()).append(<span class="hljs-string">&quot;),&quot;</span>);<br>        &#125;<br><br>        tableInfo.getFieldList().forEach(x -&gt; &#123;<br>            duplicateKeySql.append(x.getColumn())<br>                    .append(<span class="hljs-string">&quot;=values(&quot;</span>)<br>                    .append(x.getColumn())<br>                    .append(<span class="hljs-string">&quot;),&quot;</span>);<br>        &#125;);<br>        duplicateKeySql.delete(duplicateKeySql.length() - <span class="hljs-number">1</span>, duplicateKeySql.length());<br>        <span class="hljs-keyword">return</span> duplicateKeySql.toString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="3、sql-注入器"><a href="#3、sql-注入器" class="headerlink" title="3、sql 注入器"></a>3、sql 注入器</h4><p>自定义 sql 注入器继承默认的注入器，补充父类的方法，将刚刚自定义的实现方法添加到 methodList</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomizedSqlInjector</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">DefaultSqlInjector</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 获取super的methodList，添加自定义的method</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;AbstractMethod&gt; <span class="hljs-title function_">getMethodList</span><span class="hljs-params">(Class&lt;?&gt; mapperClass, TableInfo tableInfo)</span> &#123;<br>        List&lt;AbstractMethod&gt; methodList = <span class="hljs-built_in">super</span>.getMethodList(mapperClass, tableInfo);<br>        methodList.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">saveOrUpdateBatchMethod</span>());<br>        <span class="hljs-keyword">return</span> methodList;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4、补充配置"><a href="#4、补充配置" class="headerlink" title="4、补充配置"></a>4、补充配置</h4><p>一般用到 Mybatis-Plus 时都会创建一个 Config 配置类，添加分页插件等基础配置，在对应配置类中补充注入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> GlobalConfig <span class="hljs-title function_">globalConfig</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-type">GlobalConfig</span> <span class="hljs-variable">globalConfig</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GlobalConfig</span>();<br>    <span class="hljs-keyword">return</span> globalConfig;<br>&#125;<br><br><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> CustomizedSqlInjector <span class="hljs-title function_">customizedSqlInjector</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomizedSqlInjector</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="5、开启批操作"><a href="#5、开启批操作" class="headerlink" title="5、开启批操作"></a>5、开启批操作</h4><p>在项目配置的 MySQL 连接后面添加参数</p>
+<ul>
+<li><p><code>allowMultiQueries=true</code>：允许在 SQL 后添加分号，实现多语句在一个请求中执行，实现批处理</p>
+</li>
+<li><p><code>rewriteBatchedStatements=true</code>：可以理解为开启后会优化 JDBC 的解析 SQL 操作，原先单条单条执行的会合并操作。对于删除、更新会添加分号一次请求多个执行，对于插入会优化为 <code>VALUES (...),(...),(...);</code></p>
+</li>
+</ul>
+<h4 id="6、修改并调用"><a href="#6、修改并调用" class="headerlink" title="6、修改并调用"></a>6、修改并调用</h4><p>修改待操作的 mapper，由原先的继承 BaseMapper 改为继承 BatchMapper</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Repository</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">VehicleMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BatchMapper</span>&lt;VehicleCoordDO&gt; &#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>修改调用代码，初始方法 <code>VehicleService.saveOrUpdate(list)</code> 调整为 <code>VehicleMapper.mysqlSaveOrUpdateBatch(list)</code>，通过日志查看执行的耗时是否优化了</p>
+<p>自带的 <code>saveOrUpdateBatch()</code> 方法执行，批量提交，但是批次内还是单条执行，耗时4s</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511163740993.png" srcset="/img/loading.gif" lazyload alt="image-20230511163740993"></p>
+<p>使用自定义的批量操作，形式和 <code>INSERT xxx VALUES (xxx),(xxx)</code> 一致，一条语句执行多个参数</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511164158482.png" srcset="/img/loading.gif" lazyload alt="image-20230511164158482"></p>
+<h3 id="四、说明"><a href="#四、说明" class="headerlink" title="四、说明"></a>四、说明</h3><p>1、Mybatis-Plus 其实已经提供了一个拓展，里面的 <code>InsertBatchSomeColumn</code> 提供了批量插入的方法</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511170953276.png" srcset="/img/loading.gif" lazyload alt="image-20230511170953276" style="zoom:80%;" />
+
+<p>使用步骤和上面类似</p>
+<ul>
+<li>自定义一个注入器，在 methodList 中添加 <code>methodList.add(new InsertBatchSomeColumn());</code></li>
+<li>在配置类中注入</li>
+<li>修改Mapper的继承，调用</li>
+</ul>
+<p>2、对于自定义 saveBatch、updateBatch，操作步骤和上面一样，只是在具体实现部分有所不同，例如批量插入只需要 prepareFieldSql、prepareModelValueSql 这两部分的逻辑，sql 语句拼接也不需要 <code>ON DUPLICATE KEY UPDATE %s</code> 部分</p>
+<blockquote>
+<p> 其实上面的 批量插入或更新就是批量插入的特殊情况，即 MySQL 插入时指定策略为重复 key 更新</p>
+</blockquote>
+<p>具体的操作逻辑网上很多，可以搜索后套用一下</p>
+<p>2、Mybatis-Plus 的 saveBatch、saveOrUpdateBatch 操作上已经进行了优化，一般情况是够用的。要注意 saveOrUpdate、saveOrUpdateBatch 方法，判断是 save 还是 update 的逻辑要用到表主键信息，表中有列名为 id 的、或者在实体类对于主键字段上添加了 @TableId 注解，才能被解析，不然会报错找不到</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Mybatis/" class="category-chain-item">Mybatis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Mybatis/">#Mybatis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Mybatis-Plus 自定义批处理操作</div>
+      <div>https://61hhh-github-io.vercel.app/20220511/65ec32cd/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20220528/122afe43/" title="Redis学习四：事务和发布订阅">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis学习四：事务和发布订阅</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20211212/a4f2d1e9/" title="Redis学习三：持久化">
+                        <span class="hidden-mobile">Redis学习三：持久化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

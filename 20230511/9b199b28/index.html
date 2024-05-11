@@ -1,0 +1,839 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="过期时间TTL先介绍一下TTL概念 TTL即Time to Live的简称，表示过期时间。RabbitMQ可以对消息和队列设置对应TTL 0、消息TTL设置 通过队列属性设置，队列中所有消息都有相同的过期时间。 通过消息属性设置，可以实现每个消息都有自己的过期时间。  二者可以同时使用，此时则以TTL数值较小的为准 1、队列上设置在定义队列时，添加属性x-message-ttl，单位是毫秒，这里设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5、RabbitMQ死信队列">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20230511/9b199b28/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="过期时间TTL先介绍一下TTL概念 TTL即Time to Live的简称，表示过期时间。RabbitMQ可以对消息和队列设置对应TTL 0、消息TTL设置 通过队列属性设置，队列中所有消息都有相同的过期时间。 通过消息属性设置，可以实现每个消息都有自己的过期时间。  二者可以同时使用，此时则以TTL数值较小的为准 1、队列上设置在定义队列时，添加属性x-message-ttl，单位是毫秒，这里设">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657438155832-0a0a8239-7d68-4412-9e9c-cf6437f2ae7e.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784417355-1fe19cd7-61ee-4e83-afa6-f29aa73671a0.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784627848-f85d4922-d27c-46f0-abc7-d3e6ee53fb71.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784722560-26360135-54d9-4b23-b401-3d52642e309f.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785108809-255e6577-7f9f-4ae3-a044-91480dd085f3.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785167054-e9f826b1-8b1b-457c-97b1-4e59cae1ea68.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786705553-2f7fecbd-59d2-4e32-823b-4cd8f1925a8c.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786766060-55d7b605-9d81-4ab1-8e65-d6b54cabc5c0.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657787046112-42c55314-bdc7-4649-bdb9-2c45b35da533.png">
+<meta property="article:published_time" content="2023-05-11T02:22:45.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:42:11.165Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="RabbitMQ">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657438155832-0a0a8239-7d68-4412-9e9c-cf6437f2ae7e.png">
+  
+  
+  
+  <title>5、RabbitMQ死信队列 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="5、RabbitMQ死信队列"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-11 10:22" pubdate>
+          2023年5月11日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">5、RabbitMQ死信队列</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="过期时间TTL"><a href="#过期时间TTL" class="headerlink" title="过期时间TTL"></a>过期时间TTL</h2><p>先介绍一下TTL概念</p>
+<p>TTL即<code>Time to Live</code>的简称，表示过期时间。RabbitMQ可以对消息和队列设置对应TTL</p>
+<h3 id="0、消息TTL设置"><a href="#0、消息TTL设置" class="headerlink" title="0、消息TTL设置"></a>0、消息TTL设置</h3><ul>
+<li>通过队列属性设置，<strong>队列中所有消息都有相同的过期时间</strong>。</li>
+<li>通过消息属性设置，<strong>可以实现每个消息都有自己的过期时间</strong>。</li>
+</ul>
+<p>二者可以同时使用，此时则以TTL数值较小的为准</p>
+<h3 id="1、队列上设置"><a href="#1、队列上设置" class="headerlink" title="1、队列上设置"></a>1、队列上设置</h3><p>在定义队列时，添加属性<code>x-message-ttl</code>，单位是毫秒，<strong>这里设置的并不是队列的TTL，而是该队列中所有消息的TTL</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> HashMap&lt;String, Object&gt; args = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>args.put(<span class="hljs-string">&quot;x-message-ttl&quot;</span>, <span class="hljs-number">6000</span>);<br>channel.queueDeclare(QUEUE_NAME, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, args);<br></code></pre></td></tr></table></figure>
+
+<p>TTL取值的区分</p>
+<ul>
+<li>不设置TTL：该消息不会过期</li>
+<li>值&#x3D;0：表示除非此时可以直接将消息投递到消费者，不然就丢弃</li>
+<li>值&gt;0：表示将在到值对应时间后过期</li>
+</ul>
+<h3 id="2、消息上设置"><a href="#2、消息上设置" class="headerlink" title="2、消息上设置"></a>2、消息上设置</h3><p>针对单独消息设置TTL是在<code>channel.BasicPublish</code>方法中加入<code>expiration</code>参数，单位为毫秒</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> AMQP.BasicProperties.<span class="hljs-type">Builder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AMQP</span>.BasicProperties().builder();<br>builder.deliveryMode(<span class="hljs-number">2</span>);<span class="hljs-comment">//设置消息持久化</span><br>builder.expiration(<span class="hljs-string">&quot;5000&quot;</span>);<span class="hljs-comment">//设置过期时间5000毫秒</span><br><span class="hljs-keyword">final</span> AMQP.<span class="hljs-type">BasicProperties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> builder.build();<br>channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, properties, msg.getBytes());<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、对比"><a href="#3、对比" class="headerlink" title="3、对比"></a>3、对比</h3><ol>
+<li>队列设置：时间从消息入队开始计算，一旦超过了队列的超时时间配置，消息会自动清除。</li>
+<li>消息设置：消息即使过期也不一定会被马上丢弃，<strong>因为每条消息是否过期是在即将投递到消费者之前判定的</strong>（ 如果当前队列有严重的消息积压情况，已过期的消息依旧会被积压在队列中，如果队列配置了消息积压上限，将导致后续应当正常消费的消息全部进入死信队列 ）</li>
+</ol>
+<p>队列设置中，队列已过期的消息肯定在队列头部（过期时间一致的前提下，先进先出），RabbitMQ只需要定期从队列头部开始扫描是否有已过期的消息即可。</p>
+<p>消息设置中，每个消息的过期时间不同，如果要删除过期消息就必须扫描整个队列，所以还不如等到消息即将被消费时再判定是否过期，如果过期就删除即可</p>
+<h2 id="死信队列DLX"><a href="#死信队列DLX" class="headerlink" title="死信队列DLX"></a>死信队列DLX</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>死信（Dead Message）：<strong>由于某些特定原因导致无法被消费的消息</strong>。</p>
+<p>按照正常流程消息从producer到broker再到queue，consumer从queue中取出消息消费，由于特定原因queue中的消息无法被消费，这类消费异常的消息就会保存在死信队列中，来避免消息的丢失</p>
+<p>场景：<strong>用户在商城下单后，超过半小时未付款，该订单自动取消</strong></p>
+<p>DLX（Dead-Letter-Exchange）可以成为死信交换器，或死信邮箱。当一个消息成为死信之后，可以被重新发送到另一个交换器即DLX中，而绑定了DLX的队列即为死信队列</p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p>消息变成死信，一般有以下三种原因</p>
+<ul>
+<li>TTL过期</li>
+<li>队列积压的消息达到最大长度，后续消息无法添加</li>
+<li>消息被拒，消费者调用<code>basic.reject</code>或<code>basic.nack</code>并且<code>requeue=false</code></li>
+</ul>
+<p>DLX 是一个普通的交换器，可以在任何队列上设置，当死信消息出现时，RabbitMQ 自动将这个消息重新发布到设置的 DLX上，从而被路由到另一个队列，即 <strong>死信队列</strong></p>
+<h2 id="死信DEMO"><a href="#死信DEMO" class="headerlink" title="死信DEMO"></a>死信DEMO</h2><p>死信队列架构图</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657438155832-0a0a8239-7d68-4412-9e9c-cf6437f2ae7e.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<ul>
+<li>定义一个DLX（其实就是普通交换器，用来绑定正常的交换器），为该DLX绑定队列，用于接收死信消息</li>
+<li>定义正常的交换器，并通过属性设置它所对应的DLX和路由键</li>
+</ul>
+<h3 id="死信之TTL"><a href="#死信之TTL" class="headerlink" title="死信之TTL"></a>死信之TTL</h3><p>生产者代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TTLProducer</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">EXCHANGE_NAME</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;normalExchange&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">ROUTING_KEY</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ZhangSan&quot;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Channel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> RabbitMQUtils.getChannel();<br>        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.DIRECT);<br><br>        <span class="hljs-comment">// 设置消息的TTL为10秒</span><br>        AMQP.<span class="hljs-type">BasicProperties</span> <span class="hljs-variable">properties</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AMQP</span>.BasicProperties().builder().expiration(<span class="hljs-string">&quot;10000&quot;</span>).build();<br>        <span class="hljs-comment">// 演示队列个数限制</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">11</span>; i++) &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;INFO_&quot;</span> + i;<br>            channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY, <span class="hljs-literal">null</span>, msg.getBytes());<br>            System.out.println(msg + <span class="hljs-string">&quot;发送完成&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>TTL消费者1</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TTLConsumer1</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">EXCHANGE_NORMAL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;normalExchange&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">EXCHANGE_DEAD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;deadExchange&quot;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">QUEUE_NORMAL</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;normalQueue&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">QUEUE_DEAD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;deadQueue&quot;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">ROUTING_KEY1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ZhangSan&quot;</span>; <span class="hljs-comment">//普通队列routing-key</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">ROUTING_KEY2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;LiSi&quot;</span>;     <span class="hljs-comment">//死信队列routing-key</span><br><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Channel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> RabbitMQUtils.getChannel();<br>        <span class="hljs-comment">// 声明普通和死信交换机 normal-exchange在生产者处已经声明</span><br>        channel.exchangeDeclare(EXCHANGE_NORMAL, BuiltinExchangeType.DIRECT);<br>        channel.exchangeDeclare(EXCHANGE_DEAD, BuiltinExchangeType.DIRECT);<br><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         * 通过额外参数指定在什么条件下讲消息转发到死信队列，其中key值是rabbitmq固定的</span><br><span class="hljs-comment">         * value1：TTL时间，一般由生产者指定</span><br><span class="hljs-comment">         * value2：死信交换机名称</span><br><span class="hljs-comment">         * value3：死信交换机的routing-key</span><br><span class="hljs-comment">         * value4：指定队列能够积压消息的数量，超出该范围的消息将进入死信队列</span><br><span class="hljs-comment">         */</span><br>        HashMap&lt;String, Object&gt; params = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-comment">//params.put(&quot;x-dead-letter-ttl&quot;, 10000);</span><br>        params.put(<span class="hljs-string">&quot;x-dead-letter-exchange&quot;</span>, EXCHANGE_DEAD);<br>        params.put(<span class="hljs-string">&quot;x-dead-letter-routing-key&quot;</span>, ROUTING_KEY2);<br>        <span class="hljs-comment">//params.put(&quot;x-max-length&quot;, 6);</span><br><br>        channel.queueDelete(QUEUE_NORMAL); <span class="hljs-comment">//变更queueDeclare的params参数后，原队列要删除</span><br>        <span class="hljs-comment">// 声明绑定正常队列</span><br>        channel.queueDeclare(QUEUE_NORMAL, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, params);<br>        channel.queueBind(QUEUE_NORMAL, EXCHANGE_NORMAL, ROUTING_KEY1);<br>        <span class="hljs-comment">// 声明绑定死信队列</span><br>        channel.queueDeclare(QUEUE_DEAD, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">null</span>);<br>        channel.queueBind(QUEUE_DEAD, EXCHANGE_DEAD, ROUTING_KEY2);<br><br>        System.out.println(<span class="hljs-string">&quot;----------等待接收消息----------&quot;</span>);<br>        <span class="hljs-type">DeliverCallback</span> <span class="hljs-variable">deliverCallback</span> <span class="hljs-operator">=</span> (consumerTag, delivery) -&gt; &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(delivery.getBody());<br>            System.out.println(<span class="hljs-string">&quot;Consumer01 接收到消息 &quot;</span> + message);<br>        &#125;;<br>        channel.basicConsume(QUEUE_NORMAL, <span class="hljs-literal">false</span>, deliverCallback, consumer -&gt; &#123;&#125;);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>先启动消费者1再关闭，模拟消费者接收不到消息，再启动生产者</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784417355-1fe19cd7-61ee-4e83-afa6-f29aa73671a0.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>等到设置的过期时间10s到达后，消息就会送达到死信队列</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784627848-f85d4922-d27c-46f0-abc7-d3e6ee53fb71.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>以上操作完成后，启动消费者2，消费死信队列中的消息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TTLConsumer2</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">EXCHANGE_DEAD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;deadExchange&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">QUEUE_DEAD</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;deadQueue&quot;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">ROUTING_KEY2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;LiSi&quot;</span>;     <span class="hljs-comment">//死信队列routing-key</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-type">Channel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> RabbitMQUtils.getChannel();<br>        channel.exchangeDeclare(EXCHANGE_DEAD, BuiltinExchangeType.DIRECT);<br>        channel.queueDeclare(QUEUE_DEAD, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">null</span>);<br>        channel.queueBind(QUEUE_DEAD, EXCHANGE_DEAD, ROUTING_KEY2);<br><br>        System.out.println(<span class="hljs-string">&quot;----------等待接收消息----------&quot;</span>);<br>        <span class="hljs-type">DeliverCallback</span> <span class="hljs-variable">deliverCallback</span> <span class="hljs-operator">=</span> (consumerTag, delivery) -&gt; &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(delivery.getBody());<br>            System.out.println(<span class="hljs-string">&quot;TTLConsumer2接收到-----&gt;&quot;</span> + msg);<br>        &#125;;<br>        channel.basicConsume(QUEUE_DEAD, <span class="hljs-literal">true</span>, deliverCallback, consumer -&gt; &#123;<br>        &#125;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657784722560-26360135-54d9-4b23-b401-3d52642e309f.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h3 id="死信之最大长度"><a href="#死信之最大长度" class="headerlink" title="死信之最大长度"></a>死信之最大长度</h3><p>1、将生产者代码设置TTL的部分注释</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785108809-255e6577-7f9f-4ae3-a044-91480dd085f3.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 80%;" />
+
+<p>2、修改消费者1代码，设置队列接收消息的长度</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657785167054-e9f826b1-8b1b-457c-97b1-4e59cae1ea68.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>3、和上面示例类似，先启动消费者1再关闭，模拟正常队列无法接收消息；再发送消费者，查看消息是否到达了死信队列</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786705553-2f7fecbd-59d2-4e32-823b-4cd8f1925a8c.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>4、启动消费者2消费死信队列中的消息即可</p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657786766060-55d7b605-9d81-4ab1-8e65-d6b54cabc5c0.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h3 id="死信之消息拒绝"><a href="#死信之消息拒绝" class="headerlink" title="死信之消息拒绝"></a>死信之消息拒绝</h3><p>1、生产者不变，消费者1将队列最大长度限制注释，将<code>DeliverCallback</code>回调重写</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">DeliverCallback</span> <span class="hljs-variable">deliverCallback</span> <span class="hljs-operator">=</span> (consumerTag, delivery) -&gt; &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(delivery.getBody());<br>    <span class="hljs-keyword">if</span> (msg.equals(<span class="hljs-string">&quot;INFO_5&quot;</span>)) &#123;<br>        System.out.println(<span class="hljs-string">&quot;TTLConsumer1拒收消息-----&gt;&quot;</span> + msg);<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">         * requeue设置为false表示拒绝重新入队</span><br><span class="hljs-comment">         * 该队列如果配置了死信队列，交换机就会将消息发送到死信队列，否则会丢弃</span><br><span class="hljs-comment">         */</span><br>        channel.basicReject(delivery.getEnvelope().getDeliveryTag(), <span class="hljs-literal">false</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        System.out.println(<span class="hljs-string">&quot;TTLConsumer1接收到-----&gt;&quot;</span> + msg);<br>        channel.basicAck(delivery.getEnvelope().getDeliveryTag(),<span class="hljs-literal">false</span>);<br>    &#125;<br>&#125;;<br>channel.basicConsume(QUEUE_NORMAL, <span class="hljs-literal">false</span>, deliverCallback, consumer -&gt; &#123;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p>2、启动生产者后，发送10条消息。再启动消费者1和消费者2，可以查看到消费者1拒收了<code>INFO_5</code>，而消费者2消费了<code>INFO_5</code></p>
+<img referrerpolicy="no-referrer" src="https://cdn.nlark.com/yuque/0/2022/png/23183050/1657787046112-42c55314-bdc7-4649-bdb9-2c45b35da533.png" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" class="category-chain-item">消息队列</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/RabbitMQ/">#RabbitMQ</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>5、RabbitMQ死信队列</div>
+      <div>https://61hhh-github-io.vercel.app/20230511/9b199b28/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20230511/ef3b40a7/" title="6、SpringBoot整合RabbitMQ">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">6、SpringBoot整合RabbitMQ</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20230511/72a21c93/" title="4、RabbitMQ交换机">
+                        <span class="hidden-mobile">4、RabbitMQ交换机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

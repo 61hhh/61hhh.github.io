@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="前言到现在位置博客算是搭建好了，但是自己写的博客别问访问不了，Github和Coding都有反爬虫机制，搜索引擎搜不到，因此我们要让搜索引擎收录我们的网站。 验证：在百度&#x2F;Google搜索框中输入site:***(你的网站&#x2F;域名)，如果没找到说明没有被收录，Google的验证要先科学上网。 收录步骤：主要分为两步，一是验证网站，再是链接提交。 下面分别说一下百度和谷歌的收录步骤。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo博客提交Google和百度收录">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200416/750226c4/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="前言到现在位置博客算是搭建好了，但是自己写的博客别问访问不了，Github和Coding都有反爬虫机制，搜索引擎搜不到，因此我们要让搜索引擎收录我们的网站。 验证：在百度&#x2F;Google搜索框中输入site:***(你的网站&#x2F;域名)，如果没找到说明没有被收录，Google的验证要先科学上网。 收录步骤：主要分为两步，一是验证网站，再是链接提交。 下面分别说一下百度和谷歌的收录步骤。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H3f8b0c4effb8448fabe53d2ea3b6b81bU.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H2f7b18d9dd414a85a741d4d770e3a3fdS.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H03bfde373cab4943b4d6b91a6af11d7cb.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hb6a1d85346784508ab5bfc8eccff0f5fB.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hca76c42e1527487185a2fb4f31062e79O.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H2ebfe3c5ab864cec938269a41b520a96S.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170422078.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hde6a7df83385422fbbfc930a1da6d983Y.jpg.jpeg">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hc2b4ff8fb80342a489a7e889936a6d70M.png">
+<meta property="article:published_time" content="2020-04-16T12:25:09.000Z">
+<meta property="article:modified_time" content="2024-05-11T02:23:36.577Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="hexo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H3f8b0c4effb8448fabe53d2ea3b6b81bU.png">
+  
+  
+  
+  <title>hexo博客提交Google和百度收录 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="hexo博客提交Google和百度收录"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-04-16 20:25" pubdate>
+          2020年4月16日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">hexo博客提交Google和百度收录</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月11日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>到现在位置博客算是搭建好了，但是自己写的博客别问访问不了，Github和Coding都有反爬虫机制，搜索引擎搜不到，因此我们要让搜索引擎收录我们的网站。</p>
+<p><strong>验证：</strong>在百度&#x2F;Google搜索框中输入<code>site:***(你的网站/域名)</code>，如果没找到说明没有被收录，Google的验证要先科学上网。</p>
+<p><strong>收录步骤：</strong>主要分为两步，一是<code>验证网站</code>，再是<code>链接提交</code>。</p>
+<p>下面分别说一下百度和谷歌的收录步骤。</p>
+<span id="more"></span>
+
+<h2 id="百度收录"><a href="#百度收录" class="headerlink" title="百度收录"></a>百度收录</h2><p>首先要验证网站，我们要在百度站长平台中的<a target="_blank" rel="noopener" href="http://zhanzhang.baidu.com/dashboard/index">站长工具</a>去验证，步骤：</p>
+<ul>
+<li>输入网站（可能会有一些信息的绑定）</li>
+<li>站点属性（自己随便选，我选了个信息技术、生活情感）</li>
+<li>验证网站</li>
+</ul>
+<h3 id="验证网站"><a href="#验证网站" class="headerlink" title="验证网站"></a>验证网站</h3><p>通过验证之后百度会认为你是网站所有者，然后能做诸如自动推送、手动推送的高级功能！</p>
+<p>验证方法有三个：</p>
+<ul>
+<li>文件验证</li>
+<li>HTML验证</li>
+<li>CNAME验证</li>
+</ul>
+<h4 id="1-文件验证"><a href="#1-文件验证" class="headerlink" title="(1)文件验证"></a>(1)文件验证</h4><ol>
+<li>我选择的是第一个文件验证，按步骤下载验证文件，得到一个<code>baidu_verify_xxxxx.html</code>文件。</li>
+<li>把这个验证文件放在<code>theme/ayer/source/</code>根目录下面，（也可以放在主题的根目录下，好象这样可以避免对应主题在构建过程中在验证文件中加入很多东西影响验证）</li>
+<li>当我们编译网站<code>hexo generate</code>的时候，这个文件会被原封不动的拷贝到我们博客的<code>public/</code>根目录下。</li>
+<li>重新编译部署，就可以点击验证—&gt;完成验证。</li>
+</ol>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H3f8b0c4effb8448fabe53d2ea3b6b81bU.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+
+
+<h4 id="2-HTML验证"><a href="#2-HTML验证" class="headerlink" title="(2)HTML验证"></a>(2)HTML验证</h4><p>这种方法需要根据不同的主题进行配置，不过原理一样：都是将HTML验证标签加入到博客每个页面的head里面！注意是完整的标签，而不是一部分！</p>
+<ul>
+<li>选择HTML验证，会出现<code>&lt;meta name=&quot;...&quot; content=&quot;...&quot;&gt;</code>标签，将完整标签加到每个博客页面的<code>&lt;head&gt;...&lt;/head&gt;</code>中间</li>
+<li>在对应主题的配置文件中开启提交百度…</li>
+</ul>
+<h4 id="3-CNAME验证"><a href="#3-CNAME验证" class="headerlink" title="(3)CNAME验证"></a>(3)CNAME验证</h4><p>好像CNAME是最简单的，只要有域名即可（我有域名但是没选这个。。。直接RUSH第一个了）</p>
+<p>具体步骤：添加一条新的CNAME解析：<strong>记录类型</strong>是<em>CNAME</em>，<strong>主机记录</strong>是你的token，，<strong>记录值</strong>是zz.baidu.com，其他默认。然后验证即可。</p>
+<h3 id="链接提交"><a href="#链接提交" class="headerlink" title="链接提交"></a>链接提交</h3><p>接下来要做的就是<a target="_blank" rel="noopener" href="http://zhanzhang.baidu.com/linksubmit/index">链接提交</a>.链接提交有<code>手动</code>和<code>自动</code>两种方法。</p>
+<p><strong>手动提交</strong>你的站点到百度搜索，在搜索框输入<code>site:salute61.top</code>搜索不到后，下面有提交网址的选项，当然这种方法很麻烦，因为如果想让每一篇文章都能被搜索到就需要把所有的页面链接进行提交！</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H2f7b18d9dd414a85a741d4d770e3a3fdS.png" srcset="/img/loading.gif" lazyload></p>
+<p><strong>自动提交</strong>显然是更好的选择，在自己网站的站长平台可以看到三种提交方式。</p>
+<h4 id="主动提交"><a href="#主动提交" class="headerlink" title="主动提交"></a>主动提交</h4><p>因为百度收录的效率很低，所以我在sitemap基础上增加了主动推送。</p>
+<p><strong>主动推送：</strong>最为快速的提交方式，建议您将站点当天新产出链接立即通过此方式推送给百度，以保证新链接可以及时被百度收录。</p>
+<p>主动推送的好处：</p>
+<ul>
+<li><strong>及时发现：</strong>可以缩短百度爬虫发现您站点新链接的时间，使新发布的页面可以在第一时间被百度收录</li>
+<li><strong>保护原创：</strong>对于网站的最新原创内容，使用主动推送功能可以快速通知到百度，使内容可以在转发之前被百度发现</li>
+</ul>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H03bfde373cab4943b4d6b91a6af11d7cb.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先安装插件：<code>npm install hexo-baidu-url-submit --save</code></p>
+<p>（插件GitHub地址:<a target="_blank" rel="noopener" href="https://github.com/huiwang/hexo-baidu-url-submit">https://github.com/huiwang/hexo-baidu-url-submit</a> ）</p>
+<p>在根目录配置文件中新增字段：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-meta">##主动推送</span><br><span class="hljs-symbol">baidu_url_submit:</span> <br><span class="hljs-symbol">    count:</span> <span class="hljs-number">100</span> <span class="hljs-meta"># 提交最新的一个链接</span><br><span class="hljs-symbol">    host:</span> http:<span class="hljs-comment">//salute61.top/ # 你注册的域名</span><br><span class="hljs-symbol">    token:</span> *** <span class="hljs-meta">#上图中的token后面的字段</span><br><span class="hljs-symbol">    path:</span> baidu_urls.txt <span class="hljs-meta">#文本文档的地址， 新链接会保存在此文本文档里</span><br></code></pre></td></tr></table></figure>
+
+<p>在deploy中新增：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-keyword">type</span>: baidu_url_submit<br></code></pre></td></tr></table></figure>
+
+<p>这样执行<code>hexo deploy</code>的时候，新的链接就会被推送了。成功后可以在bash中看到：</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hb6a1d85346784508ab5bfc8eccff0f5fB.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="sitemap提交"><a href="#sitemap提交" class="headerlink" title="sitemap提交"></a>sitemap提交</h4><p>选择sitemap方式时</p>
+<h5 id="1-安装sitemap插件"><a href="#1-安装sitemap插件" class="headerlink" title="1.安装sitemap插件"></a>1.安装sitemap插件</h5><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">npm <span class="hljs-keyword">install </span>hexo-generator-sitemap --save<br>npm <span class="hljs-keyword">install </span>hexo-generator-<span class="hljs-keyword">baidu-sitemap </span>--save<br><span class="hljs-comment">##一个是谷歌的，一个是百度的</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="2-修改博客配置文件"><a href="#2-修改博客配置文件" class="headerlink" title="2.修改博客配置文件"></a>2.修改博客配置文件</h5><p>修改url为你的博客首页，xxx.github.io或自己的域名</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hca76c42e1527487185a2fb4f31062e79O.png" srcset="/img/loading.gif" lazyload></p>
+<p>指定生成文件名和生成路径</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-meta"># 自动生成sitemap</span><br><span class="hljs-symbol">sitemap:</span> <br><span class="hljs-symbol">  path:</span> sitemap.xml<br><span class="hljs-symbol">baidusitemap:</span> <br><span class="hljs-symbol">  path:</span> baidusitemap.xml<br></code></pre></td></tr></table></figure>
+
+<p>配置完成后执行<code>hexo g</code>，正常情况下会在source文件夹下看到多出两个文件：<code>sitemap.xml</code>和<code>baidusitemap.xml</code>，这就是sitemap文件。</p>
+<p>在自动提交—sitemap的输入框中，按格式填写。然后就可以了！等待一段时间让他收录，也可以访问该xml文件，查看详情</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H2ebfe3c5ab864cec938269a41b520a96S.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170422078.png" srcset="/img/loading.gif" lazyload alt="image-20230427170422078"></p>
+<h2 id="Google收录"><a href="#Google收录" class="headerlink" title="Google收录"></a>Google收录</h2><p>先进入<a target="_blank" rel="noopener" href="https://www.google.com/webmasters/tools/home?hl=zh-CN">google站点平台</a>，具体步骤与百度相同，只不过要翻墙。步骤也是<code>验证网站</code>，<code>链接提交</code>，不过我网址前缀验证进入，然后没找到验证网站的地方？？？（左侧菜单栏找遍了也没看见哪个是验证网站）</p>
+<p>进入网站有两种方式：网域、网址前缀</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hde6a7df83385422fbbfc930a1da6d983Y.jpg.jpeg" srcset="/img/loading.gif" lazyload></p>
+<p>查了一下好像直接链接提交就行，直接提交sitemap。完成</p>
+<p><a target="_blank" rel="noopener" href="https://support.google.com/webmasters/answer/183669?hl=zh-Hans">帮助文档</a></p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hc2b4ff8fb80342a489a7e889936a6d70M.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>然后就是等待他们收录了！</p>
+<p>谷歌收录较快，基本我弄完一个小时就收到邮件了，而且每篇新的博客都很快就收录了！</p>
+<p>百度得等很久。。。得近两周才搜得到</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%8D%9A%E5%AE%A2%E5%B7%A5%E5%85%B7/" class="category-chain-item">博客工具</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/hexo/">#hexo</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hexo博客提交Google和百度收录</div>
+      <div>https://61hhh-github-io.vercel.app/20200416/750226c4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年4月16日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200418/f0a4488f/" title="hexo博客加密">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">hexo博客加密</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200415/e28ceec1/" title="git学习">
+                        <span class="hidden-mobile">git学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

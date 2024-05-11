@@ -1,0 +1,1331 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="重点调度层次和调度队列模型； 处理机调度算法及其运用； 如何理解实时调度的“实时”含义； 实时调度算法； 死锁概念的理解，产生死锁的原因； 产生死锁的必要条件； 死锁解决措施。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统 4.内存管理">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200725/7f3441af/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="重点调度层次和调度队列模型； 处理机调度算法及其运用； 如何理解实时调度的“实时”含义； 实时调度算法； 死锁概念的理解，产生死锁的原因； 产生死锁的必要条件； 死锁解决措施。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/6f647060-677c-45f6-a82e-768e792153cb-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/51ccfd73-e925-4e88-9ca0-6c4e07919ec1-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/dbef4e01-d5ec-41c7-93ad-62d7b3be5074-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/fcc7d948-d94a-4e91-9ed9-c4d945a87de4-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/2ae8607b-a4a8-4b6a-a620-73527cefe13f-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/7f2f15f0-b2e5-4697-a186-672d02e847e1-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/4bf2f77b-a7b7-4203-a4c9-858f2cfaa34f-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/cb137b62-44ad-4b6d-9ab2-b919c65160d5-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/fd468b69-2175-4b94-9b36-a3936cd3b20e-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/71b31aeb-c091-410d-8475-5728a514919f-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/4ea9c7f6-5339-492a-8b3f-bdde8bb9497c-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/f1936a64-40a6-421b-961b-2732a2d7c8e0-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/275a4d89-77af-40f8-ac4b-87173bcedc5e-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/620a70a1-7966-473c-9b93-53e11b33ec19-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/a5eb1038-8b54-4716-bf51-8483355f888a-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/7c7cb718-0a10-40b3-b0ff-f6eb872a3246-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/c0e24e67-46b9-4aaa-94be-d94f4f251aae-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/15f31284-67cb-48c4-a708-45035ca3c2f6-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/fd09a5fc-2a25-4326-ab7f-6191e492acb4-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/c167443e-bced-42b3-aba3-2b2e20187353-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/af6960c5-4136-4dde-90ce-bfe2c5ccae63-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/22d032e3-df32-4e3c-864e-eb3ab5bd30e0-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/b6b3fcba-fd92-4930-b8b1-f4f7932365b7-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/25fdf50e-1905-47e2-82e3-516682e00f3d-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/36958961-7f49-4a80-81d1-3cedc46dd7ee-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/0734bfab-8aa8-4e10-871e-c4aa74f5975e-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/0baca92f-bffc-46b9-beb3-0f8aac04acda-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/36f86661-edf8-4591-9110-72d683d0288e-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/b159913c-1ee6-4995-93a3-88238b227891-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/d32041e1-279e-46f2-b827-4e91046514ed-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/725346e9-80b9-458b-858e-45b857f651f4-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/bad137bb-ee91-470e-a03c-b1e08151ed89-7976057.jpg">
+<meta property="article:published_time" content="2020-07-25T07:36:54.000Z">
+<meta property="article:modified_time" content="2024-05-11T06:34:13.484Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://api2.mubu.com/v3/document_image/6f647060-677c-45f6-a82e-768e792153cb-7976057.jpg">
+  
+  
+  
+  <title>操作系统 4.内存管理 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="操作系统 4.内存管理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-07-25 15:36" pubdate>
+          2020年7月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          82 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">操作系统 4.内存管理</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月11日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p><strong>调度层次和调度队列模型；</strong></p>
+<p><strong>处理机调度算法及其运用；</strong></p>
+<p><strong>如何理解实时调度的“实时”含义；</strong></p>
+<p><strong>实时调度算法；</strong></p>
+<p><strong>死锁概念的理解，产生死锁的原因；</strong></p>
+<p><strong>产生死锁的必要条件；</strong></p>
+<p><strong>死锁解决措施。</strong></p>
+<span id="more"></span>
+
+
+
+<h2 id="重难点"><a href="#重难点" class="headerlink" title="重难点"></a>重难点</h2><ul>
+<li><p>程序的装入方式</p>
+</li>
+<li><p><strong>连续分配方式的管理</strong></p>
+</li>
+<li><p><strong>离散分配方式的管理</strong></p>
+</li>
+<li><p>虚拟存储的基本理论</p>
+</li>
+<li><p>地址变换的实现</p>
+</li>
+<li><p>虚拟存储的理解</p>
+</li>
+<li><p>页面置换算法的实现</p>
+</li>
+</ul>
+<h2 id="4-1-存储管理的原理"><a href="#4-1-存储管理的原理" class="headerlink" title="4.1  存储管理的原理"></a>4.1  存储管理的原理</h2><h3 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h3><img src="https://api2.mubu.com/v3/document_image/6f647060-677c-45f6-a82e-768e792153cb-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>计算机存储层次示意图&amp;&amp;存储方式一览表</p>
+<img src="https://api2.mubu.com/v3/document_image/51ccfd73-e925-4e88-9ca0-6c4e07919ec1-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<img src="https://api2.mubu.com/v3/document_image/dbef4e01-d5ec-41c7-93ad-62d7b3be5074-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>通常将用户的作业放在主存中执行；而把那些不立即使用的程序、数据放在外存中，用到时再将它们调入内存中；在程序运行时，为了提高对数据的存取速度，会将一些常用的表格，变量，临时数据等放入到高速缓存中。</p>
+<img src="https://api2.mubu.com/v3/document_image/fcc7d948-d94a-4e91-9ed9-c4d945a87de4-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>主存：程序的指令和数据只有放在内存中，CPU才能对其进行直接存取，或者说该程序才能被执行。可见内存资源是进程执行时不可或缺的条件之一。</p>
+<img src="https://api2.mubu.com/v3/document_image/2ae8607b-a4a8-4b6a-a620-73527cefe13f-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h3 id="存储管理的原理"><a href="#存储管理的原理" class="headerlink" title="存储管理的原理"></a>存储管理的原理</h3><h4 id="存储管理的原理-1"><a href="#存储管理的原理-1" class="headerlink" title="存储管理的原理"></a>存储管理的原理</h4><ul>
+<li><p>(1)程序执行过程：首先CPU通过程序计数器中的值从内存中取得相应的指令，指令被译码后根据要求可能会从存储器中再取得操作数。对操作数处理完成后，操作结果又会存储到存储器中；进程在运行过程中依据任务的要求也会请求内存空间，如I&#x2F;O需要缓冲区、存放临时数据等，这涉及到内存的分配与回收问题。</p>
+</li>
+<li><p>(2)存储管理的主要工作：就是负责内存空间的使用管理，即为进程分配与回收空间，将程序装入指定内存区域；再从指定的存储单元中读写数据，而内存单元的读写操作是由主存硬件完成的，所以对主存发出的读写请求只要指定主存单元就行。</p>
+</li>
+</ul>
+<h4 id="存储单元与物理地址空间"><a href="#存储单元与物理地址空间" class="headerlink" title="存储单元与物理地址空间"></a>存储单元与物理地址空间</h4><ul>
+<li><p>(1)物理地址（绝对地址）：内存是由若干个存储单元组成的，每个存储单元有一个编号，这种编号可唯一标识一个存储单元，称为内存地址（或物理地址）。</p>
+</li>
+<li><p>(2)物理地址空间：是指物理地址的集合，也叫绝对地址空间或实空间或存储空间，亦即内存空间。存储空间中的单元一般都是按字节从0开始连续编址的，内存空间的最大容量由地址总线决定。如地址总线有24根，则其地址范围是0～～16M-1(2^24-1)，最大容量为16M。</p>
+</li>
+<li><p>(3)存储单元的访问：存储器只能通过物理地址访问内存单元。即给出欲访问的存储单元绝对地址，存储器即可对其进行读写操作。</p>
+</li>
+</ul>
+<h4 id="作业的装入"><a href="#作业的装入" class="headerlink" title="作业的装入"></a>作业的装入</h4><ul>
+<li><p>(1)作业的处理过程：用户的作业总是由一个或若干个源程序文件组成，编译或汇编程序可对源程序文件进行编译或汇编形成相应的目标模块，再由连接程序将这些目标模块和库函数连接成一个完整的装入模块，最后将其装入内存执行。</p>
+</li>
+<li><p>(2)名字空间：用汇编语言或高级语言编写程序时，总是通过符号名来访问某一单元。我们把程序中由符号名组成的空间称为名空间。</p>
+</li>
+<li><p>(3)逻辑地址空间：源程序经过汇编或编译并再经过链接程序所装配形成的程序，通常是以0为基址进行顺序编址，或者是分成若干个部分，每个部分以0为基址，这样的地址表示形式称为相对地址,也叫做逻辑地址或虚地址，把该程序逻辑地址组成的集合叫做程序的逻辑地址空间(简称地址空间，也叫相对地址空间或虚空间 ) 。</p>
+</li>
+</ul>
+<h4 id="地址重定位"><a href="#地址重定位" class="headerlink" title="地址重定位"></a>地址重定位</h4><p>(1)地址变换：作业运行时不能按其相对地址访问内存单元，而应按相应的物理地址访问。因此将一个逻辑地址空间的程序装入到物理地址空间时，由于两个空间不一致，需要进行相对地址到物理地址的转换，即地址的重定位。也就是说将虚地址映射为内存地址，这种作法叫做地址重定位或地址变换或地址映射。地址重定位有两种方式：静态重定位和动态重定位。</p>
+<p>(2)静态地址重定位：静态地址重定位是在程序执行之前由操作系统的重定位装入程序完成的。在装入一个作业时，把作业中的指令地址全部转换为绝对地址（地址转换工作是在作业执行前集中一次完成的）在作业执行过程中就无须再进行地址转换工作。</p>
+<ul>
+<li><p>静态地址重定位示例：静态地址重定位的优点是容易实现，无需硬件支持。其主要缺点是程序经地址重定位后就不能移动了，因而不能重新分配内存，不利于内存的有效利用。</p>
+<img src="https://api2.mubu.com/v3/document_image/7f2f15f0-b2e5-4697-a186-672d02e847e1-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></li>
+</ul>
+<p>(3)动态地址重定位 ：动态地址重定位是在程序执行期间进行的。在CPU访问内存之前,将要访问的程序或数据地址转换成内存地址。</p>
+<ul>
+<li>动态地址重定位的优点是程序在内存中的搬移不会对程序的正确执行造成影响，使内存得以被充分利用，其缺点是需要附加的硬件支持，实现存储管理的软件算法比较复杂。</li>
+</ul>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p>链接是指多个目标模块在执行时的地址空间分配和相互引用。</p>
+<p>链接方法</p>
+<ul>
+<li><p>静态链接（static-linking）：静态链接是在生成可执行文件时进行的。</p>
+</li>
+<li><p>动态链接(dynamic-linking)：在装入或运行时进行链接。通常被链接的共享代码称为动态链接库(DLL, Dynamic-Link Library)</p>
+<ul>
+<li>优点：共享；部分装入；便于局部代码修改；便于运行环境适应。缺点：链接开销；管理开销</li>
+</ul>
+</li>
+</ul>
+<h3 id="存储管理的机制和策略"><a href="#存储管理的机制和策略" class="headerlink" title="存储管理的机制和策略"></a>存储管理的机制和策略</h3><p>【存储管理的功能】</p>
+<p><strong>1.内存的分配与回收</strong></p>
+<ul>
+<li><p>每一个进程运行时都需要内存资源， 因此内存空间的分配和回收是存储管理的基本功能。</p>
+</li>
+<li><p>为了记录内存的使用情况，存储管理会依据存储策略采用相应的数据结构。系统通过所采用的数据结构来管理内存空间。</p>
+</li>
+<li><p>（1）静态存储分配：内存分配是在作业运行前一次性完成的</p>
+</li>
+<li><p>（2）动态存储分配：分配工作可以在作业运行前及运行过程中逐步完成。</p>
+</li>
+</ul>
+<p><strong>2.地址映射与存储保护</strong></p>
+<ul>
+<li><p>为防止内存中各程序相互干扰，必须对内存中的程序和数据进行保护。规定每一个进程只能在自己的存储区内活动，否则产生越界中断。</p>
+</li>
+<li><p>存储保护一般以硬件保护机制为主，软件为辅。</p>
+</li>
+<li><p>存储保护机制应设置在主存操作之前，也就是存储保护机制对每一个欲访问的主存地址都要进行检查。</p>
+</li>
+<li><p>（1）上、下界存储保护：系统可设置一对上、下界寄存器，分别用来存放当前运行进程在内存空间的上、下边界地址</p>
+</li>
+<li><p>（2）基址—限长存储保护：上下界保护的变种，在限长寄存器中存放作业的长度，地址转换前进行测试，若逻辑地址的值大于限长值，就属于非法访问，产生一个越界中断</p>
+</li>
+</ul>
+<p><strong>3.内存共享与扩充</strong></p>
+<ul>
+<li><p>一是指内存被多个并发进程所共用，即每一个进程占据内存的一段相对独立的区域；二是指内存中某一区域的信息可被多个进程共享。</p>
+</li>
+<li><p>(1)覆盖技术，节约内存使用；</p>
+</li>
+<li><p>(2)交换技术，轮流使用内存；</p>
+</li>
+<li><p>(3)虚拟存储管理技术，用外存补充内存的不足。</p>
+</li>
+</ul>
+<h2 id="4-2-连续分配存储管理"><a href="#4-2-连续分配存储管理" class="headerlink" title="4.2  连续分配存储管理"></a>4.2  连续分配存储管理</h2><h3 id="单连续存储管理"><a href="#单连续存储管理" class="headerlink" title="单连续存储管理"></a>单连续存储管理</h3><p>单一连续分配是一种简单的存储分配方案，主要用于单用户单任务操作系统。</p>
+<ul>
+<li><p>1.内存分配与回收：一道用户程序独占用户区，如图所示</p>
+<p><img src="https://api2.mubu.com/v3/document_image/4bf2f77b-a7b7-4203-a4c9-858f2cfaa34f-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+</li>
+<li><p>2.地址映射：物理地址&#x3D;用户区基地址+逻辑地址。</p>
+</li>
+<li><p>3.内存保护：通过基址寄存器保证用户程序不会从系统区开始；另外系统需要一个界限寄存器，里边存储程序逻辑地址范围，若需要进行映射的逻辑地址超过了界限寄存器中的值，则产生一个越界中断信号送CPU。</p>
+</li>
+<li><p>4.单一连续分配方案的优缺点</p>
+<ul>
+<li><p>优点：方法简单，易于实现；</p>
+</li>
+<li><p>缺点：它仅适用于单道程序，因而不能使处理机和内存得到充分利用。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="固定分区存储管理"><a href="#固定分区存储管理" class="headerlink" title="固定分区存储管理"></a>固定分区存储管理</h3><p>分区存储管理是把主存储器中的用户区分成若干个连续区进行管理，每个连续区中可装入一个作业。</p>
+<p>1.分区划分方法：把主存中可分配的用户区域预先划分成若干个连续的分区，每个连续区的大小可以相同，也可以不同。但是，一旦划分好分区之后，主存中分区的个数就固定了，且每个分区的大小也固定不变。</p>
+<img src="https://api2.mubu.com/v3/document_image/cb137b62-44ad-4b6d-9ab2-b919c65160d5-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>2.主存分配表：由于主存中有多个分区，为了管理主存空间的使用，必须设置一张“主存分配表”</p>
+<img src="https://api2.mubu.com/v3/document_image/fd468b69-2175-4b94-9b36-a3936cd3b20e-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>3.主存空间的分配与释放：主存分配表中应指出各分区的起始地址和长度，并为每个分区设一个标志位。当标志位为“0”时，表示对应的分区是空闲分区，当标志位为非“0”时，表示对应的分区已被某作业占用。</p>
+<img src="https://api2.mubu.com/v3/document_image/71b31aeb-c091-410d-8475-5728a514919f-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<ul>
+<li><p>等待进入主存的作业排成一个作业队列。当主存中有空闲的分区时，依次从作业队列中选择一个能装入该分区的作业。当所有的分区都已装有作业，则其他的作业暂时不能再装入，绝对不允许在同一分区中同时装入两个或两个以上的作业。</p>
+</li>
+<li><p>当作业队列中有作业要装入主存时，存储管理可采用“顺序分配算法”进行主存空间的分配。</p>
+</li>
+</ul>
+<p>4.地址转换：固定分区管理方式下作业的地址转换常采用静态重定位技术。物理地址&#x3D;分区始址+逻辑地址</p>
+<p>5.存储保护 ：常采用“界限寄存器对”法。</p>
+<p>6.固定分区的缺点：碎片大，存在小分区占用大作业的情况。不利于提高内存资源的利用率 。可调入的作业大小受分区大小的严格限制。  </p>
+<h3 id="可变分区存储管理"><a href="#可变分区存储管理" class="headerlink" title="可变分区存储管理"></a><font color="red"><strong>可变分区存储管理</strong></font></h3><p>根据进程的实际需求动态地划分内存的分区方法。它是在进程装入和处理过程中建立分区，并要使分区的容量能正好适应进程的大小。而整个内存分区数目随着进程数目的变化而动态改变，各个分区的大小随着各个进程的大小各有不同，所以称之为动态分区分配。</p>
+<h4 id="1-动态分区中的数据结构"><a href="#1-动态分区中的数据结构" class="headerlink" title="1. 动态分区中的数据结构"></a>1. 动态分区中的数据结构</h4><p>动态分区也可以采用表格的形式来管理内存空间。可用一张已分区表来表示被分配出去的分区，用一张空闲分区（未分区）表来表示空闲分区（为了节省内存空间，系统中的空闲分区也可采用空闲区链表的方法来管理，空闲区链表不占用额外的存储空间）</p>
+<img src="https://api2.mubu.com/v3/document_image/4ea9c7f6-5339-492a-8b3f-bdde8bb9497c-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="2-动态分区分配算法"><a href="#2-动态分区分配算法" class="headerlink" title="2. 动态分区分配算法"></a><strong>2. 动态分区分配算法</strong></h4><p>1、首次适应算法（FF, First Fit）</p>
+<ul>
+<li><p>空闲分区链或空闲分区表以地址递增的顺序链接，分配时从链首开始查找，找到第一个大小可以满足的分区为止</p>
+</li>
+<li><p>采用这种方法时，每次分配都需要从链首也就是低地址开始查找，所以低地址由于被划分的可能性比较大，容易形成多个过小分区而难以利用，成为外部碎片（前面所描述的在每个分区内的“碎片”相应称为内部碎片）同时这些小分区增加了查寻时的判断时间，降低了效率。</p>
+</li>
+</ul>
+<p>2、循环首次适应算法</p>
+<ul>
+<li><p>为了改变首次适应算法每次从链首开始查寻造成的缺陷，可以增加一个起始查寻指针，指向下一次开始查寻时的起始分区，在查寻过程中，该指针向后移动，当移动到最后一个空闲分区后，重新回到链首。找到适当分区后，按首次适应算法的划分分区方式进行。</p>
+</li>
+<li><p>首次适应算法实现比较简单直接，易于释放时合并相邻空间分区。比较容易的满足大作业的需要。完成一次分配平均需要的搜索次数较大，影响了工作效率。</p>
+</li>
+</ul>
+<p>3、最佳适应算法</p>
+<ul>
+<li><p>搜索整个空闲区以找出满足进程要求的最小空闲区。</p>
+</li>
+<li><p>空闲分区链按照分区容量递增的方式形成，分配时从链首开始查找，这样找到的第一个大小可以满足的分区肯定是与进程申请空间大小最接近，甚至是完全吻合的分区，而且平均查找次数为分区数的一半，也就是说它是“最佳适应”的。</p>
+</li>
+<li><p>尽可能的保留了较大的空间。产生大量的不易被使用的很小的空闲区。该算法不一定是最佳的。</p>
+</li>
+</ul>
+<p>4、最差适应算法</p>
+<ul>
+<li><p>总是搜索整个链表以找到够用的最大的空闲区，使分裂出来的小空闲区比较大，因而可以继续使用</p>
+</li>
+<li><p>因此空闲分区链按照分区容量递减的方式形成，分配时从链首开始，若链首分区大小不满足，则可以肯定不存在能够满足要求的分区；否则对链首分区进行划分，剩余空间成为“碎片”的可能性肯定是最小的。</p>
+</li>
+<li><p>最差适应算法具有查找速度快，分区碎片少，分割后产生的空闲区一般仍可以供以后分配使用。但是工作一段时间后，不能满足大作业对空闲区的请求。</p>
+</li>
+</ul>
+<p>在这几种分配算法中，一般情况下，首次适应算法是最简单，而且是最快和最好的算法。循环首次适应算法比首次适应算法稍差一些，而最佳适应算法虽然名字中有“最佳”，但实际上是性能最差的。但在某些应用情况下，上述比较结果会有所变化。</p>
+<h4 id="3-动态分区的回收"><a href="#3-动态分区的回收" class="headerlink" title="3.动态分区的回收"></a>3.动态分区的回收</h4><p>回收内存空间，关键是修改两个表。</p>
+<img src="https://api2.mubu.com/v3/document_image/f1936a64-40a6-421b-961b-2732a2d7c8e0-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="4-动态重定位分区分配"><a href="#4-动态重定位分区分配" class="headerlink" title="4.动态重定位分区分配"></a>4.动态重定位分区分配</h4><p>在动态分区分配中，消除了固定分区管理造成的“内碎片”，但是不可避免的在内存空间造成“外碎片”。多个无法利用的小分区所形成的“碎片”是一种很大的资源浪费。</p>
+<p>为了解决类似问题，可以采用一种称为“紧凑”的方法，通过移动程序将原来分散的空闲小分区拼接为一个大的分区，就可以使某些比较大的进程进入。</p>
+<p>经过紧缩后的进程在内存中的位置发生了变化，若不对程序和数据的地址进行修改，在进程就无法运行。要使其运行，必须采用“动态重定位”进行地址变换，于是称这种方案为动态重定位分区分配。</p>
+<h4 id="5-分区分配方案的评价"><a href="#5-分区分配方案的评价" class="headerlink" title="5.分区分配方案的评价"></a>5.分区分配方案的评价</h4><p>在分区分配方案中，地址映射都遵循“物理地址&#x3D;分区始地址+逻辑地址”，固定分区分配与动态分区分配的分区始地址都来自于硬件“基址寄存器”，动态重定位分区分配的分区始地址来自于“重定位寄存器”。</p>
+<p>优点</p>
+<ul>
+<li><p>(1) 多道程序下的内存共享，改善了系统吞吐量，在内存利用率方面，从固定式分区到动态分区，再到动态重定位分区依次提高。</p>
+</li>
+<li><p>(2) 相对于后面介绍的存储管理方式，为实现分区分配所使用的数据结构占用的存储容量相对较少，算法也相对简单。</p>
+</li>
+<li><p>(3) 实现存储保护的措施也比较简单。</p>
+</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><p>(1)内存仍不能充分利用，除了动态重定位式分区法外，都存在着严重的碎片问题。</p>
+</li>
+<li><p>(2) 不能实现对内存的扩充，因此进程的大小受到内存可用空间的限制。</p>
+</li>
+<li><p>(3)与单一连续分配一样，要求一个进程在执行之前必须全部装入内存，因此在内存中可能包含不会被使用的信息。</p>
+</li>
+<li><p>(4) “紧凑”提高了内存利用率，但是进程移动所产生的额外开销增加了CPU的负担。</p>
+</li>
+<li><p>(5)几个并行进程之间不能共享存入内存的单一信息副本(如公用子程序、数据段等)。</p>
+</li>
+</ul>
+<h3 id="连续分配中内存扩充技术"><a href="#连续分配中内存扩充技术" class="headerlink" title="连续分配中内存扩充技术"></a>连续分配中内存扩充技术</h3><h4 id="1-覆盖（overlay技术）"><a href="#1-覆盖（overlay技术）" class="headerlink" title="1.覆盖（overlay技术）"></a>1.覆盖（overlay技术）</h4><p>所谓覆盖，是指同一主存区可以被不同的程序段重复使用。让那些不会同时执行的程序段共用同一个主存区。</p>
+<p>覆盖区长度由相应覆盖段中最大程序段的长度确定。处理过程是先把常驻内存部分调入，然后将首先需要的可覆盖程序段由辅存调入，随着进程执行，再将其它存放在辅存的覆盖部分陆续调入。</p>
+<p>覆盖的基本原理可用图例说明。图中A、B是同一层不同时间执行的程序，可以共用一段主存区；X、M、N是另外的一层不同时间执行的程序，共用另一段主存区；即选择AB中最大的为覆盖区1，XMN中最大的为覆盖区2，再加上常驻内存部分，即为该作业所需内存</p>
+<img src="https://api2.mubu.com/v3/document_image/275a4d89-77af-40f8-ac4b-87173bcedc5e-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<p>覆盖技术的主要特点是打破了必须将一个作业的全部信息装入主存后才能运行的限制。在一定程度上解决了小主存运行大作业的矛盾。</p>
+<p>缺点：(1)用户难以预知他的程序的覆盖情况。(2)用户只能有效地利用自己程序所占用的内存。(3)各进程占用的分区仍会存在碎片。</p>
+<h4 id="2-交换（swapping）技术"><a href="#2-交换（swapping）技术" class="headerlink" title="2.交换（swapping）技术"></a>2.交换（swapping）技术</h4><p>所谓交换，就是系统根据需要把主存中暂时不运行的某个(或某些)作业部分或全部移到外存，而把外存中的某个(或某些)作业移到相应的主存区，并使其投入运行。所以，交换技术也叫对换或滚进滚出（roll-in,roll-out）</p>
+<p>被换出到外存的程序只是临时被剥夺了对内存的使用权，过一段时间，还必须换入内存运行。因此，交换是一种用时间换空间的技术。</p>
+<p>它的主要特点是打破了一个程序一旦进入主存便一直运行到结束的限制。</p>
+<p>交换的时机通常在以下情况发生：</p>
+<ul>
+<li><p>①作业的进程用完时间片或等待输入输出；</p>
+</li>
+<li><p>②作业要求扩充存贮而得不到满足时。</p>
+</li>
+</ul>
+<p>采用对换技术可以很好地提高内存的利用率和CPU的处理效率。同覆盖技术一样，交换技术也是利用外存来逻辑地扩充主存。</p>
+<h2 id="4-3-离散分配存储管理"><a href="#4-3-离散分配存储管理" class="headerlink" title="4.3  离散分配存储管理"></a><font color="red"><strong>4.3  离散分配存储管理</strong></font></h2><h3 id="页式存储管理"><a href="#页式存储管理" class="headerlink" title="页式存储管理"></a>页式存储管理</h3><h4 id="1-基本原理"><a href="#1-基本原理" class="headerlink" title="1.基本原理"></a>1.基本原理</h4><p>以一个例子说明：假设一个酒店，所有的客房都是标准的双人间，部分客房已经住进客人，现在又有一个旅游团要求入住。接待员统计了一下，对旅游团领队说：“贵团全体成员都能住下，两人一个房间，但是不能住在同一楼层了，因为每层空着的客房不够，更没有几个挨着的。请原谅！”。对于这样的安排，一般人不会感到奇怪。因为旅游团本来就是由一位位个人或夫妻等组成的，而饭店的客房本来也是两人一间的，两人一组正好可住在一个客房里；另外，饭店几乎每天都有入住的和退房的客人，想在同一楼层找几间挨着的客房实在不容易。</p>
+<ul>
+<li><p>①将整个系统的内存空间划分成一系列大小相等的块，每一块称为一个物理块、物理页或实页，页架或页帧（frame），可简称为块（block）。所有的块按物理地址递增顺序连续编号为0、1、2、……。</p>
+</li>
+<li><p>②每个作业的地址空间也划分成一系列与内存块一样大小的块，每一块称为一个逻辑页或虚页，也有人叫页面，可简称为页（page）。所有的页按照逻辑地址递增顺序连续编号为0、1、2、……。</p>
+</li>
+</ul>
+<p>这里的块相当于饭店的客房，系统对内存分块相当于饭店把大楼所有的客房都设计成标准的双人间。这里，对作业地址空间分页就相当于把旅游团成员分成两人一组。 </p>
+<ul>
+<li><p>③一个作业，只要它的总页数不大于内存中的可用块数，系统就可以对它实施分配。系统装入作业时，以页为单位分配内存，一页分配一个块，作业所有的页所占的块可以不连续。系统同时为这个作业建立一个页号与块号的对照表，称为页表。 </p>
+</li>
+<li><p>④每个块的大小是固定的，一般是个1&#x2F;2KB～4KB之间的数值，而且必须是2的幂次方。</p>
+</li>
+</ul>
+<p>这好象饭店有个记录客户入住情况的客户登记表一样。另外，饭店安排客户入住是要查看全部客房的使用情况一览表，相应地系统给作业分配内存时要查看主存分配表或者内存块说明表。对块尺寸这样规定相当于饭店规定客房是双人间。</p>
+<h4 id="2-地址结构及页面大小设置"><a href="#2-地址结构及页面大小设置" class="headerlink" title="2.地址结构及页面大小设置"></a>2.地址结构及页面大小设置</h4><p>前一部分为页号 P，后一部分为位移量 W(或称为页内地址)。其中 0～11 位为页内地址，即每页的大小为 4 KB；12～31 位为页号，地址空间最多允许有 1 M 页。</p>
+<img src="https://api2.mubu.com/v3/document_image/620a70a1-7966-473c-9b93-53e11b33ec19-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>若给定某一个逻辑地址（或相对地址），通过下面式子可以得出页号和页内偏移量：页号&#x3D;逻辑地址 DIV 页面大小；页内偏移量&#x3D;逻辑地址 MOD 页面大小。</p>
+<p>例如页面大小为4 KB的系统中，若逻辑地址为28024。由上式求得28024 div 4096&#x3D;6（页号）；28024 mod 4096&#x3D;3448（页内偏移量）</p>
+<p>过小会造成页面过多，页表过长，页表又会占用较大的内存空间，而且在虚拟存储中增加了页面换入换出次数，增加了系统开销；过大又会造成页内碎片太大，内存利用率不高。</p>
+<h4 id="3-页表与地址映射"><a href="#3-页表与地址映射" class="headerlink" title="3.页表与地址映射"></a>3.页表与地址映射</h4><p>在分页系统中，允许将作业（进程）的任一页装入到内存中的任一可用的物理块中，但系统应保证作业仍能正确运行，即能在内存中找到每个页面对应的物理块。系统就要记录用户程序的逻辑页与内存物理块之间的对应关系，这通过为每个应用程序建立一张页面映射表来实现，简称页表。</p>
+<p>地址变换机构的任务实际上只是将逻辑地址中的页号，转换为内存中的物理块号。又因为页面映射表的作用就是用于实现从页号到物理块号的变换，因此，地址变换任务是借助于页表来完成的。</p>
+<img src="https://api2.mubu.com/v3/document_image/a5eb1038-8b54-4716-bf51-8483355f888a-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:67%;" />
+
+<p>在系统中只设置一个页表寄存器 PTR(Page-Table Register)，在其中存放页表在内存的始址和页表的长度。平时，进程未执行时，页表的始址和页表长度存放在本进程的 PCB 中。当调度程序调度到某进程时，才将这两个数据装入页表寄存器中。</p>
+<p>【地址变换过程】：当进程要访问某个逻辑地址中的数据时，分页地址变换机构会自动地将有效地址(相对地址)分为页号和页内地址两部分，再以页号为索引去检索页表。查找操作由硬件执行。在执行检索之前，先将页号与页表长度进行比较，如果页号大于或等于页表长度，则表示本次所访问的地址已超越进程的地址空间。于是，这一错误将被系统发现并产生一地址越界中断。若未出现越界错误，则将页表始址与页号和页表项长度的乘积相加，便得到该表项在页表中的位置，于是可从中得到该页的物理块号，将之装入物理地址寄存器中。与此同时，再将有效地址寄存器中的页内地址送入物理地址寄存器的块内地址字段中。这样便完成了从逻辑地址到物理地址的变换。</p>
+<img src="https://api2.mubu.com/v3/document_image/7c7cb718-0a10-40b3-b0ff-f6eb872a3246-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="4-内存的分配与回收"><a href="#4-内存的分配与回收" class="headerlink" title="4.内存的分配与回收"></a>4.内存的分配与回收</h4><p>在页式存储方式中，由于内存块等长，故常用三种方式记录内存物理页面空闲情况。</p>
+<ul>
+<li><p>⑴ 位示图 用一个二进制位（bit）表示内存中一个物理页面的状态。规定其值为0时，表示该物理块空闲；其值为1时，表示该块被占用。</p>
+</li>
+<li><p>⑵ 空闲页面表 系统将连续的若干空闲页面作为一组登记在空闲页面表中</p>
+</li>
+<li><p>⑶ 空闲页面链表 将所有空闲页面组成一个链表，每一个空闲页面设有指向下一个页面的指针，系统保留空闲链表的头指针。</p>
+</li>
+</ul>
+<h4 id="5-快表"><a href="#5-快表" class="headerlink" title="5.快表"></a>5.快表</h4><p>因为页表是存放在内存中的，故CPU要存取一个数据，需访问主存两次。首先访内存中的页表，找到该页的的物理块号，将此块号与页内地址拼结形成物理地址；其次真正访问该物理地址，存取其中的内容。因而程序的执行速度降低了一倍。</p>
+<p>为了提高地址变换速度，可在地址变换机构中增设一个具有并行查寻能力的特殊高速缓冲寄存器，又称为“联想寄存器”(Associative Memory)，或称为“快表”</p>
+<p>【地址变换过程】：在 CPU 给出有效地址后，由地址变换机构自动地将页号 P 送入高速缓冲寄存器，并将此页号与高速缓存中的所有页号进行比较，若其中有与此相匹配的页号，便表示所要访问的页表项在快表中。于是，可直接从快表中读出该页所对应的物理块号，并送到物理地址寄存器中。如在块表中未找到对应的页表项，则还须再访问内存中的页表，找到后，把从页表项中读出的物理块号送地址寄存器；同时，再将此页表项存入快表的一个寄存器单元中，亦即，重新修改快表。但如果联想寄存器已满，则 OS 必须找到一个老的且已被认为不再需要的页表项，将它换出。</p>
+<img src="https://api2.mubu.com/v3/document_image/c0e24e67-46b9-4aaa-94be-d94f4f251aae-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>二级页表&amp;多级页表</p>
+<h4 id="页式存储的缺点"><a href="#页式存储的缺点" class="headerlink" title="页式存储的缺点"></a>页式存储的缺点</h4><ul>
+<li><p>(1)采用动态地址映射会增加计算机成本和降低处理机的速度。</p>
+</li>
+<li><p>(2)各种表格要占用一定容量的内存空间，而且还要花费一部分处理机时间来建立和管理这些表格。</p>
+</li>
+<li><p>(3) 虽然消除了大量碎片，但每个作业的最后一页一般都有不能充分利用的空白区。</p>
+</li>
+<li><p>(4) 存储扩充问题仍未得到解决。当没有足够空间能装下整个作业地址空间时，该作业还是无法运行。</p>
+</li>
+</ul>
+<h3 id="段式存储管理"><a href="#段式存储管理" class="headerlink" title="段式存储管理"></a>段式存储管理</h3><h4 id="1-分段原理"><a href="#1-分段原理" class="headerlink" title="1.分段原理"></a>1.分段原理</h4><p>一个用户作业的程序按其逻辑结构可划分为若干段，例如主程序段、子程序段、数据段、堆栈段等。这些段中的每一段在逻辑上都是完整的，因此每一段都是一组逻辑信息，有自己的名字，且都有一段连续的地址空间。这样的分段组织便于实现段共享和保护，便于实现动态链接和数据动态增长。</p>
+<p>当一个用户程序装入内存时，系统为每个段分配一个连续的内存区域，而各个段之间可以离散存放。如果用户程序只含有一个段，则段式存储就退化为可变分区方式了。</p>
+<p>在分段式存储管理中，段名用段号代替，段地址从0开始编址，因为各段的逻辑信息内容不同，所以段长度不同。这样用段号和段内地址构成一个如图所示的二维地址空间。它表示程序最多为256段，段最大长度为64 KB。</p>
+<img src="https://api2.mubu.com/v3/document_image/15f31284-67cb-48c4-a708-45035ca3c2f6-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>为了记录用户程序与内存之间的对应关系，系统为每个用户程序建立一张段表。同时系统中还要设立一张内存空闲区表，以记录内存中空闲区的使用情况，用于为段分配和回收内存。</p>
+<img src="https://api2.mubu.com/v3/document_image/fd09a5fc-2a25-4326-ab7f-6191e492acb4-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="2-地址变换"><a href="#2-地址变换" class="headerlink" title="2.地址变换"></a>2.地址变换</h4><p>系统提供一对寄存器：段表始址寄存器和段表长度寄存器。用于存放当前进程的段表起始地址和段表长度。</p>
+<p>对于每一条用户指令或数据的访问，要根据段号访问段表。先判断段号是否超出段表长，若超出既为越界交给操作系统处理；否则将段号与段表项长度相乘再加上段表起始地址得到该段在段表中的位置，查段表得到该段在内存的首地址。然后判断段内地址是否大于段长，若大于则产生越界中断交由操作系统处理，否则将段内地址加到该段在内存的首地址上，就得到了该指令或数据的物理地址。</p>
+<p>段表存放在内存中。为了加快地址映射，亦可以采用快表技术。为此，系统设置一组联想寄存器（相联存储器），用于存放正在运行进程段表的一部分。</p>
+<p>分段存储管理的地址变换机构和工作流程（给定逻辑地址中段号为3，段内地址为723）：① 段号3与段表寄存器存放的段表长度比较以判断是否越界，如果越界，则转错误中断处理，否则转②；②计算：段表始地址+段号×段表项长度，得到段表中3号段这一项在内存中的地址，访问该地址得到对应段基址为8K；③8 K(段基址)+723(段内地址)&#x3D;8915(物理地址)；④ 访问内存8915单元，得到需要的数据365。</p>
+<img src="https://api2.mubu.com/v3/document_image/c167443e-bced-42b3-aba3-2b2e20187353-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="3-页式与段式的比较"><a href="#3-页式与段式的比较" class="headerlink" title="3.页式与段式的比较"></a>3.页式与段式的比较</h4><p>二者均采用离散存储方式，通过页表或段表进行地址转换，为了加快查找，均设置了快表。</p>
+<ul>
+<li>(1)页是信息的物理单位，分页是系统的行为，是系统为了对内存进行规范管理而采取的措施。而分段是信息的逻辑单位，是为了满足用户的需要而设置的；</li>
+<li>(2)在页式存储系统中，作业的地址空间是一维的线性地址空间，而在段式存储系统中，作业的地址空间是二维的；</li>
+<li>(3)页的大小是固定的。而段长是不定的。</li>
+</ul>
+<h4 id="4-段的共享与保护"><a href="#4-段的共享与保护" class="headerlink" title="4.段的共享与保护"></a>4.段的共享与保护</h4><p>在多道程序环境下，许多应用程序、子程序是可被多个用户所使用的。随着多窗口及各种工具软件的流行，被共用的程序和数据都在急剧增长。如果用户对每一个所使用的程序和数据都保留副本的话，那么空间的浪费太大。若在内存中只保留一个副本，就可供多个用户使用，称这种技术为共享技术。</p>
+<p>段式存储管理可以方便地实现内存信息的共享并进行有效的内存保护。这是因为段是按逻辑意义来划分的，可以按段名访问的缘故。如果多个用户进程或作业需要共享某段程序或数据，可以使用不同的段名，在各自的段表中填入己在内存中的共享段的起始地址、并设置适当的读写控制权，就可以做到共享一个内存段的信息。</p>
+<p>在多道程序的情况下，为了保证段的共享并使程序顺利执行，必须对段的访问进行检查：</p>
+<ul>
+<li><p>⑴利用段表及段长来实现段的保护，防止程序执行时地址越界。</p>
+</li>
+<li><p>⑵存取权限保护法  通过在段表中设置“存取权限”一项，可防止对该段的非法访问。</p>
+</li>
+<li><p>⑶存储保护键法  通过对内存块设置保护键，来防止对该内存的非法访问。</p>
+</li>
+</ul>
+<h3 id="段页式存储管理"><a href="#段页式存储管理" class="headerlink" title="段页式存储管理"></a>段页式存储管理</h3><p>分段和分页存储管理方式都各有优缺点，分段能很好地满足用户的需要，易于实现共享、保护、及动态连接，但其内存管理碎片很多，影响了系统的效率。而页式存储中，内存划分规整，易于管理。因此人们想到将二者结合起来，取长补短，于是就有了段页式存储管理方式 </p>
+<p>在段页式存储管理中，先将用户作业分成若干个段，每个段都有一个段名，再将每个段划分为若干页，再将页离散地装入到内存的块中。在这种方式下，内存空间是采用页式存储，但对于用户来说，作业是分段管理的。因此系统要将用户眼中的段式存储转换成内存所需要的页式存储，这种转换是通过段表和页表实现的。此时的逻辑地址结构是由段号、页号、及页内地址三部分组成的，若32位的地址结构采用下面的设置：</p>
+<img src="https://api2.mubu.com/v3/document_image/af6960c5-4136-4dde-90ce-bfe2c5ccae63-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>表示页长为4k(2^12)，作业最多可有1k个段，每段最多有1k个页，即段长最大为4M，作业最大可以达到4G。由于每个段都要分页存储，因此要为每个段设置一个页表，段表和页表的关系如下图所示。</p>
+<img src="https://api2.mubu.com/v3/document_image/22d032e3-df32-4e3c-864e-eb3ab5bd30e0-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h2 id="4-4-内核主存管理"><a href="#4-4-内核主存管理" class="headerlink" title="4.4  内核主存管理"></a>4.4  内核主存管理</h2><p>操作系统除了需要为内核代码和静态数据结构预留空间外，内核在运行时还需要临时的主存块。如路径名分析进程要求分配缓冲区以复制路径名副本，进程通信要请求缓冲区，进程控制要求进程控制块、线程控制块、信号量、I节点、文件控制块等等。这些小内存的使用是动态请求和释放的，故内核也需要存储管理。  </p>
+<p>内核中请求使用的主存空间通常较小，需要专门的存储方法来为内核提供各种尺寸的主存块。如2次幂空闲表分配器，伙伴算法，延迟伙伴算法等。通常系统会为内核存储管理预留一部分专用的存储空间，也可以向用户存储管理借用存储空间，或者双向借用。 </p>
+<p>4.4.1 二次幂空闲表存储管理</p>
+<p>4.4.2 伙伴算法</p>
+<h2 id="4-5-虚拟存储技术"><a href="#4-5-虚拟存储技术" class="headerlink" title="4.5  虚拟存储技术"></a>4.5  虚拟存储技术</h2><p>这是一种利用虚拟存储器来逻辑扩充物理内存的技术。其基本思想是用软硬件技术把内存与外存这两级存储器当成一级存储器来用，从而给用户提供了一个比内存也比任何应用程序大得多的虚拟存储器，使得用户编程时再也不用考虑内存大小的限制了，给用户编程带来极大的方便。</p>
+<p>虚拟内存技术的实现也利用了自动覆盖和交换技术。</p>
+<h3 id="4-5-1-程序局部性原理"><a href="#4-5-1-程序局部性原理" class="headerlink" title="4.5.1 程序局部性原理"></a>4.5.1 程序局部性原理</h3><p><strong>1.局部性原理(principleof locality)：指程序在执行过程中的一个较短时期内，所执行的指令地址和指令的操作数地址，分别局限于一定区域。</strong></p>
+<p>2.局部性主要表现：</p>
+<ul>
+<li>时间局部性：是指一段指令在某一时间段内会被反复执行。即程序某一部分的数据或指令被重复性地访问，它们对应于程序结构中的循环、子程序、常用到的变量及数据等；</li>
+<li>空间局部性：是指一旦某一个存储单元被访问，那么它附近的单元也将很快被访问。这对应于程序结构中的顺序执行的指令、线性数据结构以及在相邻位置存放的数据或变量等。而程序中的分支和调用子程序只是将程序的访问空间从一处移到另外一处，仍具有局部性。</li>
+<li>排他性：程序运行不但体现在时间、空间的局部性，还体现在某些程序段执行的排他性。</li>
+</ul>
+<p>综上所述：程序只要装入内存一部分就可以运行，当用到不在内存的部分时，再将其装入内存。换句话就是说程序全部装入内存并不是程序运行的必要条件。</p>
+<h3 id="4-5-2-虚拟存储的实现"><a href="#4-5-2-虚拟存储的实现" class="headerlink" title="4.5.2 虚拟存储的实现"></a>4.5.2 虚拟存储的实现</h3><p>1、虚拟存储技术：如果把程序部分装入内存，其余大部分放在外存，而程序又能运行，这样我们就拥有了一个比有限的实际内存空间大得多的、逻辑的虚拟内存空间。即用大容量的外存来模拟内存，这种存储模式就称之为虚拟存储技术。</p>
+<p>2、虚拟技术实现的关键</p>
+<ul>
+<li><p>(1)怎样才能发现欲执行的指令或数据不在内存：简单有效方法就是进行标识</p>
+</li>
+<li><p>(2)怎样将不在内存的部分调入进来：通常系统采用中断技术完成调入工作。</p>
+</li>
+<li><p>(3)在内存中的作业如何组织：一个进程可被分为多次调入内存，这样很难保证进程在内存中占据一个连续的空间，实际上进程在内存中是离散存储的。</p>
+</li>
+<li><p>虚拟存储技术是将内存与外存有机地结合在一起，从而得到一个容量很大的虚拟空间。使用户感到有一个很大的内存，不用再考虑内存的容量限制。</p>
+</li>
+</ul>
+<p>引入虚拟存储技术的好处</p>
+<ul>
+<li>总容量不超过物理内存和外存交换区容量之和。其运行速度接近于内存，每位的成本又接近于外存，是一种性能非常优越的存储管理技术</li>
+</ul>
+<p>虚拟存储技术的特征</p>
+<ul>
+<li><p>不连续性：物理内存分配的不连续，虚拟地址空间使用的不连续（数据段和栈段之间的空闲空间，共享段和动态链接库占用的空间）</p>
+</li>
+<li><p>部分交换：与交换技术相比较，虚拟存储的调入和调出是对部分虚拟地址空间进行的；</p>
+</li>
+<li><p>大空间：通过物理内存和快速外存相结合，提供大范围的虚拟地址空间</p>
+</li>
+</ul>
+<h2 id="4-6-虚拟页式存储管理"><a href="#4-6-虚拟页式存储管理" class="headerlink" title="4.6  虚拟页式存储管理"></a><strong>4.6  虚拟页式存储管理</strong></h2><h3 id="4-6-1-虚拟页式存储的实现"><a href="#4-6-1-虚拟页式存储的实现" class="headerlink" title="4.6.1 虚拟页式存储的实现"></a>4.6.1 虚拟页式存储的实现</h3><h4 id="1-基本原理-1"><a href="#1-基本原理-1" class="headerlink" title="1.基本原理"></a>1.基本原理</h4><p>系统自动地将作业的地址空间分页，将系统的主存空间分块，页与块等大小，在作业运行前，只把初始需要的一部分页面装入内存块里，运行中需要访问自己地址空间中的但当前不在内存的页面时产生缺页中断，由缺页中断服务程序将所需的页面调入内存，若此时内存中没有空闲物理块安置请求调入的新页面，则系统按预定的置换策略自动选择一个或一些在内存的页面，把它们换出到外存。</p>
+<p>这里的请求调入和置换功能都是比实分页存储管理增加的内容，是实现虚拟存储的主要功能。</p>
+<h4 id="页面的动态调度步骤"><a href="#页面的动态调度步骤" class="headerlink" title="页面的动态调度步骤"></a>页面的动态调度步骤</h4><p>1、找到被访问页面在外存的地址；</p>
+<p>2、在内存中找一个空闲页面；</p>
+<ul>
+<li><p>（1）如果没有，按照淘汰算法选择一个内存页面；</p>
+</li>
+<li><p>（2）将此内存页面写回外存，修改页表及页面分配表；</p>
+</li>
+</ul>
+<p>3、读入所需的页面，修改页表及页面分配表；</p>
+<p>4、重新启动进程执行被中断的指令。</p>
+<h4 id="2-页表机制"><a href="#2-页表机制" class="headerlink" title="2.页表机制"></a>2.页表机制</h4><p>标记某页是否在内存，用于查询要访问的页在不在内存。页表如下：</p>
+<img src="https://api2.mubu.com/v3/document_image/b6b3fcba-fd92-4930-b8b1-f4f7932365b7-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="3-动态地址变换"><a href="#3-动态地址变换" class="headerlink" title="3.动态地址变换"></a>3.动态地址变换</h4><p>在虚拟页式存储中，应采用动态地址变换方式，因为某一欲执行的指令可能不在内存，只能在指令执行之前完成地址变换。任一作业都应在自己的虚拟地址空间中执行，所以要为用户作业设置一个虚拟地址指针VP，虚拟地址依然是由页号和页内偏移地址组成的。</p>
+<p>系统总是执行VP虚指针所指向的指令，为了将虚拟地址VP变换为对应的实存地址，因此先要查找页表。若从页表中查出此页不在内存（状态位为0），则产生一个缺页中断。此时，进程暂停当前指令执行，CPU转去执行缺页中断处理程序。若该页已在内存，则指令的地址映射过程与页式存储是一样的。即将块号和页内地址相并接形成物理地址IP，处理器再从IP中取指令执行。</p>
+<h4 id="4-缺页中断"><a href="#4-缺页中断" class="headerlink" title="4.缺页中断"></a>4.缺页中断</h4><p>缺页中断处理流程</p>
+<img src="https://api2.mubu.com/v3/document_image/25fdf50e-1905-47e2-82e3-516682e00f3d-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="5-缺页率"><a href="#5-缺页率" class="headerlink" title="5.缺页率"></a>5.缺页率</h4><p>为了标识缺页中断发生的频度，可以引入缺页率来表示。</p>
+<p>设进程在其执行期间共进行了S次访页操作，其中成功访页次数为A（访问时该页在主存），不成功的访页次数为B（即发生了缺页中断），显然有：S&#x3D;A+B，则该进程的缺页率f定义为：f＝B&#x2F;S。显然缺页率越低越好。</p>
+<h3 id="4-6-2-页面分配策略"><a href="#4-6-2-页面分配策略" class="headerlink" title="4.6.2 页面分配策略"></a>4.6.2 页面分配策略</h3><h4 id="1-空闲页面管理"><a href="#1-空闲页面管理" class="headerlink" title="1.空闲页面管理"></a>1.空闲页面管理</h4><p>虚拟存储方式下的空闲页面的管理也可以采用位示图或空闲页面链的形式。</p>
+<p>在实际的系统中，总是维持一定数量的空闲块，而不是耗尽所有的空闲块。即空闲块数可以在某一区间浮动，一旦空闲块数小于下限值，系统就进行页面置换，以释放出一些空闲块，使得总的空闲块数不超过系统规定的上限值即可。即系统设置专门的独立进程负责页面置换，以保证链表的适当规模。</p>
+<h4 id="2-分配策略（内存）"><a href="#2-分配策略（内存）" class="headerlink" title="2 分配策略（内存）"></a>2 分配策略（内存）</h4><p>可变分配：是指一个进程所拥有的物理块数是不定的，这种分配方式称之为可变分配。</p>
+<p>固定分配是指为每个进程分配一固定页数的内存空间，在整个运行期间都不再改变。</p>
+<p>⑴平均分配算法，是将系统中所有可供分配的物理块，平均分配给每一个进程。例如，当系统中有80个空闲块，4个进程时，每个进程可分得20个物理块。这种平均分配方式因其未考虑各进程本身的大小，会造成事实上的不公平。如有一个进程其大小为100页，只分配给它20个块，这样它必将会有很高的缺页率；而另一个进程只有10页，却有10个块在闲置未用。所以在平均的思想下，还要考虑进程的大小。</p>
+<p>⑵按比例分配算法，根据进程的大小按比例分配空闲块。设系统中现有m个进程、n个空闲块，每个进程拥有的页数为Si，则系统中所有进程页数之和为：S &#x3D; S1 + S2 + S3 + …+ Sm。则为每个进程分配的物理块数为：Bi &#x3D; （Si&#x2F; S）×n ，Bi应向下取整。</p>
+<p>⑶优先权分配算法，为优先权高的作业分配较多的内存空间，这样可以使重要或紧迫的任务尽快完成。这时可以将内存中的空闲块分成两部分：一部分按比例分配给各进程，另一部分则根据各进程的优先权，适当地为其增加相应份额。</p>
+<h4 id="2-分配策略（外存）"><a href="#2-分配策略（外存）" class="headerlink" title="2 分配策略（外存）"></a>2 分配策略（外存）</h4><p>1、静态分配：一个进程在运行之前，将其页面全部装入外存。当某一外存页面被调入内存时，并不释放所占用的外存页面。</p>
+<p>2、动态分配：一个进程在运行之前，仅将未装入内存的那部分页面装入外存。当某一外存页面被调入内存时，释放所占用的外存页面。</p>
+<h4 id="3-工作集"><a href="#3-工作集" class="headerlink" title="3.工作集"></a>3.工作集</h4><p>(1)为保证进程能正常运行最少需要多少物理块。</p>
+<p>从理论上讲，进程只要获得一个物理块就可以运行。但是进程正常运行所需的最少物理块数与计算机的硬件结构有关，取决于指令的格式、功能和寻址方式。由于分页是系统的行为，系统应保证任一条指令执行时，其所涉及的虚拟地址所在的页都应在内存中。这个页数就是进程所需要的最小块数，若系统为进程所分配的物理块数少于此值时，进程将无法运行。 </p>
+<p>所谓工作集就是进程在某段时间里实际上要访问的页的集合。依据程序执行时的局部特性，可以利用程序过去的行为来估计它未来的行为。故定义运行进程在t－w到t这个时间间隔内所访问的页的集合为该进程在时间t的工作集，记为W（t，w）。并把变量w称之为“工作集窗口尺寸”，工作集中所包含的页面数称为“工作集尺寸”，记为|W(t,w)|。</p>
+<h4 id="4-页面调入时机"><a href="#4-页面调入时机" class="headerlink" title="4.页面调入时机"></a>4.页面调入时机</h4><p>即何时将一个页面由外存调入内存。</p>
+<h5 id="⑴预调页策略"><a href="#⑴预调页策略" class="headerlink" title="⑴预调页策略"></a>⑴预调页策略</h5><ul>
+<li>也称先行调度，即一页面被访问前就已经预先置入内存，以减少今后的缺页率。主要适于进程的许多页存放在外存的连续区域中的情况。有的系统结合请求调入使用，即每次缺页时装入多个页面。</li>
+<li>优点：提高调页的I&#x2F;O效率。</li>
+<li>缺点：基于预测，若调入的页在以后很少被访问，则效率低。预调页的成功率仅约50%，常用于程序装入时的调页。</li>
+</ul>
+<h5 id="⑵-请求调页策略"><a href="#⑵-请求调页策略" class="headerlink" title="⑵ 请求调页策略"></a>⑵ 请求调页策略</h5><ul>
+<li>当发生页面故障时进行调度，即当进程访问不在内存的页面引发缺页中断时，由系统根据这种访问请求把所缺页面装入内存。</li>
+<li>优点：由请求调入策略装入的页一定会被访问，再加之比较容易实现，故在目前的虚拟存储器中，大多采用此策略。</li>
+<li>缺点：每次仅调入一页，增加了磁盘I&#x2F;O的启动频率。</li>
+</ul>
+<h4 id="5-从何处调入页面"><a href="#5-从何处调入页面" class="headerlink" title="5.从何处调入页面"></a>5.从何处调入页面</h4><p>在请求分页系统中，常把外存分为两部分：一部分是文件区，用于存放文件；另一部分是对换区，用于存放对换页面。通常，对换区的磁盘输入输出速度比文件区的高，这是因为对换区所规定的盘块要比文件区的大得多。</p>
+<p>⑴ 从交换区调入</p>
+<ul>
+<li>若系统拥有足够的对换区空间，可在进程运行前，将与该进程有关的文件拷贝到对换区。以后就从对换区调入所需页面，以提高调页速度。</li>
+</ul>
+<p>⑵ 从交换区及文件区调入</p>
+<ul>
+<li>若系统缺少足够的对换区空间，则在交换区中只保存被修改过的页面。因为未被修改的页面在文件区中有副本。因此凡是没被修改的页，均从文件区调入；而已修改过的页面则从交换区调入。</li>
+</ul>
+<h3 id="4-6-3-页面置换方法"><a href="#4-6-3-页面置换方法" class="headerlink" title="4.6.3  页面置换方法"></a>4.6.3  页面置换方法</h3><h4 id="1-页面置换方式"><a href="#1-页面置换方式" class="headerlink" title="(1)页面置换方式"></a>(1)页面置换方式</h4><p>页面淘汰可以在整个内存空间范围内进行，称之为全局置换。也可以只在一个进程空间范围内考虑，称之为局部置换。</p>
+<h4 id="2-空闲块分配方式"><a href="#2-空闲块分配方式" class="headerlink" title="(2) 空闲块分配方式"></a>(2) 空闲块分配方式</h4><p>若为进程分配固定的物理块数，在其执行期间再也不改变，则称为固定分配。</p>
+<p>为进程分配的物理块数在其运行期间是可变的，则称为可变分配。</p>
+<p>在页面置换算法讨论中，为了比较各种方法的优劣，总是限定为固定分配局部置换。</p>
+<h4 id="2-页面置换算法"><a href="#2-页面置换算法" class="headerlink" title="2.页面置换算法"></a><font color="red"><strong>2.页面置换算法</strong></font></h4><h5 id="1-最佳淘汰算法——OPT-Optimal"><a href="#1-最佳淘汰算法——OPT-Optimal" class="headerlink" title="(1)最佳淘汰算法——OPT(Optimal)"></a>(1)最佳淘汰算法——OPT(Optimal)</h5><p>该算法每次都淘汰以后永不使用的，或者过最长的时间后才会被访问的页面。显然，采用这种算法会保证最低的缺页率，但它是无法实现的，因为它必须知道页面“将来”的访问情况。不过，该算法仍有一定意义，可作为衡量其他算法优劣的一个标准。 </p>
+<p>OPT置换算法示例</p>
+<img src="https://api2.mubu.com/v3/document_image/36958961-7f49-4a80-81d1-3cedc46dd7ee-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h5 id="2-先进先出淘汰算法——FIFO"><a href="#2-先进先出淘汰算法——FIFO" class="headerlink" title="(2)先进先出淘汰算法——FIFO"></a>(2)先进先出淘汰算法——FIFO</h5><p>总是淘汰最先进入内存的页面。它实现简单，只需把进程中已调入内存的页面，按先后次序链成一个队列，并设置一个所谓的替换指针，使它总是指向内存中最老的页面。</p>
+<p>缺点：效率不高，因为它与进程实际的运行规律不相适应，比如常用的全局变量所在的页面或者循环体所在页面都可能被它选为淘汰对象。出现belady现象。</p>
+<ul>
+<li><p>Belady现象：采用FIFO算法时，如果对一个进程未分配它所要求的全部页面，有时就会出现分配的页面数增多，缺页率反而提高的异常现象。</p>
+</li>
+<li><p>Belady现象的描述：一个进程P要访问M个页，OS分配N个内存页面给进程P；对一个访问序列S，发生缺页次数为PE（S,N）。当N增大时，PE(S,N)时而增大，时而减小。</p>
+</li>
+<li><p>Belady现象的原因：FIFO算法的置换特征与进程访问内存的动态特征是矛盾的，即被置换的页面并不是进程不会访问的。</p>
+</li>
+</ul>
+<p>FIFO淘汰算法示例</p>
+<img src="https://api2.mubu.com/v3/document_image/0734bfab-8aa8-4e10-871e-c4aa74f5975e-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h5 id="3-最近最久未使用算法-LRU-Least-Recently-Used）"><a href="#3-最近最久未使用算法-LRU-Least-Recently-Used）" class="headerlink" title="(3)最近最久未使用算法(LRU, Least Recently Used）"></a>(3)最近最久未使用算法(LRU, Least Recently Used）</h5><p>【算法描述】根据页面调入内存后的使用情况，选择内存中最近最久未使用的页面被置换。这是局部性原理的合理近似，性能接近最佳算法。OPT算法使用页面将要被访问的时间，LRU算法使用页面最后一次被访问的时间。二者唯一的差别是：OPT是向后看的，而LRU是向前看的。 </p>
+<p>【算法示例】</p>
+<img src="https://api2.mubu.com/v3/document_image/0baca92f-bffc-46b9-beb3-0f8aac04acda-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>【实现方法(硬件支持)】</p>
+<ul>
+<li>①计时法：对于每一页面增设一个访问时间计时器，每当一个页面被访问时，就将当时的绝对时钟拷贝到对应的访问时间计时器中，这样系统记录了内存中所有页面最后一次被访问的时间。淘汰时，选取访问时间计时器的值最小的页面。</li>
+<li>②堆栈法：每当进程访问某页面时，便将该页面的页号从栈中移出，将它压入栈顶。栈顶始终是最新被访问的页面的编号。栈底则是最近最久未被使用的页面的页面号。</li>
+</ul>
+<h5 id="4-二次机会淘汰算法—SC-Second-Chance"><a href="#4-二次机会淘汰算法—SC-Second-Chance" class="headerlink" title="(4)二次机会淘汰算法—SC(Second Chance)"></a>(4)二次机会淘汰算法—SC(Second Chance)</h5><p>这是一种LRU的近似算法，是通过对FIFO算法进行简单改造，结合页表中的访问位而得来一种淘汰算法。</p>
+<p>该算法首先检查位于FIFO链链首的页，如果它的访问位为0，则选择该页淘汰；如果它的访问位为1，则清除其访问位，将它移至FIFO链的链尾，重复此算法的查找过程，直至遇到新链首页是一个访问位为0的较早进入内存的页为止，把它选为被淘汰的页。</p>
+<h5 id="5-时钟-Clock-淘汰算法"><a href="#5-时钟-Clock-淘汰算法" class="headerlink" title="(5)时钟(Clock)淘汰算法"></a>(5)时钟(Clock)淘汰算法</h5><p>SC算法的缺点就是需要把访问位为1的处于链首的页移至链尾，这需要一定的开销。一种改进的方法就是把进程所访问的页面链成一个环形链表，再设一个指针指向最老的页面，于是形成了一种简单实用的LRU近似算法——时钟淘汰算法。</p>
+<p>该算法首先检测指针所指的页面，如果它的访问位为0，则淘汰该页，新装入的页插入到此位置，然后指针前进一个位置；如果它的访问位为1，则清除为0，并将指针前进一个位置，继续检查访问位。重复此过程，直到找到访问位为0的页面为止。</p>
+<h5 id="6-最近未用淘汰算法—NUR-Not-Used-Recently"><a href="#6-最近未用淘汰算法—NUR-Not-Used-Recently" class="headerlink" title="(6)最近未用淘汰算法—NUR(Not Used Recently)"></a>(6)最近未用淘汰算法—NUR(Not Used Recently)</h5><p>它把FIFO算法的思想与页面的访问位和修改位结合起来确定一个接近LRU算法的淘汰对象。</p>
+<p>该算法每次都尽量选择最近最久未被写过的页面淘汰，这种干净的页面可以不被写回到磁盘。在实现时，为每一个页面设置初始值为0的访问位和修改位。当对某页面执行写操作时，其修改位和访问位均由硬件置成1；当对某页面执行读操作时，只有其访问位被硬件置成1。</p>
+<img src="https://api2.mubu.com/v3/document_image/36f86661-edf8-4591-9110-72d683d0288e-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h4 id="3-影响缺页中断率的因素"><a href="#3-影响缺页中断率的因素" class="headerlink" title="3.影响缺页中断率的因素"></a>3.影响缺页中断率的因素</h4><ul>
+<li>(1)分配给作业的内存块数 </li>
+<li>(2)页面大小的选择</li>
+<li>(3)用户程序编制的方法 </li>
+<li>(4)页面调度算法</li>
+</ul>
+<p>抖动又叫颠簸，是指一段时间里，页面在内存与外存之间频繁地调度或换入换出，以至于系统用于调度页面所需要的时间比进程实际运行所占用的时间还要多。显然，抖动是由于缺页中断率很高而引起的一种坏现象，它将严重影响系统的效率，甚至可能使系统全面崩溃。 </p>
+<p>防止抖动现象的产生和扩展，具体方法</p>
+<ul>
+<li><p>⑴采取局部置换策略</p>
+<ul>
+<li>这样，即使有某个进程发生了“抖动”，也不致引起其它进程也产生抖动，从而把抖动局限于较小的范围内。这种方法并不很好，因为它不能从根本上防止抖动的发生；而且在某进程发生抖动后，还会长期地处于磁盘输入输出的等待队列中，这又会使其它进程缺页中断的处理时间增长，从而延长了等效的访问时间。</li>
+</ul>
+</li>
+<li><p>⑵ L&#x3D;S准则</p>
+<ul>
+<li>Denning于1980年提出了“L&#x3D;S准则”，用来调整多道程序度，以使产生缺页的平均时间L等于系统处理进程缺页的平均时间S。理论和实践表明，此时的CPU利用得最好。该准则也得到其它研究人员的证实。</li>
+</ul>
+</li>
+<li><p>⑶挂起若干进程</p>
+<ul>
+<li>当多道程序度偏高时，为了防止发生“抖动”，可用的一个简单易行的办法是挂起一些进程，以便腾出内存空间来分配给抖动的进程。被挂起的进程通常是选择优先权最低或较低的；当内存非常拥挤时，也可以选择一个并不很重要的、但确较大的进程挂起，以便能一次释放出较大的内存空间；或者是将具有最多剩余执行时间的进程挂起。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-6-4-虚拟页式存储的优缺点"><a href="#4-6-4-虚拟页式存储的优缺点" class="headerlink" title="4.6.4  虚拟页式存储的优缺点"></a>4.6.4  虚拟页式存储的优缺点</h3><p>1.优点</p>
+<ul>
+<li><p>⑴主存利用率比较高。平均每个用户作业只浪费一半的页空间，内存规范易于管理。</p>
+</li>
+<li><p>⑵对磁盘管理比较容易。因为页的大小一般取磁盘物理块大小的整数倍。</p>
+</li>
+<li><p>⑶地址映射和变换的速度比较快。在把用户程序装入到主存储器的过程中，只要建立用户程序的虚页号与主存储器的实页号之间的对应关系即可（拼接得到物理地址），不必使用整个主存的地址长度，也不必考虑每页的长度等。</p>
+</li>
+</ul>
+<p>2.缺点</p>
+<ul>
+<li>⑴程序的模块化性能不好。<ul>
+<li>由于用户程序是强制按照固定大小的页来划分的，而程序段的实际长度一般是不固定的。因此，虚拟页式存储器中一页通常不能表示一个完整的程序功能。一页可能只是一个程序段中的一部分，也可能在一页中包含了两个或两个以上程序段。</li>
+</ul>
+</li>
+<li>⑵页表很长，需要占用很大的存储空间。<ul>
+<li>通常，虚拟存储器中的每一页在页表中都要占一个页表项。假设有一个虚拟页式存储器，它的虚拟存储空间大小为4GB，每一页的大小为1KB，则页表的容量为4M（个页表项）。如果每个页表项占用4个字节，则页表的存储容量为16MB。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-7-虚拟段式存储管理"><a href="#4-7-虚拟段式存储管理" class="headerlink" title="4.7  虚拟段式存储管理"></a><strong>4.7  虚拟段式存储管理</strong></h2><h3 id="4-7-1-虚拟段式存储的实现"><a href="#4-7-1-虚拟段式存储的实现" class="headerlink" title="4.7.1 虚拟段式存储的实现"></a>4.7.1 虚拟段式存储的实现</h3><h4 id="1-虚拟段式存储原理"><a href="#1-虚拟段式存储原理" class="headerlink" title="1.虚拟段式存储原理"></a>1.虚拟段式存储原理</h4><p>为了能实现虚拟存储，段式逻辑地址空间中的程序段在运行时并不全部装入内存，而是如同请求式分页存储管理，首先调入一个或若干个程序段运行，在运行过程中调用到哪段时，就根据该段长度在内存分配一个连续的分区给它使用。若内存中没有足够大的空闲分区，则考虑进行段的紧凑或将某段或某些段淘汰出去。相应于请求式分页存储管理，这种存储管理技术称为请求式分段存储管理。</p>
+<h4 id="2-段表"><a href="#2-段表" class="headerlink" title="2.段表"></a>2.段表</h4><p>类似于请求式分页存储管理的页表，为了实现动态地址变换和存储保护，系统要为每一个作业建立一张段表。段表中的每一个表目对应着作业地址空间的一个程序段，其一般格式为</p>
+<img src="https://api2.mubu.com/v3/document_image/b159913c-1ee6-4995-93a3-88238b227891-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="3-请求式分段动态地址变换过程"><a href="#3-请求式分段动态地址变换过程" class="headerlink" title="3.请求式分段动态地址变换过程"></a>3.请求式分段动态地址变换过程</h4><p>请求分段系统中的地址变换机构是在分段系统地址变换机构的基础上形成的。因为被访问的段并非全在内存，所以在地址变换时，若发现所要访问的段不在内存，必须先将所缺的段调入内存，并修改段表，然后才能再利用段表进行地址变换。</p>
+<img src="https://api2.mubu.com/v3/document_image/d32041e1-279e-46f2-b827-4e91046514ed-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h4 id="4-缺段中断"><a href="#4-缺段中断" class="headerlink" title="4.缺段中断"></a>4.缺段中断</h4><p>在虚拟段式存储系统中，采用的是请求调段策略。即每当进程所要访问的段尚未调入内存时，便由缺段中断机构产生一缺段中断信号，进入OS后由缺断中断处理程序将所需的段调入内存。</p>
+<p>在调入新段时，也会有内存空间不够用的情况，也需要淘汰内存中的一个或多个段。如果此程序段从装入内存起一直没有被修改过，只要用新调入的程序段把它覆盖掉即可。若这个程序段被修改过，则必须先把该程序段全部写回到磁盘存储器中，才能占用被淘汰段原来存放的空间。</p>
+<p>因为段要占用连续的空间，因此当内存中没有能够满足段长需要的空闲区时，系统还要合并空闲区，以便满足分段的需求。</p>
+<p>流程如图</p>
+<img src="https://api2.mubu.com/v3/document_image/725346e9-80b9-458b-858e-45b857f651f4-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h3 id="4-7-2-段的共享和保护"><a href="#4-7-2-段的共享和保护" class="headerlink" title="4.7.2 段的共享和保护"></a>4.7.2 段的共享和保护</h3><h4 id="1-段的共享"><a href="#1-段的共享" class="headerlink" title="1.段的共享"></a>1.段的共享</h4><p>在多道环境下，常常有许多子程序和应用程序是被多用户所使用的。最好的办法是在内存中只保留一个副本，供多个用户使用，称为共享。</p>
+<p>段共享时，用户可以使用不相同的段名来共享同一个段。进程将共享段填写到自己的段表中，并置以适当的读写控制权，就可以做到共享一个逻辑上完整的内存段信息。</p>
+<p>由于系统中有许多的共享段，而每一个共享段都可能被多个进程共享。因此系统需要对共享段进行统一的管理，设一张共享段表，每一个共享段都在表中占据一个表项。</p>
+<p>共享段应该是可重入的。共享段表如图。</p>
+<img src="https://api2.mubu.com/v3/document_image/bad137bb-ee91-470e-a03c-b1e08151ed89-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>其中存在位表示该共享段是否已被调入内存，共享计数是用来统计当前有多少个进程共享该段。系统可以为不同的进程使用该段设置不同的权限，以防止进程越权操作。</p>
+<p>当进程请求共享段时，若该共享段未在内存，也是由缺段中断将其调入内存，同时为该段建立相应的共享段表项，共享计数设为1，将进程填写到共享段表项中，再将共享段填写到进程的段表中。若该共享段已在内存，只要将共享计数加1，再修改相应的表项即可。不用时做相反工作。</p>
+<h4 id="2-段的保护-两种保护方式"><a href="#2-段的保护-两种保护方式" class="headerlink" title="2.段的保护(两种保护方式)"></a>2.段的保护(两种保护方式)</h4><p>(1)地址越界保护法。主要是利用段表寄存器中的段表长及段表中的段长信息实现的。首先将逻辑地址空间的段号与段表长度进行比较;其次还要检查段内地址是否等于或大于段长。从而保证了每个进程只能在自己的地址空间内运行。</p>
+<p>(2)存取方式控制保护法。是利用段表项中的“存取控制”字段实现的，存取控制字段规定了对该段的访问方式。通常的访问方式有：⑴只读；⑵只执行，只允许进程调用该段去执行，但不准读写该段；⑶读&#x2F;写，允许进程对该段进行读写访问。</p>
+<p>对于共享段更应对不同的进程设置不同的存取权限控制。既要保证信息的安全，又要满足运行需要。</p>
+<h3 id="4-7-3虚拟段式存储管理的优缺点"><a href="#4-7-3虚拟段式存储管理的优缺点" class="headerlink" title="4.7.3虚拟段式存储管理的优缺点"></a>4.7.3虚拟段式存储管理的优缺点</h3><h4 id="1-优点"><a href="#1-优点" class="headerlink" title="1.优点"></a>1.优点</h4><ul>
+<li>⑴ 程序的模块化性能好。由于各个程序段在功能上是相互独立的，因此，一个程序段的修改和增删等不会影响其它程序，从而可以缩短程序的编制和调试时间。</li>
+<li>⑵ 便于实现信息的保护。在一般情况下，一段程序是否需要保护是根据这个程序段的功能来决定的。因此，只要在段表中设置一个信息保护字段，就能根据需要很方便地实现对该程序段的保护。</li>
+<li>⑶ 便于程序和数据的共享。被共享的程序段只要在主存中装入一次即可，同时将该共享段填入调用进程的段表中。对于进程来讲其使用与普通段没有什么差别，即实现程序段的共享很容易。</li>
+<li>⑷ 程序的动态链接和调度比较容易。</li>
+</ul>
+<h4 id="2-缺点"><a href="#2-缺点" class="headerlink" title="2.缺点"></a>2.缺点</h4><ul>
+<li>⑴ 地址变换所花费的时间比较长：要使用主存全地址（段长和段基址），每次地址变换都要做加法运算。</li>
+<li>⑵ 主存储器的利用率往往比较低：由于每个程序段的长度是不同的，一个程序段通常要装在一个连续的主存空间中，程序段在主存储器中不断地调入调出，有些程序段在执行过程中还要动态增加长度，从而使得主存储器中有很多的空隙存在。当然，也可以采用一些好的算法来减少空隙的数量，或者通过定时运行回收程序来合并这些空隙，但这无疑增加了系统开销。</li>
+</ul>
+<h3 id="4-7-4-虚拟段页式存储管理"><a href="#4-7-4-虚拟段页式存储管理" class="headerlink" title="4.7.4 虚拟段页式存储管理"></a>4.7.4 虚拟段页式存储管理</h3><p>将虚拟段式和虚拟页式存储管理技术结合起来，就形成了虚拟段页式存储管理方式。虚拟段页式存储方式兼具虚拟段式和虚拟页式的优点，例如，用户程序可以模块化编写，程序段的共享和信息的保护都比较方便等。另一方面也具有虚拟页式存储的优点，例如，主存储器的利用率高，对磁盘存储器的管理比较容易等。</p>
+<h4 id="1-虚拟段页式存储原理"><a href="#1-虚拟段页式存储原理" class="headerlink" title="1.虚拟段页式存储原理"></a>1.虚拟段页式存储原理</h4><p>在虚拟段页式存储方式中，程序员仍然按照逻辑的程序段来编写程序，但每个程序段又被分成若干个固定大小的页，相似于段页式存储管理。系统将作业的部分页装入内存，执行时用到不在内存的段或页时再将其调入内存。</p>
+<p>在虚拟段页式存储中，用户看到的逻辑地址仍然是二维的，即段号和段内地址。但系统对内存的管理则是采用了虚拟页式管理方式。</p>
+<h4 id="2-地址映射"><a href="#2-地址映射" class="headerlink" title="2.地址映射"></a>2.地址映射</h4><p>在虚拟段页式管理中，用户作业仍是在自己的虚拟地址空间中运行，虚拟地址由三部分组成，即段号S、虚页号P和页内偏移地址D。在程序运行过程中，要把用户程序中的虚拟地址变换成主存实地址，必须分两步进行。首先查段表，若该段的存在位为0则产生一个缺段中断，读入该段的页表；其次再查找页表，看该页是否在内存，若不在内存则产生一个缺页中断，调入该页；最后把块号p与页内偏移地址d拼接起来就得到了主存的实地址。</p>
+<p>虽然虚拟段页式存储方式兼具虚拟段式和虚拟页式的优点，但也有不足之处，功能的增强导致实现变得复杂及管理开销加大，需要更多的硬件支持。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>操作系统 4.内存管理</div>
+      <div>https://61hhh-github-io.vercel.app/20200725/7f3441af/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年7月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200725/72fb2483/" title="操作系统 3.处理机调度与死机">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">操作系统 3.处理机调度与死机</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200722/83908933/" title="操作系统 2.进程管理">
+                        <span class="hidden-mobile">操作系统 2.进程管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

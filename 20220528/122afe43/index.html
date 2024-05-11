@@ -1,0 +1,970 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="Redis事务事务的概念Redis事务定义：将多个命令打包， 然后一次性、按顺序地执行，并且事务在执行的期间不会主动中断 —— 服务器在执行完事务中的所有命令之后， 才会继续处理其他客户端的其他命令。 Redis通过MULTI、EXEC、DISCARD、WATCH指令来实现事务功能。事务的主要作用就是串联多个指令，可以将Redis的事务视作一个队列，通过MULTI指令开始一个事务，之后我们键入的每">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习四：事务和发布订阅">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20220528/122afe43/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="Redis事务事务的概念Redis事务定义：将多个命令打包， 然后一次性、按顺序地执行，并且事务在执行的期间不会主动中断 —— 服务器在执行完事务中的所有命令之后， 才会继续处理其他客户端的其他命令。 Redis通过MULTI、EXEC、DISCARD、WATCH指令来实现事务功能。事务的主要作用就是串联多个指令，可以将Redis的事务视作一个队列，通过MULTI指令开始一个事务，之后我们键入的每">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220322162204162.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323000524729.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323001510293.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323001337310.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323003943605.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323004419871.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323004836824.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324103546438.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324104045964.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324103946709.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143007715.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143132923.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143653578.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420225953389.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324144453619.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324144910793.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324145443960.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324145758711.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324150219041.png">
+<meta property="article:published_time" content="2022-05-28T02:28:24.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:26:18.694Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="NoSQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220322162204162.png">
+  
+  
+  
+  <title>Redis学习四：事务和发布订阅 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis学习四：事务和发布订阅"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-05-28 10:28" pubdate>
+          2022年5月28日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis学习四：事务和发布订阅</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h2><h3 id="事务的概念"><a href="#事务的概念" class="headerlink" title="事务的概念"></a>事务的概念</h3><p>Redis事务定义：将多个命令打包， 然后一次性、按顺序地执行，并且事务在执行的期间不会主动中断 —— 服务器在执行完事务中的所有命令之后， 才会继续处理其他客户端的其他命令。</p>
+<p>Redis通过<code>MULTI</code>、<code>EXEC</code>、<code>DISCARD</code>、<code>WATCH</code>指令来实现事务功能。事务的主要作用就是串联多个指令，可以将Redis的事务视作一个队列，通过<code>MULTI</code>指令开始一个事务，之后我们键入的每个命令都被添加到这个队列中，当输入<code>EXEC</code>指令就开始按照先进先出顺序执行队列中的命令。</p>
+<p>一个事务从开始到执行经历三个阶段：</p>
+<ul>
+<li>开始事务</li>
+<li>命令入队</li>
+<li>执行事务</li>
+</ul>
+<p>事务相关指令含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MULTI</td>
+<td>标记一个事务的开始</td>
+</tr>
+<tr>
+<td>EXEC</td>
+<td>执行一个事务队列中的所有命令</td>
+</tr>
+<tr>
+<td>DISCARD</td>
+<td>取消事务，放弃执行事务队列中的命令</td>
+</tr>
+<tr>
+<td>WATCH</td>
+<td>监视一个或多个key，如果在事务执行前这个key被其他命令改动，则事务被中断</td>
+</tr>
+<tr>
+<td>UNWATCH</td>
+<td>取消监视一个或多个key</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h3 id="事务的执行"><a href="#事务的执行" class="headerlink" title="事务的执行"></a>事务的执行</h3><h4 id="1、正常执行"><a href="#1、正常执行" class="headerlink" title="1、正常执行"></a>1、正常执行</h4><p>通过<code>MULTI</code>指令开启事务，添加命令到队列中，通过<code>EXEC</code>执行：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220322162204162.png" srcset="/img/loading.gif" lazyload alt="image-20220322162204162" style="zoom:80%;" />
+
+<h4 id="2、放弃事务"><a href="#2、放弃事务" class="headerlink" title="2、放弃事务"></a>2、放弃事务</h4><p>通过<code>MULTI</code>指令开启事务，添加命令到队列中，通过<code>DISCARD</code>取消：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323000524729.png" srcset="/img/loading.gif" lazyload alt="image-20220323000524729" style="zoom:80%;" />
+
+<h4 id="3、全体连坐"><a href="#3、全体连坐" class="headerlink" title="3、全体连坐"></a>3、全体连坐</h4><p>如果事务队列中的命令存在语法错误（例如参数数量、名称等不对），或者其他更严重的错误，比如内存不足（使用 <code>maxmemory</code> 设置了最大内存限制），此时整个队列都会被取消：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323001510293.png" srcset="/img/loading.gif" lazyload alt="image-20220323001510293" style="zoom:80%;" />
+
+<p>通过对入队命令的返回值做检查，如果是<code>QUEUED</code>标识正常入队，否则就是入队失败，2.6.5之后如果有入队失败的情况则<code>EXEC</code>时拒绝执行此事务。</p>
+<h4 id="4、冤头债主"><a href="#4、冤头债主" class="headerlink" title="4、冤头债主"></a>4、冤头债主</h4><p>如果命令不是语法上的错误，而是执行阶段的错误（例如对string类型执行<code>INCR</code>等），则只有报错的命令不会被执行，而其他的正确命令都会执行，整体事务不会回滚：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323001337310.png" srcset="/img/loading.gif" lazyload alt="image-20220323001337310" style="zoom:80%;" />
+
+
+
+<h3 id="WATCH监控"><a href="#WATCH监控" class="headerlink" title="WATCH监控"></a>WATCH监控</h3><h4 id="1、悲观锁"><a href="#1、悲观锁" class="headerlink" title="1、悲观锁"></a>1、悲观锁</h4><p>顾名思义，就是很悲观，每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会block直到它拿到锁。<strong>传统的关系型数据库里边就用到了很多这种锁机制</strong>，比如<strong>行锁</strong>，<strong>表锁</strong>等，<strong>读锁</strong>，<strong>写锁</strong>等，都是在做操作之前先上锁。</p>
+<h4 id="2、乐观锁"><a href="#2、乐观锁" class="headerlink" title="2、乐观锁"></a>2、乐观锁</h4><p>顾名思义，就是很乐观，每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在更新的时候会判断一下在此期间别人有没有去更新这个数据，可以使用版本号等机制。<strong>乐观锁适用于多读的应用类型</strong>，这样可以提高吞吐量，Redis就是利用这种check-and-set机制实现事务的。【乐观锁策略:提交版本必须大于记录当前版本才能执行更新】</p>
+<h4 id="带WATCH的事务"><a href="#带WATCH的事务" class="headerlink" title="带WATCH的事务"></a>带WATCH的事务</h4><p><code>WATCH</code> 指令用于在事务开始之前监视任意数量的键： 当调用 EXEC 命令执行事务时， 如果任意一个被监视的键已经被其他客户端修改了， 那么整个事务将被打断，不再执行， 直接返回失败。</p>
+<p>并且<code>WATCH</code> 指令可以调用多次，从执行<code>WATCH</code> 开始生效直到<code>EXEC</code>，<strong>当 <code>EXEC</code> 被调用时， 不管事务是否成功执行， 对所有键的监视都会被取消</strong>。另外， 当客户端断开连接时， 该客户端对键的监视也会被取消。</p>
+<p>设置工资开销<code>salary</code>、<code>spending</code>的初始值为10000和0，如果自己一个人正常用，洗个脚1600：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323003943605.png" srcset="/img/loading.gif" lazyload alt="image-20220323003943605" style="zoom:80%;" />
+
+<p>假设工资是和女朋友一起用，第二次去洗脚时女朋友直接刷了个8400的包，这时结账就会出问题了：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323004419871.png" srcset="/img/loading.gif" lazyload alt="image-20220323004419871" style="zoom:80%;" />
+
+<p>如果不加<code>WATCH</code>就会出大问题了，银行卡变成<code>-1600</code>：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323004836824.png" srcset="/img/loading.gif" lazyload alt="image-20220323004836824" style="zoom:80%;" />
+
+<p><strong>watch指令，类似乐观锁</strong>，事务提交时，如果 key 的值已被别的客户端改变，比如某个 list 已被别的客户端push&#x2F;pop 过了，整个事务队列都不会被执行，同时返回Nullmulti-bulk应答以通知调用者事务执行失败</p>
+<p>【注】当然也可以用 Redis 实现分布式锁来保证安全性，属于悲观锁</p>
+<h3 id="事务的特性"><a href="#事务的特性" class="headerlink" title="事务的特性"></a>事务的特性</h3><ul>
+<li><p>单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断；</p>
+</li>
+<li><p>没有隔离级别的概念：队列中的命令没有提交之前都不会实际的被执行，因为事务提交前任何指令都不会被实际执行，也就不存在”事务内的查询要看到事务里的更新，在事务外查询不能看到”这个让人万分头痛的问题；</p>
+</li>
+<li><p>不保证原子性：redis同一个事务中如果有一条命令执行失败，其后的命令仍然会被执行，没有回滚；</p>
+<blockquote>
+<p>官方的解释：</p>
+<p>Redis 命令只会因为错误的语法而失败（并且这些问题不能在入队时发现），或是命令用在了错误类型的键上面：这也就是说，从实用性的角度来说，失败的命令是由编程错误造成的，而这些错误应该在开发的过程中被发现，而不应该出现在生产环境中。</p>
+<p>因为不需要对回滚进行支持，所以 Redis 的内部可以保持简单且快速。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="事务的原理"><a href="#事务的原理" class="headerlink" title="事务的原理"></a>事务的原理</h3><h4 id="1、开始事务"><a href="#1、开始事务" class="headerlink" title="1、开始事务"></a>1、开始事务</h4><p><code>MULTI</code>命令唯一做的就是， 将客户端的 <code>REDIS_MULTI</code> 选项打开， 让客户端从非事务状态切换到事务状态。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324103546438.png" srcset="/img/loading.gif" lazyload alt="image-20220324103546438" style="zoom:80%;" />
+
+<h4 id="2、命令入队"><a href="#2、命令入队" class="headerlink" title="2、命令入队"></a>2、命令入队</h4><p>对于非执行指令（除EXEC、DISCARD、MULTI、WATCH）直接入队，返回结果QUEUED，如果指令有语法错误则返回错误信息</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324104045964.png" srcset="/img/loading.gif" lazyload alt="image-20220324104045964" style="zoom:80%;" />
+
+<h4 id="2-、事务队列"><a href="#2-、事务队列" class="headerlink" title="2*、事务队列"></a>2*、事务队列</h4><ul>
+<li><p>每个 Redis 客户端都有自己的事务状态， 这个事务状态保存在客户端状态的 <code>mstate</code> 属性里面：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisClient</span> &#123;</span><br>    <span class="hljs-comment">// ...</span><br>    <span class="hljs-comment">// 事务状态</span><br>    multiState mstate;      <span class="hljs-comment">/* MULTI/EXEC state */</span><br>    <span class="hljs-comment">// ...</span><br>&#125; redisClient;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>事务状态包含一个事务队列， 以及一个已入队命令的计数器 （也可以说是事务队列的长度）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">multiState</span> &#123;</span><br>    <span class="hljs-comment">// 事务队列，FIFO 顺序</span><br>    multiCmd *commands;<br>    <span class="hljs-comment">// 已入队命令计数</span><br>    <span class="hljs-type">int</span> count;<br>&#125; multiState;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>事务队列是一个 <code>multiCmd</code> 类型的数组， 数组中的每个 <code>multiCmd</code> 结构都保存了一个已入队命令的相关信息， 包括指向命令实现函数的指针， 命令的参数， 以及参数的数量：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">multiCmd</span> &#123;</span><br>    <span class="hljs-comment">// 参数</span><br>    robj **argv;<br>    <span class="hljs-comment">// 参数数量</span><br>    <span class="hljs-type">int</span> argc;<br>    <span class="hljs-comment">// 命令指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">redisCommand</span> *<span class="hljs-title">cmd</span>;</span><br>&#125; multiCmd;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>事务队列以先进先出（FIFO）的方式保存入队的命令： 较先入队的命令会被放到数组的前面， 而较后入队的命令则会被放到数组的后面。</p>
+</li>
+</ul>
+<p>由上可知事务队列是一个数组， 每个数组项是都包含三个属性：</p>
+<ol>
+<li>要执行的命令（cmd）</li>
+<li>命令的参数（argv）</li>
+<li>参数的个数（argc）</li>
+</ol>
+<p>执行如下指令时：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs Redis">redis&gt; MULTI<br>OK<br><br>redis&gt; SET book-name &quot;Mastering C++ in 21 days&quot;<br>QUEUED<br><br>redis&gt; GET book-name<br>QUEUED<br><br>redis&gt; SADD tag &quot;C++&quot; &quot;Programming&quot; &quot;Mastering Series&quot;<br>QUEUED<br><br>redis&gt; SMEMBERS tag<br>QUEUED<br></code></pre></td></tr></table></figure>
+
+<p>得到的指令队列：</p>
+<table>
+<thead>
+<tr>
+<th>数组索引</th>
+<th>cmd</th>
+<th>argv</th>
+<th>argc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>SET</td>
+<td>[“book-name”, “Mastering C++ in 21 days”]</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>GET</td>
+<td>[“book-name”]</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>SADD</td>
+<td>[“tag”, “C++”, “Programming”, “Mastering Series”]</td>
+<td>4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>SMEMBERS</td>
+<td>[“tag”]</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h4 id="3、执行事务"><a href="#3、执行事务" class="headerlink" title="3、执行事务"></a>3、执行事务</h4><p>当遇到EXEC、DISCARD、MULTI、WATCH这四个指令时，事务就会被执行。服务器根据客户端所保存的事务队列， 以先进先出（FIFO）的方式执行事务队列中的命令： 最先入队的命令最先执行， 而最后入队的命令最后执行。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324103946709.png" srcset="/img/loading.gif" lazyload alt="image-20220324103946709" style="zoom: 80%;" />
+
+<p>当事务队列里的所有命令被执行完之后，EXEC命令会将回复队列作为自己的执行结果返回给客户端， 客户端从事务状态返回到非事务状态， 至此， 事务执行完毕。伪代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">execute_transaction</span>():<br>    <span class="hljs-comment"># 创建空白的回复队列</span><br>    reply_queue = []<br>    <span class="hljs-comment"># 取出事务队列里的所有命令、参数和参数数量</span><br>    <span class="hljs-keyword">for</span> cmd, argv, argc <span class="hljs-keyword">in</span> client.transaction_queue:<br>        <span class="hljs-comment"># 执行命令，并取得命令的返回值</span><br>        reply = execute_redis_command(cmd, argv, argc)<br>        <span class="hljs-comment"># 将返回值追加到回复队列末尾</span><br>        reply_queue.append(reply)<br>    <span class="hljs-comment"># 清除客户端的事务状态</span><br>    clear_transaction_state(client)<br>    <span class="hljs-comment"># 清空事务队列</span><br>    clear_transaction_queue(client)<br>    <span class="hljs-comment"># 将事务的执行结果返回给客户端</span><br>    send_reply_to_client(client, reply_queue)<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="WATCH实现"><a href="#WATCH实现" class="headerlink" title="WATCH实现"></a>WATCH实现</h4><p>在每个代表数据库的 <code>redis.h/redisDb</code> 结构类型中， 都保存了一个 <code>watched_keys</code> 字典， 字典的键是这个数据库被监视的键， 而字典的值则是一个链表， 链表中保存了所有监视这个键的客户端。如图：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143007715.png" srcset="/img/loading.gif" lazyload alt="image-20220324143007715" style="zoom:80%;" />
+
+<p>其中， 键 <code>key1</code> 正在被 <code>client2</code> 、 <code>client5</code> 和 <code>client1</code> 三个客户端监视， 其他一些键也分别被其他别的客户端监视着。</p>
+<p>WATCH命令的作用， 就是将当前客户端和要监视的键在 <code>watched_keys</code> 中进行关联。</p>
+<p>举个例子， 如果当前客户端为 <code>client10086</code> ， 那么当客户端执行 <code>WATCH key1 key2</code> 时， 前面展示的 <code>watched_keys</code> 将被修改成这个样子：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143132923.png" srcset="/img/loading.gif" lazyload alt="image-20220324143132923" style="zoom:80%;" />
+
+<p>通过 <code>watched_keys</code> 字典， 如果程序想检查某个键是否被监视， 那么它只要检查字典中是否存在这个键即可； 如果程序要获取监视某个键的所有客户端， 那么只要取出键的值（一个链表）， 然后对链表进行遍历即可。</p>
+<h4 id="WATCH触发"><a href="#WATCH触发" class="headerlink" title="WATCH触发"></a>WATCH触发</h4><p>在任何对数据库键空间（key space）进行修改的命令成功执行之后 （比如FLUSHDB、SET、DEL、LPUSH、SADD、ZREM等）， <code>multi.c/touchWatchedKey</code> 函数都会被调用——它检查数据库的 <code>watched_keys</code> 字典， 查找是否有被该命令修改的键，有的话 程序将所有监视这个&#x2F;这些被修改键的客户端的 <code>REDIS_DIRTY_CAS</code> 选项打开：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143653578.png" srcset="/img/loading.gif" lazyload alt="image-20220324143653578" style="zoom:80%;" />
+
+<p>当客户端发送EXEC命令、触发事务执行时， 服务器会对客户端的状态进行检查：</p>
+<ul>
+<li>如果客户端的 <code>REDIS_DIRTY_CAS</code> 选项已经被打开，那么说明被客户端监视的键至少有一个已经被修改了，事务的安全性已经被破坏。服务器会放弃执行这个事务，直接向客户端返回空回复，表示事务执行失败。</li>
+<li>如果 <code>REDIS_DIRTY_CAS</code> 选项没有被打开，那么说明所有监视键都安全，服务器正式执行事务。</li>
+</ul>
+<p>可以用一段伪代码来表示这个检查：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">check_safety_before_execute_trasaction</span>():<br>    <span class="hljs-keyword">if</span> client.state &amp; REDIS_DIRTY_CAS:<br>        <span class="hljs-comment"># 安全性已破坏，清除事务状态</span><br>        clear_transaction_state(client)<br>        <span class="hljs-comment"># 清空事务队列</span><br>        clear_transaction_queue(client)<br>        <span class="hljs-comment"># 返回空回复给客户端</span><br>        send_empty_reply(client)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># 安全性完好，执行事务</span><br>        execute_transaction()<br></code></pre></td></tr></table></figure>
+
+<p>举个例子，假设数据库的 <code>watched_keys</code> 字典如下图所示：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420225953389.png" srcset="/img/loading.gif" lazyload alt="image-20230420225953389" style="zoom:80%;" />
+
+<p>如果某个客户端对 <code>key1</code> 进行了修改（比如执行 <code>DEL key1</code> ）， 那么所有监视 <code>key1</code> 的客户端， 包括 <code>client2</code> 、 <code>client5</code> 和 <code>client1</code> 的 <code>REDIS_DIRTY_CAS</code> 选项都会被打开， 当客户端 <code>client2</code> 、 <code>client5</code> 和 <code>client1</code> 执行EXEC的时候， 它们的事务都会以失败告终。</p>
+<p>最后，当一个客户端结束它的事务时，无论事务是成功执行，还是失败， <code>watched_keys</code> 字典中和这个客户端相关的资料都会被清除。</p>
+<h2 id="Redis发布与订阅"><a href="#Redis发布与订阅" class="headerlink" title="Redis发布与订阅"></a>Redis发布与订阅</h2><h3 id="发布与订阅概念"><a href="#发布与订阅概念" class="headerlink" title="发布与订阅概念"></a>发布与订阅概念</h3><p>Redis 发布订阅 (pub&#x2F;sub) 是一种消息通信模式：发送者 (pub) 发送消息，订阅者 (sub) 接收消息。Redis 客户端可以订阅任意数量的频道。</p>
+<p>如图是 channel1 和三个订阅了频道的Redis客户端：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324144453619.png" srcset="/img/loading.gif" lazyload alt="image-20220324144453619" style="zoom: 80%;" />
+
+<p>当有消息message通过<code>PUBLISH</code>指令发送到 channel1 时，这个message会发送到订阅它的客户端：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324144910793.png" srcset="/img/loading.gif" lazyload alt="image-20220324144910793" style="zoom:80%;" />
+
+<h3 id="操作示例"><a href="#操作示例" class="headerlink" title="操作示例"></a>操作示例</h3><p>1、打开一个客户端，订阅频道<code>channel1</code>：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324145443960.png" srcset="/img/loading.gif" lazyload alt="image-20220324145443960" style="zoom:80%;" />
+
+<p>2、打开另一个客户端，通过<code>PUBLISH channel1 hello-redis0</code>发布消息，返回值1表示频道channel1有一个订阅者，可以看到订阅的客户端收到了<code>hello-redis0</code>消息：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324145758711.png" srcset="/img/loading.gif" lazyload alt="image-20220324145758711" style="zoom:80%;" />
+
+<p>3、再打开一个客户端订阅channel1，发送消息<code>hello-redis1</code>，可以看到返回2，两个订阅的都收到消息，并且新订阅的是没有收到之前的消息<code>hello-redis0</code>的：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324150219041.png" srcset="/img/loading.gif" lazyload alt="image-20220324150219041" style="zoom:80%;" />
+
+
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://redisbook.readthedocs.io/en/latest/feature/transaction.html">事务-Redis设计与实现</a></li>
+<li>Redis——B站尚硅谷周阳</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Redis/">#Redis</a>
+      
+        <a href="/tags/NoSQL/">#NoSQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis学习四：事务和发布订阅</div>
+      <div>https://61hhh-github-io.vercel.app/20220528/122afe43/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年5月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20220528/ea10fc6a/" title="Redis学习五：主从复制">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Redis学习五：主从复制</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20220511/65ec32cd/" title="Mybatis-Plus 自定义批处理操作">
+                        <span class="hidden-mobile">Mybatis-Plus 自定义批处理操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

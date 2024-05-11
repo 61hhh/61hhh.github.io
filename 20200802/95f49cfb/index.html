@@ -1,0 +1,902 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="一、什么是集合关于Java集合框架的维基百科定义如下：  Java集合框架(Java collections framework)是一个包含一系列实作可重复使用集合的数据结构的类别和界面集合。 虽然称为“框架”，其使用方式却像个函式库。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合（一）概述">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200802/95f49cfb/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="一、什么是集合关于Java集合框架的维基百科定义如下：  Java集合框架(Java collections framework)是一个包含一系列实作可重复使用集合的数据结构的类别和界面集合。 虽然称为“框架”，其使用方式却像个函式库。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img2.salute61.top/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.gif">
+<meta property="og:image" content="http://img2.salute61.top/Java-coll.png">
+<meta property="og:image" content="http://img2.salute61.top/Java_Collection1.png">
+<meta property="article:published_time" content="2020-08-02T14:13:24.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:42:11.155Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://img2.salute61.top/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.gif">
+  
+  
+  
+  <title>Java集合（一）概述 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java集合（一）概述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-02 22:13" pubdate>
+          2020年8月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          41 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java集合（一）概述</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、什么是集合"><a href="#一、什么是集合" class="headerlink" title="一、什么是集合"></a>一、什么是集合</h2><p>关于Java集合框架的维基百科定义如下：</p>
+<blockquote>
+<p><strong>Java集合框架</strong>(<strong>Java collections framework</strong>)是一个包含一系列实作可重复使用集合的<a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B">数据结构</a>的<a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/wiki/%E9%A1%9E%E5%88%A5_(%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8)">类别</a>和<a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/wiki/%E4%BB%8B%E9%9D%A2_(%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88)">界面</a>集合。 虽然称为“框架”，其使用方式却像个<a target="_blank" rel="noopener" href="https://zh.m.wikipedia.org/wiki/%E5%87%BD%E5%BC%8F%E5%BA%AB">函式库</a>。集合框架提供了定义各式各样集合的界面和实作上述集合的类别。</p>
+</blockquote>
+<span id="more"></span>
+
+<p>Java中集合是一个用于存放对象引用的容器，在开发时我们不能确定对象的数量也不能确定它们的类型，因此在存放上就不能用存放同一类型数据的数组，Java为解决这一问题，开发了集合</p>
+<p>以下是集合和数组的区别：</p>
+<ol>
+<li><p>数组和集合都是Java中的容器。</p>
+</li>
+<li><p>数组长度固定，且只能存放相同类型数据；而集合不限数量，不同类型的数据。</p>
+</li>
+<li><p>数组只能存放的相同类型数据，可以实基本数据类型也可以是引用类型。</p>
+</li>
+<li><p>集合只能存放对象。比如要存int类型，是转换为了Integer类后存入的。即会将基本数据类型转换为对应的引用类型存入</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;<span class="hljs-type">int</span>&gt; intList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;<span class="hljs-type">int</span>&gt;();<span class="hljs-comment">//此处会报错：类型参数不能是原始数据</span><br>List&lt;Integer&gt; intList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;Integer&gt;();<span class="hljs-comment">//改为对应的包装类即可</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>集合存放的都是对象的引用，而非对象本身。所以我们称集合中的对象就是集合中对象的引用。对象本身还是放在堆内存中。</p>
+</li>
+</ol>
+<p>相应的Java原始类型(基本数据类型)与其对应的包装类：</p>
+<table>
+<thead>
+<tr>
+<th>原始类型(基本数据类型)</th>
+<th>包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>byte</td>
+<td>Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td>Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td>Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>Double</td>
+</tr>
+<tr>
+<td>char</td>
+<td>Character</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+</tbody></table>
+<h4 id="集合的接口与实现分离"><a href="#集合的接口与实现分离" class="headerlink" title="集合的接口与实现分离"></a>集合的接口与实现分离</h4><p>与常见的数据结构类库一样，<strong>Java中集合类库也将接口与实现分离</strong>。以*队列(queue)*为例</p>
+<p><em>队列接口</em>指出可以在队列尾部添加元素，在首部删除元素，并可以查找元素个数，当需要手机对象，并按照”先进先出“规则检索对象时就应该使用队列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Queue</span>&lt;E&gt;&#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">add</span><span class="hljs-params">(E element)</span>;<br>    E <span class="hljs-title function_">remove</span><span class="hljs-params">()</span>;<br>    <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个接口并没有说明队列是如何实现的。通常有两种实现：一是循环数组；一是链表</p>
+<p>当在程序中使用队列时，一旦构建了集合就不需要知道究竟使用了那种实现方法。因此只有在构建集合对象时使用具体的类才有意义，可以使用接口类型存放集合的引用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Queue&lt;Customer&gt; expressLane = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CircularArrayQueue</span>&lt;&gt;(<span class="hljs-number">100</span>);<br>expressLane.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Customer</span>(<span class="hljs-string">&quot;Harry&quot;</span>));<br></code></pre></td></tr></table></figure>
+
+<p>利用这种方式，可以轻松修改实现，即修改调用构造器的部位即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Queue&lt;Customer&gt; expressLane = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedListQueue</span>&lt;&gt;(<span class="hljs-number">100</span>);<br>expressLane.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Customer</span>(<span class="hljs-string">&quot;Harry&quot;</span>));<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="二、集合框架"><a href="#二、集合框架" class="headerlink" title="二、集合框架"></a>二、集合框架</h2><p>首先看一下集合的框架图</p>
+<p><img src="http://img2.salute61.top/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.gif" srcset="/img/loading.gif" lazyload></p>
+<p>图中可以看到，集合主要分为Collection（集合）和Map（图）两个接口，Collection存储元素集合，Map存储键&#x2F;值对映射。（其中Collection接口继承(extends)了Iterable接口，具体体现是实现了Iterator）</p>
+<ul>
+<li>Collection分别被Queue、List和Set继承。下面是一些抽象类，然后是具体类。<ul>
+<li>List被AbstractList实现，然后分为3个子类，ArrayList，LinkList和VectorList。</li>
+<li>Set被AbstractSet实现，又分为2个子类，HashSet和TreeSet。</li>
+<li>Map被AbstractMap实现，又分为2个子类，HashMap和TreeMap。</li>
+<li>Map被Hashtable实现。</li>
+</ul>
+</li>
+<li><strong>接口：</strong>是代表集合的抽象数据类型。例如 Collection、List、Set、Map 等。之所以定义多个接口，是为了以不同的方式操作集合对象</li>
+<li><strong>实现（类）：</strong>是集合接口的具体实现。从本质上讲，它们是可重复使用的数据结构，例如：ArrayList、LinkedList、HashSet、HashMap。</li>
+<li><strong>算法：</strong>是实现集合接口的对象里的方法执行的一些有用的计算，例如：搜索和排序。这些算法被称为多态，那是因为相同的方法可以在相似的接口上有着不同的实现。</li>
+</ul>
+<img src="http://img2.salute61.top/Java-coll.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+
+
+
+
+<h2 id="三、Iterator迭代器"><a href="#三、Iterator迭代器" class="headerlink" title="三、Iterator迭代器"></a>三、Iterator迭代器</h2><p>它是Java集合的顶层接口（不包括map系列的集合，Map接口是map系列集合的顶层接口）</p>
+<ul>
+<li>Object next()：通过反复调用next方法可以组个访问集合中的元素。但是到达了末尾next方法会抛出NoSuchElementException。因此调用next前先调用hasNext</li>
+<li>遍历还可以用forEach实现，任何实现了Iterable接口的对象都可以使用</li>
+<li>boolean hasNext()：判断容器内是否还有可供访问的元素。</li>
+<li>void remove()：删除迭代器刚越过的元素。</li>
+</ul>
+<p>所以除了map系列的集合，我么都能通过迭代器来对集合中的元素进行遍历。</p>
+<p>注意：我们可以在源码中追溯到集合的顶层接口，比如Collection接口，可以看到它继承的是类Iterable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Collection</span>&lt;E&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Iterable</span>&lt;E&gt; &#123;<br>    <span class="hljs-comment">// Query Operations</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>那这就得说明一下Iterator和Iterable的区别：</p>
+<p>Iterable：存在于java.util包中。　</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Iterable</span>&lt;T&gt; &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Returns an iterator over elements of type &#123;<span class="hljs-doctag">@code</span> T&#125;.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> an Iterator.</span><br><span class="hljs-comment">     */</span><br>    Iterator&lt;T&gt; <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span>;<br>    ...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>看源码可知，Iterable接口里面封装了 Iterator 接口。所以只要实现了Iterable接口的类，就可以使用Iterator迭代器了。</p>
+<p>Iterator：存在于java.util包中。核心的方法next()，hasNext()，remove()。</p>
+<h2 id="四、Collection操作简介"><a href="#四、Collection操作简介" class="headerlink" title="四、Collection操作简介"></a>四、Collection操作简介</h2><p>Collection的作用就是规定了一个集合有哪些基本的操作。在IDEA中ctrl+F12可以查看</p>
+<img src="http://img2.salute61.top/Java_Collection1.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />
+
+<p>可以看到基本上是插入数据、清除数据、是否包含、是否相等、移除元素、转换数组等操作</p>
+<p>比如：</p>
+<p>　　int size()　获取元素个数</p>
+<p>　　boolean isEmpty()　是否个数为零</p>
+<p>　　boolean contains(Object element)　是否包含指定元素</p>
+<p>　　boolean add(E element)　添加元素，成功时返回true</p>
+<p>　　boolean remove(Object element)　删除元素，成功时返回true</p>
+<p>　　Iterator<E> iterator()　获取迭代器</p>
+<p>还有些操作整个集合的方法，比如：</p>
+<p>　　boolean containsAll(Collection c)     是否包含指定集合 c 的全部元素</p>
+<p>　　boolean addAll(Collection&lt;? extends E&gt; c)　添加集合 c 中所有的元素到本集合中，如果集合有改变就返回 true</p>
+<p>　　boolean removeAll(Collection&lt;?&gt; c)　删除本集合中和 c 集合中一致的元素，如果集合有改变就返回 true</p>
+<p>　　boolean retainAll(Collection c)    保留本集合中 c 集合中两者共有的，如果集合有改变就返回 true</p>
+<p>　　void clear()    删除所有元素</p>
+<p>还有对数组操作的方法：</p>
+<p>　　Object[] toArray()　返回一个包含集合中所有元素的数组</p>
+<p>　　<T> T[] toArray(T[] a)　返回一个包含集合中所有元素的数组，运行时根据集合元素的类型指定数组的类型</p>
+<p>与Collection接口相关还有一个抽象类AbstractCollection：</p>
+<p>AbstractCollection是一个抽象类，实现了Collection接口的部分功能，实现了一些最基本的通用操作，把复杂的和业务相关的延迟到子类实现。</p>
+<p>在AbstractCollection中，主要实现了contains(), isEmpty(), toArray(), remove(), clear() 这几个操作。</p>
+<h2 id="五、Collection源码分析"><a href="#五、Collection源码分析" class="headerlink" title="五、Collection源码分析"></a>五、Collection源码分析</h2><p><strong>Collection是一个接口，继承自Iterable。</strong>先看一下Iterable接口的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * Copyright (c) 2003, 2013, Oracle and/or its affiliates. All rights reserved.</span><br><span class="hljs-comment"> * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">package</span> java.lang;<br><br><span class="hljs-keyword">import</span> java.util.Iterator;<br><span class="hljs-keyword">import</span> java.util.Objects;<br><span class="hljs-keyword">import</span> java.util.Spliterator;<br><span class="hljs-keyword">import</span> java.util.Spliterators;<br><span class="hljs-keyword">import</span> java.util.function.Consumer;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 实现了这个接口可以使对象成为for-each循环的target，即可以使用foreach遍历</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 1.5</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@jls</span> 14.14.2 The enhanced for statement</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Iterable</span>&lt;T&gt; &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回一个元素类型为&lt;T&gt;的迭代器</span><br><span class="hljs-comment">     */</span><br>    Iterator&lt;T&gt; <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *对&#123;<span class="hljs-doctag">@code</span> Iterable&#125;的每个元素执行给定的操作，直到处理完所有元素或该操作引发异常为止。</span><br><span class="hljs-comment">     *除非实现类另行指定，否则操作将以迭代顺序执行（如果指定了迭代顺序）。</span><br><span class="hljs-comment">     *该操作引发的异常将中继给调用者。</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> action The action to be performed for each element</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> NullPointerException if the specified action is null</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@since</span> 1.8</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">forEach</span><span class="hljs-params">(Consumer&lt;? <span class="hljs-built_in">super</span> T&gt; action)</span> &#123;<br>        Objects.requireNonNull(action);<br>        <span class="hljs-keyword">for</span> (T t : <span class="hljs-built_in">this</span>) &#123;<br>            action.accept(t);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@since</span> 1.8</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">default</span> Spliterator&lt;T&gt; <span class="hljs-title function_">spliterator</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="hljs-number">0</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>在IDEA中ctrl+F12查看Collection的源码，简要分析源码中变量、方法的含义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * Copyright (c) 1997, 2013, Oracle and/or its affiliates. All rights reserved.</span><br><span class="hljs-comment"> * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">package</span> java.util;<br><br><span class="hljs-keyword">import</span> java.util.function.Predicate;<br><span class="hljs-keyword">import</span> java.util.stream.Stream;<br><span class="hljs-keyword">import</span> java.util.stream.StreamSupport;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> *这是一个集合分层的根接口。集合代表了一组包含元素的对象。有些集合允许有重复的元素，有些不允许。</span><br><span class="hljs-comment"> *有些集合是有序的有些无序的。</span><br><span class="hljs-comment"> *jdk不对这个接口提供任何直接的实现，但是再一些直接子接口例如Set和List有实现了某些接口方法。</span><br><span class="hljs-comment"> *所有继承Collection的类必须提供两个默认的构造函数，一个不带参数的、一个带Collection类型参数。</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Collection</span>&lt;E&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Iterable</span>&lt;E&gt; &#123;<br>    <span class="hljs-comment">// 查询操作</span><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * @返回集合元素个数</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 集合为空返回true</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *集合包含某个特定元素，返回true</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> o 要测试de是否存在于集合的对象</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 集合包含某个特定元素o，返回true</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> 抛出ClassCastException 如果该对象与集合类型不相容</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> 抛出NullPointerException 如果对象为空而该集合不允许空引用</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(Object o)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回迭代器Iterator，并未说明元素的迭代顺序，除非特别的集合有此要求</span><br><span class="hljs-comment">     */</span><br>    Iterator&lt;E&gt; <span class="hljs-title function_">iterator</span><span class="hljs-params">()</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *返回一个包含该集合全部对象的数组 </span><br><span class="hljs-comment">     *如果集合保证是有序的，那么通过迭代器返回数组有相同顺序</span><br><span class="hljs-comment">     </span><br><span class="hljs-comment">     *返回的数组是安全的，也就是说集合有自己的引用，数组开辟新的堆内存，也有自己的引用。所以调</span><br><span class="hljs-comment">     *用者可以随意操作返回的数组。</span><br><span class="hljs-comment">     *这个方法是数组和列表之间的桥梁</span><br><span class="hljs-comment">     */</span><br>    Object[] toArray();<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 返回一个集合元素类型的数组。如果集合满足指定的数组并且有足够的空间，则在其中返回此集合</span><br><span class="hljs-comment">     * 否则返回此集合大小的新数组。</span><br><span class="hljs-comment">     * 如果集合有序，那么返回此集合迭代器遍历顺序的数组</span><br><span class="hljs-comment">     * 如果数组大小比集合元素多，那么在数组满足集合元素后在末尾设置为null  </span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * 如果在这个集合中指定数组运行时类型不是运行时元素类型的超类，那么抛ArrayStoreException异常</span><br><span class="hljs-comment">     * 如果指定数组为空，则抛出NullPointerException</span><br><span class="hljs-comment">     */</span><br>    &lt;T&gt; T[] toArray(T[] a);<br><br>    <span class="hljs-comment">//修改操作</span><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 确保此集合包含特定的元素类型。</span><br><span class="hljs-comment">     * 如果此集合增加元素成功返回true。</span><br><span class="hljs-comment">     * 如果此集合不允许有重复元素并且已经包含所传参数，那么返回false</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * 支持此操作的集合可能会限制向该集合添加哪些元素。特别的，有些集合会拒绝null元素，有些</span><br><span class="hljs-comment">     * 会对要增加的元素强加一些限制。</span><br><span class="hljs-comment">     * Collection实现类应该在文档中明确指出所有的限制。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * 如果集合以除已经包含元素之外的任何原因拒绝添加特定元素，则必须抛出异常</span><br><span class="hljs-comment">     *(而不是返回false)。这保留了集合在此调用返回后始终包含指定元素的不变式。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">add</span><span class="hljs-params">(E e)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 如果此集合中存在此元素，那么移除一个特定元素类型的实例。更正式的说，如果集合中包含一个或多个这样的元素，</span><br><span class="hljs-comment">     * 那么删除这样的元素(o==null?e==null:o.equals(e))。如果集合包含指定的元素(或集合因调用而发生改变)，那么返回true。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * 如果指定元素的类型和集合不相容，抛出ClassCastException异常(可选的限制条件)</span><br><span class="hljs-comment">     * 如果指定元素是null并且这个集合不允许null元素存在，那么抛出NullPointerException异常(可选的限制条件)</span><br><span class="hljs-comment">     * 如果此集合不支持remove操作那么抛出UnsupportedOperationException异常(可选的限制条件)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">remove</span><span class="hljs-params">(Object o)</span>;<br><br><br>    <span class="hljs-comment">// 容量操作</span><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 如果this集合包含指定集合的所有元素，返回true</span><br><span class="hljs-comment">     * c集合必须要检查是否被包含在this集合</span><br><span class="hljs-comment">     * 如果指定元素的类型和集合不相容，抛出ClassCastException异常(可选的限制条件)</span><br><span class="hljs-comment">     * 如果指定元素是null并且这个集合不允许null元素存在，那么抛出NullPointerException异常(可选的限制条件)</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">containsAll</span><span class="hljs-params">(Collection&lt;?&gt; c)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 将指定集合的所有元素到this集合中(可选的操作)。</span><br><span class="hljs-comment">     * 如果指定的集合在操作进行时被修改了，那么此操作行为未定义。</span><br><span class="hljs-comment">     * (这意味着如果指定的集合是这个集合，并且这个集合是非空的，那么这个调用的行为是未定义的。)</span><br><span class="hljs-comment">     * </span><br><span class="hljs-comment">     * @参数:c集合包含了要被添加到这个集合的元素</span><br><span class="hljs-comment">     * @返回:如果调用结果改变了this集合返回true</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果 addAll操作不被此集合支持，那么抛出UnsupportedOpertaionException异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>: 如果指定集合包含了空元素而this集合不允许有空元素，那么抛出NullPointerException异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果this集合阻止hiding集合元素类型添加，那么抛出ClassCastException异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果指定集合的元素的某些属性阻止将其添加到此集合，则抛出IllegalArgumentException</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:由于插入限制，如果不是所有元素都可以在此时添加，则抛出IllegalStateException异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">addAll</span><span class="hljs-params">(Collection&lt;? extends E&gt; c)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 移除此集合中所有的包含在指定集合中的元素(可选的操作)。调用过此函数之后，那么此集合和指定集合将不再包含相同元素。</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span>:包含要从该集合中删除的元素的c集合</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span>:如果此集合因调用而更改那么返回true</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果此集合不支持removeAll方法，则抛出UnsupportedOperationException</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果集合中一个或多个元素的类型与指定集合不兼容，则抛出ClassCastException(可选的操作)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果该集合包含一个或多个空元素，且指定的集合不支持空元素(optional)，或者指定的集合为空，</span><br><span class="hljs-comment">     * 则抛出NullPointerException异常</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">removeAll</span><span class="hljs-params">(Collection&lt;?&gt; c)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 移除此集合中所有符合给定Predicate的元素。在迭代期间或由Predicate引发的错误或运行时异常将被转发给调用方</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@implSpec</span></span><br><span class="hljs-comment">     * 默认实现使用其迭代器遍历集合的所有元素。每一个匹配的元素使用iterator.remove()来移除。</span><br><span class="hljs-comment">     * 如果集合的iterator不支持移除将会抛出UnsupportedOperationException异常在匹匹厄到</span><br><span class="hljs-comment">     * 第一个元素时。</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> 过滤一个predicate</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> 筛选要删除的元素返回true的Predicate</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> 如果任何一个元素被删除返回true</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> 指定过滤器为空，抛出NullPointerException</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> 如果元素没有被删除，或者移除操作不支持，</span><br><span class="hljs-comment">     *  则立即抛出UnsupportedOperationException异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@since</span> 1.8</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">default</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">removeIf</span><span class="hljs-params">(Predicate&lt;? <span class="hljs-built_in">super</span> E&gt; filter)</span> &#123;<br>        <span class="hljs-comment">//如果filter为null抛出NullPointerException</span><br>        Objects.requireNonNull(filter);<br>        <span class="hljs-type">boolean</span> <span class="hljs-variable">removed</span> <span class="hljs-operator">=</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">final</span> Iterator&lt;E&gt; each = iterator();<br>        <span class="hljs-keyword">while</span> (each.hasNext()) &#123;<br>            <span class="hljs-keyword">if</span> (filter.test(each.next())) &#123;<br>                each.remove();<br>                removed = <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> removed;<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 只保留此集合中包含在指定集合中的元素(可选的操作)。</span><br><span class="hljs-comment">     * 也就是说，此集合中不包含在指定集合中的所有元素。</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span>:要保留的元素的集合c</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span>:如果此集合改变了返回true</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果此集合不支持retainAll，则抛出UnsupportedOperationException异常</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果集合中一个或多个元素的类型与指定集合不兼容，则抛出ClassCastException(可选的操作)</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>:如果该集合包含一个或多个空元素，且指定的集合不支持空元素(optional)，或者指定的集合为空</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">retainAll</span><span class="hljs-params">(Collection&lt;?&gt; c)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 移除此集合中所有元素(可选操作),调用此方法后集合里将为空。</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span>: 如果此集合clear操作不支持将会抛出UnsupportOperationException异常。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">clear</span><span class="hljs-params">()</span>;<br><br><br>    <span class="hljs-comment">// 比较和哈希</span><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 比较指定的对象与此集合是否相等</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * @参数 o 比较的对象</span><br><span class="hljs-comment">     * @返回 相等返回true</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span><span class="hljs-params">(Object o)</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *返回这个集合的hashCode。当集合接口没有对Object.hashCode方法的一般协议做任何规定，编程</span><br><span class="hljs-comment">     *人员应该注意在重写equals方法时必须重写hashCode方法，以便满足一般协议对这个</span><br><span class="hljs-comment">     *Object.hashCode方法。特别的，c1.equals(c2)表明c1.hashCode()==c2.hashCode()。</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">()</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 创建分流器、流操作</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@since</span> 1.8</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">default</span> Spliterator&lt;E&gt; <span class="hljs-title function_">spliterator</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Spliterators.spliterator(<span class="hljs-built_in">this</span>, <span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">default</span> Stream&lt;E&gt; <span class="hljs-title function_">stream</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> StreamSupport.stream(spliterator(), <span class="hljs-literal">false</span>);<br>    &#125;<br>    <span class="hljs-keyword">default</span> Stream&lt;E&gt; <span class="hljs-title function_">parallelStream</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> StreamSupport.stream(spliterator(), <span class="hljs-literal">true</span>);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lixiansheng/p/11348050.html">Java集合（一）、什么是Java集合？</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/java/java-collections.html">Java 集合框架</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.manongjc.com/article/66616.html">Java之Collection接口介绍与剖析，看完后再也忘不掉</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E5%9F%BA%E7%A1%80/">#Java基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java集合（一）概述</div>
+      <div>https://61hhh-github-io.vercel.app/20200802/95f49cfb/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年8月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200803/2789e08f/" title="Java集合（二）List接口">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java集合（二）List接口</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200731/e5dd7f0f/" title="maven学习">
+                        <span class="hidden-mobile">maven学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

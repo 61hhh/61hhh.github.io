@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="一、Request&amp;Response简介我们自己创建的那些类，主要就是重写doGet和doPost方法，它们里面的两个参数就是(HttpServletRequest req, HttpServletResponse resp) Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的request对象、和代表响应的response对象。 服务器处理请求的流程  服">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet学习三-req和resp">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20201109/57c1ff86/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="一、Request&amp;Response简介我们自己创建的那些类，主要就是重写doGet和doPost方法，它们里面的两个参数就是(HttpServletRequest req, HttpServletResponse resp) Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的request对象、和代表响应的response对象。 服务器处理请求的流程  服">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201108192023201.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/fileD.jpg.jpeg">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110163603437.png">
+<meta property="og:image" content="http://img2.salute61.top/PicGo/image-20201110163619759.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110163651619.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110164625504.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110165553251.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110165612755.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110171516766.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110171530650.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110172022252.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110180947603.png">
+<meta property="article:published_time" content="2020-11-09T10:34:57.000Z">
+<meta property="article:modified_time" content="2024-05-11T02:23:34.813Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="JavaWeb">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201108192023201.png">
+  
+  
+  
+  <title>Servlet学习三-req和resp - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Servlet学习三-req和resp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-09 18:34" pubdate>
+          2020年11月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Servlet学习三-req和resp</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月11日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、Request-amp-Response简介"><a href="#一、Request-amp-Response简介" class="headerlink" title="一、Request&amp;Response简介"></a>一、Request&amp;Response简介</h2><p>我们自己创建的那些类，主要就是重写<code>doGet</code>和<code>doPost</code>方法，它们里面的两个参数就是<code>(HttpServletRequest req, HttpServletResponse resp)</code></p>
+<p>Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的request对象、和代表响应的response对象。</p>
+<p><strong>服务器处理请求的流程</strong></p>
+<ol>
+<li>服务器收到请求，开辟一个新的线程</li>
+<li>将客户端请求数据封装到request对象中</li>
+<li>创建response对象，用来向客户端发送响应，服务器解析response对象后响应给浏览器</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="二、Response对象及其应用"><a href="#二、Response对象及其应用" class="headerlink" title="二、Response对象及其应用"></a>二、Response对象及其应用</h2><p>Http的响应包含状态行、实体内容、消息头、空行组成</p>
+<h3 id="1、Response实现重定向"><a href="#1、Response实现重定向" class="headerlink" title="1、Response实现重定向"></a>1、Response实现重定向</h3><p>重定向：将网络请求重新定向发送到其他位置。它是服务器通知浏览器去访问另一个网址，让浏览器再发送一个请求</p>
+<p>编写代码如下 ：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RediectServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        * 方式一</span><br><span class="hljs-comment">        * resp.setHeader(&quot;Location&quot;,&quot;/r/imageShow&quot;);</span><br><span class="hljs-comment">        * resp.setStatus(302);</span><br><span class="hljs-comment">        * */</span><br>        resp.sendRedirect(<span class="hljs-string">&quot;/s1/imageShow&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="2、Response向浏览器输出数据"><a href="#2、Response向浏览器输出数据" class="headerlink" title="2、Response向浏览器输出数据"></a>2、Response向浏览器输出数据</h3><p><strong>2.1、GetWriter()输出字符数据</strong></p>
+<p>基本步骤：获取字符输出流；写出数据</p>
+<p>GetWriter()是Writer的子类，它只能向浏览器输出字符数据，不能输出二进制数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> resp.getWriter();<br>out.write(<span class="hljs-string">&quot;向浏览器输出数据&quot;</span>);<br><span class="hljs-comment">//resp.getWriter().print(&quot;向浏览器输出数据&quot;);</span><br></code></pre></td></tr></table></figure>
+
+<p>在输出过程中可能会出现乱码现象，因为默认的流编码时ISO-8859-1，我们要改成utf-8</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">setContentType(<span class="hljs-string">&quot;text/html&quot;</span>);<br>resp.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br><span class="hljs-comment">//或者写成：setContentType(&quot;text/html;charset=utf-8&quot;);</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>2.2、GetOutputStream输出字节数据</strong></p>
+<p>基本步骤：获取字节输出流；写出数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">setContentType(<span class="hljs-string">&quot;text/html;charset=utf-8&quot;</span>);<br><span class="hljs-type">ServletOutputStream</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> resp.getOutputStream();<br>out.write(<span class="hljs-string">&quot;输出数据&quot;</span>.getBytes(<span class="hljs-string">&quot;utf-8&quot;</span>));<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、Response下载文件"><a href="#3、Response下载文件" class="headerlink" title="3、Response下载文件"></a>3、Response下载文件</h3><p>前面已经提到过了，利用response下载文件。</p>
+<p>这里可以尝试一下Response下载文件，在resource目录下加入一张图片，然后编写FileServlet类，获取工程目录下的资源文件。一开始我们不知道对应的目录在哪儿，可以用<code>getContextPath()</code>拿到当前的上下文context路径</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-comment">//1、获取下载文件的路径</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">realPath</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;G:\\Kuang_JavaWeb\\servlet-01\\src\\main\\webapp\\resources\\leslie.jpg&quot;</span>;<br>        System.out.println(<span class="hljs-string">&quot;下载路径：&quot;</span>+realPath);<br>        <span class="hljs-comment">//2、下载的文件名</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">fileName</span> <span class="hljs-operator">=</span> realPath.substring(realPath.lastIndexOf(<span class="hljs-string">&quot;\\&quot;</span>)+<span class="hljs-number">1</span>);<br>        <span class="hljs-comment">//3、设置浏览器支持下载（）</span><br>        resp.setHeader(<span class="hljs-string">&quot;Content-Disposition&quot;</span>,<span class="hljs-string">&quot;attachment; &quot;</span>+<span class="hljs-string">&quot;filename: &quot;</span>+fileName);<br>        <span class="hljs-comment">//4、获取下载文件的输入流</span><br>        <span class="hljs-type">FileInputStream</span> <span class="hljs-variable">in</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(realPath);<br>        <span class="hljs-comment">//5、创建缓冲区</span><br>        <span class="hljs-type">int</span> len=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">byte</span>[] buffer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">byte</span>[<span class="hljs-number">1024</span>];<br>        <span class="hljs-comment">//6、获取OutputStream对象</span><br>        <span class="hljs-type">ServletOutputStream</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> resp.getOutputStream();<br>        <span class="hljs-comment">//7、将FileOutputStream写入Buffer缓冲区</span><br>        <span class="hljs-keyword">while</span> ((len=in.read(buffer))&gt;<span class="hljs-number">0</span>)&#123;<br>            out.write(buffer,<span class="hljs-number">0</span>,len);<br>        &#125;<br><br>        <span class="hljs-comment">//关闭流</span><br>        in.close();<br>        out.close();<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        doGet(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201108192023201.png" srcset="/img/loading.gif" lazyload alt="image-20201108192023201"></p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/fileD.jpg.jpeg" srcset="/img/loading.gif" lazyload style="zoom:50%;" />
+
+<p>可以看到成功下载了</p>
+<h3 id="4、Response实现验证码"><a href="#4、Response实现验证码" class="headerlink" title="4、Response实现验证码"></a>4、Response实现验证码</h3><p>我们在登录的时候经常会输入验证码，通过response可以实现类似的功能。</p>
+<ul>
+<li>自动定时刷新；通过设置<code>setHeader(&quot;refresh&quot;,&quot;3&quot;)</code>实现3秒定时刷新</li>
+<li>采用BufferedImage生成图片；</li>
+<li>graphics2D写入我们生成的随机数到之前的图片上；</li>
+<li>设置缓存，浏览器本身具有缓存机制，会导致每次图片都一样，所以要禁止掉；</li>
+</ul>
+<p>编写代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImageServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-comment">//浏览器自动刷新</span><br>        resp.setHeader(<span class="hljs-string">&quot;refresh&quot;</span>,<span class="hljs-string">&quot;3&quot;</span>);<br><br>        <span class="hljs-comment">//在内存中创建图片</span><br>        <span class="hljs-type">BufferedImage</span> <span class="hljs-variable">image</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BufferedImage</span>(<span class="hljs-number">80</span>,<span class="hljs-number">20</span>,BufferedImage.TYPE_INT_RGB);<br>        <span class="hljs-comment">//取得图片</span><br>        <span class="hljs-type">Graphics2D</span> <span class="hljs-variable">graphics</span> <span class="hljs-operator">=</span> (Graphics2D) image.getGraphics();<span class="hljs-comment">//画笔</span><br>        <span class="hljs-comment">//设置图片背景色</span><br>        graphics.setColor(Color.white);<br>        graphics.fillRect(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">80</span>,<span class="hljs-number">20</span>);<br>        <span class="hljs-comment">//给图片画东西(写入数据)</span><br>        graphics.setColor(Color.BLUE);<br>        graphics.setFont(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Font</span>(<span class="hljs-literal">null</span>,Font.BOLD,<span class="hljs-number">20</span>));<br>        graphics.drawString(getNum(),<span class="hljs-number">0</span>,<span class="hljs-number">20</span>);<br><br>        <span class="hljs-comment">//通知浏览器  对应的打开方式</span><br>        resp.setContentType(<span class="hljs-string">&quot;image/jpeg&quot;</span>);<br>        <span class="hljs-comment">//取消网站的缓存</span><br>        resp.setDateHeader(<span class="hljs-string">&quot;expires&quot;</span>,-<span class="hljs-number">1</span>);<br>        resp.setHeader(<span class="hljs-string">&quot;Cache-Control&quot;</span>,<span class="hljs-string">&quot;no-cache&quot;</span>);<br>        resp.setHeader(<span class="hljs-string">&quot;Pragma&quot;</span>,<span class="hljs-string">&quot;no-cache&quot;</span>);<br><br>        <span class="hljs-comment">//图片传给浏览器</span><br>        ImageIO.write(image,<span class="hljs-string">&quot;jpg&quot;</span>,resp.getOutputStream());<br>    &#125;<br>    <span class="hljs-comment">//取得随机数</span><br>    <span class="hljs-keyword">private</span> String <span class="hljs-title function_">getNum</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-type">Random</span> <span class="hljs-variable">random</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> random.nextInt(<span class="hljs-number">9999999</span>)+<span class="hljs-string">&quot;&quot;</span>;<br>        <span class="hljs-type">StringBuffer</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuffer</span>();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">7</span>-num.length();i++)&#123;<br>            sb.append(<span class="hljs-string">&quot;0&quot;</span>);<br>        &#125;<br>        num = sb.toString()+num;<br>        <span class="hljs-keyword">return</span> num;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        doGet(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="三、Request对象及其应用"><a href="#三、Request对象及其应用" class="headerlink" title="三、Request对象及其应用"></a>三、Request对象及其应用</h2><p>request是service()方法中的一个参数，在客户端发出请求时，服务器创建一个request对象并将请求数据封装到request中，然后调用service()方法传递。浏览器的信息都会封装在request中</p>
+<p>request作用：获取请求头、请求参数；域对象功能；请求转发和包含</p>
+<h3 id="1、作为域对象使用"><a href="#1、作为域对象使用" class="headerlink" title="1、作为域对象使用"></a>1、作为域对象使用</h3><p>相比较于ServletContext这种对应整个应用的域对象，request则是指一个请求对应的域对象。它是一个map结构，实现存值取值操作。常用的方法有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java">req.getAttribute(String name);<br>req.setAttribute(String name);<br>req.removeAttribute(String name);<br>req.getAttributeName();<br></code></pre></td></tr></table></figure>
+
+<p>编写代码如下：</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsp">&lt;%@ page contentType=<span class="hljs-string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="hljs-string">&quot;java&quot;</span> %&gt;<br>&lt;html&gt;<br>&lt;body&gt;<br>&lt;h2&gt;Hello World!&lt;/h2&gt;<br><br>&lt;%--这里提交的路径，应该是后面跳转的项目的目标路径--%&gt;<br>&lt;%--$&#123;pageContext.request.contextPath&#125;代表当前项目--%&gt;<br>&lt;form action=<span class="hljs-string">&quot;$&#123;pageContext.request.contextPath&#125;/requestServlet&quot;</span> method=<span class="hljs-string">&quot;get&quot;</span>&gt;<br>    用户名：&lt;input type=<span class="hljs-string">&quot;text&quot;</span> name=<span class="hljs-string">&quot;user&quot;</span>&gt;&lt;br&gt;<br>    密码：&lt;input type=<span class="hljs-string">&quot;password&quot;</span> name=<span class="hljs-string">&quot;pwd&quot;</span>&gt;&lt;br&gt;<br>    &lt;input type=<span class="hljs-string">&quot;submit&quot;</span>&gt;<br>&lt;/form&gt;<br><br>&lt;/body&gt;<br>&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>通过get方式提交数据</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">requestServlet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        req.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        resp.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        <br>        <span class="hljs-type">String</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> req.getParameter(<span class="hljs-string">&quot;user&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">pwd</span> <span class="hljs-operator">=</span> req.getParameter(<span class="hljs-string">&quot;pwd&quot;</span>);<br><br>        System.out.println(user+<span class="hljs-string">&quot;: &quot;</span>+pwd);<br><br>        resp.sendRedirect(<span class="hljs-string">&quot;/s1/redirectSuccess.jsp&quot;</span>);<br><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        doGet(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看到提交之后实现跳转数据提交成功</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110163603437.png" srcset="/img/loading.gif" lazyload alt="image-20201110163603437"></p>
+<p><img src="http://img2.salute61.top/PicGo/image-20201110163619759.png" srcset="/img/loading.gif" lazyload alt="image-20201110163619759"></p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110163651619.png" srcset="/img/loading.gif" lazyload alt="image-20201110163651619"></p>
+<h3 id="2、实现转发"><a href="#2、实现转发" class="headerlink" title="2、实现转发"></a>2、实现转发</h3><p>response的sendRedirect可以实现重定向，在request中也有实现页面跳转的功能，在之前的ServletContext部分就说明过，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">reqDisp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-comment">//获取跳转对象</span><br>        <span class="hljs-type">RequestDispatcher</span> <span class="hljs-variable">dispatcher</span> <span class="hljs-operator">=</span> req.getRequestDispatcher(<span class="hljs-string">&quot;/reqDispFile.jsp&quot;</span>);<br>        <span class="hljs-comment">//调用跳转对象的forward功能</span><br>        dispatcher.forward(req,resp);<br>        System.out.println(<span class="hljs-string">&quot;request测试Dispatch!!!&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doPut</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        doGet(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>访问<code>http://localhost:8080/s1/reqDisp</code>进入到了<code>reqDispFile.jsp</code>页面中，说明跳转成功了！</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110164625504.png" srcset="/img/loading.gif" lazyload alt="image-20201110164625504"></p>
+<p>由于request也是域对象，因此它也可以实现数据的传递，只不过request的域只代表当前一次请求</p>
+<p>分别编写两个类用于数据传递</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">reqDispData</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        req.setAttribute(<span class="hljs-string">&quot;usrname&quot;</span>,<span class="hljs-string">&quot;zhangSan&quot;</span>);<br><br><br>        <span class="hljs-comment">//获取跳转对象</span><br>        <span class="hljs-type">RequestDispatcher</span> <span class="hljs-variable">dispatcher</span> <span class="hljs-operator">=</span> req.getRequestDispatcher(<span class="hljs-string">&quot;/reqDispData2&quot;</span>);<br>        <span class="hljs-comment">//调用跳转对象的forward功能</span><br>        dispatcher.forward(req,resp);<br>        System.out.println(<span class="hljs-string">&quot;request测试Dispatch!!!&quot;</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">reqDispData2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        resp.setContentType(<span class="hljs-string">&quot;text/html;charset=utf-8&quot;</span>);<br>        <span class="hljs-type">String</span> <span class="hljs-variable">usrname</span> <span class="hljs-operator">=</span> (String) req.getAttribute(<span class="hljs-string">&quot;usrname&quot;</span>);<br>        resp.getWriter().write(<span class="hljs-string">&quot;通过request获取的name是：&quot;</span>+usrname);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>先直接访问Data2是显示为null的，表示没有数据传过去；然后进入Data，他会设置属性值并且页面跳转到Data2的页面中，显示出名字zhangsan</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110165553251.png" srcset="/img/loading.gif" lazyload alt="image-20201110165553251"></p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110165612755.png" srcset="/img/loading.gif" lazyload alt="image-20201110165612755"></p>
+<h3 id="3、request实现防盗链"><a href="#3、request实现防盗链" class="headerlink" title="3、request实现防盗链"></a>3、request实现防盗链</h3><p>编写代码如下：利用Referer标头实现防盗链功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">reqFDL</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        req.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        resp.setContentType(<span class="hljs-string">&quot;text/html;charset=utf-8&quot;</span>);<br><br>        <span class="hljs-comment">//获取请求是从哪儿来的</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">referer</span> <span class="hljs-operator">=</span> req.getHeader(<span class="hljs-string">&quot;Referer&quot;</span>);<br>        <span class="hljs-comment">//直接输入的网址 || 不是本网站的重定向</span><br>        <span class="hljs-keyword">if</span> (referer==<span class="hljs-literal">null</span>|| !referer.startsWith(<span class="hljs-string">&quot;http://localhost&quot;</span>))&#123;<br>            <span class="hljs-comment">//回到首页</span><br>            resp.sendRedirect(<span class="hljs-string">&quot;/FDL.jsp&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//首页点击进入的，正常显示</span><br>        resp.getWriter().write(<span class="hljs-string">&quot;从我的网站中进入到此页面的！可以访问！&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        doGet(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>修改首页提交按钮的跳转，在首页点击提交后可以跳转到目标页面reqFDL中，但是直接访问<code>http://localhost:8080/s1/reqFDL</code>就会跳转到FDL.jsp页面中，不能看到目标页面。</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110171516766.png" srcset="/img/loading.gif" lazyload alt="image-20201110171516766"></p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110171530650.png" srcset="/img/loading.gif" lazyload alt="image-20201110171530650"></p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110172022252.png" srcset="/img/loading.gif" lazyload alt="image-20201110172022252"></p>
+<p>Referer的作用一个是防盗链，只允许自己的网站访问我的资源服务器。Referer作用是指示它从哪儿链接过来，如果为空表示它是直接输入地址访问的</p>
+<h2 id="请求转发和重定向的区别"><a href="#请求转发和重定向的区别" class="headerlink" title="请求转发和重定向的区别"></a>请求转发和重定向的区别</h2><p><strong>重定向：</strong>客户端发送一次请求后，服务器给予响应，这个响应是下一次客户端要访问的地址，于是客户端再次发起请求，然后得到响应，获取想要的数据。即客户端最少要发起两次请求</p>
+<p><strong>请求转发：</strong>客户端发送一次请求后，请求在服务器端进行传递，客户端仅仅发送了一次请求</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110180947603.png" srcset="/img/loading.gif" lazyload alt="image-20201110180947603"></p>
+<p>他们的区别：</p>
+<ol>
+<li>转发是在服务器端发生的；重定向是在浏览器端发生的</li>
+<li>请求次数不同：重定向最少要发送两次、转发只会发送一次</li>
+<li>转发时浏览器的地址栏不会变化【即这个操作对浏览器是透明的】；重定向时地址栏会发生改变</li>
+<li>重定向时，我们写的资源地址是：<code>resp.sendRedirect(URL地址)</code>；转发时我们写的地址是：<code>req.getRequestDispatcher(URL地址).forward(request, response)</code>。</li>
+<li>重定向是跳转，可以到任何资源地址下，即实现跨域访问；转发要求还是在当前web应用下的资源</li>
+</ol>
+<p>使用场景：</p>
+<p>重定向没有转发快，因为它要再次经过客户端</p>
+<ul>
+<li>对于跨域的访问，要跳转到外部网站，可以使用重定向</li>
+<li>转发的request可以传递不同类型数据，因此在有数据传输的任务下可以考虑转发</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaWeb/">#JavaWeb</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Servlet学习三-req和resp</div>
+      <div>https://61hhh-github-io.vercel.app/20201109/57c1ff86/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20201115/e0643af3/" title="Servlet学习四-Cookie和Session">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Servlet学习四-Cookie和Session</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20201109/d443007a/" title="Java自动装拆箱">
+                        <span class="hidden-mobile">Java自动装拆箱</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

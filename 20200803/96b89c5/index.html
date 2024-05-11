@@ -1,0 +1,826 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="Java中的字符串处理，主要涉及三个类：String、StringBuffer、StringBuilder 三者共同之处：都是final类，不允许被继承。 StringBuffer是线程安全，可以不需要额外的同步用于多线程中; StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了; StringBuffer与StringBuilde">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java字符串">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200803/96b89c5/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="Java中的字符串处理，主要涉及三个类：String、StringBuffer、StringBuilder 三者共同之处：都是final类，不允许被继承。 StringBuffer是线程安全，可以不需要额外的同步用于多线程中; StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了; StringBuffer与StringBuilde">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_String.png">
+<meta property="article:published_time" content="2020-08-03T14:40:46.000Z">
+<meta property="article:modified_time" content="2024-05-11T02:16:33.165Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_String.png">
+  
+  
+  
+  <title>Java字符串 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java字符串"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-03 22:40" pubdate>
+          2020年8月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java字符串</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月11日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Java中的字符串处理，主要涉及三个类：<font color="red"><strong>String、StringBuffer、StringBuilder</strong></font></p>
+<p>三者共同之处：都是final类，不允许被继承。</p>
+<p>StringBuffer是线程安全，可以不需要额外的同步用于多线程中;</p>
+<p>StringBuilder是非同步,运行于多线程中就需要使用着单独同步处理，但是速度就比StringBuffer快多了;</p>
+<p>StringBuffer与StringBuilder两者共同之处:可以通过append、insert进行字符串的操作。</p>
+<p>String实现了三个接口:Serializable、Comparable &lt; String &gt;、CharSequence</p>
+<p>StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_String.png" srcset="/img/loading.gif" lazyload></p>
+<span id="more"></span>
+
+<h2 id="一、String简介"><a href="#一、String简介" class="headerlink" title="一、String简介"></a>一、String简介</h2><p>String是一个字符串常量，一般由String声明的字符串，长度是不可变的，这也是它与StringBuffer和StringBuilder最直观的一个区别。</p>
+<p>一般初始化方式：<code>String s = &quot;hello world&quot;;</code> 经过这条语句，JVM的栈内存中产生一个s变量，堆内存中产生hello world字符串对象。s指向了hello world的地址。像上面这种方式产生的字符串属于直接量字符串对象，JVM在处理这类字符串的时候，会进行缓存，产生时放入字符串池，当程序需要再次使用的时候，无需重新创建一个新的字符串，而是直接指向已存在的字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello world&quot;</span>;<br><span class="hljs-type">String</span> <span class="hljs-variable">s2</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello world&quot;</span>;<br>System.out.println(s == s2);<span class="hljs-comment">//返回为true</span><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">str</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;I am&quot;</span>;<br>System.out.println(str);<br>str = str + <span class="hljs-string">&quot; Salute61~&quot;</span>;<br>System.out.println(str);<br><span class="hljs-comment">//I am</span><br><span class="hljs-comment">//I am Salute61~</span><br></code></pre></td></tr></table></figure>
+
+<p>String不是常量吗？可是输出好像显示str对象被更改了，其实这是一种假象，JVM对上面代码的操作流程是：</p>
+<ul>
+<li>创建String对象str，并把 “I am”赋值给str</li>
+<li>而<code>str = str + &quot; Salute61~&quot;;</code>处，JVM又创建了一个新的对象str，将原str的值加上 “ Salute61~”赋值给新的str，原str被JVM的垃圾回收机制给回收了！</li>
+</ul>
+<p>所以对String对象操作实际上是不断创建新的对象并将旧的回收的过程！因此String的执行速度比较慢</p>
+<h3 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h3><h4 id="1-length方法"><a href="#1-length方法" class="headerlink" title="1 length方法"></a>1 length方法</h4><p>public int length()：该方法用于获取字符串的长度</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Returns the length of this string.</span><br><span class="hljs-comment">     * The length is equal to the number of &lt;a href=&quot;Character.html#unicode&quot;&gt;Unicode</span><br><span class="hljs-comment">     * code units&lt;/a&gt; in the string.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span>  the length of the sequence of characters represented by this</span><br><span class="hljs-comment">     *          object.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">length</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> count;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这是JDK种的原始实现，count在String类里被定义为一个整型常量：private final int count;并且不论采用哪种构造方法，最终都会为count赋值。</p>
+<h4 id="2-equals方法"><a href="#2-equals方法" class="headerlink" title="2 equals方法"></a>2 equals方法</h4><p>public boolean equals(Object anObject)：该方法用于比较给定对象是否与String相等。</p>
+<p>在equals博客中有提到，继承了Object类的equals并重写了该方法</p>
+<p>（由源码可知String的底层是基于字符数组的）</p>
+<p>Java核心技术中提到equals的一些特性：</p>
+<p>1）自反性：非空引用x，x.equals(x)应该返回true</p>
+<p>2）对称性：任意引用x、y。y.equals(x)为true时x.equals(y)也应为true</p>
+<p>3）传递性：：任意引用x、y、z。有x.equals(y)、y.equals(z)为true时，则有x.equals(z)为true</p>
+<p>4）一致性：x、y引用的对象未发生变化，那么x.equals(y)应该返回同样的结果</p>
+<p><strong>重写equals的步骤：</strong></p>
+<ol>
+<li>使用&#x3D;&#x3D;操作符检查“实参是否为指向对象的一个引用”。</li>
+<li>使用instanceof操作符检查“实参是否为正确的类型”。</li>
+<li>把实参转换到正确的类型。</li>
+<li>对于该类中每一个“关键”域，检查实参中的域与当前对象中对应的域值是否匹配。<ul>
+<li>对于既不是float也不是double类型的基本类型的域，可以使用&#x3D;&#x3D;操作符进行比较</li>
+<li>对于对象引用类型的域，可以递归地调用所引用的对象的equals方法 </li>
+<li>对于float类型的域，先使用Float.floatToIntBits转换成int类型的值，然后使用&#x3D;&#x3D;操作符比较int类型的值</li>
+<li>对于double类型的域，先使用Double.doubleToLongBits转换成long类型的值，然后使用&#x3D;&#x3D;操作符比较long类型的值。</li>
+</ul>
+</li>
+<li>当你编写完成了equals方法之后，应该检查重写的equals方法：它是否是对称的、传递的、一致的？(其他两个特性通常会自行满足)  如果答案是否定的，那么请找到这些特性未能满足的原因，再修改equals方法的代码。</li>
+</ol>
+<h4 id="3-CompareTo方法"><a href="#3-CompareTo方法" class="headerlink" title="3 CompareTo方法"></a>3 CompareTo方法</h4><p>因为String类实现了public interface Comparable &lt; T &gt; ，而Comparable接口里有唯一的方法：public int compareTo(T o)。所以，String类还有另一个字符串比较方法：compareTo()</p>
+<p>比较的方法就是选择长度较小的，左边对齐，while循环逐个比较，返回首个出现不同的字符的ASCII码值，没有就返回长度差值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">compareTo</span><span class="hljs-params">(String anotherString)</span> &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">len1</span> <span class="hljs-operator">=</span> value.length;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">len2</span> <span class="hljs-operator">=</span> anotherString.value.length;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">lim</span> <span class="hljs-operator">=</span> Math.min(len1, len2);<br>    <span class="hljs-type">char</span> v1[] = value;<br>    <span class="hljs-type">char</span> v2[] = anotherString.value;<br><br>    <span class="hljs-type">int</span> <span class="hljs-variable">k</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (k &lt; lim) &#123;<br>        <span class="hljs-type">char</span> <span class="hljs-variable">c1</span> <span class="hljs-operator">=</span> v1[k];<br>        <span class="hljs-type">char</span> <span class="hljs-variable">c2</span> <span class="hljs-operator">=</span> v2[k];<br>        <span class="hljs-keyword">if</span> (c1 != c2) &#123;<br>            <span class="hljs-keyword">return</span> c1 - c2;<br>        &#125;<br>        k++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> len1 - len2;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-spilt方法"><a href="#4-spilt方法" class="headerlink" title="4 spilt方法"></a>4 spilt方法</h4><p>public String[] split(String regex)：该方法用于分割字符串，得到一个String类型的数组，根据regex可知，参数是个正则表达式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.xtfggef.string;<br> <br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpiltTest</span> &#123;<br> <br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>		<span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello world&quot;</span>;<br>		<span class="hljs-type">String</span> <span class="hljs-variable">s1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;hello.worldd&quot;</span>;<br>		String[] s2 = s.split(<span class="hljs-string">&quot; &quot;</span>);<br>		String[] s3 = s1.split(<span class="hljs-string">&quot;\\.&quot;</span>);<br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;s2.length; i++)&#123;<br>			System.out.print(s2[i]+<span class="hljs-string">&quot; &quot;</span>);<span class="hljs-comment">//hello world</span><br>		&#125;<br>		System.out.println();<br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>; j&lt;s3.length; j++)&#123;<br>			System.out.print(s3[j]+<span class="hljs-string">&quot; &quot;</span>);<span class="hljs-comment">//hello worldd</span><br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>spilt()需要注意的事项，就是当分隔符为 . 的话，处理起来不一样，必须写成\.因为.是正则表达式里的一个特殊符号，必须进行转义</p>
+<h2 id="二、StringBuilder和StringBuffer"><a href="#二、StringBuilder和StringBuffer" class="headerlink" title="二、StringBuilder和StringBuffer"></a>二、StringBuilder和StringBuffer</h2><p>StringBuilder和StringBuffer成为可变字符串类，可以理解为字符串变量，因此创建后可更改，速度比String快很多！</p>
+<p>观察其源码发现，使用<code>StringBuffer()</code>时，默认开辟16个字符的长度的空间，使用<code>public StringBuffer(int paramInt)</code>时开辟指定大小的空间，使用<code>public StringBuffer(String paramString)</code>时，开辟<code>paramString.length+16</code>大小的空间。都是调用父类的构造器super()来开辟内存。这方面StringBuffer和StringBuilder都一样，且都实现AbstractStringBuilder类。</p>
+<h3 id="主要方法"><a href="#主要方法" class="headerlink" title="主要方法"></a>主要方法</h3><p>二者几乎没什么区别，基本都是在调用父类的各个方法，<strong>一个重要的区别就是StringBuffer是线程安全的</strong>，内部的大多数方法前面都有关键字synchronized，这样就会有一定的性能消耗，StringBuilder是非线程安全的，所以效率要高些。</p>
+<p>以StringBuffer为例分析一下它们的方法</p>
+<h4 id="1-append"><a href="#1-append" class="headerlink" title="1 append()"></a>1 append()</h4><p>append()：就是在原来的字符串后面直接追加一个新的串，和String类相比有明显的好处——String类在追加的时候，源字符串不变（这就是为什么说String是不可变的字符串类型），和新串连接后，重新开辟一个内存。这样就会造成每次连接一个新串后，都会让之前的串报废，因此也造成了不可避免的内存泄露。</p>
+<h4 id="2-trimToSize"><a href="#2-trimToSize" class="headerlink" title="2 trimToSize()"></a>2 trimToSize()</h4><p>public synchronized void trimToSize()：该方法用于将多余的缓冲区空间释放出来。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">StringBuffer</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuffer</span>(<span class="hljs-string">&quot;hello erqing&quot;</span>);<br>System.out.println(<span class="hljs-string">&quot;length:&quot;</span>+sb.length());<span class="hljs-comment">//length:12</span><br>System.out.println(<span class="hljs-string">&quot;capacity:&quot;</span>+sb.capacity());<span class="hljs-comment">//capacity:28</span><br>sb.trimToSize();<br>System.out.println(<span class="hljs-string">&quot;trimTosize:&quot;</span>+sb.capacity());<span class="hljs-comment">//trimTosize:12</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>注：在equals那篇博客中提到过，StringBuffer没有重写equals方法，因此时直接继承的Object的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">StringBuffer</span> <span class="hljs-variable">sb</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuffer</span>(<span class="hljs-string">&quot;hello&quot;</span>);<br><span class="hljs-type">StringBuffer</span> <span class="hljs-variable">sb2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringBuffer</span>(<span class="hljs-string">&quot;hello&quot;</span>);<br>System.out.println(sb.equals(sb2));<span class="hljs-comment">//false</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangerqing/article/details/8093919">Java之美[从菜鸟到高手演变]之字符串</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/weibanggang/p/9455926.html">java中String、StringBuffer和StringBuilder的区别(简单介绍)</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E5%9F%BA%E7%A1%80/">#Java基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java字符串</div>
+      <div>https://61hhh-github-io.vercel.app/20200803/96b89c5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年8月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200804/4dffdbe9/" title="Java类与对象">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java类与对象</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200803/f8b67ba9/" title="Java中equals与==用法">
+                        <span class="hidden-mobile">Java中equals与==用法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

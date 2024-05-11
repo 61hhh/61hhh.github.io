@@ -1,0 +1,915 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="会话会话跟踪是Web应用中常见的技术，用来跟踪用户的整个访问。例如用户打开浏览器，在浏览器中点击了多个标签页，访问不同的资源，然后关闭浏览器，整个过程可以称为一次会话。 常见的会话跟踪技术有Cookie和Session，Cookie出现时间更早些，在《计算机网络》课程中有讲到过。Cookie是通过客户端记录来确定用户身份信息；Session是通过服务器端记录来确定用户身份信息。 通过会话跟踪技术，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet学习四-Cookie和Session">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20201115/e0643af3/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="会话会话跟踪是Web应用中常见的技术，用来跟踪用户的整个访问。例如用户打开浏览器，在浏览器中点击了多个标签页，访问不同的资源，然后关闭浏览器，整个过程可以称为一次会话。 常见的会话跟踪技术有Cookie和Session，Cookie出现时间更早些，在《计算机网络》课程中有讲到过。Cookie是通过客户端记录来确定用户身份信息；Session是通过服务器端记录来确定用户身份信息。 通过会话跟踪技术，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115141148663.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115145147399.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201126073935429.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201126074829511.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201128074433997.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201128091027056.png">
+<meta property="article:published_time" content="2020-11-15T05:34:20.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:52:25.269Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="JavaWeb">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115141148663.png">
+  
+  
+  
+  <title>Servlet学习四-Cookie和Session - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Servlet学习四-Cookie和Session"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-15 13:34" pubdate>
+          2020年11月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Servlet学习四-Cookie和Session</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h2><p>会话跟踪是Web应用中常见的技术，用来跟踪用户的整个访问。例如用户打开浏览器，在浏览器中点击了多个标签页，访问不同的资源，然后关闭浏览器，整个过程可以称为一次会话。</p>
+<p>常见的会话跟踪技术有Cookie和Session，Cookie出现时间更早些，在《计算机网络》课程中有讲到过。Cookie是通过客户端记录来确定用户身份信息；Session是通过服务器端记录来确定用户身份信息。</p>
+<p>通过会话跟踪技术，我们可以实现很多常见的功能：密码保存、购物车信息、商品推荐等</p>
+<span id="more"></span>
+
+<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><h3 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>以购物为例，用户对商品的所有操作应该属于一次会话，用户添加商品A到购物车后返回主界面，再次添加时无法判断这是否已经在购物车内【由于Web应用程序采用的是无状态的HTTP协议进行数据传输：<strong>一旦数据交换完毕连接就会断开，再次交互时需要建立新的连接</strong>。因此服务器无法跟踪用户的会话】</p>
+<p>为了解决这个问题，引入了Cookie机制。W3C组织提出了：为解决HTTP无状态连接的问题，<strong>服务器给每个客户端颁发一个通行证，访问时携带通行证，这样服务器就能确认用户信息</strong>，这个通行证就是Cookie。</p>
+<p>Cookie实际上是一个记录用户信息的文本数据。客户端请求服务器，如果服务器要记录客户端状态，就使用response向客户端颁发一个Cookie，客户端将其保存，再次请求时浏览器会将请求网址连同Cookie一同提交，服务器检查Cookie确定用户信息。</p>
+<p>【查看Cookie的操作】：在浏览器网址栏中输入<code>javascript:alert(document.cookie)</code>回车即可；或者F12在控制台输出同样指令也行。</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115141148663.png" srcset="/img/loading.gif" lazyload alt="image-20201115141148663"></p>
+<p>我们访问很多网站时，他也会在网站底部提示：是否允许保存Cookie</p>
+<h3 id="2、Cookie举例"><a href="#2、Cookie举例" class="headerlink" title="2、Cookie举例"></a>2、Cookie举例</h3><h4 id="2-1、API及属性方法"><a href="#2-1、API及属性方法" class="headerlink" title="2.1、API及属性方法"></a>2.1、API及属性方法</h4><p>Java中将Cookie封装在<code>Javax.servlet.http.cookie</code>类中。每个Cookie都是该Cookie类的对象。服务器通过操作Cookie类对象对客户端Cookie进行操作。</p>
+<ul>
+<li>通过**<code>request.getCookie()</code>获取客户端提交的所有Cookie**（以Cookie[]数组形式返回）；</li>
+<li>通过**<code>response.addCookie(Cookiecookie)</code>向客户端设置Cookie；**它用于在响应头中增加一个Set-Cookie头字段</li>
+</ul>
+<p>常见属性方法：【这里直接将别的博客整理的拿过来作为参考】</p>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String name</td>
+<td>该Cookie的名称。Cookie一旦创建，名称便不可更改</td>
+</tr>
+<tr>
+<td>Object value</td>
+<td>该Cookie的值。如果值为Unicode字符，需要为字符编码。如果值为二进制数据，则需要使用BASE64编码</td>
+</tr>
+<tr>
+<td><strong>int maxAge</strong></td>
+<td><strong>该Cookie失效的时间，单位秒。如果为正数，则该Cookie在maxAge秒之后失效。如果为负数，该Cookie为临时Cookie，关闭浏览器即失效，浏览器也不会以任何形式保存该Cookie。如果为0，表示删除该Cookie。默认为–1</strong></td>
+</tr>
+<tr>
+<td>boolean secure</td>
+<td>该Cookie是否仅被使用安全协议传输。安全协议。安全协议有HTTPS，SSL等，在网络上传输数据之前先将数据加密。默认为false</td>
+</tr>
+<tr>
+<td>String path</td>
+<td>该Cookie的使用路径。如果设置为“&#x2F;sessionWeb&#x2F;”，则只有contextPath为“&#x2F;sessionWeb”的程序可以访问该Cookie。如果设置为“&#x2F;”，则本域名下contextPath都可以访问该Cookie。注意最后一个字符必须为“&#x2F;”</td>
+</tr>
+<tr>
+<td>String domain</td>
+<td>可以访问该Cookie的域名。如果设置为“.google.com”，则所有以“google.com”结尾的域名都可以访问该Cookie。注意第一个字符必须为“.”</td>
+</tr>
+<tr>
+<td>String comment</td>
+<td>该Cookie的用处说明。浏览器显示Cookie信息的时候显示该说明</td>
+</tr>
+<tr>
+<td>int version</td>
+<td>该Cookie使用的版本号。0表示遵循Netscape的Cookie规范，1表示遵循W3C的RFC 2109规范</td>
+</tr>
+</tbody></table>
+<p>方法</p>
+<ul>
+<li>public Cookie(String name,String value)</li>
+<li>setValue与getValue⽅法</li>
+<li>setPath与getPath⽅法</li>
+<li>setDomain与getDomain⽅法</li>
+<li>getName⽅法</li>
+</ul>
+<p>编写代码如下：验证Cookie</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CookieTest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        resp.setContentType(<span class="hljs-string">&quot;txt/html;charset=UTF-8&quot;</span>);<br>        <span class="hljs-comment">//创建Cookie对象</span><br>        <span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;username&quot;</span>,<span class="hljs-string">&quot;LiuYi&quot;</span>);<br>        <span class="hljs-comment">//设置时间</span><br>        cookie.setMaxAge(<span class="hljs-number">1000</span>);<br>        <span class="hljs-comment">//给浏览器颁发Cookie</span><br>        resp.addCookie(cookie);<br>        resp.getWriter().write(<span class="hljs-string">&quot;向浏览器颁发了用户名Cookie！&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>【记得要设置Cookie的时间】在<code>web.xml</code>中注册，打开页面会下载Cookie文件，打开即为我们的Cookie信息。</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115145147399.png" srcset="/img/loading.gif" lazyload alt="image-20201115145147399"></p>
+<h3 id="3、Cookie特性"><a href="#3、Cookie特性" class="headerlink" title="3、Cookie特性"></a>3、Cookie特性</h3><h4 id="3-1、Cookie有效期"><a href="#3-1、Cookie有效期" class="headerlink" title="3.1、Cookie有效期"></a>3.1、Cookie有效期</h4><p>Cookie中有个属性叫<code>maxAge</code>，它决定了Cookie的有效期，<strong>通过<code>setMaxAge</code>与<code>getMaxAge</code>⽅法来设置<code>maxAge</code>属性</strong>。</p>
+<ul>
+<li><p>如果<code>maxAge</code>属性为正数，则表示该Cookie会在<code>maxAge</code>秒之后自动失效。浏览器会将对应的Cookie持久化到硬盘中。无论客户关闭了浏览器还是电脑，只要还在<code>maxAge</code>秒之前，登录网站时该Cookie仍然有效</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 新建Cookie</span><br><span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;username&quot;</span>,<span class="hljs-string">&quot;LiuYi&quot;</span>);<br><span class="hljs-comment">// 设置生命周期为MAX_VALUE</span><br>cookie.setMaxAge(Integer.MAX_VALUE);<br><span class="hljs-comment">// 输出到客户端</span><br>response.addCookie(cookie);<br></code></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>如果<code>maxAge</code>为负数，则表示该Cookie是临时的，仅在本浏览器窗口内有效，关闭窗口后该Cookie即失效。<code>maxAge</code>为负数的Cookie不会被持久化。Cookie信息保存在浏览器内存中，因此关闭浏览器该Cookie就消失了。Cookie默认的<code>maxAge</code>值为–1。</p>
+<p>因此上面的代码如果没有写<code>setMaxAge</code>的话，就不会下载到本地文件。</p>
+</li>
+<li><p><code>maxAge</code>设置为0，表示<strong>删除Cookie</strong>。Cookie机制没有提供删除Cookie的方法，因此通过设置该Cookie即时失效实现删除Cookie的效果。失效的Cookie会被浏览器从Cookie文件或者内存中删除</p>
+</li>
+</ul>
+<h4 id="3-2、Cookie不可跨域性"><a href="#3-2、Cookie不可跨域性" class="headerlink" title="3.2、Cookie不可跨域性"></a>3.2、Cookie不可跨域性</h4><p>由于很多网站都会使用Cookie，例如<code>baidu.com</code>颁发了Cookie、<code>bilibili.com</code>颁发了Cookie。那么我们在访问B站时，浏览器会不会把百度的Cookie也上传过去？或者百度会不会修改B站的Cookie？</p>
+<p>其实是不会的。因为<strong>Cookie有一个特性：不可跨域性</strong>。即访问百度时浏览器只会携带百度的Cookie，百度能操作的也只有百度的Cookie！</p>
+<p>由于Cookie是保存在客户端的，因此对Cookie的管理是由浏览器进行的。浏览器会根据网址域名来判断该网站能否操作另一网站的Cookie。例如根据域名<code>baidu.com</code>得知它不能操作<code>bilibili.com</code>的域名、<code>img.baidu.com</code>和<code>baidu.com</code>都是百度但是二者不能操作对方的Cookie······</p>
+<h4 id="3-3、Cookie编码"><a href="#3-3、Cookie编码" class="headerlink" title="3.3、Cookie编码"></a>3.3、Cookie编码</h4><p>中英文的字符编码是不同的。中文采用的是4字符的Unicode字符、英文采用的是2字节的ASCII编码。因此在Cookie中设置中文时要对Unicode字符进行编码，否则会出现乱码错误</p>
+<h4 id="3-4、Cookie修改删除"><a href="#3-4、Cookie修改删除" class="headerlink" title="3.4、Cookie修改删除"></a>3.4、Cookie修改删除</h4><p>Cookie并没有直接提供修改删除的操作。</p>
+<ul>
+<li>如果要修改某个Cookie，实际操作是创建同名Cookie添加到Response中覆盖原来的。</li>
+<li>删除Cookie在上面有说过，就是设置Cookie的时间为0然后添加到浏览器。</li>
+</ul>
+<p>【注：新建的的Cookie除了value和maxAge，其余的属性要和原来的Cookie保持一致】</p>
+<h4 id="3-5、Cookie的域名"><a href="#3-5、Cookie的域名" class="headerlink" title="3.5、Cookie的域名"></a>3.5、Cookie的域名</h4><p>Cookie是不可跨域的，<code>www.baidu.com</code>颁发的Cookie是不会提交到<code>www.bilibili.com</code>上的。这个特性保证了网站不能非法获取其他网站的Cookie。同一个一级域名下的子域名也不能交接Cookie。例如：<code>goole.com</code>和<code>images.goole.com</code>的Cookie也不能访问。</p>
+<p>Cookie有domain属性，可以设置访问改Cookie的域名，例如<code>.baidu.com</code>，则所有<code>.baiu.com</code>结尾的域名都可以访问该Cookie【注意第一个字符必须为<code>&quot;.&quot;</code>】</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;time&quot;</span>,<span class="hljs-string">&quot;20201111&quot;</span>);<span class="hljs-comment">//创建Cookie</span><br>cookie1.setDomain(<span class="hljs-string">&quot;.liuyirespect.com&quot;</span>);<span class="hljs-comment">//设置Cookie的有效域名</span><br>cookie1.setPath(<span class="hljs-string">&quot;/&quot;</span>);<span class="hljs-comment">//设置路径</span><br>cookie1.setMaxAge(Integer.MAX_VALUE);<span class="hljs-comment">//设置有效期</span><br>resp.addCookie(cookie1);<span class="hljs-comment">//resp输出</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-6、Cookie的路径"><a href="#3-6、Cookie的路径" class="headerlink" title="3.6、Cookie的路径"></a>3.6、Cookie的路径</h4><p>Cookie的domain属性决定了访问Cookie的域名，而path属性决定了访问Cookie的路径。</p>
+<p>默认Cookie是当前域名都可以使用它，假设我们只允许<code>cookieServlet</code>可以使用，那就设置对应<code>cookieServlet</code>的路径即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;time&quot;</span>,<span class="hljs-string">&quot;20201111&quot;</span>);<span class="hljs-comment">//创建Cookie</span><br>cookie1.setPath(<span class="hljs-string">&quot;/cookieServlet&quot;</span>);<span class="hljs-comment">//设置路径</span><br>resp.addCookie(cookie1);<span class="hljs-comment">//resp输出</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-7、Cookie的安全性"><a href="#3-7、Cookie的安全性" class="headerlink" title="3.7、Cookie的安全性"></a>3.7、Cookie的安全性</h4><p>由于HTTP协议无状态不安全，所以如果不想Cookie在不安全的协议中传输，可以设置对应Cookie的Secure属性为true，则浏览器只会在HTTPS和SSL等安全协议中传输</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;time&quot;</span>,<span class="hljs-string">&quot;20201111&quot;</span>);<span class="hljs-comment">//创建Cookie</span><br>cookie1.setSecure(<span class="hljs-literal">true</span>);<span class="hljs-comment">//设置安全属性</span><br>resp.addCookie(cookie1);<span class="hljs-comment">//resp输出</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201126073935429.png" srcset="/img/loading.gif" lazyload alt="image-20201126073935429"></p>
+<p>【注】secure只是保证Cookie在安全的协议中传输，但是对于Cookie本身没有做任何安全操作，因此要提高安全性，可以在程序中对Cookie进行加密操作</p>
+<h3 id="4、Cookie举例"><a href="#4、Cookie举例" class="headerlink" title="4、Cookie举例"></a>4、Cookie举例</h3><h4 id="4-1、显示访问时间"><a href="#4-1、显示访问时间" class="headerlink" title="4.1、显示访问时间"></a>4.1、显示访问时间</h4><p>编写代码如下，并在web.xml中注册</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CookieDemo01</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">HttpServlet</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doGet</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        <span class="hljs-comment">//设置编码</span><br>        req.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>        resp.setCharacterEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br><br>        <span class="hljs-comment">//打印输出</span><br>        <span class="hljs-type">PrintWriter</span> <span class="hljs-variable">out</span> <span class="hljs-operator">=</span> resp.getWriter();<br><br>        <span class="hljs-comment">//Cookie是服务器从客户端获取的</span><br>        Cookie[] cookies = req.getCookies();<span class="hljs-comment">//cookies数组表示可能有多个cookie</span><br>        <span class="hljs-comment">//判断cookie</span><br>        <span class="hljs-keyword">if</span>(cookies!=<span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-comment">//存在的话</span><br>            out.write(<span class="hljs-string">&quot;上一次的访问时间是：&quot;</span>);<br>            <span class="hljs-comment">//获取上一次的cookie</span><br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;cookies.length;i++)&#123;<br>                <span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie</span> <span class="hljs-operator">=</span> cookies[i];<br>                <span class="hljs-keyword">if</span>(cookie.getName().equals(<span class="hljs-string">&quot;lastTime&quot;</span>))&#123;<br>                    <span class="hljs-type">long</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> Long.parseLong(cookie.getValue());<br>                    <span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>((l));<br>                    out.write(date.toLocaleString());<br>                &#125;<br>            &#125;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            out.write(<span class="hljs-string">&quot;第一次访问本站！&quot;</span>);<br>        &#125;<br><br>        <span class="hljs-comment">//服务器响应给客户端的cookie</span><br>        <span class="hljs-type">Cookie</span> <span class="hljs-variable">cookie</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cookie</span>(<span class="hljs-string">&quot;lastTime&quot;</span>, System.currentTimeMillis() + <span class="hljs-string">&quot;&quot;</span>);<br>        <span class="hljs-comment">//设置有效期</span><br>        cookie.setMaxAge(<span class="hljs-number">24</span>*<span class="hljs-number">60</span>*<span class="hljs-number">60</span>);<br><br>        resp.addCookie(cookie);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doPost</span><span class="hljs-params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="hljs-keyword">throws</span> ServletException, IOException &#123;<br>        doGet(req, resp);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>结果如图：</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201126074829511.png" srcset="/img/loading.gif" lazyload alt="image-20201126074829511"></p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><h3 id="1、介绍-1"><a href="#1、介绍-1" class="headerlink" title="1、介绍"></a>1、介绍</h3><p>看一下百度的Session定义</p>
+<blockquote>
+<p>Session：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的 Web页时，如果该用户还没有会话，则Web服务器将自动创建一个 Session对象。当会话过期或被放弃后，服务器将终止该会话。Session 对象最常见的一个用法就是存储用户的首选项。注意会话状态仅在支持cookie的浏览器中保留。</p>
+</blockquote>
+<p>也就是说：Session是<strong>服务器端使用的一种记录客户端状态的机制</strong>。</p>
+<p>创建Session的同时，服务器会为该Session生成唯一的Session id，而这个Session id在随后的请求中会被用来重新获得已经创建的Session；在Session被创建之后，就可以调用Session相关的方法往Session中增加内容了，而这些内容只会保存在服务器中，发到客户端的只有Session id；当客户端再次发送请求的时候，会将这个Session id带上，服务器接受到请求之后就会依据Session id找到相应的Session，从而再次使用之。</p>
+<p>把访问网络应用比作参加宴会。Cookie相当于请帖，来宾【客户端】出示请帖进入宴会，而Session相当于嘉宾表，主人【服务器】拿着嘉宾表来确认是否邀请了对应的嘉宾。</p>
+<h4 id="1-1、Cookie的优点"><a href="#1-1、Cookie的优点" class="headerlink" title="1.1、Cookie的优点"></a>1.1、Cookie的优点</h4><ul>
+<li>Session使用上比Cookie简单；</li>
+<li>Session存储更多样化，Cookie只能存储字符串，Session还可以存储对象</li>
+</ul>
+<h3 id="2、Session特性"><a href="#2、Session特性" class="headerlink" title="2、Session特性"></a>2、Session特性</h3><h4 id="2-1、Session的生命周期和有效期"><a href="#2-1、Session的生命周期和有效期" class="headerlink" title="2.1、Session的生命周期和有效期"></a>2.1、Session的生命周期和有效期</h4><p><strong>Session是在用户第一次访问服务器的时候自动创建的</strong>，对应的Session对象保存在内存中【只有访问jsp、servlet等程序时才会创建Session，而访问HTML、IMAGE等静态资源时并不会创建。也可以使用req.getSession(true)】</p>
+<p>Session生成后，只要用户继续访问，服务器都会认为该Session活跃(active)了一次，就会更新Session的最后访问时间。</p>
+<p>对于长期没有活跃的Session，服务器会把它从内存中删除，这样的目的就是为了避免内存溢出【Session内容相比Cookie较复杂，所以如果大量Session放在服务器中会导致内存溢出】，有一个超时时间属性<code>maxInactiveInterval</code>，默认是30分钟，过了超时时间都没有访问的就自动失效了，可以通过<code>getMaxInactiveInterval()</code>方法获取。修改方法如下：</p>
+<ul>
+<li><p>1、在<code>tomcat/conf/web.xml</code>中修改。对所有的web应用都有效。默认是20分钟</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">session-config</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">session-timeout</span>&gt;</span>20<span class="hljs-tag">&lt;/<span class="hljs-name">session-timeout</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">session-config</span>&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>2、在对应应用的web.xml中设置。发生冲突时以自己应用中的web.xml为准。</p>
+</li>
+<li><p>3、通过<code>setMaxInactiveInterval()</code>方法修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//设置Session最⻓超时时间为60秒，这⾥的单位是秒</span><br>httpSession.setMaxInactiveInterval(<span class="hljs-number">60</span>);<br>System.out.println(httpSession.getMaxInactiveInterval());<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-2、Session的域对象特性"><a href="#2-2、Session的域对象特性" class="headerlink" title="2.2、Session的域对象特性"></a>2.2、Session的域对象特性</h4><p>Session常见的API如下：</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201128074433997.png" srcset="/img/loading.gif" lazyload alt="image-20201128074433997"></p>
+<p>可以看到，Session和ServletContext有类似的方法，即Session也是一个域对象。只要Session对象没有被销毁，就可以通过它来实现通信。</p>
+<h4 id="2-3、Session实现原理"><a href="#2-3、Session实现原理" class="headerlink" title="2.3、Session实现原理"></a>2.3、Session实现原理</h4><p>我们的一个Session对应一个用户，一个浏览器的会话会产生一个Session，那么再用另一个浏览器打开相同的会话会产生另一个Session。即服务器能为不同的用户提供不同Session</p>
+<p>由于HTTP是无状态协议，因此Session无法根据HTTP连接来判断是否为同一客户。<strong>因此服务器向客户端发送一个名为JSESSIONID的Cookie，它的值为该Session的id【即<code>HttpSession.getId()</code>的返回值】</strong>，Session根据该Cookie来判断是否为同一用户。</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201128091027056.png" srcset="/img/loading.gif" lazyload alt="image-20201128091027056"></p>
+<p>这个Cookie的MaxAge是-1，即只有在当前浏览器使用，不会存储在硬盘中</p>
+<p>所以：</p>
+<ul>
+<li>访问使用Session的网页应用1时，服务器会自动创建名为JSESSIONID的Cookie并颁发给用户浏览器。</li>
+<li>使用同一浏览器访问服务器的网页应用2时，浏览器会将Cookie值传给服务器，服务器根据此得知该用户使用的是哪一个Session。</li>
+<li>采用新的会话浏览器时，用户浏览器是没有对应Cookie的，所以服务器无法判断用户的Session。</li>
+</ul>
+<h4 id="2-3、URL地址重写"><a href="#2-3、URL地址重写" class="headerlink" title="2.3、URL地址重写"></a>2.3、URL地址重写</h4><p>如果浏览器禁止了Cookie，或者它本身不支持Cookie时【比如手机浏览器很多不支持】，对应的解决方法是采用<strong>URL地址重写</strong>。它的原理是将该用户的Session的id信息重写到URL地址中，服务器解析重写后的URL获取Session的id。</p>
+<p>它使用的方法如下：</p>
+<ul>
+<li><code>encodeURL(String url)</code></li>
+<li><code>encodeRedirectURL(String url)</code></li>
+</ul>
+<p>这两个方法会自动判断是否支持Cookie。如果支持，重写后的URL就不会带有JSESSIONID。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013129480">Servlet第五篇【介绍会话技术、Cookie的API、详解、应用】</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013130309">Servlet第六篇【Session介绍、API、生命周期、应用、与Cookie区别】</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/l199616j/p/11195667.html">cookie和session的详解与区别</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaWeb/">#JavaWeb</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Servlet学习四-Cookie和Session</div>
+      <div>https://61hhh-github-io.vercel.app/20201115/e0643af3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20201206/7970c1ba/" title="leetbook-数组和字符串">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">leetbook-数组和字符串</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20201109/57c1ff86/" title="Servlet学习三-req和resp">
+                        <span class="hidden-mobile">Servlet学习三-req和resp</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

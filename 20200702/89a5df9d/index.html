@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="Android中使用Intent的总结学习Android一开始就是活动（Activity），而Intent就是连接活动的重要组件。 Android中提供了Intent机制来协助应用间的交互与通讯，或者采用更准确的说法是，Intent不仅可用于应用程序之间，也可用于应用程序内部的activity, service和broadcast receiver之间的交互。Intent是一种运行时绑定（runt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Intent详解">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200702/89a5df9d/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="Android中使用Intent的总结学习Android一开始就是活动（Activity），而Intent就是连接活动的重要组件。 Android中提供了Intent机制来协助应用间的交互与通讯，或者采用更准确的说法是，Intent不仅可用于应用程序之间，也可用于应用程序内部的activity, service和broadcast receiver之间的交互。Intent是一种运行时绑定（runt">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135701302.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135730727.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135747866.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135810004.png">
+<meta property="article:published_time" content="2020-07-02T13:14:42.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:21:06.557Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135701302.png">
+  
+  
+  
+  <title>Intent详解 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Intent详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-07-02 21:14" pubdate>
+          2020年7月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Intent详解</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Android中使用Intent的总结"><a href="#Android中使用Intent的总结" class="headerlink" title="Android中使用Intent的总结"></a>Android中使用Intent的总结</h1><p>学习Android一开始就是活动（Activity），而Intent就是连接活动的重要组件。</p>
+<p>Android中提供了Intent机制来协助应用间的交互与通讯，或者采用更准确的说法是，Intent不仅可用于应用程序之间，也可用于应用程序内部的activity, service和broadcast receiver之间的交互。Intent是一种运行时绑定（runtime binding)机制，它能在程序运行的过程中连接两个不同的组件。通过Intent，你的程序可以向Android表达某种请求或者意愿，Android会根据意愿的内容选择适当的组件来响应。</p>
+<p>参考文档：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/guide/components/intents-filters">Intent 和 Intent 过滤器</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianguyihao/p/3959204.html">Android组件系列—-Intent详解</a></p>
+<span id="more"></span>
+
+<h2 id="1-Intent概念"><a href="#1-Intent概念" class="headerlink" title="1 Intent概念"></a>1 Intent概念</h2><p><code>Intent</code> 是一个消息传递对象，您可以用来从其他<a target="_blank" rel="noopener" href="https://developer.android.google.cn/guide/components/fundamentals#Components">应用组件</a>请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信，但其基本用例主要包括以下三个：</p>
+<ul>
+<li><p><strong>启动Activity</strong></p>
+<p>通过将 <code>Intent</code> 传递给 <code>startActivity()</code>，可以启动新的 <code>Activity</code> 实例。<code>Intent</code> 用于描述要启动的 Activity，并携带任何必要的数据。</p>
+<p>如果希望在 Activity 完成后收到结果，可以调用 <code>startActivityForResult()</code>。在 Activity 的 <code>onActivityResult()</code> 回调中， Activity 将结果作为单独的 <code>Intent</code> 对象接收。</p>
+</li>
+<li><p><strong>启动服务</strong></p>
+<p><code>Service</code> 是一个不使用用户界面而在后台执行操作的组件。使用 Android 5.0（API 级别 21）及更高版本，您可以启动包含 <code>JobScheduler</code> 的服务。如需了解有关 <code>JobScheduler</code> 的详细信息，请参阅其 <code>API-reference documentation</code>。</p>
+<p>对于 Android 5.0（API 级别 21）之前的版本，您可以使用 <code>Service</code> 类的方法来启动服务。通过将 <code>Intent</code> 传递给 <code>startService()</code>，您可以启动服务执行一次性操作（例如，下载文件）。<code>Intent</code> 用于描述要启动的服务，并携带任何必要的数据。</p>
+<p>如果服务旨在使用客户端-服务器接口，则通过将 <code>Intent</code> 传递给 <code>bindService()</code>，您可以从其他组件绑定到此服务。如需了解详细信息，请参阅<a target="_blank" rel="noopener" href="https://developer.android.google.cn/guide/components/services">服务</a>指南。</p>
+</li>
+<li><p><strong>传递广播</strong></p>
+<p>广播是任何应用均可接收的消息。系统将针对系统事件（例如：系统启动或设备开始充电时）传递各种广播。通过将 <code>Intent</code> 传递给 <code>sendBroadcast()</code> 或 <code>sendOrderedBroadcast()</code>，您可以将广播传递给其他应用。</p>
+</li>
+</ul>
+<h2 id="2-Intent类型"><a href="#2-Intent类型" class="headerlink" title="2 Intent类型"></a>2 Intent类型</h2><p>Intent分为两种类型：</p>
+<ul>
+<li><p><strong>显示Intent</strong></p>
+<p>即直接指明了需要交互的Activity对应的类，用于启动某个特定应用组件</p>
+</li>
+<li><p><strong>隐式Intent</strong></p>
+<p>隐式 Intent 指定能够在可以执行相应操作的设备上调用任何应用的操作，相比于显式Intent，隐式Intent不指定组件名，而是指定Intent的Action、Data或Category，当启动组件时，系统会去匹配<code>AndroidManifest.xml</code>中相关的<code>Intent-filter</code>，逐一匹配满足属性的组件，不止一个满足条件时会弹出应用选择框。</p>
+</li>
+</ul>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135701302.png" srcset="/img/loading.gif" lazyload alt="image-20230510135701302" style="zoom:80%;" />
+
+<h2 id="3-Intent相关属性"><a href="#3-Intent相关属性" class="headerlink" title="3 Intent相关属性"></a>3 Intent相关属性</h2><p>Intent有7个属性，其中除了Component是直接属性，其他都是可选属性：</p>
+<ol>
+<li>component(组件)：目的组件</li>
+<li>action（动作）：用来表现意图的行动</li>
+<li>category（类别）：用来表现动作的类别</li>
+<li>data（数据）：表示与动作要操纵的数据</li>
+<li>type（数据类型）：对于data范例的描写</li>
+<li>extras（扩展信息）：扩展信息</li>
+<li>Flags（标志位）：期望这个意图的运行模式</li>
+</ol>
+<h3 id="3-1-component（组件）"><a href="#3-1-component（组件）" class="headerlink" title="3.1 component（组件）"></a>3.1 component（组件）</h3><p>Component属性明确指定Intent的目标组件的类名称。（属于直接Intent）如果 component这个属性有指定的话，将直接使用它指定的组件。指定了这个属性以后，Intent的其它所有属性都是可选的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//Activity1中点击button1跳转到Activity2</span><br>button1.setOnClickListener(<span class="hljs-keyword">new</span> <span class="hljs-title class_">OnClickListener</span>() &#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onClick</span><span class="hljs-params">(View v)</span> &#123;<br>                <span class="hljs-comment">//创建一个意图对象</span><br>                <span class="hljs-type">Intent</span> <span class="hljs-variable">intent</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>();<br>                <span class="hljs-comment">//创建组件，通过组件来响应</span><br>                <span class="hljs-type">ComponentName</span> <span class="hljs-variable">component</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ComponentName</span>(MainActivity.<span class="hljs-built_in">this</span>, SecondActivity.class);<br>                intent.setComponent(component);<br>                startActivity(intent);<br>            &#125;<br>        &#125;);<br></code></pre></td></tr></table></figure>
+
+<p>或者使用setClass：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Intent</span> <span class="hljs-variable">intent</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>();<br><span class="hljs-comment">//setClass函数的第一个参数是一个Context对象</span><br><span class="hljs-comment">//Context是一个类，Activity是Context类的子类，也就是说，所有的Activity对象，都可以向上转型为Context对象</span><br><span class="hljs-comment">//setClass函数的第二个参数是一个Class对象，在当前场景下，应该传入需要被启动的Activity类的class对象</span><br>intent.setClass(MainActivity.<span class="hljs-built_in">this</span>, SecondActivity.class);<br>startActivity(intent); <br></code></pre></td></tr></table></figure>
+
+<p>更简单常用的是直接使用Intent的构造函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">Intent intent=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>(FirstActivity.<span class="hljs-built_in">this</span>,secondActivity.class);<br>startActivity(intent);<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-2-Action（动作）"><a href="#3-2-Action（动作）" class="headerlink" title="3.2 Action（动作）"></a>3.2 Action（动作）</h3><p>在Intent中，Action就是描述做、写等动作的，当你指明了一个Action，执行者就会依照这个动作的指示，接受相关输入，表现对应行为，产生符合的输出（实际action属性就是一个字符串标记而已）。在Intent类中，定义了一批量的动作，比如ACTION_VIEW，ACTION_PICK等， 基本涵盖了常用动作。加的动作越多，越精确。</p>
+<p>Action 是一个用户定义的字符串，用于描述一个 Android 应用程序组件，一个 Intent Filter 可以包含多个 Action。在 AndroidManifest.xml 的Activity 定义时，可以在其 <intent-filter >节点指定一个 Action列表用于标识 Activity 所能接受的“动作”。</p>
+<table>
+<thead>
+<tr>
+<th align="left">类型</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>ACTION_MAIN</code></td>
+<td align="left">表示程序的入口</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_VIEW</code></td>
+<td align="left">配合intent.setData(uri)使用，跳转到指定数据的界面</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_DAIL</code></td>
+<td align="left">显示Data指向的号码并在拨号界面Dailer上</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_PICK</code></td>
+<td align="left">选择一个一条的Data并且返回它，是一种精确跳转方式(满足条件的Activity只有一个)</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_SEND</code></td>
+<td align="left">发送Data到指定地方（sendto可以发送多组Data）</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_EDIT</code></td>
+<td align="left">配合intent.setData(uri)使用，根据不同数据类型的uri，跳转到可编辑的uir指定的需要修改的数据的指定页面。</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_INSERT</code></td>
+<td align="left">添加一个空的项到容器中</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_SEARCH</code></td>
+<td align="left">执行搜索</td>
+</tr>
+<tr>
+<td align="left"><code>ACTION_RUN</code></td>
+<td align="left">运行Data</td>
+</tr>
+</tbody></table>
+<h3 id="3-3-category（类别）"><a href="#3-3-category（类别）" class="headerlink" title="3.3 category（类别）"></a>3.3 category（类别）</h3><p>Category属性也是作为<intent-filter>子元素来声明的。Action 和category通常是放在一起用的，例如Activity1跳转到Activity2的隐式Intent即可以采用此方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//隐式Intent，Activity1中的OnClick方法</span><br>Intent intent=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>(<span class="hljs-string">&quot;com.example.activitytest.Action_START&quot;</span>);<br>intent.addCategory(<span class="hljs-string">&quot;com.example.activitytest.MY_CATEGORY&quot;</span>);<br>startActivity(intent);<br><br><span class="hljs-comment">//在对应的AndroidManifest.xml添加</span><br>        &lt;activity android:name=<span class="hljs-string">&quot;.secondActivity&quot;</span>&gt;<br>            &lt;intent-filter&gt;<br>                &lt;action android:name=<span class="hljs-string">&quot;com.example.activitytest.Action_START&quot;</span> /&gt;<br>                &lt;category android:name=<span class="hljs-string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;<br>                &lt;category android:name=<span class="hljs-string">&quot;android.intent.category.MY_CATEGORY&quot;</span> /&gt;<br>            &lt;/intent-filter&gt;<br>        &lt;/activity&gt;<br><span class="hljs-comment">//在Intent添加类别可以添加多个类别，那就要求被匹配的组件必须同时满足这多个类别，才能匹配成功。操作Activity的时候，如果没有类别，须加上默认类别</span><br></code></pre></td></tr></table></figure>
+
+<p><code>action</code>表示匹配的动作，category默认为default，即：<strong>只有<action>和<category>中的内容同时能够匹配上Intent中指定的action和category时，这个活动才能响应Intent。而如果有多个组件匹配成功，就会以对话框列表的方式让用户进行选择。</strong></p>
+<p>常用的category添加：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CATEGORY_DEFAULT</code></td>
+<td>把一个组件Component设为可被implicit启动的</td>
+</tr>
+<tr>
+<td><code>CATEGORY_LAUNCHER</code></td>
+<td>把一个action设置为在顶级执行。并且包含这个属性的Activity所定义的icon将取代application中定义的icon</td>
+</tr>
+<tr>
+<td><code>CATEGORY_BROWSABLE</code></td>
+<td>当Intent指向网络相关时，必须要添加这个类别</td>
+</tr>
+<tr>
+<td><code>CATEGORY_HOME</code></td>
+<td>使Intent指向Home界面</td>
+</tr>
+<tr>
+<td><code>CATEGORY_PREFERENCE</code></td>
+<td>定义的Activity是一个偏好面板Preference Panel</td>
+</tr>
+</tbody></table>
+<h3 id="3-4-data（数据）"><a href="#3-4-data（数据）" class="headerlink" title="3.4 data（数据）"></a>3.4 data（数据）</h3><ul>
+<li>Data属性是Android要访问的数据，于前面类似也在<intent-filter>中，当有多个组件匹配成功时显示优先级高的，相同则显示列表</li>
+<li>Data是用Uri对象来表示的，uri代表数据的地址，属于一种标识符。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//打开浏览器</span><br>Intent intent=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>(Intent.ACTION_VIEW);<br>intent.setData(Uri.parse(<span class="hljs-string">&quot;http://salute61.top/&quot;</span>));<br>startActivity(intent);<br><span class="hljs-comment">//初始时调用系统默认的浏览器，可以在清单中修改一下匹配2个       </span><br>&lt;activity android:name=<span class="hljs-string">&quot;.ThirdActivity&quot;</span>&gt;<br>            &lt;intent-filter&gt;<br>                &lt;action android:name=<span class="hljs-string">&quot;android.intent.action.VIEW&quot;</span>&gt;&lt;/action&gt;<br>                &lt;category android:name=<span class="hljs-string">&quot;android.intent.category.DEFAULT&quot;</span>&gt;&lt;/category&gt;<br>                &lt;category android:name=<span class="hljs-string">&quot;android.intent.category.BROWSABLE&quot;</span>&gt;&lt;/category&gt;<br>                &lt;data android:scheme=<span class="hljs-string">&quot;http&quot;</span>&gt;&lt;/data&gt;<br>            &lt;/intent-filter&gt;<br>        &lt;/activity&gt;<br></code></pre></td></tr></table></figure>
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135730727.png" srcset="/img/loading.gif" lazyload alt="image-20230510135730727" style="zoom:80%;" />
+
+<p>注：当然匹配到的testActivity中的Activity2并没有对应的功能代码，这里只是演示，实际项目开发中不要将没有对应功能的Activity进行响应</p>
+<p>Type属性用于明确指定Data属性的数据类型或MIME类型，但是通常来说，当Intent不指定Data属性时，Type属性才会起作用，否则Android系统将会根据Data属性值来分析数据的类型，所以无需指定Type属性。</p>
+<p>data和type属性一般只需要一个，通过setData方法会把type属性设置为null，相反设置setType方法会把data设置为null，如果想要两个属性同时设置，要使用Intent.setDataAndType()方法。</p>
+<h3 id="3-5-type（数据类型）"><a href="#3-5-type（数据类型）" class="headerlink" title="3.5 type（数据类型）"></a>3.5 type（数据类型）</h3><p>如果Intent对象中既包含Uri又包含Type，则在<intent-filter>中也必须将二者都包含</p>
+<p>Type属性用于明确指定Data属性的数据类型或MIME类型，但是通常来说，当Intent不指定Data属性时，Type属性才会起作用，否则Android系统将会根据Data属性值来分析数据的类型，所以无需指定Type属性。</p>
+<p>data和type属性一般只需要一个，通过setData方法会把type属性设置为null，相反设置setType方法会把data设置为null，如果想要两个属性同时设置，要使用Intent.setDataAndType()方法。</p>
+<h3 id="3-6-extras（扩展信息）"><a href="#3-6-extras（扩展信息）" class="headerlink" title="3.6 extras（扩展信息）"></a>3.6 extras（扩展信息）</h3><p>extras可以携带完成请求操作所需的附加信息的键值对。正如某些操作使用特定类型的数据 URI 一样，有些操作也使用特定的 extra。</p>
+<p>您可以使用各种 <code>putExtra()</code> 方法添加 extra 数据，每种方法均接受两个参数：键名和值。您还可以创建一个包含所有 extra 数据的 <code>Bundle</code> 对象，然后使用 <code>putExtras()</code> 将 <code>Bundle</code> 插入 <code>Intent</code> 中。</p>
+<p>例如，使用 <code>ACTION_SEND</code> 创建用于发送电子邮件的 Intent 时，可以使用 <code>EXTRA_EMAIL</code> 键指定<em>目标</em>收件人，并使用 <code>EXTRA_SUBJECT</code> 键指定<em>主题</em>。</p>
+<p>向下一个活动传递数据：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java">String data=<span class="hljs-string">&quot;使用Intent传递的数据&quot;</span>;<br>Intent intent=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>(FirstActivity.<span class="hljs-built_in">this</span>,secondActivity.class);<br>intent.putExtra(<span class="hljs-string">&quot;extra_data&quot;</span>,data);<br>startActivity(intent);<br><br><span class="hljs-comment">//在secondActivity中接收</span><br>Intent intent=getIntent();<br>String data=intent.getStringExtra(<span class="hljs-string">&quot;extra_data&quot;</span>);<br>Log.d(<span class="hljs-string">&quot;secondActivity&quot;</span>,data);<br></code></pre></td></tr></table></figure>
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135747866.png" srcset="/img/loading.gif" lazyload alt="image-20230510135747866" style="zoom:80%;" />
+
+<p>返回数据给上一个活动（使用startActivityForResult），由于使用startActivityForResult启动了secondActivity，因此secondActivity销毁后会回调上一个活动的onActivityResult方法，因此要重写一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//FirstActivity代码</span><br>Intent intent=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>(FirstActivity.<span class="hljs-built_in">this</span>,secondActivity.class);<br>startActivityForResult(intent,<span class="hljs-number">1</span>);<br><span class="hljs-comment">//SecondActivity中添加返回数据的逻辑</span><br>Intent intent=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Intent</span>();<br>intent.putExtra(<span class="hljs-string">&quot;data_return&quot;</span>,<span class="hljs-string">&quot;secondActivity返回的数据&quot;</span>);<br>setResult(RESULT_OK,intent);<br>finish();<br><br><span class="hljs-comment">//重写onActivityResult方法</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onActivityResult</span><span class="hljs-params">(<span class="hljs-type">int</span> requestCode,<span class="hljs-type">int</span> resultCode,Intent data)</span>&#123;<br>        <span class="hljs-built_in">super</span>.onActivityResult( requestCode, resultCode,data);<br>        <span class="hljs-keyword">switch</span> (requestCode)&#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>                <span class="hljs-keyword">if</span>(resultCode==RESULT_OK)&#123;<br>                    String returnData=data.getStringExtra(<span class="hljs-string">&quot;data_return&quot;</span>);<br>                    Log.d(<span class="hljs-string">&quot;FirstActivity&quot;</span>,returnData);<br>                &#125;<br>                <span class="hljs-keyword">break</span>;<br>                <span class="hljs-keyword">default</span>:<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135810004.png" srcset="/img/loading.gif" lazyload alt="image-20230510135810004" style="zoom:80%;" />
+
+<h3 id="3-7-Flag（标志位）"><a href="#3-7-Flag（标志位）" class="headerlink" title="3.7 Flag（标志位）"></a>3.7 Flag（标志位）</h3><p>一个程序启动后系统会为这个程序分配一个task供其使用，另外同一个task里面可以拥有不同应用程序的activity。那么，同一个程序能不能拥有多个task？相关知识涉及到加载activity的启动模式</p>
+<p>注：android中一组逻辑上在一起的activity被叫做task，自己认为可以理解成一个activity堆栈。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%85%B6%E4%BB%96%E8%AE%B0%E5%BD%95/" class="category-chain-item">其他记录</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Android/">#Android</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Intent详解</div>
+      <div>https://61hhh-github-io.vercel.app/20200702/89a5df9d/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年7月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200702/c23396ba/" title="解决hexo部署GitHub报错问题">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">解决hexo部署GitHub报错问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200511/208504bf/" title="UML建模--用例图">
+                        <span class="hidden-mobile">UML建模--用例图</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

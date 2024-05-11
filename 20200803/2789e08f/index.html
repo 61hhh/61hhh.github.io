@@ -1,0 +1,915 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="一、Collection接口Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合（二）List接口">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200803/2789e08f/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="一、Collection接口Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img2.salute61.top/java_Collection2.png">
+<meta property="article:published_time" content="2020-08-03T01:19:03.000Z">
+<meta property="article:modified_time" content="2024-04-16T08:42:11.156Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://img2.salute61.top/java_Collection2.png">
+  
+  
+  
+  <title>Java集合（二）List接口 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java集合（二）List接口"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-03 09:19" pubdate>
+          2020年8月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          50 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java集合（二）List接口</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年4月16日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、Collection接口"><a href="#一、Collection接口" class="headerlink" title="一、Collection接口"></a>一、Collection接口</h2><p>Collection接口分别有List、Set两个子接口，根据具体实现采用的结构不同又分为ArrayList、LinkedList等</p>
+<p><img src="http://img2.salute61.top/java_Collection2.png" srcset="/img/loading.gif" lazyload></p>
+<span id="more"></span>
+
+<h3 id="1-Collection的常用功能"><a href="#1-Collection的常用功能" class="headerlink" title="1.Collection的常用功能"></a>1.Collection的常用功能</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-number">1.</span> 添加功能<br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">add</span><span class="hljs-params">(E e)</span> <br>        添加一个元素<br>    <span class="hljs-type">boolean</span> <span class="hljs-title function_">addAll</span><span class="hljs-params">(Collection c)</span>  <br>        添加一批元素<br><span class="hljs-number">2.</span> 删除功能<br>   <span class="hljs-type">boolean</span> <span class="hljs-title function_">remove</span><span class="hljs-params">(Object o)</span> <br>       删除一个元素<br><span class="hljs-number">3.</span> 判断功能<br>   <span class="hljs-type">boolean</span> <span class="hljs-title function_">contains</span><span class="hljs-params">(Object o)</span> <br>       判断集合是否包含指定的元素<br>   <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span>  <br>       判断集合是否为空(集合中没有元素)<br><span class="hljs-number">4.</span> 获取功能<br>   <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span>  <br>      获取集合的长度<br><span class="hljs-number">5.</span> 转换功能<br>   Object[] toArray() <br>       把集合转换为数组<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-遍历集合的方式"><a href="#2-遍历集合的方式" class="headerlink" title="2.遍历集合的方式"></a>2.遍历集合的方式</h3><p>普通的for循环，需要索引，对数组支持的集合操作更方便</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        ArrayList&lt;String&gt; list = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;();<br>        list.add(<span class="hljs-string">&quot;Hello&quot;</span>);<br>        list.add(<span class="hljs-string">&quot;Java&quot;</span>);<br>        list.add(<span class="hljs-string">&quot;World&quot;</span>);<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; list.size(); i++)&#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> (String) list.get(i);<br>            System.out.println(s);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>迭代器遍历，可以遍历任何集合，与传统的迭代器（例如C++标准模板库的迭代器）不同</p>
+<ul>
+<li>C++ STL中迭代器是根据数组索引建模的，给定迭代器可以查看指定位置上的元素，就像知道索引 i 可以查看数组a[i]一样，不需要查找元素就可以将迭代器前移</li>
+<li>Java迭代器的查找操作和位置变更是紧密相连的，查找一个元素唯一的方法是调用next，执行查找操作的同时迭代器位置前移</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Collection&lt;String&gt; c = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;();<br>        c.add(<span class="hljs-string">&quot;Hello&quot;</span>);<br>        c.add(<span class="hljs-string">&quot;Java&quot;</span>);<br>        c.add(<span class="hljs-string">&quot;World&quot;</span>);<br>        <span class="hljs-comment">//获取迭代器对象</span><br>        Iterator&lt;String&gt; it = c.iterator();<br>        <span class="hljs-comment">//hasNext()判断是否有下一个元素，如果有就用next()获取</span><br>        <span class="hljs-keyword">while</span>(it.hasNext())&#123;<br>            <span class="hljs-comment">//获取下一个元素</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">s</span> <span class="hljs-operator">=</span> it.next();<br>            System.out.println(s);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>for-each循环</strong>：用更简洁的方式表达同样的操作。编译器将for each循环翻译为带有迭代器的循环</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        Collection&lt;String&gt; c = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;();<br>        c.add(<span class="hljs-string">&quot;Hello&quot;</span>);<br>        c.add(<span class="hljs-string">&quot;Java&quot;</span>);<br>        c.add(<span class="hljs-string">&quot;World&quot;</span>);<br>        <span class="hljs-comment">//高级for遍历集合</span><br>        <span class="hljs-keyword">for</span> (String s : c)&#123;<br>            System.out.println(s);<br>        &#125;<br><br>        <span class="hljs-type">int</span>[] arr = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br>        <span class="hljs-comment">//高级for遍历数组</span><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> a : arr)&#123;<br>            System.out.println(a);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="二、List集合"><a href="#二、List集合" class="headerlink" title="二、List集合"></a>二、List集合</h2><p>List集合包含List接口及其实现类。List集合有以下特点：</p>
+<ol>
+<li>集合元素允许重复</li>
+<li>集合元素有序</li>
+<li>元素可以通过索引访问</li>
+</ol>
+<p>常用的实现类有：ArrayList、LinkedList、Vector。</p>
+<h3 id="1-ArrayList"><a href="#1-ArrayList" class="headerlink" title="1.ArrayList"></a>1.ArrayList</h3><p>ArrayList是List接口的典型实现类，本质上，ArrayList是对象引用的一个变长数组。</p>
+<p>ArrayList是List接口的可变数组的实现。实现了所有可选列表操作，并允许包括null在内的所有元素。除了实现List接口外，此类还提供了一些方法来操作内部用来存储列表的数组的大小。</p>
+<p>每个ArrayList实例都有一个初始容量，该容量用来储存列表元素的数组大小。<strong>默认初始容量为10。</strong></p>
+<p>ArrayList底层采用数组实现，因此它的优点是适合随机查找和遍历，缺点是不适合插入和删除。</p>
+<p>注：<font color="red">Arrays.asList(…) 方法返回的 List 集合既不是 ArrayList 实例，也不是 Vector 实例。 Arrays.asList(…)返回值是一个固定长度的 List 集合。</font></p>
+<h4 id="1-1-添加元素"><a href="#1-1-添加元素" class="headerlink" title="1.1 添加元素"></a>1.1 添加元素</h4><p>使用ArrayList添加元素有如下方法</p>
+<ul>
+<li>set(int index, E element)：替换数组中已经存在的元素内容。</li>
+<li>add(E e)：将元素添加到集合的末尾</li>
+<li>add(int index, E element)：将元素添加到指定的索引位置</li>
+<li>addAll(Collection&lt;? extends E&gt; c)：按照指定Collection的迭代器所返回的元素顺序，将该Collection中的所有元素添加到此列表的尾部。</li>
+<li>addAll(inr index, Collection&lt;? extends E&gt; c)：从指定的位置开始，将指定collection中的所有元素插入到此列表中</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; platformList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br><span class="hljs-comment">// 添加元素</span><br>myList.add(<span class="hljs-string">&quot;靓仔&quot;</span>);<br>myList.add(<span class="hljs-string">&quot;你好&quot;</span>);<br>myList.add(<span class="hljs-string">&quot;leslie&quot;</span>);<br>myList.add(<span class="hljs-string">&quot;cheung&quot;</span>);<br><span class="hljs-comment">// 添加重复元素,会添加成功,因为List支持添加重复元素</span><br>myList.add(<span class="hljs-string">&quot;你好&quot;</span>);<br>myList.add(<span class="hljs-string">&quot;靓仔&quot;</span>);<br><br>myList.add(<span class="hljs-number">3</span>, <span class="hljs-string">&quot;个人博客&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-获取元素"><a href="#1-2-获取元素" class="headerlink" title="1.2  获取元素"></a>1.2  获取元素</h4><p>获取ArrayList中指定索引处的元素的使用方法  get()：获取指定位置上的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(<span class="hljs-string">&quot;索引为3的元素为：&quot;</span> + myList.get(<span class="hljs-number">3</span>));<br></code></pre></td></tr></table></figure>
+
+<p>如果指定的索引超出了集合的最大索引，比如<code>myList.get(10010)</code>就会抛出异常<code>java.lang.IndexOutOfBoundsException</code>：</p>
+<h4 id="1-3-获取集合元素个数"><a href="#1-3-获取集合元素个数" class="headerlink" title="1.3 获取集合元素个数"></a>1.3 获取集合元素个数</h4><p>获取ArrayList元素个数的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(<span class="hljs-string">&quot;myList的元素个数为：&quot;</span> + myList.size());<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-4-删除元素"><a href="#1-4-删除元素" class="headerlink" title="1.4 删除元素"></a>1.4 删除元素</h4><p>使用ArrayList删除元素有以下两个重载：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">E <span class="hljs-title function_">remove</span><span class="hljs-params">(<span class="hljs-type">int</span> index)</span>;<br><br><span class="hljs-type">boolean</span> <span class="hljs-title function_">remove</span><span class="hljs-params">(Object o)</span>;<br></code></pre></td></tr></table></figure>
+
+<p><code>E remove(int index);</code>是删除集合中指定索引处的元素，<code>boolean remove(Object o);</code>是删除集合中的指定元素。</p>
+<p>使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 指定索引删除重复的元素 &quot;你好&quot; &quot;靓仔&quot;</span><br>myList.remove(<span class="hljs-number">4</span>);<br>myList.remove(<span class="hljs-number">4</span>);<br><span class="hljs-comment">// 删除指定元素 &quot;个人博客&quot;</span><br>myList.remove(<span class="hljs-string">&quot;靓仔&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-5-修改元素"><a href="#1-5-修改元素" class="headerlink" title="1.5 修改元素"></a>1.5 修改元素</h4><p>修改ArrayList中指定索引处的元素值的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java">myList.set(<span class="hljs-number">0</span>, <span class="hljs-string">&quot;salute&quot;</span>);<br>myList.set(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;LiuYi&quot;</span>);<br>myList.set(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;Bob Dylan&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-6-判断集合是否为空"><a href="#1-6-判断集合是否为空" class="headerlink" title="1.6 判断集合是否为空"></a>1.6 判断集合是否为空</h4><p>判断ArrayList是否为空的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.println(<span class="hljs-string">&quot;isEmpty:&quot;</span> + myList.isEmpty());<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-7-清空集合"><a href="#1-7-清空集合" class="headerlink" title="1.7 清空集合"></a>1.7 清空集合</h4><p>清空ArrayList中所有元素的使用方法如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">myList.clear();<br></code></pre></td></tr></table></figure>
+
+
+
+<p><strong>小结</strong>：</p>
+<ul>
+<li>ArrayLlist内部是由数组来实现的。在存放数据的数组长度不够时，会进行扩容，即增加数组长度。扩展为原来的1.5倍。</li>
+<li>由于是数组来实现，所以，优点是查找元素很快。可以通过下标查找元素，查找效率高。缺点是每次添加和删除元素都会进行大量的数组元素移动。长度不够会扩容。效率底下。</li>
+<li>ArrayList每次的增、删、改操作都伴随着数组的复制和元素的移动。这意味着新的内存空间的开辟。</li>
+</ul>
+<h3 id="2-LinkedList"><a href="#2-LinkedList" class="headerlink" title="2.LinkedList"></a>2.LinkedList</h3><p>LinkedList也是List接口的实现类，内部使用链表结构存储数据</p>
+<ul>
+<li>分配内存空间不是必须是连续的；</li>
+<li>插入、删除操作很快，只要修改前后指针就OK了，时间复杂度为O(1)；</li>
+<li>访问比较慢，必须得从第一个元素开始遍历，时间复杂度为O(n)；</li>
+</ul>
+<p>LinkedList类的代码声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LinkedList</span>&lt;E&gt;<br>    <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractSequentialList</span>&lt;E&gt;<br>    <span class="hljs-keyword">implements</span> <span class="hljs-title class_">List</span>&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable&#123;<br>    <span class="hljs-comment">//。。。。。。</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>LinkedList类的使用方法和ArrayList基本一样，只需修改下声明处的代码即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; platformList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-push、pop、poll"><a href="#2-1-push、pop、poll" class="headerlink" title="2.1 push、pop、poll"></a>2.1 push、pop、poll</h4><ol>
+<li>void push(E e)：与addFirst一样，实际上它就是addFirst； </li>
+<li>E pop()：与removeFirst一样，实际上它就是removeFirst； </li>
+<li>E poll()：查询并移除第一个元素；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        LinkedList&lt;String&gt; linkedList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>        <br>        linkedList.push(<span class="hljs-string">&quot;first&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;second&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;second&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;third&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;four&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;five&quot;</span>);<br>        System.out.println(linkedList);<br><br>        System.out.println(<span class="hljs-string">&quot;pop: &quot;</span> + linkedList.pop());<br>        <span class="hljs-comment">//pop: five</span><br>        System.out.println(<span class="hljs-string">&quot;after pop: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//after pop: [four,third,second,second,first]</span><br>        System.out.println(<span class="hljs-string">&quot;poll: &quot;</span> + linkedList.poll());<br>        <span class="hljs-comment">//poll: four</span><br>        System.out.println(<span class="hljs-string">&quot;after poll: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//after poll: [third,second,second,first]</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>push、pop的操作很接近stack的操作。</p>
+<p>在链表为空时，poll与pop的区别：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        LinkedList&lt;String&gt; linkedList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br><br>        System.out.println(<span class="hljs-string">&quot;pop: &quot;</span> + linkedList.poll());<br>        <span class="hljs-comment">//pop: null</span><br>        System.out.println(<span class="hljs-string">&quot;poll: &quot;</span> + linkedList.pop());<br>        <span class="hljs-comment">//poll报错: Exception in thread &quot;main&quot; java.util.NoSuchElementException</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="2-2-peek"><a href="#2-2-peek" class="headerlink" title="2.2 peek"></a>2.2 peek</h4><p>获取元素，可以指定第一个peekFirst，也可以时最后一个peekLast，只能获取不会移除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        LinkedList&lt;String&gt; linkedList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br><br>        linkedList.push(<span class="hljs-string">&quot;first&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;second&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;second&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;third&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;four&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;five&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;linkedList: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//linkedList: [five,four,third,second,second,first]</span><br>        System.out.println(<span class="hljs-string">&quot;peek: &quot;</span> + linkedList.peek());<br>        <span class="hljs-comment">//peek: five</span><br>        System.out.println(<span class="hljs-string">&quot;peekFirst: &quot;</span> + linkedList.peekFirst());<br>        <span class="hljs-comment">//peekFirst: five</span><br>        System.out.println(<span class="hljs-string">&quot;peekLast: &quot;</span> + linkedList.peekLast());<br>        <span class="hljs-comment">//peekLast: first</span><br>        System.out.println(<span class="hljs-string">&quot;linkedList: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//linkedList: [five,four,third,second,second,first]</span><br>        <br>        <span class="hljs-comment">//如果没找到对应元素，输出为null</span><br>        LinkedList&lt;String&gt; linkedList2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br>        System.out.println(<span class="hljs-string">&quot;linkedList2: &quot;</span> + linkedList2);<br>        System.out.println(<span class="hljs-string">&quot;peek: &quot;</span> + linkedList2.peek());<br>        System.out.println(<span class="hljs-string">&quot;peekFirst: &quot;</span> + linkedList2.peekFirst());<br>        System.out.println(<span class="hljs-string">&quot;peekLast: &quot;</span> + linkedList2.peekLast());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-3-offer"><a href="#2-3-offer" class="headerlink" title="2.3 offer"></a>2.3 offer</h4><ol>
+<li>boolean offer(E e)：在链表尾部插入一个元素； </li>
+<li>boolean offerFirst(E e)：与addFirst一样，实际上它就是addFirst； </li>
+<li>boolean offerLast(E e)：与addLast一样，实际上它就是addLast；</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        LinkedList&lt;String&gt; linkedList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LinkedList</span>&lt;&gt;();<br><br>        linkedList.push(<span class="hljs-string">&quot;first&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;second&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;second&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;third&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;four&quot;</span>);<br>        linkedList.push(<span class="hljs-string">&quot;five&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;linkedList: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//linkedList: [five,four,third,second,second,first]</span><br>        linkedList.offer(<span class="hljs-string">&quot;six&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;linkedList: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//linkedList: [five,four,third,second,second,first,six]</span><br>        linkedList.offerFirst(<span class="hljs-string">&quot;zero&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;linkedList: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//linkedList: [zero,five,four,third,second,second,first,six]</span><br>        linkedList.offerLast(<span class="hljs-string">&quot;seven&quot;</span>);<br>        System.out.println(<span class="hljs-string">&quot;linkedList: &quot;</span> + linkedList);<br>        <span class="hljs-comment">//linkedList: [zero,five,four,third,second,second,first,six,seven]</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="3-Vector"><a href="#3-Vector" class="headerlink" title="3.Vector"></a>3.Vector</h3><p>Vector也是List接口的实现类，内部也是通过数组来实现。</p>
+<p>java.util.vector提供了向量类(Vector)以实现类似动态数组的功能。<br>创建了一个向量类的对象后，可以往其中随意插入不同类的对象，即不需顾及类型也不需预先选定向量的容量，并可以方便地进行查找。</p>
+<p>对于预先不知或者不愿预先定义数组大小，并且需要频繁地进行查找，插入，删除工作的情况，可以考虑使用向量类。</p>
+<p>向量类提供了三种构造方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-title function_">vector</span><span class="hljs-params">()</span> <br><span class="hljs-keyword">public</span> <span class="hljs-title function_">vector</span><span class="hljs-params">(<span class="hljs-type">int</span> initialcapacity,<span class="hljs-type">int</span> capacityIncrement)</span> <br><span class="hljs-keyword">public</span> <span class="hljs-title function_">vector</span><span class="hljs-params">(<span class="hljs-type">int</span> initialcapacity)</span><br></code></pre></td></tr></table></figure>
+
+<p>使用第一种方法系统会自动对向量进行管理，若使用后两种方法，则系统将根据参数，initialcapacity设定向量对象的容量（即向量对象可存储数据的大小），当真正存放的数据个数超过容量时。系统会扩充向量对象存储容量。</p>
+<p>参数capacityincrement给定了每次扩充的扩充值。当capacityincrement为0的时候，则每次扩充一倍，利用这个功能可以优化存储。</p>
+<p>Vector类的代码声明如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Vector</span>&lt;E&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractList</span>&lt;E&gt;<br>    <span class="hljs-keyword">implements</span> <span class="hljs-title class_">List</span>&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable&#123;<br>    <span class="hljs-comment">//</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>与ArrayList不同的是，<strong>Vector是线程安全的</strong>，即某一时刻只有一个线程能够写Vector，避免多线程同时写而引起的不一致性。不过这也造成Vector的缺点：实现线程的同步需要额外的花费，因此它的访问速度会比ArrayList慢一些。</p>
+<p>可以认为Vector是ArrayList在多线程环境下的实现版本。所以Vector类的使用方法和ArrayList基本一样，只需修改下声明处的代码即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">List&lt;String&gt; platformList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vector</span>&lt;&gt;();<br></code></pre></td></tr></table></figure>
+
+<p>由于要支持线程同步，因此Vector类的很多方法都有synchronized关键字，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">return</span> <span class="hljs-variable">elementCount</span> <span class="hljs-operator">=</span>= <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-type">int</span> <span class="hljs-title function_">size</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-keyword">return</span> elementCount;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addElement</span><span class="hljs-params">(E obj)</span> &#123;<br>    modCount++;<br>    ensureCapacityHelper(elementCount + <span class="hljs-number">1</span>);<br>    elementData[elementCount++] = obj;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="三、ArrayList、LinkedList、Vector区别"><a href="#三、ArrayList、LinkedList、Vector区别" class="headerlink" title="三、ArrayList、LinkedList、Vector区别"></a>三、ArrayList、LinkedList、Vector区别</h2><h3 id="1-底层实现"><a href="#1-底层实现" class="headerlink" title="1 底层实现"></a>1 底层实现</h3><p><strong>ArrayList和Vector是基于数组实现的，LinkedList是基于双向链表实现的。</strong></p>
+<p>这也就导致ArrayList适合随机查找和遍历，而LinkedList适合动态插入和删除元素。</p>
+<h3 id="2-线程安全性"><a href="#2-线程安全性" class="headerlink" title="2 线程安全性"></a>2 线程安全性</h3><p><strong>ArrayList和LinkedList是线程不安全的，Vector是线程安全的。</strong></p>
+<p>Vector可以看做是ArrayList在多线程环境下的另一种实现方式，这也导致了Vector的效率没有ArraykList和LinkedList高。</p>
+<p>如果要在并发环境下使用ArrayList或者LinkedList，可以调用Collections类的synchronizedList()方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">Collections.synchronizedList(myList);<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-扩容机制"><a href="#3-扩容机制" class="headerlink" title="3 扩容机制"></a>3 扩容机制</h3><p><strong>ArrayList和Vector都是使用Object类型的数组（Object[ ] array）来存储数据的，ArrayList的默认容量是10，Vector的默认容量是0。</strong></p>
+<p>当向这两种类型中添加元素时，若容量不够，就会进行扩容，扩容的本质是产生一个新数组，将原数组的数据复制到新数组，再将新的元素添加到新数组中，使用的方法是<code>Arrays.copyOf()</code>，其中<strong>ArrayList扩容后的容量是之前的1.5倍，Vector默认情况下扩容后的容量是之前的2倍</strong>。</p>
+<p>查看ArrayList的源码，就明白为什么会这样扩容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">DEFAULT_CAPACITY</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;<br><br><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">add</span><span class="hljs-params">(E e)</span> &#123;<br>    ensureCapacityInternal(size + <span class="hljs-number">1</span>);  <span class="hljs-comment">// Increments modCount!!</span><br>    elementData[size++] = e;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ensureCapacityInternal</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">calculateCapacity</span><span class="hljs-params">(Object[] elementData, <span class="hljs-type">int</span> minCapacity)</span> &#123;<br>     <span class="hljs-keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;<br>         <span class="hljs-keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);<br>     &#125;<br>     <span class="hljs-keyword">return</span> minCapacity;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ensureExplicitCapacity</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>     modCount++;<br><br>     <span class="hljs-comment">// overflow-conscious code</span><br>     <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>)<br>      	 grow(minCapacity);<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">grow</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>     <span class="hljs-comment">// overflow-conscious code</span><br>     <span class="hljs-type">int</span> <span class="hljs-variable">oldCapacity</span> <span class="hljs-operator">=</span> elementData.length;<br>     <span class="hljs-type">int</span> <span class="hljs-variable">newCapacity</span> <span class="hljs-operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="hljs-number">1</span>);<br>     <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)<br>         newCapacity = minCapacity;<br>     <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)<br>         newCapacity = hugeCapacity(minCapacity);<br>     <span class="hljs-comment">// minCapacity is usually close to size, so this is a win:</span><br>     elementData = Arrays.copyOf(elementData, newCapacity);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最核心的代码就是<code>int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);</code>，所以ArrayList扩容后的容量是之前的1.5倍。</p>
+<p>查看Vector的源码，就明白为什么会这样扩容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addElement</span><span class="hljs-params">(E obj)</span> &#123;<br>    modCount++;<br>    ensureCapacityHelper(elementCount + <span class="hljs-number">1</span>);<br>    elementData[elementCount++] = obj;<br>&#125;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">ensureCapacityHelper</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>        <span class="hljs-comment">// overflow-conscious code</span><br>        <span class="hljs-keyword">if</span> (minCapacity - elementData.length &gt; <span class="hljs-number">0</span>)<br>            grow(minCapacity);<br>    &#125;<br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MAX_ARRAY_SIZE</span> <span class="hljs-operator">=</span> Integer.MAX_VALUE - <span class="hljs-number">8</span>;<br><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">grow</span><span class="hljs-params">(<span class="hljs-type">int</span> minCapacity)</span> &#123;<br>     <span class="hljs-comment">// overflow-conscious code</span><br>     <span class="hljs-type">int</span> <span class="hljs-variable">oldCapacity</span> <span class="hljs-operator">=</span> elementData.length;<br>     <span class="hljs-type">int</span> <span class="hljs-variable">newCapacity</span> <span class="hljs-operator">=</span> oldCapacity + ((capacityIncrement &gt; <span class="hljs-number">0</span>) ?<br>                                      capacityIncrement : oldCapacity);<br>     <span class="hljs-keyword">if</span> (newCapacity - minCapacity &lt; <span class="hljs-number">0</span>)<br>         newCapacity = minCapacity;<br>     <span class="hljs-keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="hljs-number">0</span>)<br>         newCapacity = hugeCapacity(minCapacity);<br>     elementData = Arrays.copyOf(elementData, newCapacity);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最核心的代码就是<code>int newCapacity = oldCapacity + ((capacityIncrement &gt; 0) ?capacityIncrement : oldCapacity);</code>，所以Vector默认情况下扩容后的容量是之前的2倍。</p>
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zwwhnly/p/11265599.html">Java集合系列(二)：ArrayList、LinkedList、Vector的使用方法及区别</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lixiansheng/p/11349369.html">Java集合（三）、继承自Collection接口的List接口</a></p>
+</li>
+<li><p>Java核心技术 卷一：集合</p>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E5%9F%BA%E7%A1%80/">#Java基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java集合（二）List接口</div>
+      <div>https://61hhh-github-io.vercel.app/20200803/2789e08f/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年8月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200803/ca7445de/" title="Java集合（三）Set接口">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java集合（三）Set接口</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200802/95f49cfb/" title="Java集合（一）概述">
+                        <span class="hidden-mobile">Java集合（一）概述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

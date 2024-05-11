@@ -1,0 +1,869 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="Java作为一门纯面向对象的语言，类与对象自然是其核心内容，类是最基本的抽象单位，以对象为单位编码。而最早的面向对象的概念实际上是由IBM提出的，在70年代的Smaltalk语言之中进行了应用，后来根据面向对象的设计思路，才形成C++，而由C++产生了Java这门面向对象的编程语言。 一、面向对象1 面向对象简述先看一下维基百科上关于面向对象的定义：  面向对象程序设计（英语：Object-ori">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java类与对象">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200804/4dffdbe9/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="Java作为一门纯面向对象的语言，类与对象自然是其核心内容，类是最基本的抽象单位，以对象为单位编码。而最早的面向对象的概念实际上是由IBM提出的，在70年代的Smaltalk语言之中进行了应用，后来根据面向对象的设计思路，才形成C++，而由C++产生了Java这门面向对象的编程语言。 一、面向对象1 面向对象简述先看一下维基百科上关于面向对象的定义：  面向对象程序设计（英语：Object-ori">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class2.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class3.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class4.png">
+<meta property="article:published_time" content="2020-08-04T09:50:42.000Z">
+<meta property="article:modified_time" content="2024-05-11T02:16:36.411Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Java基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class.png">
+  
+  
+  
+  <title>Java类与对象 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Java类与对象"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-08-04 17:50" pubdate>
+          2020年8月4日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java类与对象</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月11日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Java作为一门纯面向对象的语言，类与对象自然是其核心内容，类是最基本的抽象单位，以对象为单位编码。而最早的面向对象的概念实际上是由IBM提出的，在70年代的Smaltalk语言之中进行了应用，后来根据面向对象的设计思路，才形成C++，而由C++产生了Java这门面向对象的编程语言。</p>
+<h2 id="一、面向对象"><a href="#一、面向对象" class="headerlink" title="一、面向对象"></a>一、面向对象</h2><h3 id="1-面向对象简述"><a href="#1-面向对象简述" class="headerlink" title="1 面向对象简述"></a>1 面向对象简述</h3><p>先看一下维基百科上关于面向对象的定义：</p>
+<blockquote>
+<p><strong>面向对象程序设计</strong>（英语：Object-oriented programming，缩写：OOP）是种具有<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E8%B1%A1_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6)">对象</a>概念的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%8C%83%E5%9E%8B">程序编程典范</a>，同时也是一种程序开发的抽象方针。它可能包含<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE">数据</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E5%B1%9E%E6%80%A7_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6)&action=edit&redlink=1">属性</a>、<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%BA%90%E4%BB%A3%E7%A0%81">代码</a>与<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%96%B9%E6%B3%95_(%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8)">方法</a>。对象则指的是<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%B1%BB_(%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6)">类</a>的实例。它将<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%89%A9%E4%BB%B6_(%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8)">对象</a>作为<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F">程序</a>的基本单元，将程序和<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE">数据</a><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B0%81%E8%A3%9D_(%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88)">封装</a>其中，以提高软件的重用性、灵活性和扩展性，对象里的程序可以访问及经常修改对象相关连的数据。在面向对象程序编程里，计算机程序会被设计成彼此相关的对象</p>
+</blockquote>
+<p>面向对象的定义中，规定有一些基本特征：</p>
+<ol>
+<li>封装：将类的某些信息隐藏在类内部，不允许外部程序直接访问，而是通过该类提供的方法来实现对隐藏信息的操作和访问。</li>
+<li>继承：继承就是子类继承父类的特征和行为，使得子类对象（实例）具有父类的实例域和方法，或类从父类继承方法，使得子类具有父类相同的行为。相当于一个”is a”。</li>
+<li>多态：多态就是<strong>对象的多种形态。</strong>相同的引用通过不同的实例执行不同的操作</li>
+</ol>
+<p>对于面向对象的开发来讲也分为三个过程：OOA（面向对象系统分析）、OOD（面向对象设计）、OOP（面向对象编程）。</p>
+<span id="more"></span>
+
+<h3 id="2-类和对象概念"><a href="#2-类和对象概念" class="headerlink" title="2 类和对象概念"></a>2 类和对象概念</h3><p>类与对象时整个面向对象中最基础的部分。</p>
+<p><strong>类</strong>：是抽象的概念集合，表示的是一个共性的产物，类之中定义的是属性和行为（方法）；<br><strong>对象</strong>：对象是一种个性的表示，表示一个独立的个体，每个对象拥有自己独立的属性，依靠属性来区分不同对象。</p>
+<p>总结一下就是：类是对象的模板，对象是类的实例。编码中先写类，将类实例化为对象后，使用对象（类不能直接使用，对象可以）</p>
+<h4 id="类的创建及初始化"><a href="#类的创建及初始化" class="headerlink" title="类的创建及初始化"></a>类的创建及初始化</h4><p>类是指一类事物的抽象，小学生、初中生、大学生都是学生，可以抽象出学生这个类，小学生张三就是学生这个类的一个具体实例。其中类的属性描述了抽象出来的类它的特点，方法描述了它的功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<br>    String name;<br>    <span class="hljs-type">int</span> age;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">Study</span><span class="hljs-params">()</span>&#123;&#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(String name,<span class="hljs-type">int</span> age)</span>&#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>说一下<strong>引用</strong>的概念：<strong>如果一个变量的类型是 ’类‘ 类型，而非基本类型，那么该变量又叫做引用。</strong></p>
+<p>例如<code>new Student()</code>创建了一个Student对象，但是创建了对象还要能访问啊，为了访问这个对象，会使用引用<code>Hero zs= new Hero();</code>其中zs是一个Student类型变量，又叫做引用。new 操作符会为我们在内存中开辟空间，zs是对象名，也是引用，在栈上分配，指向由new在堆上分配的内容</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>    <span class="hljs-type">Student</span> <span class="hljs-variable">zs</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;张三&quot;</span>,<span class="hljs-number">18</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>再来分析一下这个过程：当调用new Student()时，编译器首先检查下原类Student中是否有Student()构造方法，此处因为有public Student(String name,int age)，所以new的时候，直接调用的该方法，但是很多时候，我们并没有显示声明构造方法，此时，编译器在调用的new Student()的时候，会自动为我们的Student类添加一个无参的空Student()构造方法：Student(){}，来执行类的构造过程。</p>
+<p><strong>构造方法与变量</strong>：不论变量放在哪儿，都会先于任意一个方法的执行前执行，包括构造方法，而构造方法是一个类必须会执行的方法，不需要显示的进行调用。同时，不论变量在哪儿分布，只要在方法外部，就一定先于方法初始化。说到这儿，我们不得不谈一下另一个关键的知识点静态块和非静态块。二者都有很简单的声明方式，只需一对大括号{}就行，静态块的话，在前面加static关键字。例如以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;Student(&quot;</span>+id+<span class="hljs-string">&quot;)&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>        <span class="hljs-type">Build</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Build</span>();<br>    &#125;<br>&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Build</span>&#123;<br>    <span class="hljs-type">Student</span> <span class="hljs-variable">s1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Build</span><span class="hljs-params">()</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;这是build的block！&quot;</span>);<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">s2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-number">2</span>);<br>    &#125;<br>    <span class="hljs-type">Student</span> <span class="hljs-variable">s3</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-number">3</span>);<br>&#125;<br><span class="hljs-comment">/*Student(1)</span><br><span class="hljs-comment"> *Student(3)</span><br><span class="hljs-comment"> *这是build的block！</span><br><span class="hljs-comment"> *student(2)</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>创建对象的流程：</p>
+<ol>
+<li>先装载.class文件，创建Class对象，对静态数据（由static声明的）进行初始化，而且只进行一次初始化。</li>
+<li>new Build()在堆上进行空间分配。</li>
+<li>执行非静态块。</li>
+<li>执行所有方法外定义的变量的初始化。</li>
+<li>执行构造器。</li>
+</ol>
+<h4 id="属性-amp-方法"><a href="#属性-amp-方法" class="headerlink" title="属性&amp;方法"></a>属性&amp;方法</h4><p>描述类状态的就叫属性，可以是基本类型也可以是 ”类“ 类型；描述类功能的就叫方法，它由由方法头和方法体构成，其中包含了访问控制符、返回类型、方法名、参数列表等，还可以用关键字实现特殊的功能</p>
+<p>当一个属性被<strong>static</strong>修饰的时候，就叫做<strong>类属性</strong>，又叫做<strong>静态属性</strong>，当一个属性被声明成类属性，那么<strong>所有的对象，都共享一个值</strong></p>
+<p>与对象属性对比：不同对象的 对象属性 的值都可能不一样；但是所有对象的类属性的值，都是一样的</p>
+<p>比如每个学生的姓名年龄可能会不同，但是他们都有一个共同的身份——学生</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<br>    String name;<br>    <span class="hljs-type">int</span> age;<br>    <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">identity</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;学生&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>再看一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span> &#123;<br> <br>	<span class="hljs-comment">/*静态块*/</span><br>	<span class="hljs-keyword">static</span>&#123;<br>		System.out.println(<span class="hljs-string">&quot;静态块！&quot;</span>);<br>	&#125;<br>	<span class="hljs-comment">/*非静态块*/</span><br>	&#123;<br>		System.out.println(<span class="hljs-string">&quot;非静态块~&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">public</span> <span class="hljs-title function_">Student</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span> &#123;<br>		System.out.println(<span class="hljs-string">&quot;Student(&quot;</span> + id + <span class="hljs-string">&quot;)&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>		<span class="hljs-type">Student</span> <span class="hljs-variable">p1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-number">1</span>);<br>		<span class="hljs-type">Student</span> <span class="hljs-variable">p2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-number">2</span>);<br>	&#125;<br>&#125;<br><span class="hljs-comment">/*静态块！</span><br><span class="hljs-comment"> *非静态块~</span><br><span class="hljs-comment"> *Student(1)</span><br><span class="hljs-comment"> *非静态块~</span><br><span class="hljs-comment"> *Student(2)</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<p>我们new了两个对象，可是静态块只执行了一次，而非静态块执行了两个，且都是在调用构造器之前。我们似乎得出了一些结论：静态块是在类的装载时执行的（装入.class文件后），且只执行一次。而非静态块是在调用构造方法之前执行的，每生成一个实例对象，就会调用一次非静态块。</p>
+<p>如静态块一样，其它的静态数据也具有这个特点：<font color="red">初始化只在类装载的时候执行一次。</font></p>
+<p>对于类方法，还有一个重要的特点就是——<font color="red"><u>访问对象方法要建立在有一个对象的前提上，但是访问类方法，不需要对象存在，直接就可以访问</u></font></p>
+<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><p><strong>this</strong>这个关键字，相当于普通话里的“<strong>我</strong>”<br><strong>this即代表当前对象</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<br>    String name;<br>    <span class="hljs-type">int</span> age;<br>    Student(String stuName,<span class="hljs-type">int</span> stuAge)&#123;<br>        <span class="hljs-built_in">this</span>.name = stuName;<br>        <span class="hljs-built_in">this</span>.age = stuAge;<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span>&#123;<br>        <span class="hljs-type">Student</span> <span class="hljs-variable">zs</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;张三&quot;</span>,<span class="hljs-number">33</span>);<br>        System.out.println(<span class="hljs-string">&quot;打印当前对象的虚拟地址：&quot;</span>+<span class="hljs-built_in">this</span>);<br>        <span class="hljs-comment">//输出Student@c17164</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="重载和重写"><a href="#重载和重写" class="headerlink" title="重载和重写"></a>重载和重写</h4><p>重载：是指在<strong>同一个类</strong>中，具有相同的方法名，不同的参数列表的方法之间的一种机制。参数列表的不同体现在：类型不同、个数不同、顺序不同，只要满足任一一个，就可以进行方法重载。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">study</span><span class="hljs-params">(String math)</span>&#123;&#125;<br><span class="hljs-keyword">void</span> <span class="hljs-title function_">study</span><span class="hljs-params">(String english,<span class="hljs-type">int</span> grade)</span>&#123;&#125;<br><span class="hljs-keyword">void</span> <span class="hljs-title function_">study</span><span class="hljs-params">(String cs,String cs_experiment)</span>&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同一个方法名，不同的参数，实现不同的功能，这就是方法重载。这样的机制有什么好处？</p>
+<p>主要是：同样的功能，调用同样的方法，只需传入不同的参数，增强了程序的可读性和易于维护，当有很多个功能相似的方法的时候，如果我们为每个方法设计一个名称，想通过名称来区分它们的话，会使得程序的可读性差，设计不够巧妙！</p>
+<p>重写：重写是在继承中存在的，在两个类（子类和父类之间存在的关系）中，子类重写父类的方法，方法名相同，参数也相同的一种机制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">animal</span>&#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">animal</span><span class="hljs-params">(String a)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;我是动物：&quot;</span>+a);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">animal</span>&#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">animal</span><span class="hljs-params">(String a)</span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;我是犬科动物：&quot;</span>+a);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当子类继承了父类后，想对父类的方法功能进行扩展，就可以使用重写，这样做的目的就是：当你需要扩展新的功能的时候，不需要新建方法，在父类的方法中进行补充，这样一种面向对象思维的体现，不用重写同样可以达到这样的效果，但是用了重写更加符合OO思想。类似的还有一种概念，叫<strong>隐藏</strong>：当子类和父类方法名相同，参数不同时，子类隐藏父类的方法实现，这就是一种机制，一种叫法，没什么实际意义，相当于我们新建了方法，只是方法名和父类的相同，但是不是父类的方法的实现。</p>
+<p><font color="blue"><strong>Java中不定参数调用</strong></font></p>
+<p>有的时候，我们不能确定方法的参数个数，我们可以采取这种机制(String … value)，这样可以使代码量降低，使得代码尽可能简单</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<br>	<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">study</span><span class="hljs-params">(String ... value)</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;CS专业要学:&quot;</span> + value;<br>	&#125;<br>	<br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>		System.out.println(a(<span class="hljs-string">&quot;data—structure&quot;</span>,<span class="hljs-string">&quot;algorithm&quot;</span>,<span class="hljs-string">&quot;SQL&quot;</span>,<span class="hljs-string">&quot;Operating-System&quot;</span>));<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="3-类与对象关系"><a href="#3-类与对象关系" class="headerlink" title="3 类与对象关系"></a>3 类与对象关系</h3><h4 id="对象与引用"><a href="#对象与引用" class="headerlink" title="对象与引用"></a>对象与引用</h4><p>我们从内存的角度分析。首先，给出两种内存空间的概念：<br>（1）堆内存：保存对象的属性内容。堆内存需要用new关键字来分配空间；<br>（2）栈内存：保存的是堆内存的地址（在这里为了分析方便，可以简单理解为栈内存保存的是对象的名字）。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>如果直接使用没有实例化的对象，就会出现报错：<code>Exception in thread &quot;main&quot; java.lang.NullPointerException</code>空指向异常。表示只声明了Student对现象，没有实例化（只有栈空间而没有对应的堆内存空间）</p>
+<p>引用和对象：对象只有一个，但是可以有多个引用指向它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Student</span> <span class="hljs-variable">stu1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;张三&quot;</span>,<span class="hljs-number">33</span>);<br><span class="hljs-type">Student</span> <span class="hljs-variable">stu2</span> <span class="hljs-operator">=</span> stu1;<br></code></pre></td></tr></table></figure>
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class2.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>一个引用同时只能指向一个对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Student</span> <span class="hljs-variable">stu1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;张三&quot;</span>,<span class="hljs-number">33</span>);<br><span class="hljs-type">Student</span> <span class="hljs-variable">stu2</span> <span class="hljs-operator">=</span> stu1;<br><span class="hljs-type">Student</span> <span class="hljs-variable">stu2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;李四&quot;</span>,<span class="hljs-number">18</span>);<span class="hljs-comment">//此时引用stu2指向新的对象</span><br></code></pre></td></tr></table></figure>
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class3.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>再看看下面的一段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">Student</span> <span class="hljs-variable">stu1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;张三&quot;</span>,<span class="hljs-number">33</span>);<br><span class="hljs-type">Student</span> <span class="hljs-variable">stu2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Student</span>(<span class="hljs-string">&quot;李四&quot;</span>,<span class="hljs-number">18</span>);<br><span class="hljs-type">Student</span> <span class="hljs-variable">stu2</span> <span class="hljs-operator">=</span> stu1;<br></code></pre></td></tr></table></figure>
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class4.png" srcset="/img/loading.gif" lazyload style="zoom:80%;" />
+
+<p>此时第二块堆内存空间，没有任何引用指向，这块空间就成为内存垃圾</p>
+<h4 id="抽象类与接口"><a href="#抽象类与接口" class="headerlink" title="抽象类与接口"></a>抽象类与接口</h4><p>初学Java感觉抽象类和接口有点类似，</p>
+<p>抽象类：凡是声明为形如：<code>abstract void function()</code>的方法，都是抽象方法，包含抽象方法的类就是抽象类，抽象方法只有声明没有实现。</p>
+<p>当然一个类可以在没有抽象方法的前提下声明为抽象类，而一旦被声明为抽象类，因为抽象类没有具体实现的方法，那么它就不能直接实例化。抽象类可以说是对类的抽象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<span class="hljs-comment">//包含抽象方法的类就是抽象类</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">function</span><span class="hljs-params">()</span>;<br>&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<br>    <span class="hljs-comment">//没有抽象方法也可以声明为抽象类</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>抽象类创建了就是为了被继承然后实现，因此一个类继承了抽象类，那么就必须实现父类的抽象方法，如果没有实现那么子类也将定义为abstract类。</p>
+<p>接口：指供别人调用的方法或者函数。它是对行为的抽象。在Java中，定一个接口的形式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">goTest</span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">writeTest</span><span class="hljs-params">()</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">experimentTest</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看出：接口比抽象类更加 “ 抽象 ”。他可以定义变量，但是变量会被隐式地指定为public static final变量（即为常量），而方法会被隐式地指定为public abstract方法且只能是public abstract方法，并且接口中所有的方法不能有具体的实现，也就是说，接口中的方法必须都是抽象方法。</p>
+<h5 id="Java多继承"><a href="#Java多继承" class="headerlink" title="Java多继承"></a>Java多继承</h5><p>Java中只有单继承，不允许多继承，但是可以实现多个接口，相当于间接实现多继承</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">goStudy</span>&#123;<span class="hljs-keyword">void</span> <span class="hljs-title function_">study</span><span class="hljs-params">()</span>;&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">goTest</span>&#123;<span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span>;&#125;<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">goGraduate</span>&#123;<span class="hljs-keyword">void</span> <span class="hljs-title function_">graduate</span><span class="hljs-params">()</span>;&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Student</span>&#123;<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">goSchool</span><span class="hljs-params">()</span>;&#125;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">JuniorStudent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Student</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">goStudy</span>,goTest,goGraduate&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">study</span><span class="hljs-params">()</span>&#123;&#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">test</span><span class="hljs-params">()</span>&#123;&#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">graduate</span><span class="hljs-params">()</span>&#123;&#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">goSchool</span><span class="hljs-params">()</span>&#123;&#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>1、接口可以实现向上转型，多个具有共同属性的类可以将它们的共同点提取出来，做成抽象，这样层次分明，统一管理。</p>
+<p>2、接口不具有任何实现，最适合做基类。</p>
+<p>抽象类与接口区别：</p>
+<ul>
+<li>抽象类可以提供成员方法的实现细节，而接口中只能存在public abstract 方法；</li>
+<li>抽象类中的成员变量可以是各种类型的，而接口中的成员变量只能是public static final类型的；</li>
+<li>接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；</li>
+<li>一个类只能继承一个抽象类，而一个类却可以实现多个接口。</li>
+<li>抽象类是对一种事物的抽象，即对类抽象，而接口是对行为的抽象。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口却是对类局部（行为）进行抽象。</li>
+</ul>
+<h2 id="【参考】"><a href="#【参考】" class="headerlink" title="【参考】"></a>【参考】</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wei_zhi/article/details/52745268">Java类和对象 详解（一）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangerqing/article/details/8294039">Java之美[从菜鸟到高手演变]之类与对象(一)</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java%E5%9F%BA%E7%A1%80/">#Java基础</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Java类与对象</div>
+      <div>https://61hhh-github-io.vercel.app/20200804/4dffdbe9/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年8月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200809/2d663ae/" title="Java集合（四）Map接口">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java集合（四）Map接口</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200803/96b89c5/" title="Java字符串">
+                        <span class="hidden-mobile">Java字符串</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

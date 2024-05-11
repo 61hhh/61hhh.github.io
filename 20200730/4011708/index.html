@@ -1,0 +1,887 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="网络安全在介绍HTTPS协议之前，因该先了解网络安全的知识，这样才能知道为什么HTTP协议升级为HTTPS协议。 网络安全问题概述计算机网络通信主要面临两大类威胁，即主动攻击与被动攻击 被动攻击指：攻击者从网络上窃取他人通信内容，通常称为截获。被动攻击中，攻击者只是观察和分析某一个协议数据单元PDU而不干扰信息流，主要通过观察协议控制信息部分了解正在通信的协议实体地址和身份、研究PDU的长度和传输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络 安全基础知识.md">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200730/4011708/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="网络安全在介绍HTTPS协议之前，因该先了解网络安全的知识，这样才能知道为什么HTTP协议升级为HTTPS协议。 网络安全问题概述计算机网络通信主要面临两大类威胁，即主动攻击与被动攻击 被动攻击指：攻击者从网络上窃取他人通信内容，通常称为截获。被动攻击中，攻击者只是观察和分析某一个协议数据单元PDU而不干扰信息流，主要通过观察协议控制信息部分了解正在通信的协议实体地址和身份、研究PDU的长度和传输">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180034801.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180225954.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180244090.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180257317.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180308755.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180323015.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180334162.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180343328.png">
+<meta property="article:published_time" content="2020-07-30T12:25:24.000Z">
+<meta property="article:modified_time" content="2024-05-10T06:57:14.292Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="计算机网络">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180034801.png">
+  
+  
+  
+  <title>网络 安全基础知识.md - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网络 安全基础知识.md"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-07-30 20:25" pubdate>
+          2020年7月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">网络 安全基础知识.md</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h2><p>在介绍HTTPS协议之前，因该先了解网络安全的知识，这样才能知道为什么HTTP协议升级为HTTPS协议。</p>
+<h3 id="网络安全问题概述"><a href="#网络安全问题概述" class="headerlink" title="网络安全问题概述"></a>网络安全问题概述</h3><p>计算机网络通信主要面临两大类威胁，即<strong>主动攻击</strong>与<strong>被动攻击</strong></p>
+<p>被动攻击指：攻击者从网络上窃取他人通信内容，通常称为截获。被动攻击中，攻击者只是观察和分析某一个<u>协议数据单元PDU</u>而不干扰信息流，主要通过观察协议控制信息部分了解正在通信的协议实体地址和身份、研究PDU的长度和传输的频度，也称<u>流量分析</u>。</p>
+<p>主动攻击有以下几种形式：</p>
+<ul>
+<li>篡改：恶意篡改网络上传送的报文</li>
+<li>恶意程序：计算机病毒；计算机蠕虫；特洛伊木马；逻辑炸弹；后门入侵；流氓软件等</li>
+<li>拒绝服务DoS：指攻击者不停向服务器发送大量分组，使该服务器无法正常工作</li>
+</ul>
+<span id="more"></span>
+
+<p>对于主动攻击可以采取措施检测，被动攻击通常检测不出来，根据这些特点可以得出计算机网络通信安全的目标如下：</p>
+<ol>
+<li>防止析出报文内容和流量分析</li>
+<li>防止恶意程序</li>
+<li>检测更改报文流和拒绝服务</li>
+<li>采用加密技术对服被动攻击；将加密技术和鉴别技术结合对服主动攻击</li>
+</ol>
+<p>一个安全的计算机网络应该达到以下四个目标：</p>
+<ol>
+<li>保密性</li>
+<li>端点鉴别</li>
+<li>信息的完整性</li>
+<li>运行安全性</li>
+</ol>
+<h4 id="数据加密模型"><a href="#数据加密模型" class="headerlink" title="数据加密模型"></a>数据加密模型</h4><p>一般加密模型如下图，用户A向用户B发送<em>明文X</em>，通过<em>加密算法E</em>运算后，得到<em>密文Y</em>。</p>
+<p>加密解密所用的<em>密钥K(Key)<em>是一串秘密的字符串。在接收端使用</em>解密算法D</em>运算和<em>解密密钥K</em>，解出明文X。</p>
+<p>解密算法是加密算法的逆运算，如果解密时不采用事先约定好的密钥就无法解密出明文。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180034801.png" srcset="/img/loading.gif" lazyload alt="image-20230418180034801" style="zoom:80%;" />
+
+
+
+<h3 id="两类密码体制"><a href="#两类密码体制" class="headerlink" title="两类密码体制"></a>两类密码体制</h3><p>密码学分为：密码编码学、密码分析学。如果截获者无论获取多少密文都不能找到足够的信息来唯一确定对应明文，则称这一密码体制是<u>无条件安全的</u>（或<u>理论上不可破的</u>）</p>
+<h4 id="对称密钥密码体制"><a href="#对称密钥密码体制" class="headerlink" title="对称密钥密码体制"></a>对称密钥密码体制</h4><p>所谓对称密钥密码体制，即<strong>加密密钥和解密密钥是使用相同的密码体制</strong>，上面加密模型图就是采用这种。</p>
+<p>数据加密标准DES属于对称密钥密码体制，由IBM研制。DES是一种分组密码，在加密前将整个明文分组，每组为64位长的二进制数据；然后对每一个64位二进制数据进行加密处理，产生一组64位密文数据；最后将各组密文串接得到整个密文，使用的密钥占64位（实际密钥56位，奇偶校验位8位）</p>
+<p>DES的保密性取决于对密钥的保密，而算法是公开的。DES的问题是密钥长度是56位，即有2^56中可能密钥。但是现在的计算机是可以搜索破解的。因此有学者提出了三重DES方法：将一个64明文用一个密钥加密，再用另一个密钥解密，再用另一个密钥加密 *Y&#x3D;DES <sub>k1</sub>(DES<sup>-1</sup> <sub>k2</sub>( DES<sub>k3</sub>(X)))*；</p>
+<h4 id="公钥密码体制"><a href="#公钥密码体制" class="headerlink" title="公钥密码体制"></a>公钥密码体制</h4><p>公钥密码体制是由斯坦福大学的研究人员Diffie与Hellman提出的。<strong>公钥密码体制使用不同的加密密钥和解密密钥</strong></p>
+<p>产生原因：</p>
+<ul>
+<li>对称密钥密码体制的密钥分配问题</li>
+<li>由于对数字签名的需求</li>
+</ul>
+<p>目前最著名的是美国三位科学家Rivest、Shamir、Adleman提出的<strong>RSA体制</strong>，它是一种基于数论中的大数分解问题的体制。</p>
+<p>在公钥密码体制中，加密密钥*PK(Primary Key)<em>是向公众公开的，解密密钥</em>SK(Secret Key)*则是要保密的，加密算法E和解密算法D也是公开的。</p>
+<p>公钥密码体制加密解密过程特点：</p>
+<ol>
+<li><strong>密钥对</strong>产生器产生出接收者B的一对密钥：加密密钥PK<sub>B</sub>和解密密钥SK<sub>B</sub>。发送者A所用的加密密钥PK<sub>B</sub>就是接收者B的公钥，它向公众公开，而B所用的解密密钥SK<sub>B</sub>就是接收者B的私钥，对别人保密。</li>
+<li>发送者A用B的公钥PK<sub>B</sub>通过E运算对明文X加密，得出密文Y，发送给B。<em>Y &#x3D; E<sub> PK<sub>B</sub> </sub>( X )</em></li>
+<li>B用自己的私钥SK<sub>B</sub>通过D运算进行解密，恢复出明文。D <sub>SK<sub>B</sub></sub>( Y ) &#x3D; D <sub>SK<sub>B</sub></sub>( E<sub> PK<sub>B</sub> </sub>( X ) ) &#x3D; X</li>
+<li>虽然在计算机上很容易生产成对的PK<sub>B</sub>和SK<sub>B</sub>，但是由已知的PK<sub>B</sub>推导出SK<sub>B</sub>属实“计算上不可能的”</li>
+<li>公钥可以用来加密，但是不能用来解密。D <sub>PK<sub>B</sub></sub>( E<sub> PK<sub>B</sub> </sub>( X ) )  不等于 X</li>
+<li>先对X进行D运算再E运算，和先E运算再D运算结果是一样的</li>
+</ol>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180225954.png" srcset="/img/loading.gif" lazyload alt="image-20230418180225954" style="zoom:80%;" />
+
+<p>对称密钥中双方使用相同的密钥，可以实现通信信道上的一对一双向保密通信；公开密钥中通信信道上可以实现双方多对一的单向保密通信</p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>数字签名功能：</p>
+<ol>
+<li>报文鉴别：接收者能何时发送者对报文的签名，即确认发送者信息。</li>
+<li>报文完整性：接收者确信接收的数据与发送者发送是完全一致未被篡改的。</li>
+<li>不可否认：发送者事后不能抵赖对报文的签名。</li>
+</ol>
+<p>现在已经有多种实现数字签名的方法，其中采用公钥算法更容易实现。</p>
+<p>为进行签名，A用其私钥SK<sub>A</sub>对报文X进行D运算（此处的D运算并非指解密运算），得到不可读的密文，将密文传送给B。B为了核实签名，用A的公钥PK<sub>A</sub>进行E运算还原出明文X（注：任何人用A的公钥进行E运算后都可以得到A发送的明文）。这里的通信不是为了保密，而是为了签名和核实签名，即确认发送者信息</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180244090.png" srcset="/img/loading.gif" lazyload alt="image-20230418180244090" style="zoom:80%;" />
+
+<p>上述功能分析：</p>
+<ul>
+<li>由于除A外没有人拥有A的私钥SK<sub>A</sub>，那么除了A就没人能产生密文D<sub>SK<sub>A</sub></sub>(X)。这样B就能相信X是A签名发送的，这就是报文鉴别功能</li>
+<li>同理，其他人若篡改报文，但由于没有A的私钥SK<sub>A</sub>来对X进行加密，那么B对篡改后的报文解密时将会得到不可读的明文，由此知道报文被篡改过了，这就是报文完整性</li>
+<li>若A抵赖发送过报文给B，B可以将明文X和密文D<sub>SK<sub>A</sub></sub>(X)出示给公证的第三者，第三者很容易用PK<sub>A</sub>去证实A确实发送过保温给B，这就是不可否认。</li>
+</ul>
+<p>上述过程中A仅对报文签名，未对报文保密，因此接获到密文D<sub>SK<sub>A</sub></sub>(X)后，可以通过查手册知道公钥PK<sub>A</sub>从而知道报文内容X。可以使用A、B两者的公钥实现保密和签名</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180257317.png" srcset="/img/loading.gif" lazyload alt="image-20230418180257317" style="zoom:80%;" />
+
+
+
+
+
+<h3 id="鉴别"><a href="#鉴别" class="headerlink" title="鉴别"></a>鉴别</h3><p>鉴别(Authentication)是网络安全中非常重要的一个话题。鉴别与加密不同。<strong>鉴别是要验证通信的对方确实是自己所要通信的对象，而不是其他冒充者，并且所传送的报文是完整的，未被篡改过</strong>。</p>
+<h4 id="报文鉴别"><a href="#报文鉴别" class="headerlink" title="报文鉴别"></a>报文鉴别</h4><p><strong>1.密码散列函数</strong></p>
+<p>理论上讲上述的签名就可以实现对报文的鉴别，不过这种方法很大的一个缺点就是对较长的报文进行数字签名会是计算机负担增大很多，因此需要一个相对简单的方法——<strong>密码散列函数</strong>。前面所讲过的校验和其实就是散列函数的一种应用。散列函数有如下特点：</p>
+<p>(1)散列函数的输入长度可以很长，但是<strong>输出长度是固定的，并且较短</strong>。散列函数的输出值叫做<strong>散列值</strong>，简称散列</p>
+<p>(2)不同散列值肯定对应于不同输入，但是不同输入可能会有相同散列值。即散列函数的输入和输出是多对一的</p>
+<p>密码散列函数最重要的特点：要找到两个不同的报文，使得他们的散列密码输出相同，在计算上是不可行的</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180308755.png" srcset="/img/loading.gif" lazyload alt="image-20230418180308755" style="zoom:80%;" />
+
+
+
+<p><strong>2.实用密码散列函数MD5和SHA-1</strong></p>
+<p>最出名的密码散列函数MD5和SHA-1。以MD5为例，算法大致过程如下：</p>
+<ol>
+<li>先把任意长度的报文按模2<sup>64</sup>计算余数，追加在报文后面</li>
+<li>在报文和余数之间填充1~512位，使得填充后的总长度是512的整数倍。填充的首位是1后面全0</li>
+<li>把追加的和填充的报文分割为一个个的512位数据块，每512位报文数据再分成4个128位的数据块送到不同散列函数进行4轮计算，每一轮又按32位小数据块进行运算，直到最后计算出MD5报文摘要代码(128位)</li>
+</ol>
+<p>这样得出的MD5报文摘要代码的每一位都与原报文的每一位有关！</p>
+<p>SHA和MD5相似，但是码长为160位（比MD5的128位多了25%），也是用512位长的数据块运算得出</p>
+<p><strong>3.报文鉴别码</strong></p>
+<p>接下来说说怎样在报文鉴别中用散列函数，基本步骤：</p>
+<ol>
+<li><p>用户A根据自己的明文<em>X</em>计算出散列*H(X)*。为方便起见称其H<sub>1</sub>。</p>
+</li>
+<li><p>用户将散列H拼接在明文<em>X</em>后面，生成了拓展的报文*(X,H<sub>1</sub>)*，然后发送给B。</p>
+</li>
+<li><p>B收到拓展的报文，由于散列长度是已知的固定值，因此可将散列H<sub>1</sub>和明文X分开。B、通过散列函数运算，计算出收到的明文X的散列H<sub>2</sub>(X)，若H<sub>2</sub>&#x3D;H<sub>1</sub>似乎就可以相信是A发送的，但是这是不行的（有可能攻击者伪造了一个报文M，同样计算出H<sub>2</sub>(X)后，再将拼接有散列的拓展保温发送给B，B收到拓展保温(M,H<sub>2</sub>(X) )后验证发现正常，就会出现错误！）</p>
+</li>
+<li><p>解决方法就是对散列进行一次加密</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180323015.png" srcset="/img/loading.gif" lazyload alt="image-20230418180323015" style="zoom:80%;" /></li>
+</ol>
+<h4 id="实体鉴别"><a href="#实体鉴别" class="headerlink" title="实体鉴别"></a>实体鉴别</h4><p>报文鉴别是对每一个报文都要鉴别报文发送者，而实体鉴别是在系统接入的全部持续时间内对和自己通信的对方实体进行一次验证即可</p>
+<p>最简单的过程：A像远端B发送带有自己信息和口令的报文，并约定双方使用共享对称密钥K<sub>AB</sub>加密。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180334162.png" srcset="/img/loading.gif" lazyload alt="image-20230418180334162" style="zoom:80%;" />
+
+<p>这样的方法有很明显的漏洞：攻击者C可以截获A发送的报文，不需要破译，而是直接将其发送给B，使得B误认为C的身份是A，然后B向C发送本该发送给A的报文。这就叫**重放攻击(replay attack)**，C甚至还可以截获A的IP地址将其冒充为自己的IP（IP欺骗），使B更容易受骗。</p>
+<p>为对付重放攻击，可以使用<strong>不重数</strong>，即一个<strong>不重复使用的大随机数</strong></p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418180343328.png" srcset="/img/loading.gif" lazyload alt="image-20230418180343328" style="zoom:80%;" />
+
+<p>A用明文发送身份A和一个不重数R<sub>A</sub>给B。B响应A的查问，用共享密钥K<sub>AB</sub>对R<sub>A</sub>加密后发回A，同时也给出自己的不重数R<sub>B</sub>。最后A响应B的查问，用共享密钥K<sub>AB</sub>对R<sub>B</sub>加密后发回B。（注：A与B在不同对话中必须使用不同的不重数）由于不重数不能重复使用，C在重放攻击时就无法重复使用截获的不重数</p>
+<p>即使这样，还是会有收到攻击的可能，常见的就是中间人攻击</p>
+<h3 id="密钥分配"><a href="#密钥分配" class="headerlink" title="密钥分配"></a>密钥分配</h3><p>由于密码算法是公开的，网络的安全性就完全基于密钥的保护上，因此产生了一个重要分支——密钥管理。主要包括密钥的产生、分配、注入、验证和使用</p>
+<h4 id="1-对称密钥分配"><a href="#1-对称密钥分配" class="headerlink" title="1.对称密钥分配"></a>1.对称密钥分配</h4><p>假设n个人中两两都有通信，那么就要n(n-1)&#x2F;2个密钥，接近n<sup>2</sup>情况，n很大时密钥数量就会非常大</p>
+<p>目前常用的密钥分配方式是<strong>密钥分配中心KDC（Key Distribution Center）</strong>。基本流程：</p>
+<ul>
+<li>A向KDC发送明文，说明想和B通信，并给出A、B在KDC登记的身份</li>
+<li>KDC用随机数产生”一次一密”的会话密钥K<sub>AB</sub>，向A发送回答报文（用K<sub>A</sub>加密），报文包括本次会话使用的密钥K<sub>AB</sub>和请A转给B的票据(ticket)，票据包含A、B在KDC等级的身份以及会话密钥（票据用K<sub>B</sub>加密）A无法知道票据内容。</li>
+<li>B收到A转发来的票据后使用K<sub>B</sub>解密，就知道A要和自己通信，也知道了KDC为此次会话分配的密钥K<sub>AB</sub></li>
+<li>A、B就可以开始通信了</li>
+</ul>
+<p>注：在网络上传送的密钥都是经过加密的。KDC还可以在报文中加入时间戳，以防止报文截取这利用以前记录的报文进行重放攻击。</p>
+<p>目前最出名的密钥分配协议是Kerberos V5。由MIT开发，Kerberos既是鉴别协议也是KDC</p>
+<h4 id="2-公钥分配"><a href="#2-公钥分配" class="headerlink" title="2.公钥分配"></a>2.公钥分配</h4><p>在公钥密码体制中，使用**认证中心CA(Certification Authority)<strong>来将公钥与对应实体</strong>绑定(binding)**，它一般由政府出资建立。</p>
+<p>在IE浏览器中，选择工具&#x2F;Internet选项&#x2F;内容&#x2F;证书。即可查看有关证书发行机构的信息。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网络 安全基础知识.md</div>
+      <div>https://61hhh-github-io.vercel.app/20200730/4011708/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年7月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200731/dc4a4f4/" title="网络 HTTPS协议详解.md">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">网络 HTTPS协议详解.md</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200730/5806080f/" title="网络 HTTP协议详解.md">
+                        <span class="hidden-mobile">网络 HTTP协议详解.md</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

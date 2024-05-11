@@ -1,0 +1,1100 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="Redis的是一个内存数据库，所有数据都存放在内存中，这也是它读写效率高的原因所在。不过相比于MySQL等关系型数据库将持久化，内存保存数据容易在断电宕机等情况下丢失数据，因此Redis提供了数据持久化功能，通过备份内存数据到本地、将备份文件恢复等实现持久化机制。 在学习Redis持久化之前，可以先大概学习一下配置文件，了解Redis的配置参数等。 配置文件简述配置文件地址：在Redis的安装目录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis学习三：持久化">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20211212/a4f2d1e9/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="Redis的是一个内存数据库，所有数据都存放在内存中，这也是它读写效率高的原因所在。不过相比于MySQL等关系型数据库将持久化，内存保存数据容易在断电宕机等情况下丢失数据，因此Redis提供了数据持久化功能，通过备份内存数据到本地、将备份文件恢复等实现持久化机制。 在学习Redis持久化之前，可以先大概学习一下配置文件，了解Redis的配置参数等。 配置文件简述配置文件地址：在Redis的安装目录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215540244.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215658857.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208211519780.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208211537873.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208234044320.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208221452010.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208221505183.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231357749.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231546701.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231525203.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231639148.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208232640759.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208232921640.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208234508553.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210002329960.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210225414544.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210003029035.png">
+<meta property="article:published_time" content="2021-12-12T12:35:42.000Z">
+<meta property="article:modified_time" content="2024-05-10T07:25:44.157Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="NoSQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215540244.png">
+  
+  
+  
+  <title>Redis学习三：持久化 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Redis学习三：持久化"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-12 20:35" pubdate>
+          2021年12月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis学习三：持久化</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Redis的是一个内存数据库，所有数据都存放在内存中，这也是它读写效率高的原因所在。不过相比于MySQL等关系型数据库将持久化，内存保存数据容易在断电宕机等情况下丢失数据，因此Redis提供了数据持久化功能，通过备份内存数据到本地、将备份文件恢复等实现持久化机制。</p>
+<p>在学习Redis持久化之前，可以先大概学习一下配置文件，了解Redis的配置参数等。</p>
+<h2 id="配置文件简述"><a href="#配置文件简述" class="headerlink" title="配置文件简述"></a>配置文件简述</h2><p>配置文件地址：在Redis的安装目录下，对应的<code>redis.conf</code>文件（Windows 名为 <code>redis.windows.conf</code>）</p>
+<p><strong>Units单位</strong>：配置大小单位,开头定义了一些基本的度量单位，只支持bytes，不支持bit。大小写不敏感</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215540244.png" srcset="/img/loading.gif" lazyload alt="image-20211206215540244" style="zoom: 80%;" />
+
+<p><strong>INCLUDES包含</strong>：多实例的情况可以把公用的配置文件提取出来</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215658857.png" srcset="/img/loading.gif" lazyload alt="image-20211206215658857" style="zoom: 80%;" />
+
+<p>相关配置如下表，更多详细配置可以在<code>redis.conf</code>文件中查看。</p>
+<table>
+<thead>
+<tr>
+<th align="center">配置项</th>
+<th align="left">配置说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>网络相关</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>port 6379</code></td>
+<td align="left">指定redis监听端口，默认端口是6379</td>
+</tr>
+<tr>
+<td align="center"><code>bind 127.0.0.1</code></td>
+<td align="left">绑定的主机地址</td>
+</tr>
+<tr>
+<td align="center"><code>timeout 300</code></td>
+<td align="left">当客户端闲置多长秒后关闭连接，如果指定为 0 ，表示关闭该功能</td>
+</tr>
+<tr>
+<td align="center"><code>protect-mode</code></td>
+<td align="left">将本机访问保护模式设置no</td>
+</tr>
+<tr>
+<td align="center"><code>tcp-keeplive</code></td>
+<td align="left">单位为秒，如果设置为0，则不会进行Keepalive检测，建议设置成60</td>
+</tr>
+<tr>
+<td align="center"><code>tcp-backlog</code></td>
+<td align="left">设置tcp的backlog，backlog其实是一个连接队列，backlog队列总和&#x3D;未完成三次握手队列 + 已经完成三次握手队列。<br/>在高并发环境下你需要一个高backlog值来避免慢客户端连接问题。注意Linux内核会将这个值减小到&#x2F;proc&#x2F;sys&#x2F;net&#x2F;core&#x2F;somaxconn的值，所以需要确认增大somaxconn和tcp_max_syn_backlog两个值<br/>来达到想要的效果</td>
+</tr>
+<tr>
+<td align="center"><strong>通用项</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>daemonize no</code></td>
+<td align="left">Redis 默认不是以守护进程的方式运行，可以通过该配置项修改，使用 yes 启用守护进程（Windows 不支持守护线程的配置为 no ）</td>
+</tr>
+<tr>
+<td align="center"><code>pidfile /var/run/redis.pid</code></td>
+<td align="left">当 Redis 以守护进程方式运行时，Redis 默认会把 pid 写入 &#x2F;var&#x2F;run&#x2F;redis.pid 文件，可以通过 pidfile 指定</td>
+</tr>
+<tr>
+<td align="center"><code>loglevel notice</code></td>
+<td align="left">指定日志记录级别，Redis 总共支持四个级别：debug、verbose、notice、warning，默认为 notice</td>
+</tr>
+<tr>
+<td align="center"><code>logfile stdout</code></td>
+<td align="left">日志记录方式，默认为标准输出，如果配置 Redis 为守护进程方式运行，而这里又配置为日志记录方式为标准输出，则日志将会发送给 &#x2F;dev&#x2F;null</td>
+</tr>
+<tr>
+<td align="center"><code>database 16</code></td>
+<td align="left">设定库的数量。默认16，默认数据库为0，可以使用SELECT命令在连接上指定数据库id</td>
+</tr>
+<tr>
+<td align="center"><code>syslog-enabled</code></td>
+<td align="left">是否把日志输出到syslog中</td>
+</tr>
+<tr>
+<td align="center"><code>syslog-ident</code></td>
+<td align="left">指定syslog的日志标识</td>
+</tr>
+<tr>
+<td align="center"><code>syslog-facility</code></td>
+<td align="left">指定syslog设备，值可以是User或者local</td>
+</tr>
+<tr>
+<td align="center"><strong>SNAPSHOT快照</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>save  &lt;seconds&gt;</code> <code> &lt;changes&gt;</code></td>
+<td align="left"><code>save 900 1</code> <code>save 300 10</code> <code>save 60 10000</code>分别表示 900 秒（15 分钟）内有 1 个更改，300 秒（5 分钟）内有 10 个更改以及 60 秒内有 10000 个更改。<br/>指定在多长时间内，有多少次更新操作，就将数据同步到数据文件，可以多个条件配合</td>
+</tr>
+<tr>
+<td align="center"><code>Stop-writes-on-bgsave-error</code></td>
+<td align="left">如果配置成no，表示你不在乎数据不一致或者有其他的手段发现和控制</td>
+</tr>
+<tr>
+<td align="center"><code>rdbcompression yes</code></td>
+<td align="left">指定存储至本地数据库时是否压缩数据，默认为 yes，Redis 采用 LZF 压缩，如果为了节省 CPU 时间，可以关闭该选项，但会导致数据库文件变的巨大</td>
+</tr>
+<tr>
+<td align="center"><code>rdbchecksum</code></td>
+<td align="left">在存储快照后，还可以让redis使用CRC64算法来进行数据校验，但是这样做会增加大约10%的性能消耗，如果希望获取到最大的性能提升，可以关闭此功能</td>
+</tr>
+<tr>
+<td align="center"><code>dbfilename dump.rdb</code></td>
+<td align="left">指定本地数据库文件名，默认值为 dump.rdb</td>
+</tr>
+<tr>
+<td align="center"><code>dir ./</code></td>
+<td align="left">指定本地数据库存放目录</td>
+</tr>
+<tr>
+<td align="center"><strong>SECURITY安全</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>config set/get requirepass  &quot;&lt;password&gt;&quot;</code></td>
+<td align="left">设置&#x2F;获取密码</td>
+</tr>
+<tr>
+<td align="center"><code>auth &quot;password&quot;</code></td>
+<td align="left">密码校验</td>
+</tr>
+<tr>
+<td align="center"><code>maxclients 128</code></td>
+<td align="left">设置同一时间最大客户端连接数，默认无限制，Redis 可以同时打开的客户端连接数为 Redis 进程可以打开的最大文件描述符数，如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis 会关闭新的连接并向客户端返回 max number of clients reached 错误信息</td>
+</tr>
+<tr>
+<td align="center"><strong>APPEND ONLY MODE</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>appendonly no</code></td>
+<td align="left">指定是否在每次更新操作后进行日志记录，Redis 在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。因为 redis 本身同步数据文件是按上面 save 条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为 no</td>
+</tr>
+<tr>
+<td align="center"><code>appendfilename appendonly.aof</code></td>
+<td align="left">指定更新日志文件名，默认为 appendonly.aof</td>
+</tr>
+<tr>
+<td align="center"><code>appendfsync everysec</code></td>
+<td align="left">指定更新日志条件，共有 3 个可选值：<br/>no：表示等操作系统进行数据缓存同步到磁盘（快）<br/>always：表示每次更新操作后手动调用 fsync() 将数据写到磁盘（慢，安全）<br/>everysec：表示每秒同步一次（折中，默认值）</td>
+</tr>
+<tr>
+<td align="center"><code>No-appendfsync-on-rewrite</code></td>
+<td align="left">重写时是否可以运用Appendfsync，用默认no即可，保证数据安全性。</td>
+</tr>
+<tr>
+<td align="center"><strong>VM</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center"><code>vm-enabled no</code></td>
+<td align="left">指定是否启用虚拟内存机制，默认值为 no，简单的介绍一下，VM 机制将数据分页存放，由 Redis 将访问量较少的页即冷数据 swap 到磁盘上，访问多的页面由磁盘自动换出到内存中</td>
+</tr>
+<tr>
+<td align="center"><code>vm-swap-file /tmp/redis.swap</code></td>
+<td align="left">虚拟内存文件路径，默认值为 &#x2F;tmp&#x2F;redis.swap，不可多个 Redis 实例共享</td>
+</tr>
+<tr>
+<td align="center"><code>vm-max-memory 0</code></td>
+<td align="left">将所有大于 vm-max-memory 的数据存入虚拟内存，无论 vm-max-memory 设置多小，所有索引数据都是内存存储的(Redis 的索引数据 就是 keys)，也就是说，当 vm-max-memory 设置为 0 的时候，其实是所有 value 都存在于磁盘。默认值为 0</td>
+</tr>
+<tr>
+<td align="center"><code>vm-page-size 32</code></td>
+<td align="left">Redis swap 文件分成了很多的 page，一个对象可以保存在多个 page 上面，但一个 page 上不能被多个对象共享，vm-page-size 是要根据存储的 数据大小来设定的，作者建议如果存储很多小对象，page 大小最好设置为 32 或者 64bytes；如果存储很大大对象，则可以使用更大的 page，如果不确定，就使用默认值</td>
+</tr>
+<tr>
+<td align="center"><code>vm-pages 134217728</code></td>
+<td align="left">设置 swap 文件中的 page 数量，由于页表（一种表示页面空闲或使用的 bitmap）是在放在内存中的，，在磁盘上每 8 个 pages 将消耗 1byte 的内存。</td>
+</tr>
+<tr>
+<td align="center"><code>vm-max-threads 4</code></td>
+<td align="left">设置访问swap文件的线程数,最好不要超过机器的核数,如果设置为0,那么所有对swap文件的操作都是串行的，可能会造成比较长时间的延迟。默认值为4</td>
+</tr>
+</tbody></table>
+<p>Redis官网中介绍了Redis的两种持久化机制，如图所示</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208211519780.png" srcset="/img/loading.gif" lazyload alt="image-20211208211519780" style="zoom:80%;" />
+
+<p>【Redis中文网的翻译如下】Redis 提供了不同级别的持久化方式</p>
+<ul>
+<li>RDB持久化方式能够在指定的时间间隔对你的数据进行快照存储.</li>
+<li>AOF持久化方式记录每次对服务器写的操作,当服务器重启的时候会重新执行这些命令来恢复原始的数据,AOF命令以redis协议追加保存每次写的操作到文件末尾.Redis还能对AOF文件进行后台重写,使得AOF文件的体积不至于过大.</li>
+<li>如果你只希望你的数据在服务器运行的时候存在,你也可以不使用任何持久化方式.</li>
+<li>你也可以同时开启两种持久化方式, 在这种情况下, 当redis重启的时候会优先载入AOF文件来恢复原始的数据,因为在通常情况下AOF文件保存的数据集要比RDB文件保存的数据集要完整.</li>
+</ul>
+<p>（后面的官网介绍就用Redis中文网的翻译版替代，便于理解）</p>
+<h2 id="持久化之RDB"><a href="#持久化之RDB" class="headerlink" title="持久化之RDB"></a>持久化之RDB</h2><p>了解RDB具体内容之前，可以先看看官网的介绍</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208211537873.png" srcset="/img/loading.gif" lazyload alt="image-20211208211537873" style="zoom:80%;" />
+
+<h3 id="RDB是什么"><a href="#RDB是什么" class="headerlink" title="RDB是什么"></a>RDB是什么</h3><p>RDB持久化方案是：<strong>在指定的时间间隔内将内存中的数据集快照写入磁盘(point-in-time)，即为Snapshot，恢复方式是将快照文件直接读到内存中</strong>。它以紧缩的二进制文件保存Redis数据库某一时刻所有数据对象的内存快照，可用于Redis的数据备份、转移与恢复。到目前为止，仍是官方的默认支持方案。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208234044320.png" srcset="/img/loading.gif" lazyload alt="image-20211208234044320" style="zoom:80%;" />
+
+<h3 id="RDB工作原理"><a href="#RDB工作原理" class="headerlink" title="RDB工作原理"></a>RDB工作原理</h3><h4 id="1-工作原理"><a href="#1-工作原理" class="headerlink" title="1.工作原理"></a>1.工作原理</h4><p>Redis会单独创建（fork）一个子进程来进行持久化，先将数据写入到一个临时文件<code>dump.rdb</code>中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件（整个过程中，主进程是不进行任何IO操作的，这就确保了极高的性能）</p>
+<p>如果需要进行大规模数据的恢复，且对于数据恢复的完整性不是非常敏感，那RDB方式要比AOF方式更加的高效。<strong>RDB的缺点是最后一次持久化后的数据可能丢失</strong>。</p>
+<h4 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2.配置文件"></a>2.配置文件</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-comment">## Redis.conf：********************SNAPSHOT********************</span><br><span class="hljs-comment"># 时间策略</span><br><span class="hljs-string">save</span> <span class="hljs-number">900</span> <span class="hljs-number">1</span><br><span class="hljs-string">save</span> <span class="hljs-number">300</span> <span class="hljs-number">10</span><br><span class="hljs-string">save</span> <span class="hljs-number">60</span> <span class="hljs-number">10000</span><br><br><span class="hljs-comment"># 文件名称</span><br><span class="hljs-string">dbfilename</span> <span class="hljs-string">dump.rdb</span><br><br><span class="hljs-comment"># 文件保存路径</span><br><span class="hljs-string">dir</span> <span class="hljs-string">./</span><br><br><span class="hljs-comment"># 如果持久化出错，主进程是否停止写入</span><br><span class="hljs-string">stop-writes-on-bgsave-error</span> <span class="hljs-literal">yes</span><br><br><span class="hljs-comment"># 是否压缩</span><br><span class="hljs-string">rdbcompression</span> <span class="hljs-literal">yes</span><br><br><span class="hljs-comment"># 导入时是否检查</span><br><span class="hljs-string">rdbchecksum</span> <span class="hljs-literal">yes</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>配置文件中持久化的策略为：<code>save &lt;seconds&gt;&lt;changes&gt;</code>，即在指定seconds内至少changs个key发生了改变，就会自动触发持久化；</li>
+<li>RDB持久化的快照文件名称默认为<code>dump.rdb</code>；</li>
+<li>快照文件默认存储在Redis启动时命令行所在的目录下；</li>
+<li><code>stop-writes-on-bgsave-error</code>开启表示当Redis无法写入磁盘的话，直接关掉Redis的写操作。默认为yes；</li>
+<li><code>rdbcompression</code>开启表示Redis会采用LZF算法对快照文件进行压缩存储；</li>
+<li><code>rdbchecksum</code>开启表示Redis启用CRC64算法来进行数据校验</li>
+</ul>
+<h4 id="3-触发机制"><a href="#3-触发机制" class="headerlink" title="3.触发机制"></a>3.触发机制</h4><p>Redis的持久化触发方式有两种：指令主动触发、自动触发</p>
+<ul>
+<li><p>自动触发：满足配置文件中的<code>save &lt;seconds&gt;&lt;changes&gt;</code>规则时触发；主从复制时主节点发送rdb文件到从节点会触发；执行<code>debug reload</code>时会触发；shutdown时未开启aof会触发。【自动触发采用的是bgsave】</p>
+</li>
+<li><p>手动触发：通过手动输入指令实现。</p>
+<ul>
+<li><p><strong>save</strong>：执行save执行后，Redis会立刻启动持久化流程，由于Redis的请求处理是单线程模型，因此会阻塞其他所有服务。不建议线上使用。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208221452010.png" srcset="/img/loading.gif" lazyload alt="image-20211208221452010" style="zoom:80%;" />
+</li>
+<li><p><strong>bgsave</strong>：Redis会在后台异步进行快照操作，通过fork出子进程操作持久化，主线程同时可以响应客户端请求。可以通过lastsave命令获取最后一次成功执行快照的时间</p>
+<p>【注】Redis的fork子进程操作会阻塞，如果频繁的执行备份或文件集较大fork耗时较长，都会影响Redis性能</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208221505183.png" srcset="/img/loading.gif" lazyload alt="image-20211208221505183" style="zoom:80%;" />
+</li>
+<li><p>执行flushall命令，也会产生dump.rdb文件。flushall用于清空Redis数据库所有数据，因此也会对dump.rdb等备份文件进行清空，最终得到的就是空的dump.rdb文件。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="RDB备份操作"><a href="#RDB备份操作" class="headerlink" title="RDB备份操作"></a>RDB备份操作</h3><p>1.首先设置自动备份策略<code>save 15 2</code>，15秒内有两次key的修改就自动备份。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231357749.png" srcset="/img/loading.gif" lazyload alt="image-20211208231357749" style="zoom: 80%;" />
+
+<p>2.通过<code>config get dir</code>获取rdb文件存储路径为<code>/etc/opt</code>，此时该路径下还没有dump.rdb文件</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231546701.png" srcset="/img/loading.gif" lazyload alt="image-20211208231546701" style="zoom:80%;" />
+
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231525203.png" srcset="/img/loading.gif" lazyload alt="image-20211208231525203" style="zoom:67%;" />
+
+<p>3.进入redis-cli，通过<code>set k v</code>指令在15秒内修改2个key，此时再看发现有文件了</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231639148.png" srcset="/img/loading.gif" lazyload alt="image-20211208231639148" style="zoom:67%;" />
+
+<p>4.通过<code>shutdown</code>关闭Redis服务，将rdb文件拷贝到myconf目录并重命名dump_old.rdb，删除原来的dump.rdb文件，启动redis，此时<code>KEYS *</code>看到的时（empty array），原来的数据都没有了</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208232640759.png" srcset="/img/loading.gif" lazyload alt="image-20211208232640759" style="zoom:80%;" />
+
+<p>5.再次关闭Redis。将dump_old.rdb拷贝到<code>/etc/opt</code>目录下【此时会提示是否覆盖，因为shutdown未指定aof时会产生rdb文件】，启动Redis，此时就又可以看到之前的key了</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208232921640.png" srcset="/img/loading.gif" lazyload alt="image-20211208232921640" style="zoom:80%;" />
+
+<p>6.手动备份直接调用save或bgsave，就会在<code>/etc/opt</code>目录下生成dump.rdb文件。其他验证操作类似</p>
+<p>7.动态停止RDB：<code>redis-cli config set save &quot;&quot;</code>#save后给空值，表示禁用保存策略</p>
+<h3 id="RDB的优缺点"><a href="#RDB的优缺点" class="headerlink" title="RDB的优缺点"></a>RDB的优缺点</h3><p>RDB备份的优缺点官网文档已经给出</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>适合大规模的数据恢复</li>
+<li>对数据完整性和一致性要求不高更适合使用</li>
+<li>能够节省磁盘空间</li>
+<li>恢复速度快</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>Fork的时候，内存中的数据被克隆了一份，大致2倍的膨胀性需要考虑</li>
+<li>虽然Redis在fork时使用了<strong>写时拷贝技术</strong>,但是如果数据庞大时还是比较消耗性能。</li>
+<li>在备份周期在一定间隔时间做一次备份，所以如果Redis意外down掉的话，就会丢失最后一次快照后的所有修改</li>
+</ul>
+<h2 id="持久化之AOF"><a href="#持久化之AOF" class="headerlink" title="持久化之AOF"></a>持久化之AOF</h2><p>同样可以先了解下官网文档对AOF的介绍</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208234508553.png" srcset="/img/loading.gif" lazyload alt="image-20211208234508553" style="zoom:80%;" />
+
+<h3 id="AOF是什么"><a href="#AOF是什么" class="headerlink" title="AOF是什么"></a>AOF是什么</h3><p>上面的RDB是一种时间点策略的持久化，它比较适合数据备份和容灾恢复。但是它不能实时地进行数据持久化，而AOF就是对这个问题的补充。</p>
+<p>AOF以<strong>日志</strong>的形式来记录每个写操作（增量保存），将Redis执行过的所有写指令记录下来(<strong>读操作不记录</strong>)， <strong>只许追加文件但不可以改写文件</strong>，redis启动之初会读取该文件重新构建数据，换言之，redis 重启的话就根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作。</p>
+<h3 id="AOF工作原理"><a href="#AOF工作原理" class="headerlink" title="AOF工作原理"></a>AOF工作原理</h3><h4 id="1-工作原理-1"><a href="#1-工作原理-1" class="headerlink" title="1.工作原理"></a>1.工作原理</h4><p>AOF是Redis的完全持久化策略，它通过记录所有引起Redis数据修改的指令集合，按顺序追加到文件中，然后重启时从头全部执行一遍，达到恢复关闭前的数据状态。因此将aof文件放到任何机器上，Redis都能按需执行指令恢复数据。</p>
+<p>由于每一次的写操作都需要记录到文件中，因此AOF会对Redis的性能有一定影响</p>
+<p>AOF的本质是利用Redis的通讯协议，将命令以纯文本形式写入到备份文件中。例如指令<code>set name leslie</code>执行，会在缓冲区追加文本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">\r\n$3\r\nset\r\n$5\r\nname\r\n$5\r\nleslie\r\n<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Redis协议</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">首先Redis是以行来划分，每行以\r\n行结束。每一行都有一个消息头，消息头共分为5种分别如下:</span><br>+	#表示一个正确的状态信息，具体信息是当前行后面的字符。<br>-	#表示一个错误信息，具体信息是当前行后面的字符。<br>*	#表示消息体总共有多少行，不包括当前行,后面是具体的行数。<br><span class="hljs-meta prompt_">$</span><span class="language-bash">	<span class="hljs-comment">#表示下一行数据长度，不包括换行符长度\r\n,后面则是对应的长度的数据。</span></span><br>:	#表示返回一个数值，后面是相应的数字节符。<br></code></pre></td></tr></table></figure>
+
+<p>（1）采用文本协议的原因</p>
+<ol>
+<li>文本协议具有很好的兼容性。</li>
+<li>开启AOF后，所有写入命令都包含追加操作，直接采用协议格式，避免二次处理开销。</li>
+<li>文本协议具有可读性，方便直接修改和处理。</li>
+</ol>
+<p>（2）追加指令到缓冲区的原因</p>
+<ol>
+<li>Redis使用单线程响应命令，如果每次写AOF文件命令都直接追加到硬盘，会带来很高的磁盘IO，影响整体性能；</li>
+<li>Redis还可以通过提供不同的缓冲区同步策略，在性能和安全性方面做出平衡。</li>
+</ol>
+<h4 id="2-配置文件-1"><a href="#2-配置文件-1" class="headerlink" title="2.配置文件"></a>2.配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">是否开启aof</span><br>appendonly yes<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">文件名称</span><br>appendfilename &quot;appendonly.aof&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">同步方式</span><br>appendfsync everysec<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">aof重写期间是否同步</span><br>no-appendfsync-on-rewrite no<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">重写触发配置</span><br>auto-aof-rewrite-percentage 100<br>auto-aof-rewrite-min-size 64mb<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">加载aof时如果有错如何处理</span><br>aof-load-truncated yes<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">文件重写策略</span><br>aof-rewrite-incremental-fsync yes<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>AOF默认是关闭的，通过修改配置中的<code>appendonly</code>为yes开启；</li>
+<li>默认的备份文件名称是<code>appendonly.aof</code>；</li>
+<li>同步方式有三种：always、everysec、no。一般采用everysec，顶多损失1s的数据；</li>
+<li><code>no-appendfsync-on-rewrite</code>开启表示：在重写aof文件期间执行的写操作，不会写进aof文件而是写入缓存</li>
+<li><code>auto-aof-rewrite-percentage</code>和<code>auto-aof-rewrite-min-size</code>设置了AOF文件重写的增长百分比或文件大小；</li>
+<li><code>aof-load-truncated </code>开启表示：在加载时发现aof尾部不正确，会向客户端写入一个log，然后继续执行，如果设置为 <code>no</code> ，发现错误就会停止，必须修复后才能重新加载。</li>
+</ul>
+<h4 id="3-工作流程"><a href="#3-工作流程" class="headerlink" title="3.工作流程"></a>3.工作流程</h4><p>AOF总体分为两个部分：将指令实时写入aof文件、读取aof文件重写数据。具体流程包括<strong>命令写入append</strong>、<strong>文件同步sysc</strong>、<strong>文件重写rewrite</strong>、<strong>重启加载load</strong>。</p>
+<h5 id="3-1-命令写入"><a href="#3-1-命令写入" class="headerlink" title="3.1 命令写入"></a>3.1 命令写入</h5><p>Redis在启动AOF后，每执行一个写操作的指令，都会以协议格式将被执行的命令追加到Redis的AOF缓存区（aof_buf）末尾。这样的好处在于在大量写请求情况下，采用缓冲区暂存一部分命令随后根据策略一次性写入磁盘，这样可以减少磁盘的I&#x2F;O次数，提高性能。</p>
+<p>【注】：如果命令append时正在进行重写，这些命令还会写入缓存区</p>
+<h5 id="3-2-文件同步"><a href="#3-2-文件同步" class="headerlink" title="3.2 文件同步"></a>3.2 文件同步</h5><p>学习文件同步前，先了解Linux的<strong>系统调用write和fsync</strong></p>
+<ul>
+<li><p>write操作会触发<strong>延迟写（delayed write）机制</strong>——传统的UNIX实现在内核中设有缓冲区高速缓存或页面高速缓存，大多数磁盘I&#x2F;O都通过缓冲进行。 当将数据写入文件时，内核通常先将该数据复制到其中一个缓冲区中，如果该缓冲区尚未写满，则并不将其排入输出队列，而是等待其写满或者达到特定时间周期时， 再将该缓冲排到输出队列，然后待其到达队首时，才进行实际的I&#x2F;O操作。这种输出方式就被称为延迟写。</p>
+<p>write操作通过延迟写减少了磁盘IO提高了性能。但是降低了aof文件内容更新的速度，在未达到缓冲区输出条件这段时间的数据都没有同步。如果此时系统发生故障，可能造成文件更新内容的丢失。为了保证磁盘上实际文件系统与缓冲区高速缓存中内容的一致性，UNIX系统提供了sync、fsync和fdatasync三个函数为强制写入硬盘提供支持。</p>
+</li>
+<li><p>fsync针对单个文件操作（比如AOF文件），做强制硬盘同步，fsync将阻塞进程直到写入硬盘完成后返回，保证了数据持久化。</p>
+</li>
+</ul>
+<p>Redis根据指定策略将缓冲区数据写入文件。Redis提供了三种同步策略，由配置参数<code>appendfsync</code>决定，下面是每个策略对应的含义：</p>
+<ul>
+<li>no：不使用fsync方法同步，而是交给操作系统write函数去执行同步操作，在linux操作系统中大约每30秒刷一次缓冲；</li>
+<li>always：表示每次有写操作都调用fsync方法强制内核将数据写入到aof文件；</li>
+<li>everysec：数据将使用调用操作系统write写入文件，并使用fsync每秒一次从内核刷新到磁盘。 这是折中的方案，最多丢失1S数据，兼顾性能和数据安全，所以Redis<strong>默认推荐使用该配置</strong>。</li>
+</ul>
+<h5 id="3-3-文件重写"><a href="#3-3-文件重写" class="headerlink" title="3.3 文件重写"></a>3.3 文件重写</h5><p>AOF采用文件追加方式，文件会越来越大为避免出现此种情况，新增了重写机制, 当AOF文件的大小超过所设定的阈值时，Redis就会启动AOF文件的内容压缩， 只保留可以恢复数据的最小指令集。</p>
+<p>Redis会记录上次重写时的AOF大小，上面的配置文件有介绍，默认配置是当AOF文件大小是上次rewrite后大小的100%且文件大于64M时自动触发。也可以使用命令<code>bgrewriteaof</code>手动触发。</p>
+<p>例如：文件达到70MB开始重写，降到50MB，下次什么时候开始重写？100MB</p>
+<p>系统载入时或者上次重写完毕时，Redis会记录此时AOF大小，设为base_size，如果Redis的AOF当前大小&gt;&#x3D; base_size +base_size*100% (默认)且当前大小&gt;&#x3D;64mb(默认)的情况下，Redis会对AOF进行重写。 </p>
+<p><strong>重写流程</strong></p>
+<p>AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(也是先写临时文件最后再rename覆盖)，遍历新进程的内存中数据，每条记录有一条的Set语句。重写aof文件的操作，并没有读取旧的aof文件，而是将整个内存中的数据库内容用命令的方式重写了一个新的aof文件，这点和快照有点类似</p>
+<p>（1）bgrewriteaof触发重写，判断是否当前有bgsave或bgrewriteaof在运行，如果有，则等待该命令结束后再继续执行。</p>
+<p>（2）主进程fork出子进程执行重写操作，保证主进程不会阻塞。</p>
+<p>（3）子进程遍历redis内存中数据到临时文件，客户端的写请求同时写入aof_buf缓冲区和aof_rewrite_buf重写缓冲区保证原AOF文件完整以及新AOF文件生成期间的新的数据修改动作不会丢失。</p>
+<p>（4）1).子进程写完新的AOF文件后，向主进程发信号，父进程更新统计信息。2).主进程把aof_rewrite_buf中的数据写入到新的AOF文件。</p>
+<p>（5）使用新的AOF文件覆盖旧的AOF文件，完成AOF重写。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210002329960.png" srcset="/img/loading.gif" lazyload alt="image-20211210002329960" style="zoom: 80%;" />
+
+<p><strong>重写举例</strong></p>
+<p>Redis服务器通过AOF重写生成新的aof文件替代旧aof，新旧aof文件所对应的是相同的Redis数据状态。不过新的文件在指令上做了精简</p>
+<p>启动Redis输入如下指令：</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210225414544.png" srcset="/img/loading.gif" lazyload alt="重写实现" style="zoom:80%;" />
+
+<p>此时list中的数据状态：<code>[&quot;v0&quot;,&quot;v1&quot;,&quot;v2&quot;,&quot;v3&quot;,&quot;v7&quot;,&quot;v8&quot;]</code>，旧的aof文件包括以上所有修改数据的指令。</p>
+<p>如果要重写AOF达到和当前list相同的数据状态，最好的方法不是读取旧的aof文件，而是直接遍历当前Redis数据库中list键值，用：<code>RPUSH list v0 v1 v2 v3 v7 v8</code>一条指令实现相同的数据状态。</p>
+<h5 id="3-4-重启加载"><a href="#3-4-重启加载" class="headerlink" title="3.4 重启加载"></a>3.4 重启加载</h5><p>当Redis服务关闭重启后，对于服务器上既有RDB又有AOF文件时，优先加载AOF文件</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210003029035.png" srcset="/img/loading.gif" lazyload alt="image-20211210003029035" style="zoom: 80%;" />
+
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实Redis官网的持久化介绍就是关于RDB和AOF的优缺点及使用推荐。</p>
+<p>可以参考中文官网：<a target="_blank" rel="noopener" href="http://www.redis.cn/topics/persistence.html">Redis 持久化</a>进行了解。</p>
+<p>RDB快照、AOF重写都需要fork，这是一个重量级操作，会对Redis造成阻塞。因此为了不影响Redis主进程响应，需要尽可能降低阻塞。比如降低fork频率、制定合理的内存分配策略、控制Redis的最大内存等</p>
+<p>在具体实践时，可以自己制定策略，RDB和AOF结合使用，并定期检查Redis情况，然后手动备份、重写数据；单机部署多个实例时，需要注意防止福哦个机器同时持久化和重写，避免出现IO、内存的竞争，造成串行操作；也可以加入主从机器，一台备份一台响应请求等；</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903655527677960">一文看懂Redis的持久化原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000039208726">Redis专题：万字长文详解持久化原理</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oW411u75R?p=18">尚硅谷Redis持久化</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Redis/">#Redis</a>
+      
+        <a href="/tags/NoSQL/">#NoSQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Redis学习三：持久化</div>
+      <div>https://61hhh-github-io.vercel.app/20211212/a4f2d1e9/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20220511/65ec32cd/" title="Mybatis-Plus 自定义批处理操作">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Mybatis-Plus 自定义批处理操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20211206/7af3bdf0/" title="Redis学习二：基本数据类型及操作">
+                        <span class="hidden-mobile">Redis学习二：基本数据类型及操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

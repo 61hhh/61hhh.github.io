@@ -1,0 +1,1003 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="重难点 文件的逻辑结构和物理结构  文件外存空间的管理  文件目录结构的管理  文件的保护与共享  目录的搜索  文件外存空间的管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统 6.文件管理">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20200727/71ea2d2a/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="重难点 文件的逻辑结构和物理结构  文件外存空间的管理  文件目录结构的管理  文件的保护与共享  目录的搜索  文件外存空间的管理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/89980d32-caf7-4035-81ca-bf674e5c664f-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/6817a7ec-e65d-42e7-ac1d-be0cb739072d-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/4c59d5af-7405-491c-8001-1dd644d1310a-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/018a41aa-513c-4607-a019-d4c8a8c98896-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/36021a2b-712e-4fad-b71d-b766fb7736fc-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/ff71b79f-3daa-489e-9a34-ab15b7e4e333-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/c84bc8f4-fa8a-4e7d-9b3d-f4b794cc6037-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/e5384270-0faf-442f-9710-906b3565559f-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/dd136c2e-86c7-4675-9a41-a86f57e14711-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/770699e0-f233-4b37-b494-29e5201efb65-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/9a7ade26-32e6-4de7-b041-28f167682ca8-7976057.jpg">
+<meta property="og:image" content="https://api2.mubu.com/v3/document_image/2603f5ff-3ac8-4323-8851-f8d5fb4fc85a-7976057.jpg">
+<meta property="article:published_time" content="2020-07-27T13:38:35.000Z">
+<meta property="article:modified_time" content="2024-05-11T06:34:13.485Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="操作系统">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://api2.mubu.com/v3/document_image/89980d32-caf7-4035-81ca-bf674e5c664f-7976057.jpg">
+  
+  
+  
+  <title>操作系统 6.文件管理 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="操作系统 6.文件管理"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-07-27 21:38" pubdate>
+          2020年7月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          36 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">操作系统 6.文件管理</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月11日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="重难点"><a href="#重难点" class="headerlink" title="重难点"></a>重难点</h2><ul>
+<li><p>文件的逻辑结构和物理结构</p>
+</li>
+<li><p>文件外存空间的管理</p>
+</li>
+<li><p>文件目录结构的管理</p>
+</li>
+<li><p>文件的保护与共享</p>
+</li>
+<li><p>目录的搜索</p>
+</li>
+<li><p>文件外存空间的管理</p>
+</li>
+</ul>
+<span id="more"></span>
+
+
+
+<h2 id="6-1-文件和文件系统"><a href="#6-1-文件和文件系统" class="headerlink" title="6.1 文件和文件系统"></a>6.1 文件和文件系统</h2><h3 id="6-1-1文件"><a href="#6-1-1文件" class="headerlink" title="6.1.1文件"></a>6.1.1文件</h3><p>文件是具有标识符（文件名）的一组相关信息的集合。标识符是用来标识文件的。不同的系统对标识符的规定有所不同。文件的确切定义有两种说法：文件是具有标识符的相关字符流(也有称记录)的集合。</p>
+<h3 id="6-1-2-文件类型和文件系统"><a href="#6-1-2-文件类型和文件系统" class="headerlink" title="6.1.2 文件类型和文件系统"></a>6.1.2 文件类型和文件系统</h3><h4 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h4><p>操作系统中负责管理和存取文件信息的软件机构叫做文件管理。</p>
+<p><strong>文件系统：操作系统中与文件管理有关的那部分软件和被管理的文件，以及实现管理所需要的一些数据结构的总体。</strong></p>
+<p>从系统角度看，文件系统是对文件存储空间进行组织、分配，并负责文件的存储、保护和检索的系统。</p>
+<p>从用户角度来看，文件系统主要是实现“按名存取”，并向用户提供简便、统一的使用文件的接口。</p>
+<h4 id="1-文件系统功能"><a href="#1-文件系统功能" class="headerlink" title="1.文件系统功能"></a>1.文件系统功能</h4><ul>
+<li>（1）实现文件的“按名存取”功能。</li>
+<li>（2）实现能够快速定位文件的目录结构，如树型目录；考虑如何组织目录文件，即目录项的设计和文件控制块的存储组织方法，这也直接影响到检索文件的速度。</li>
+<li>（3）向用户提供一套使用方便、简单的操作命令。</li>
+<li>（4）管理磁盘、磁带等组成的文件存储器。</li>
+<li>（5）实现逻辑文件到物理文件的转换。</li>
+<li>（6）保证文件信息的安全可靠。</li>
+<li>（7）便于文件的共享。</li>
+</ul>
+<h4 id="2-常用文件系统举例"><a href="#2-常用文件系统举例" class="headerlink" title="2. 常用文件系统举例"></a>2. 常用文件系统举例</h4><ul>
+<li>EXT2：Linux最为常用的文件系统，设计易于向后兼容，所以新版的文件系统代码无需改动就可以支持已有的文件系统。</li>
+<li>NFS：网络文件系统，允许多台计算机之间共享文件系统，易于从网络中的计算机上存取文件。</li>
+<li>HPFS：高性能文件系统，是IBM OS&#x2F;2的文件系统。</li>
+<li>FAT：经过了MS-DOS，Windows 3.x，Windows 9x，Windows NT，Windows 2000&#x2F;XP和OS&#x2F;2等操作系统的不断改进，它已经发展成为包含FAT12，FAT16和FAT32的庞大家族。</li>
+<li>NTFS：NTFS是微软为了配合Windows NT的推出而设计的文件系统，为系统提供了极大的安全性和可靠性。</li>
+</ul>
+<h4 id="文件属性"><a href="#文件属性" class="headerlink" title="文件属性"></a>文件属性</h4><p>一个文件包括文件体和文件属性两个部分。文件体是一系列的记录或字符流，以物理块存放在外存上，也叫文件内容。文件属性是对文件进行说明的信息。</p>
+<ul>
+<li>文件名称：文件名称是供用户使用的外部标识，也是文件最基本的属性。文件名称通常由一串ASCII码或者汉字构成，现在常常由Unicode字符串组成。</li>
+<li>文件物理位置：具体标明文件在存储介质上所存放的物理位置。</li>
+<li>文件拥有者：操作系统通常是多用户的，不同的用户拥有各自不同的文件，对这些文件的操作权限也不同。通常文件创建者对自己所建的文件拥有一切权限，而对其它用户所建的文件则拥有有限的权限。</li>
+<li>文件权限；文件类型；文件长度；文件时间</li>
+</ul>
+<h4 id="文件分类"><a href="#文件分类" class="headerlink" title="文件分类"></a>文件分类</h4><ul>
+<li>（1）按照文件的逻辑结构的不同，可以把文件分成流式文件和纪录式文件。</li>
+<li>（2）按照用途将文件分为系统文件、库文件和用户文件。</li>
+<li>（3）按照性质可以把文件分为普通文件、目录文件和特殊文件。</li>
+<li>（4）按照保护级别将文件分为只读文件、只写文件，可读可写文件、可执行文件和不保护文件等。例如只读文件只允许授权用户读，但不能写。</li>
+<li>（5）按照文件数据的形式将文件分为源文件，目标文件和可执行文件。</li>
+<li>（6）按照保存期限可以分为临时文件和永久文件。</li>
+</ul>
+<p>文件的分类主要便于对不同文件进行有针对性的管理，从而提高操作系统的性能。 </p>
+<h4 id="UNIX文件类型"><a href="#UNIX文件类型" class="headerlink" title="UNIX文件类型"></a>UNIX文件类型</h4><ul>
+<li>（1）正规文件：是指系统所规定的普通格式的文件，包括系统文件、库文件以及各种用户文件等。</li>
+<li>（2）目录文件：是由文件目录构成的一类文件。是用来维护文件系统结构和管理普通文件和目录的文件。</li>
+<li>（3）符号链接：又称为软链接。它是一个短文件，其中包含了另一个文件的任意一个路径名。这个路径名可以指向位于任意一个文件系统的任意文件，甚至可以指向一个不存在的文件。硬链接是指目录表中的目录项所确定的文件名和索引节点之间的对应关系。硬链接的次数就是同一索引节点被目录项引用的次数。</li>
+<li>（4）设备文件：包括块设备文件和字符设备文件。在UNIX系统中，所有的输入输出设备都被看成是文件，甚至在使用形式上也和普通文件相同。</li>
+<li>（5）管道（pipe）文件：系统使用管道文件的目的是希望将一个进程的输出作为另一个进程的输入。管道文件使用一块专用的内存区域来保存中间信息。</li>
+<li>（6）套接字（socket）：又称插口。通过在发送方和接收方分别创建一个称为套接字的通信端点可以获得TCP服务。每个套接字有一个套接字序号（地址），包含主机的IP地址和一个端口。每条连接由两端的套接字标识符来识别，即（socket1,socket2）。</li>
+</ul>
+<h3 id="6-1-3文件操作"><a href="#6-1-3文件操作" class="headerlink" title="6.1.3文件操作"></a>6.1.3文件操作</h3><p>为了方便用户使用文件系统，文件系统向用户提供了两类操作接口。第一类是与文件有关的操作命令或作业控制语言中与文件有关的JCL 语句；第二类是提供给用户程序使用的文件类系统调用</p>
+<p>文件系统向用户提供的对文件的操作可以分为两大类：一类是对文件自身的操作，例如，创建新文件、打开文件、删除文件、读写文件等；另一类是对记录的操作，例如，检索文件中的记录、插入记录、删除记录等。常用的文件操作如下</p>
+<h2 id="6-2-文件的逻辑结构"><a href="#6-2-文件的逻辑结构" class="headerlink" title="6.2 文件的逻辑结构"></a>6.2 文件的逻辑结构</h2><p>文件的逻辑结构是指从用户的观点出发，用户所观察到的文件组织形式。</p>
+<p>文件的逻辑结构可分为两种：一类是有结构文件或称记录式文件;一类是无结构文件或称流式文件。</p>
+<h3 id="1-有结构的文件"><a href="#1-有结构的文件" class="headerlink" title="(1)有结构的文件"></a>(1)有结构的文件</h3><p>有结构的文件是指由若干个相关的记录构成的文件，又称记录式文件。用户存取文件是以记录为单位进行的。记录又分为定长的和变长的记录。</p>
+<p>根据用户和系统管理的需要，可采用多种方式组织这些记录：</p>
+<h4 id="1、顺序文件"><a href="#1、顺序文件" class="headerlink" title="1、顺序文件"></a>1、顺序文件</h4><p>在顺序文件中的记录可以按照不同的顺序进行排列。</p>
+<ul>
+<li>一种是按照存入的时间先后排序，各记录之间的顺序与记录的关键字或内容无关。这种顺序文件主要应用在日志文件和各种现场记录文件等场合；</li>
+<li>另一种是按照记录中的关键字排序，这是顺序文件的常见形式，讨论顺序文件也以此种文件为主。</li>
+</ul>
+<p>顺序文件中的记录可以是定长的，也可以是变长的。对顺序文件可以顺序存取也可以直接存取，但是直接存取不定长记录的顺序文件效率极低。顺序存取：只要在系统中分别设置读写指针Rptr和Wptr，读完或写完一条记录后修改该指针指向下一条记录。直接存取：也叫随机存取。主要适用于定长记录的顺序文件，因为在这种文件中，任何记录的位置都很容易通过记录长度计算出来</p>
+<img src="https://api2.mubu.com/v3/document_image/89980d32-caf7-4035-81ca-bf674e5c664f-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>顺序文件的最佳应用场合是在对诸记录进行批量存取时，即每次要读或写一大批记录时。此时，对顺序文件的存取效率是所有逻辑文件中最高的；此外，也只有顺序文件才能存储在磁带上，并能有效地工作。</p>
+<h4 id="2、索引文件"><a href="#2、索引文件" class="headerlink" title="2、索引文件"></a>2、索引文件</h4><p>为了解决顺序文件变长记录查找问题，可为变长记录文件建立一张索引表，对主文件中的每个记录，在索引表中设有一个相应的表项，用于记录该记录的长度 L 及指向该记录的指针(指向该记录在逻辑地址空间的首址)。由于索引表是按记录键排序的，因此，索引表本身是一个定长记录的顺序文件，从而也就可以方便地实现直接存取。</p>
+<img src="https://api2.mubu.com/v3/document_image/6817a7ec-e65d-42e7-ac1d-be0cb739072d-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>索引文件可以根据不同的关键字建立索引，形成包含多个索引表的索引文件。</p>
+<ul>
+<li>主要优点：通过建立索引极大地提高了对文件的查找速度，同时，对增加和删除记录也非常方便，所以已经成为当今应用最为广泛的一种文件形式</li>
+<li>主要缺点：除了主文件外，还必须配置一张索引表，而且每个记录都要有一个索引项，存储开销变大，增删记录时还需要修改索引表</li>
+</ul>
+<h4 id="3、索引顺序文件"><a href="#3、索引顺序文件" class="headerlink" title="3、索引顺序文件"></a>3、索引顺序文件</h4><p>它是顺序文件和索引文件相结合的产物。它将顺序文件中的所有记录分为若干个组(例如，50 个记录为一个组)；为顺序文件建立一张索引表，在索引表中为每组中的第一个记录建立一个索引项，其中含有该记录的键值和指向该记录的指针。</p>
+<img src="https://api2.mubu.com/v3/document_image/4c59d5af-7405-491c-8001-1dd644d1310a-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>查找方法：首先也是利用用户（程序）所提供的关键字，以及某种查找算法去检索索引表，找到该记录所在记录组中第一个记录的表项，从中得到该记录组第一个记录在主文件中的位置。再利用顺序查找法去查找主文件，从中找到所要求的记录。</p>
+<p>主要优点：索引表占用空间小，同时查找效率比顺序文件又高，因此在文件记录比较多时采用索引顺序文件比较适合。</p>
+<h4 id="4、哈希文件"><a href="#4、哈希文件" class="headerlink" title="4、哈希文件"></a>4、哈希文件</h4><p>这是目前应用最为广泛的一种直接文件。它利用 Hash 函数(或称散列函数)，可将记录键值转换为相应记录的地址。但为了能实现文件存储空间的动态分配，通常由 Hash 函数所求得的并非是相应记录的地址，而是指向一目录表相应表目的指针，该表目的内容指向相应记录所在的物理块</p>
+<img src="https://api2.mubu.com/v3/document_image/018a41aa-513c-4607-a019-d4c8a8c98896-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h3 id="2-无结构文件"><a href="#2-无结构文件" class="headerlink" title="(2)无结构文件"></a>(2)无结构文件</h3><p>无结构文件又称流式文件，流式文件指文件内的数据不组成记录，只是依次的一串信息集合，如字节流或字符流，它也可以看成是无结构的或只有一个记录的记录式文件，所以也称作无结构文件</p>
+<p>字节或字符是访问流式文件的基本单位，顺序存取时读&#x2F;写指针每次步进1个字节或1个字符长度。</p>
+<p>在系统中存在很多流式文件，如<em>源程序文件、可执行文件和库函数文件</em>等。这些类型的文件并不需要分记录，如用户作业的源程序就是一个顺序字符流，硬要分割源程序文件成若干记录只会带来操作复杂、开销增大的缺点。</p>
+<h3 id="记录式文件和流式文件的关系"><a href="#记录式文件和流式文件的关系" class="headerlink" title="记录式文件和流式文件的关系"></a>记录式文件和流式文件的关系</h3><ul>
+<li>流式文件没有结构，但用户在使用流式文件时可以自己定义文件的结构。如可将３０个字节作为一个记录。</li>
+<li>若每个记录只包含一个域，而且该域的类型为字符型时，记录式文件便退化为流式文件，因而可以说流式文件是记录式文件的特例。</li>
+</ul>
+<h2 id="6-3-文件的物理结构"><a href="#6-3-文件的物理结构" class="headerlink" title="6.3 文件的物理结构"></a>6.3 文件的物理结构</h2><p>为了有效地管理文件存储器，通常把文件存储空间划分成若干个大小相等的物理块，物理块是分配及传输信息的基本单位。块的大小通常是扇区的倍数，如512B、1KB、2KB或者4KB。</p>
+<p>一个物理块中可以存放若干个逻辑记录，一个逻辑记录也可以存放在若干个物理块中。</p>
+<p>为了有效地利用外存和便于系统管理，一般也把文件信息划分为与物理存储块大小相等的逻辑块。</p>
+<p>常见的文件物理结构有三种：连续结构、链接结构和索引结构。</p>
+<h3 id="1-连续分配"><a href="#1-连续分配" class="headerlink" title="1.连续分配"></a>1.连续分配</h3><p>连续分配(Continuous Allocation)要求为每一个文件分配一组相邻接的盘块。一组盘块的地址定义了磁盘上的一段线性地址。例如，第一个盘块的地址为 b，则第二个盘块的地址为b+1，第三个盘块的地址为 b+2……。</p>
+<img src="https://api2.mubu.com/v3/document_image/36021a2b-712e-4fad-b71d-b766fb7736fc-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<ul>
+<li><p>连续结构的主要优点是<strong>实现简单和存取速度快</strong>，只要记住文件的第一块号和块数就能确定该文件在外存上的位置。<strong>当文件是定长记录文件时，还可根据文件起始地址及记录长度进行随机访问</strong>。</p>
+</li>
+<li><p>缺点：<strong>不利于文件的动态增长</strong>，因为文件末尾处可能已经没有空闲块了，一旦增长，就需要进行大量的改动；<strong>反复增删文件以后，存储设备中便会产生类似于内存分配中出现的磁盘空间碎片</strong>。因此，连续结构只适用于长度固定的文件。</p>
+</li>
+</ul>
+<h3 id="2-链接结构"><a href="#2-链接结构" class="headerlink" title="2.链接结构"></a>2.链接结构</h3><p>链接结构是指可以将文件存储在外部存储介质上的若干个不必连续的物理块中，其中的每个物理块都设有一个指针字段，指向下一个物理块的位置，从而使得存放同一个文件的物理块链接起来。以链接结构存放的文件称为链接文件。</p>
+<img src="https://api2.mubu.com/v3/document_image/ff71b79f-3daa-489e-9a34-ab15b7e4e333-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>链接结构的优点是可以解决文件存储空间的碎片问题，提高了文件存储空间的利用率，同时允许文件动态增长。</p>
+<p>缺点：但链接文件只能按照文件的链接指针顺序访问，为了访问文件的第i块，必须从第一块开始访问，然后一块接着一块，直到找到第i块。另一个缺点是必须为指针字段分配空间。</p>
+<h4 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h4><p>隐式链接是指每个物理块自身存放下一物理块的链接指针。在文件的目录项的“物理地址”字段中只要保存该文件的起始块号和结束块号的指针，中间的各个块由前一个块内保存的链接指针指示。 隐式链接分配方式的主要问题在于：它只适合于顺序访问，它对随机访问是极其低效的。</p>
+<h4 id="显式链接"><a href="#显式链接" class="headerlink" title="显式链接"></a>显式链接</h4><p>为了克服链接结构文件的缺点，可以把所有链接文件里的指针从物理块中取出，存放在一张链接表中，表的长度就是文件存储器能划分的物理块数，表的序号就是物理块号。在每个表项中，存放链接指针，即下一个物理块号。该链接表存放在内存里。</p>
+<p>由于分配给文件的所有物理块的块号都在该链接表中，故把该链接表称为文件分配表FAT（FileAllocation Table），MS-DOS及OS&#x2F;2等操作系统都采用FAT。</p>
+<p>显式链接也不支持高效的直接存取，对一个较大的文件进行存取时，须在FAT中顺序地查找许多盘块号；</p>
+<h3 id="3-索引结构"><a href="#3-索引结构" class="headerlink" title="3.索引结构"></a>3.索引结构</h3><p>基于的思想：显示链接分配的FAT表记录了每个文件的物理块的占用情况，不管系统打开多少个文件，必须把整个FAT表调入内存。事实上，当打开一个文件时，只需要把该文件占用的盘块的编号调入内存即可，为此，应将每个文件所对应的盘块号集中地放在一起，访问到这个文件时再将它所对应的盘块号信息一起调入内存。</p>
+<p>索引分配结构：系统为每个文件建立一个索引表，集中记录该文件占用的盘块号。索引表可以直接存放在文件控制块FCB中，但是，大文件的索引表往往很大，所以大多数文件系统让索引表置于单独的物理块中且可驻留在磁盘的任意位置，文件控制块的“物理地址”字段只要保存该索引表所在的盘块号（即索引表地址）。</p>
+<p>索引表可以有不同的索引形式</p>
+<ul>
+<li><p>（1）无键索引表，该索引表记录的是组成指定文件的磁盘块号，这种索引只是盘块号的序列，适用于流式文件；</p>
+</li>
+<li><p>（2）另一种是有键索引表，该索引表的索引表项包含逻辑记录键及其磁盘块号，指出了每条逻辑记录在磁盘上的存放地址，即物理块号，适用于纪录式文件。</p>
+</li>
+</ul>
+<p>索引结构就是把每个文件占用磁盘的物理块号集中存放在一张表中，即每一个文件都有一张索引表。每一个索引表项存放文件数据所占用的一个磁盘块的地址。以索引结构存放的文件称为索引文件。</p>
+<img src="https://api2.mubu.com/v3/document_image/c84bc8f4-fa8a-4e7d-9b3d-f4b794cc6037-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>多级索引</p>
+<img src="https://api2.mubu.com/v3/document_image/e5384270-0faf-442f-9710-906b3565559f-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h3 id="文件的存取方法"><a href="#文件的存取方法" class="headerlink" title="文件的存取方法"></a>文件的存取方法</h3><p>文件存取方法是指用户在使用文件时按怎样的次序存取文件。文件的存取方法是由文件的性质和用户使用文件的情况决定的。根据对文件信息的存取次序不同，把文件存取方法分为顺序存取、随机存取、索引存取等。</p>
+<h4 id="1-顺序存取"><a href="#1-顺序存取" class="headerlink" title="1.顺序存取"></a>1.顺序存取</h4><p>顺序存取是最简单的方法。它严格按照文件信息单位排列的顺序依次存取，后一次存取总是在前一次存取的基础上进行，所以不必给出具体的存取位置。在文件读写过程中总有两个位置指针指向其中要读写的字节位置或要读写的记录位置。</p>
+<h4 id="2-随机存取"><a href="#2-随机存取" class="headerlink" title="2.随机存取"></a>2.随机存取</h4><p>随机存取又称直接存取，在存取时必须先确定进行存取时的起始位置（如记录号、字符序号等）。直接存取通常是对记录式文件而言的。</p>
+<p>对于定长记录式文件来说，直接存取方便、高效。</p>
+<p>对于变长记录文件，采用顺序存取方法会更高效。磁盘是支持随机存取的典型设备</p>
+<h4 id="3-按键存取"><a href="#3-按键存取" class="headerlink" title="3.按键存取"></a>3.按键存取</h4><p>文件索引存取又称为按键存取，即对文件中的记录按某个数据项的值进行排序，从而可以根据键值来快速存取。</p>
+<h2 id="6-4-目录管理"><a href="#6-4-目录管理" class="headerlink" title="6.4 目录管理"></a>6.4 目录管理</h2><p>通过文件目录来对外存上所存储的文件进行管理的，功能有：</p>
+<ul>
+<li>(1)按名存取。这是文件系统向用户提供的最基本功能。</li>
+<li>(2)提高检索速度。合理地组织目录结构，可以加快对目录的检索速度，从而提高对文件的存取速度。</li>
+<li>(3)文件共享。允许多个用户共享同一文件，以节省存储空间，同时也方便用户。</li>
+<li>(4)允许文件重名。以方便用户按照自己的习惯来命名和使用文件。</li>
+</ul>
+<h4 id="6-4-1-文件控制块和索引节点"><a href="#6-4-1-文件控制块和索引节点" class="headerlink" title="6.4.1 文件控制块和索引节点"></a>6.4.1 文件控制块和索引节点</h4><p>用于描述和控制文件的数据结构被称为文件控制块（FCB，File Control Block）。文件控制块的有序集合称为文件目录，即一个文件控制块占用一个文件目录项。通常文件目录也是以文件的形式保存在外存上的，称为目录文件。</p>
+<p>1.文件控制块</p>
+<p>在文件控制块中常用的属性如下：</p>
+<ul>
+<li>(1)<strong>文件名</strong>。用户利用文件名来存取文件。</li>
+<li>(2)文件的物理地址。包括：文件所在的设备名、盘块号、占用的盘块数。</li>
+<li>(3)<strong>文件的逻辑结构</strong>。文件是流式文件还是记录式文件。</li>
+<li>(4)文件的物理结构。指示文件是顺序结构，还是链接结构或索引结构。</li>
+<li>(5)<strong>存取权限</strong>。文件主、核准用户、一般用户的存取权限。</li>
+<li>(6)日期和时间。文件建立、修改的日期和时间。</li>
+<li>(7)<strong>当前使用信息</strong>。当前已打开该文件的进程数，文件在内存中是否被修改过但尚未写回磁盘上。</li>
+</ul>
+<p>目录文件的组织是指目录项的设计和FCB的存储组织方法。</p>
+<p>不同的组织方法直接影响到检索文件的速度，对整个文件系统的效率、性能和可靠性都有很大的影响。</p>
+<h4 id="常用的组织方法"><a href="#常用的组织方法" class="headerlink" title="常用的组织方法"></a>常用的组织方法</h4><h5 id="1-FCB线性表"><a href="#1-FCB线性表" class="headerlink" title="1. FCB线性表"></a>1. FCB线性表</h5><p>FCB线性表的方式最简单，也是最早使用的一种组织方式。在这种方法中，目录文件中直接存放该目录下所有文件和子目录的FCB信息，组成了一个FCB线性表，即每个目录项记录了该文件或子目录对应的完整FCB信息</p>
+<img src="https://api2.mubu.com/v3/document_image/dd136c2e-86c7-4675-9a41-a86f57e14711-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<h5 id="2-索引节点"><a href="#2-索引节点" class="headerlink" title="2. 索引节点"></a>2. 索引节点</h5><p>通过分析可发现，在检索目录文件的过程中，只用到了<strong>文件名</strong>。仅当找到一个目录项（即其中的文件名与指定要查找的文件名相匹配）时，才需从该目录项中读出该文件的物理地址。属性信息在检索目录时无需调入内存。因此可把文件名和文件属性信息分开，<strong>即把文件属性信息用一个称为索引节点的数据结构来描述，而在文件目录的每个目录项中，仅存有文件名和该文件的索引节点编号。</strong></p>
+<p>检索文件的过程：检索文件时，先从目录文件中找到文件名匹配的目录项，在目录项中找到该文件的索引节点号，根据索引节点号就可以在索引节点区中找到该文件的索引节点，找到了i节点，就获得了它所对应的文件的一切必要属性信息。</p>
+<h5 id="3-哈希表组织"><a href="#3-哈希表组织" class="headerlink" title="3. 哈希表组织"></a>3. 哈希表组织</h5><p>为了加快目录检索的速度，目录文件还可以采用哈希表存储，采用散列法管理FCB，即目录文件采用以文件名为关键字的直接文件的组织形式。</p>
+<h4 id="6-4-2-目录结构"><a href="#6-4-2-目录结构" class="headerlink" title="6.4.2 目录结构"></a>6.4.2 目录结构</h4><p>目录的逻辑结构分为：单级目录结构、两级目录结构、树型目录结构。</p>
+<h5 id="1-单级目录结构"><a href="#1-单级目录结构" class="headerlink" title="1.单级目录结构"></a>1.单级目录结构</h5><ul>
+<li>单级目录结构是指在整个文件系统中只建立一张目录表，其中每个目录项对应一个文件。</li>
+<li>创建及删除文件涉及到目录项申请与回收。</li>
+<li>单级目录结构的主要优点是实现简单。</li>
+<li>其缺点：不允许文件重名；文件查找速度慢。</li>
+</ul>
+<h5 id="2-两级目录结构"><a href="#2-两级目录结构" class="headerlink" title="2.两级目录结构"></a>2.两级目录结构</h5><p>两级目录结构是指把系统中的目录分为一个主目录表和多个次目录表。在多用户系统中，可以为每个用户建立一个次目录表，而主目录表则存储着各个次目录表的信息。</p>
+<p>两级目录结构的优点：提高了文件检索速度；在不同的用户目录中，可以使用相同的文件名。其缺点：不便于用户之间共享文件；同一用户内不允许文件重名。</p>
+<img src="https://api2.mubu.com/v3/document_image/770699e0-f233-4b37-b494-29e5201efb65-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+
+
+<h5 id="3-树型目录结构"><a href="#3-树型目录结构" class="headerlink" title="3.树型目录结构"></a>3.树型目录结构</h5><p>树型目录结构是两级目录结构的推广。为了克服两级目录结构不够灵活的缺点，方便文件查找，提高系统效率，在现代操作系统中采用了树型目录结构</p>
+<img src="https://api2.mubu.com/v3/document_image/9a7ade26-32e6-4de7-b041-28f167682ca8-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" />
+
+<p>从树的根目录到任何数据文件，都只有一条唯一的路径，在该路径上从根目录开始，把全部目录文件名和数据文件名，依次用“&#x2F;”连接起来，就构成了该数据文件的绝对路径名。如a.out文件的路径名为“&#x2F;home&#x2F;Liu&#x2F;a.out”。</p>
+<p>通常，一个进程在运行时所要访问的文件只局限于某个范围之内，因此可为每个进程设置一个“当前工作目录”。因此路径名又分为相对路径名和绝对路径名。</p>
+<p>树型目录结构的优点：可以把不同类型和不同用途的文件分类，查找速度快；允许文件重名，不同的文件有不同的路径名；利用多级层次关系，能更方便地制定文件的存取权限，有利于保护文件；有利于文件共享。</p>
+<img src="https://api2.mubu.com/v3/document_image/2603f5ff-3ac8-4323-8851-f8d5fb4fc85a-7976057.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 67%;" />
+
+
+
+
+
+<h2 id="6-5-文件存储空间的管理"><a href="#6-5-文件存储空间的管理" class="headerlink" title="6.5 文件存储空间的管理"></a>6.5 文件存储空间的管理</h2><p>文件管理的主要功能之一是如何在外部存储介质上为创建或扩充文件而分配空间，为删除文件而回收空间以及对空闲空间的管理。磁盘可以随机存取的特性非常适合文件系统的实现，因此磁盘是最常用的文件外部存储介质</p>
+<p>文件存储空间管理主要涉及两个问题：</p>
+<ul>
+<li>一是磁盘空间的分配</li>
+<li>二是磁盘空闲空间的有效管理</li>
+</ul>
+<h3 id="一、磁盘空间的分配"><a href="#一、磁盘空间的分配" class="headerlink" title="一、磁盘空间的分配"></a>一、磁盘空间的分配</h3><ul>
+<li>（1）连续分配<ul>
+<li>连续分配是指文件被存放在外存空间连续存储区 (连续的物理块号) 中，在建立文件时，用户必须给出文件大小，然后，查找到能满足的连续存储区供使用，否则文件不能建立，用户进程必须等待。</li>
+</ul>
+</li>
+<li>（2）非连续分配<ul>
+<li>非连续分配是指以物理块（扇区）为单位，按文件动态要求分配物理块，这些物理块不一定要连续，属于同一文件的块按文件记录的逻辑次序用链接指针连接或用索引表指示，即链接分配和索引分配。</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、磁盘空闲空间的有效管理"><a href="#二、磁盘空闲空间的有效管理" class="headerlink" title="二、磁盘空闲空间的有效管理"></a>二、磁盘空闲空间的有效管理</h3><p>为了记录空闲磁盘空间，也就是那些尚未分配给文件或目录的块，需要采用一定的数据结构来实现：</p>
+<ul>
+<li><p>（1） 空闲区表法</p>
+<ul>
+<li>空闲区表法是指系统为外存上的所有空闲块建立一张空闲区表，每个表项记录了一个空闲区，主要包括该空闲区的第一个空闲盘块号、该区的空闲盘块和状态等信息，再将所有的空闲区按其起始盘块号递增的次序排列。</li>
+</ul>
+</li>
+<li><p>（2） 空闲块链表法</p>
+<ul>
+<li><p>空闲块链表法是将所有空闲块连接在一起，组成一个空闲块链表。</p>
+</li>
+<li><p>空闲块链表的一个变种是空闲盘区链，将磁盘上的所有空闲盘区（每个盘区可包含若干个盘块）组成一个链表，也适合连续文件的组织形式。</p>
+</li>
+</ul>
+</li>
+<li><p>（3）位示图法</p>
+<ul>
+<li>空闲空间表还可由位图或位矢量的方法来实现。每一个磁盘块由1位（bit）来表示。如果该磁盘块是空闲的，这个位就置0；否则，就置1。</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-6-文件共享与文件保护"><a href="#6-6-文件共享与文件保护" class="headerlink" title="6.6 文件共享与文件保护"></a>6.6 文件共享与文件保护</h2><p>文件操作的实现</p>
+<p>文件系统向应用程序提供了一组系统调用，包括创建、删除、打开、关闭文件和对文件的读写控制，通过这些系统调用，程序员能获得文件系统的各种服务。思路就是把常用的和正在使用的那些文件目录复制进内存，这样，既不增加太多的内存开销，又可明显缩短查找时间。</p>
+<p>具体实现：系统为每个用户进程建立一张打开文件表，并在系统中再维护一张记录系统中所有正在使用文件信息的系统打开文件表，正在使用文件的索引节点也会从外存索引节点区复制到内存索引节点表（即活动索引节点表）中。</p>
+<p>使用文件时为什么要打开和关闭？</p>
+<ul>
+<li><p>用户使用文件之前先通过“打开”操作，把此文件的文件目录信息（包括索引节点信息）复制到指定的内存区域，当不再使用这个文件时，使用“关闭”操作撤销该文件存放在内存的使用信息，以切断用户进程和该文件目录的联系。</p>
+</li>
+<li><p>这样，文件被打开后，很多信息就已经调入内存，可被用户多次使用，直至文件被关闭或撤销，大大减少访盘次数，提高了文件系统的效率。</p>
+</li>
+</ul>
+<h2 id="6-7-数据一致性控制"><a href="#6-7-数据一致性控制" class="headerlink" title="6.7 数据一致性控制"></a>6.7 数据一致性控制</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>操作系统 6.文件管理</div>
+      <div>https://61hhh-github-io.vercel.app/20200727/71ea2d2a/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年7月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20200727/fb650d11/" title="操作系统 5.设备管理">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">操作系统 5.设备管理</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20200725/72fb2483/" title="操作系统 3.处理机调度与死机">
+                        <span class="hidden-mobile">操作系统 3.处理机调度与死机</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

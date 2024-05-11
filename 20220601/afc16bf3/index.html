@@ -1,0 +1,953 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/iconMe.png">
+  <link rel="icon" href="/images/iconMe.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="LY">
+  <meta name="keywords" content="do something">
+  
+    <meta name="description" content="MySQL基础架构以一条查询语句为例，通过查询语句在 MySQL 中的执行流程，了解 MySQL 的基础架构以及各组件模块的基本作用。 1select * from user where ID&#x3D;10；    图片引用自：小林coding：图解MySQL专栏    如图是MySQL的基本架构示意图，MySQL 可以大致分为 Server 层和存储引擎层两大部分。 Server层包括连接器、查询缓存、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL-查询执行流程">
+<meta property="og:url" content="https://61hhh-github-io.vercel.app/20220601/afc16bf3/index.html">
+<meta property="og:site_name" content="Salute">
+<meta property="og:description" content="MySQL基础架构以一条查询语句为例，通过查询语句在 MySQL 中的执行流程，了解 MySQL 的基础架构以及各组件模块的基本作用。 1select * from user where ID&#x3D;10；    图片引用自：小林coding：图解MySQL专栏    如图是MySQL的基本架构示意图，MySQL 可以大致分为 Server 层和存储引擎层两大部分。 Server层包括连接器、查询缓存、">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427212828078.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221241973.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221830449.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221957980.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427222848999.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230429203028812.png">
+<meta property="og:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230502123448721.png">
+<meta property="article:published_time" content="2022-06-01T11:18:53.000Z">
+<meta property="article:modified_time" content="2024-05-10T06:56:45.004Z">
+<meta property="article:author" content="LY">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427212828078.png">
+  
+  
+  
+  <title>MySQL-查询执行流程 - Salute</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"61hhh-github-io.vercel.app","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"TdBU4bxll43AQFzEBGhrVRQy-MdYXbMMI","app_key":"MMJsM8cWGY7bEm704Dl6269n","server_url":null,"path":"window.location.pathname","ignore_local":true}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.1.0"><link rel="alternate" href="/atom.xml" title="Salute" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Salute</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MySQL-查询执行流程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-01 19:18" pubdate>
+          2022年6月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL-查询执行流程</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年5月10日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="MySQL基础架构"><a href="#MySQL基础架构" class="headerlink" title="MySQL基础架构"></a>MySQL基础架构</h2><p>以一条查询语句为例，通过查询语句在 MySQL 中的执行流程，了解 MySQL 的基础架构以及各组件模块的基本作用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">select * from user where ID=10；<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 图片引用自：<a target="_blank" rel="noopener" href="https://xiaolincoding.com/">小林coding：图解MySQL专栏</a></p>
+</blockquote>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427212828078.png" srcset="/img/loading.gif" lazyload alt="image-20230427212828078" style="zoom:80%;" />
+
+<p>如图是MySQL的基本架构示意图，MySQL 可以大致分为 Server 层和存储引擎层两大部分。</p>
+<p>Server层包括连接器、查询缓存、分析器、优化器、执行器等，涵盖MySQL的大多数核心服务功能，以及所有的内置函数（如日期、时间、数学和加密函数等），所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。</p>
+<p>存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是InnoDB，它从MySQL 5.5.5版本开始成为了默认存储引擎。</p>
+<p>正常的建表语句如果不指定默认引擎就是 InnoDB，也可以在建表语句后通过 <code> ENGINE=MyISAM</code> 指定为 MyISAM 或者其他引擎</p>
+<h3 id="连接器"><a href="#连接器" class="headerlink" title="连接器"></a>连接器</h3><blockquote>
+<p><strong>连接器</strong>：负责跟客户端建立连接、获取权限、维持和管理连接，主要是登陆权限相关；</p>
+</blockquote>
+<p>使用 MySQL 首先要先连接 MySQL 服务，才能执行后续的语句操作。</p>
+<p>1、MySQL 采用 <code>TCP</code> 作为服务器和客户端之间的网络通信协议，默认申请的端口是3306，如果服务连接会报错：<code>Can&#39;t connect to local MySQL...... </code> ，如果已启动就正常走 <code>TCP</code> 握手建立连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">mysql -h$ip -P$port -u$user -p<br></code></pre></td></tr></table></figure>
+
+<p>2、连接建立后，就跟根据输入的用户名密码校验，如果账户密码有误，就会有如下报错</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221241973.png" srcset="/img/loading.gif" lazyload alt="image-20230427221241973" style="zoom:80%;" />
+
+<p>3、如果账户密码校验通过，就会查询该用户的权限信息并保存，后续的任何操作都会基于连接时读取到的该用户权限</p>
+<blockquote>
+<p>即一个用户成功建立连接后，即使你用管理员账号对这个用户的权限做了修改，也不会影响已经存在连接的权限。修改完成后，只有再新建的连接才会使用新的权限设置。</p>
+</blockquote>
+<blockquote>
+<p>每当有一个客户端进程连接到服务器进程时，服务器进程都会创建一个线程来专门处理与这个客户端的交互，当该客户端退出时会与服务器断开连接，服务器并不会立即把与该客户端交互的线程销毁掉，而是把它缓存起来，在另一个新的客户端再进行连接时，把这个缓存的线程分配给该新客户端。这样就起到了不频繁创建和销毁线程的效果，从而节省开销。</p>
+</blockquote>
+<h4 id="连接器涉及的常见参数"><a href="#连接器涉及的常见参数" class="headerlink" title="连接器涉及的常见参数"></a>连接器涉及的常见参数</h4><p>1、如果连接完成后没有后续操作，连接就处于空闲状态，可以通过 <code>show processlist</code> 命令查看有多少个连接 </p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221830449.png" srcset="/img/loading.gif" lazyload alt="image-20230427221830449" style="zoom:80%;" />
+
+<p>2、如果客户端长时间没有操作，连接器就会断开连接，具体时间是通过 <code>wait_timeout</code> 参数设置的，默认是28880秒即8小时。对于空闲时间过长被连接器主动断开的连接，客户端并不会收到消息，只有再次发送请求时才会报错提示：<code>ERROR 2013 (HY000): Lost connection to MySQL server during query</code>，如果要继续就要重新建立连接。</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221957980.png" srcset="/img/loading.gif" lazyload alt="image-20230427221957980" style="zoom:80%;" />
+
+<p>3、连接也可以手动断开，通过 <code>kill connection +id</code> 来手动关闭，如图我建立连接后手动关闭了，再次发送请求时提示报错并重连接了</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427222848999.png" srcset="/img/loading.gif" lazyload alt="image-20230427222848999" style="zoom:;" />
+
+<p>4、MySQL的默认连接数是有限制的，具体连接数由参数 <code>max_connections</code> 控制，可以通过 <code>show variables like &#39;max_connections&#39;</code> 查看，如果超过连接数就会拒绝新连接并提示 <code>Too many connections</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mysql">ysql&gt; show variables like &#x27;max_connections&#x27;;<br>+-----------------+-------+<br>| Variable_name   | Value |<br>+-----------------+-------+<br>| max_connections | 200   |<br>+-----------------+-------+<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+
+<p>5、MySQL连接分为长连接和短连接。长连接是指连接成功后，如果客户端持续有请求，则一直使用同一个连接；短连接则是指每次执行完很少的几次查询就断开连接，下次查询再重新建立一个。</p>
+<p>建立连接的过程通常是比较复杂的，所以建议在使用中要尽量减少建立连接的动作，也就是尽量使用长连接。</p>
+<p>但是全部使用长连接后，你可能会发现，有些时候MySQL占用内存涨得特别快，这是因为MySQL在执行过程中临时使用的内存是管理在连接对象里面的。这些资源会在连接断开的时候才释放。所以如果长连接累积下来，可能导致内存占用太大，被系统强行杀掉（OOM），从现象看就是MySQL异常重启了。</p>
+<p>怎么解决这个问题呢？你可以考虑以下两种方案。</p>
+<ol>
+<li>定期断开长连接。使用一段时间，或者程序里面判断执行过一个占用内存的大查询后，断开连接，之后要查询再重连。</li>
+<li>如果你用的是MySQL 5.7或更新版本，可以在每次执行一个比较大的操作后，通过执行 mysql_reset_connection来重新初始化连接资源。这个过程不需要重连和重新做权限验证，但是会将连接恢复到刚刚创建完时的状态。</li>
+</ol>
+<h3 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h3><blockquote>
+<p>执行查询语句的时候，会先查询缓存，命中就直接返回（MySQL 8.0 版本后移除）</p>
+</blockquote>
+<p>查询缓存以 key-value 形式保存缓存数据在内存中，key 是查询的语句，value 是查询的结果</p>
+<p>如果查询的语句和缓存中的 key 完全一致的话，就会直接返回结果给客户端</p>
+<h5 id="弊端"><a href="#弊端" class="headerlink" title="弊端"></a>弊端</h5><p>在执行更新操作时，会将查询缓存全部清除。所以频繁更新的表，查询缓存的命中率很低</p>
+<p>MySQL 8.0开始查询缓存已经从 Server 层中被移除了，8.0以后的版本查询时不会走查询缓存</p>
+<h3 id="解析SQL"><a href="#解析SQL" class="headerlink" title="解析SQL"></a>解析SQL</h3><blockquote>
+<p>没有命中缓存就会进入解析，分析器对查询语句进行词法语法分析，以及判断 SQL 语句是否有语法错误</p>
+</blockquote>
+<p>查询缓存未命中就会进入执行操作，在执行前会对 SQL 语句进行分析</p>
+<ol>
+<li>词法分析：根据输入的 SQL 识别系统关键字，构建语法树</li>
+<li>语法分析：对构建的语法树分析是否符合语法规则</li>
+</ol>
+<p>如果输入的 SQL 中有错误语法，例如 <code>where xxx=1</code> 写成了 <code>wheere xxx=1</code> 就会报错 <code>You have an error in your SQL syntax</code></p>
+<h3 id="优化SQL"><a href="#优化SQL" class="headerlink" title="优化SQL"></a>优化SQL</h3><blockquote>
+<p>根据查询语句来确定最优的执行方案</p>
+</blockquote>
+<h4 id="预处理阶段"><a href="#预处理阶段" class="headerlink" title="预处理阶段"></a>预处理阶段</h4><p>预处理阶段主要工作如下：</p>
+<ol>
+<li>检查 SQL 中要查询的表或者字段是否存在</li>
+<li>将 <code>SELECT *</code> 中的 <code>*</code> 扩充为全部字段</li>
+</ol>
+<h4 id="优化阶段"><a href="#优化阶段" class="headerlink" title="优化阶段"></a>优化阶段</h4><p>此阶段优化器会确定 SQL 语句的查询方案，它会判断不同查询方案的成本，以选择最优的方式</p>
+<p>例如表中存在多个索引时，决定用哪个索引查询；join 连接时决定连接顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mysql">-- 该 SQL 就会走主键索引<br>SELECT * FROM user1 WHERE id=1<br></code></pre></td></tr></table></figure>
+
+<p>要想直到具体的查询方案，可以通过 <code>explain</code> 命令对 SQL 进行解释</p>
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230429203028812.png" srcset="/img/loading.gif" lazyload alt="image-20230429203028812" style="zoom:80%;" />
+
+<p>可以看到 <code>possible_keys</code> 表示该 SQL 语句可能用到的索引，这里只有 <code>PRIMARY</code>，<code>key</code> 是实际使用的索引，用的就是 <code>PRIMARY</code></p>
+<p>具体的索引选择方案在索引相关笔记中记录</p>
+<h3 id="执行SQL"><a href="#执行SQL" class="headerlink" title="执行SQL"></a>执行SQL</h3><blockquote>
+<p>执行查询语句，返回记录</p>
+</blockquote>
+<p>分析阶段解析了 SQL 语句、优化阶段指定了查询方案后，就进入正式执行阶段</p>
+<p>执行器会根据表的存储引擎定义，调用对应的引擎接口。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> user1 <span class="hljs-keyword">WHERE</span> id <span class="hljs-operator">&lt;</span> <span class="hljs-number">10</span>;<br></code></pre></td></tr></table></figure>
+
+<p>以 InnoDB 为例，执行的基本流程：</p>
+<ul>
+<li>调用 InnoDB 查询接口获取表的第一行数据，判断 id 是否小于10，是则将结果保存到结果集，不是则跳过</li>
+<li>调用接口读取下一行数据，重复上面的判断逻辑，直到读取到表的最后一行</li>
+<li>执行器将遍历过程中满足条件的行记录作为结果集返回给客户端</li>
+</ul>
+<blockquote>
+<p>以下执行方式示例，引用自<a target="_blank" rel="noopener" href="https://xiaolincoding.com/mysql/base/how_select.html#%E6%89%A7%E8%A1%8C%E5%99%A8">小林coding</a></p>
+</blockquote>
+<p>通过如下三种查询执行方式，介绍下执行器和存储引擎的交互过程</p>
+<ol>
+<li>主键索引查询</li>
+<li>全表扫描</li>
+<li>索引下推</li>
+</ol>
+<h4 id="1、主键索引"><a href="#1、主键索引" class="headerlink" title="1、主键索引"></a>1、主键索引</h4><p>以这条 SQL 为例</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> sys_user <span class="hljs-keyword">WHERE</span> id <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+
+<p>查询条件是主键，由于主键是唯一的，且这里按照等值判断，所以类型是 const 常量判断，即用主键索引查询一条记录</p>
+<ul>
+<li>执行器第一次查询，会调用 read_first_record 函数指针指向的函数，因为优化器选择的访问类型为 const，这个函数指针被指向为 InnoDB 引擎索引查询的接口，把条件 <code>id = 1</code> 交给存储引擎，<strong>让存储引擎定位符合条件的第一条记录</strong>；</li>
+<li>存储引擎通过 B+ 树定位到 id&#x3D;1 的第一条记录，不存在该记录就向执行器报错提示找不到，存在就返回该条记录；</li>
+<li>执行器获取记录后判断记录是否符合查询条件，如果符合则发送给客户端，如果不符合则跳过；</li>
+<li>执行器查询的过程是一个 while 循环，所以还会再查一次，但是这次因为不是第一次查询了，所以会调用 read_record 函数指针指向的函数，因为优化器选择的访问类型为 const，这个函数指针被指向为一个永远返回 - 1 的函数，所以当调用该函数的时候，执行器就退出循环，也就是结束查询了</li>
+</ul>
+<h4 id="2、全表扫描"><a href="#2、全表扫描" class="headerlink" title="2、全表扫描"></a>2、全表扫描</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> sys_user <span class="hljs-keyword">WHERE</span> email <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;xxx@qq.com&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>由于 email 字段没有索引，所以优化阶段的查询方案是全表扫描，对应 TYPE&#x3D;ALL，此时执行器和存储引擎的交互流程如下：</p>
+<ul>
+<li><p>执行器第一次查询，会调用 read_first_record 函数指针指向的函数，因为优化器选择的访问类型为 all，这个函数指针被指向为 InnoDB 引擎全扫描的接口，<strong>让存储引擎读取表中的第一条记录</strong>；</p>
+</li>
+<li><p>执行器会判断读到的这条记录的 <code>email=xxx@qq.com</code> 是否成立，不是就跳过，<strong>是就返回给客户端</strong></p>
+<blockquote>
+<p>Server 层每从存储引擎读到一条记录就会发送给客户端，之所以客户端显示的时候是直接显示所有记录的，是因为客户端是等查询语句查询完成后，才会显示出所有的记录</p>
+</blockquote>
+</li>
+<li><p>执行器查询的过程是一个 while 循环，所以还会再查一次，会调用 read_record 函数指针指向的函数，因为优化器选择的访问类型为 ALL，read_record 函数指针指向的还是 InnoDB 引擎全扫描的接口，所以接着向存储引擎层要求继续读刚才那条记录的下一条记录，存储引擎把下一条记录取出后就将其返回给执行器（Server层），执行器继续判断条件，不符合查询条件即跳过该记录，否则发送到客户端；</p>
+</li>
+<li><p>一直重复上述过程，直到存储引擎把表中的所有记录读完，然后向执行器（Server层） 返回了读取完毕的信息；</p>
+</li>
+<li><p>执行器收到存储引擎报告的查询完毕的信息，退出循环，停止查询。</p>
+</li>
+</ul>
+<h4 id="3、索引下推"><a href="#3、索引下推" class="headerlink" title="3、索引下推"></a>3、索引下推</h4><p>索引下推是 MySQL5.6 之后推出的优化策略。<strong>索引下推能够减少二级索引查询时的回表操作，提高查询效率</strong></p>
+<p><strong>回表查询</strong>：由于二级索引的 B+ 树叶子节点存储的主键值，索引在查到符合条件的记录时，会读取叶子节点中的记录的主键值，再次查询聚簇索引的 B+ 树来拿到完整的记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> sys_user <span class="hljs-keyword">WHERE</span> age <span class="hljs-operator">&gt;</span> <span class="hljs-number">18</span> <span class="hljs-keyword">AND</span> role <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+<p>以这条 SQL 为例，假设建立了 <code>(age,role)</code> 的联合索引，由于联合索引在遇到 <code>&gt;</code>、<code>&lt;</code>、<code>%xxx</code> 时会停止匹配，即只有 age 字段参与了索引查询，后面的 role 字段没有用到索引</p>
+<blockquote>
+<p>联合索引不是有序的，或者说是局部有序的，因为构建 B+ 树时只能根据一个值来。<code>(a,b,c)</code> 构建排列时按照 a、b、c 的顺序来</p>
+<p>以 <code>(age,role)</code> 的联合索引为例，从 B+ 树角度去看，在全局范围内只有 age 是有序排列的，age&#x3D;1 时可能有 role&#x3D;2、role&#x3D;5 两条记录，age&#x3D;2时可能有 role&#x3D;1、role&#x3D;2、role&#x3D;3 三条记录，<strong>即 role 的有序是针对具体的某个 age 局部存在的</strong></p>
+<ul>
+<li>加入查询条件是 <code>age=18 AND role=2</code>，那么 B+ 树先定位到 age&#x3D;18 的第一条记录这儿，可能有10条，再定位到 role&#x3D;2 的第一条记录这儿，此时联合索引的两个字段都参与了索引查询</li>
+<li>当查询条件为 age&gt;18 时，必须要把联合索引的 B+ 树中从 age&gt;18 开始的第一条到最后一条记录全找出来，相当于后面的 role&#x3D;2 压根没起作用，所以它并没有用到索引</li>
+</ul>
+</blockquote>
+<h5 id="无索引下推时"><a href="#无索引下推时" class="headerlink" title="无索引下推时"></a>无索引下推时</h5><ul>
+<li>Server 层首先调用存储引擎的接口定位到满足查询条件的第一条二级索引记录，即 <code>age&gt;18</code> 的第一条记录；</li>
+<li>存储引擎根据二级索引的 B+ 树快速定位到这条记录后，获取主键值，然后<strong>进行回表操作</strong>，将完整的记录返回给 Server 层；</li>
+<li>Server 层在判断该记录 <code>role=2</code> 是否成立，成立则将其发送给客户端，否则跳过该记录；</li>
+<li>接着继续向存储引擎索要下一条记录，重复上面的操作直到读完所有的记录；</li>
+</ul>
+<p>即：没有索引下推时，没查询一条二级索引记录，都需要一次回表查询，然后 Server 层再判断该记录的 <code>role=2</code> 是否成立</p>
+<h5 id="有索引下推时"><a href="#有索引下推时" class="headerlink" title="有索引下推时"></a>有索引下推时</h5><ul>
+<li>Server 层首先调用存储引擎的接口定位到满足查询条件的第一条二级索引记录，即 <code>age&gt;18</code> 的第一条记录；</li>
+<li>存储引擎根据二级索引的 B+ 树快速定位到这条记录后，<strong>先不进行回表操作</strong>，而是<strong>先判断索引包含的列 role 值是否等于2</strong>，<strong>条件不成立则直接跳过该索引记录</strong>，<strong>成立则执行回表操作</strong>，将记录返回给 Server；</li>
+<li>Server 层再去判断其他的查询条件（本 SQL 只有联合索引的查询条件），成立则将其发送给客户端，否则跳过该记录；</li>
+<li>接着继续向存储引擎索要下一条记录，重复上面的操作直到读完所有的记录；</li>
+</ul>
+<p>即：有索引下推时，虽然 role 列还是没有用到索引，但是由于其本身在联合索引中，所以会直接在存储引擎层过滤出符合 <code>role=2</code> 的条件，再去做回表操作，相比直接每条记录都回表，节省了很多的操作</p>
+<blockquote>
+<p>使用 EXPLAIN 查看执行计划时，如果 Extra&#x3D;Using index condition 表示使用了索引下推</p>
+</blockquote>
+<h2 id="MySQL存储引擎"><a href="#MySQL存储引擎" class="headerlink" title="MySQL存储引擎"></a>MySQL存储引擎</h2><p>MySQL 支持多种存储引擎，可以通过 <code>show engines</code> 指令查看支持的引擎</p>
+<p><img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230502123448721.png" srcset="/img/loading.gif" lazyload alt="image-20230502123448721"></p>
+<p>如图所示，当前版本（8.0.15）MySQL 的默认引擎是 InnoDB，并且只有 InnoDB 是支持事务的（Transactions）</p>
+<blockquote>
+<p>在 MySQL 5.5.5之前 MyISAM 是默认存储引擎，之后都是 InnoDB</p>
+</blockquote>
+<p>如果想要深入了解每个存储引擎以及它们之间的区别，可以阅读 MySQL 官方文档</p>
+<ul>
+<li>InnoDB 存储引擎详细介绍：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html">https://dev.mysql.com/doc/refman/8.0/en/innodb-storage-engine.html</a> </li>
+<li>其他存储引擎详细介绍：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/storage-engines.html">https://dev.mysql.com/doc/refman/8.0/en/storage-engines.html</a></li>
+</ul>
+<h3 id="MyISAM"><a href="#MyISAM" class="headerlink" title="MyISAM"></a>MyISAM</h3><p>MyISAM 是基于 ISAM 的存储引擎，数据以紧密格式存储、拥有较高的插入和查询速度、不支持事务、不支持崩溃后的安全恢复、修复操作很慢、提供了全文索引、压缩表、空间数据（GIS）等特性；</p>
+<p>使用 MyISAM 引擎创建数据库，将生产 3 个文件。文件的名字以表的名字开始，扩展名指出文件类型</p>
+<ul>
+<li>.frm：存储表结构定义</li>
+<li>.MYD(MYData)：存储表数据</li>
+<li>.MYI（MYIndex)：存储索引数据</li>
+</ul>
+<h3 id="InnoDB"><a href="#InnoDB" class="headerlink" title="InnoDB"></a>InnoDB</h3><p>InnoDB 提供了具有提交回滚、崩溃的安全回复等机制。</p>
+<p>实现了四个标准的隔离级别，默认级别是可重复读(REPEATABLE READ)。在可重复读隔离级别下，通过多版本并发控制(MVCC)+ 间隙锁(Next-Key Locking)防止幻影读；主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很大的提升；内部做了很多优化，包括从磁盘读取数据时采用的可预测性读、能够加快读操作并且自动创建的自适应哈希索引、能够加速插入操作的插入缓冲区等；支持真正的在线热备份</p>
+<h3 id="MyISAM-和-InnoDB"><a href="#MyISAM-和-InnoDB" class="headerlink" title="MyISAM 和 InnoDB"></a>MyISAM 和 InnoDB</h3><p>MySQL5.5 之前默认的存储引擎是 MyISAM，之后改为了 InnoDB</p>
+<ul>
+<li>事务：MyISAM 不支持事务；InnoDB 提供事务支持，实现了 SQL 标准定义的四个隔离级别，默认是可重复读</li>
+<li>并发：MyISAM 只支持表级锁、InnoDB 支持行级锁（上图的 row-level locking）和表级锁，默认行级锁</li>
+<li>索引：MyISAM 和 InnoDB 都是 B+ 树索引，但是 MyISAM 仅保存记录所在页的指针</li>
+<li>外键：MyISAM 不支持外键、InnoDB 支持外键</li>
+<li>备份：MyISAM 不支持在线热备份、InnoDB 支持</li>
+<li>恢复：MyISAM 崩溃后数据损毁的概率比 InnoDB高很多，InnoDB 支持数据崩溃恢复，通过 <code>redo log</code> 操作</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>极客时间：MySQL 45讲</li>
+<li><a target="_blank" rel="noopener" href="https://javaguide.cn/database/mysql/mysql-questions-01.html">MySQL常见面试题总结</a></li>
+<li><a target="_blank" rel="noopener" href="https://xiaolincoding.com/">小林coding的图解MySQL专栏</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.pdai.tech/md/db/sql-mysql/sql-mysql-engine.html">MySQL - 存储引擎</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">#数据库</a>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MySQL-查询执行流程</div>
+      <div>https://61hhh-github-io.vercel.app/20220601/afc16bf3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>LY</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/20230511/34902a6/" title="1、RabbitMQ快速入门">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">1、RabbitMQ快速入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/20220528/ea10fc6a/" title="Redis学习五：主从复制">
+                        <span class="hidden-mobile">Redis学习五：主从复制</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://lib.baomitu.com/waline/2.14.1/waline.min.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/waline/2.14.1/waline.min.js', function() {
+        var options = Object.assign(
+          {"serverURL":"https://waline-server-61hhh.vercel.app/","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":[""],"lang":"zh-CN","emoji":["https://unpkg.com/@waline/emojis@1.1.0/tieba","https://unpkg.com/@waline/emojis@1.1.0/qq"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"search":false},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <span>本网站由</span> <a class="footer-support-logo" href="[https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral](https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral)" target="blank" title="又拍云"> <img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云"></a> <span>提供 CDN 加速</span> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        访问量：
+        <span id="leancloud-site-pv"></span>
+        
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        访客数：
+        <span id="leancloud-site-uv"></span>
+        
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
