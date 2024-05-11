@@ -16,7 +16,7 @@ Mybatis属实良心，对于在spring中整合mybatis，同样有官方文档可
 
 当然，整合的前提是要先熟悉Mybatis和Spring了。对应版本也要注意：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223646936.png" alt="image-20230420223646936" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223646936.png" alt="image-20230420223646936" style="zoom:80%;" />
 
 <!--more-->
 
@@ -458,7 +458,7 @@ public void testSpring(){
 
 看看官方文档关于`SqlSessionDaoSupport`的介绍
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223713319.png" alt="image-20230420223713319" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223713319.png" alt="image-20230420223713319" style="zoom:80%;" />
 
 具体操作与上面其实类似，可以自己尝试一下
 

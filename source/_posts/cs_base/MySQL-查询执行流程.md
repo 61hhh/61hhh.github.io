@@ -19,7 +19,7 @@ select * from user where ID=10；
 
 >  图片引用自：[小林coding：图解MySQL专栏](https://xiaolincoding.com/)
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427212828078.png" alt="image-20230427212828078" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427212828078.png" alt="image-20230427212828078" style="zoom:80%;" />
 
 如图是MySQL的基本架构示意图，MySQL 可以大致分为 Server 层和存储引擎层两大部分。
 
@@ -45,7 +45,7 @@ mysql -h$ip -P$port -u$user -p
 
 2、连接建立后，就跟根据输入的用户名密码校验，如果账户密码有误，就会有如下报错
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427221241973.png" alt="image-20230427221241973" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221241973.png" alt="image-20230427221241973" style="zoom:80%;" />
 
 3、如果账户密码校验通过，就会查询该用户的权限信息并保存，后续的任何操作都会基于连接时读取到的该用户权限
 
@@ -59,15 +59,15 @@ mysql -h$ip -P$port -u$user -p
 
 1、如果连接完成后没有后续操作，连接就处于空闲状态，可以通过 `show processlist` 命令查看有多少个连接 
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427221830449.png" alt="image-20230427221830449" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221830449.png" alt="image-20230427221830449" style="zoom:80%;" />
 
 2、如果客户端长时间没有操作，连接器就会断开连接，具体时间是通过 `wait_timeout` 参数设置的，默认是28880秒即8小时。对于空闲时间过长被连接器主动断开的连接，客户端并不会收到消息，只有再次发送请求时才会报错提示：`ERROR 2013 (HY000): Lost connection to MySQL server during query`，如果要继续就要重新建立连接。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427221957980.png" alt="image-20230427221957980" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427221957980.png" alt="image-20230427221957980" style="zoom:80%;" />
 
 3、连接也可以手动断开，通过 `kill connection +id` 来手动关闭，如图我建立连接后手动关闭了，再次发送请求时提示报错并重连接了
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427222848999.png" alt="image-20230427222848999" style="zoom:;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427222848999.png" alt="image-20230427222848999" style="zoom:;" />
 
 4、MySQL的默认连接数是有限制的，具体连接数由参数 `max_connections` 控制，可以通过 `show variables like 'max_connections'` 查看，如果超过连接数就会拒绝新连接并提示 `Too many connections`
 
@@ -151,7 +151,7 @@ SELECT * FROM user1 WHERE id=1
 
 要想直到具体的查询方案，可以通过 `explain` 命令对 SQL 进行解释
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230429203028812.png" alt="image-20230429203028812" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230429203028812.png" alt="image-20230429203028812" style="zoom:80%;" />
 
 可以看到 `possible_keys` 表示该 SQL 语句可能用到的索引，这里只有 `PRIMARY`，`key` 是实际使用的索引，用的就是 `PRIMARY`
 
@@ -277,7 +277,7 @@ SELECT * FROM sys_user WHERE age > 18 AND role = 2;
 
 MySQL 支持多种存储引擎，可以通过 `show engines` 指令查看支持的引擎
 
-![image-20230502123448721](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230502123448721.png)
+![image-20230502123448721](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230502123448721.png)
 
 如图所示，当前版本（8.0.15）MySQL 的默认引擎是 InnoDB，并且只有 InnoDB 是支持事务的（Transactions）
 

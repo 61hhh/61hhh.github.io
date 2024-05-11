@@ -23,7 +23,7 @@ date: 2021-11-28 00:04:16
 
 在90年代，一个网站的访问量一般都不大，用单个数据库完全可以轻松应付。在那个时候，更多的都是静态网页，动态交互类型的网站不多。（我们在学校做的应用基本上都是采用简单的单机MySQL）
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211117221900849.png" alt="image-20211117221900849" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117221900849.png" alt="image-20211117221900849" style="zoom:80%;" />
 
 > DAL dal是数据访问层的英文缩写，即为数据访问层（Data Access Layer）
 
@@ -41,13 +41,13 @@ date: 2021-11-28 00:04:16
 
 程序员们开始大量的使用缓存技术来缓解数据库的压力，优化数据库的结构和索引。开始比较流行的是通过文件缓存来缓解数据库压力，但是当访问量继续增大的时候，多台web机器通过文件缓存不能共享，大量的小文件缓存也带了了比较高的IO压力。在这个时候，Memcached就自然的成为一个非常时尚的技术产品。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211117222128588.png" alt="image-20211117222128588" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222128588.png" alt="image-20211117222128588" style="zoom:80%;" />
 
 **3.Mysql主从读写分离**
 
 由于数据库的写入压力增加，Memcached 只能缓解数据库的读取压力。读写集中在一个数据库上让数据库不堪重负，大部分网站开始使用主从复制技术来达到读写分离，以提高读写性能和读库的可扩展性。Mysql的master-slave模式成为这个时候的网站标配了。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211117222205901.png" alt="image-20211117222205901" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222205901.png" alt="image-20211117222205901" style="zoom:80%;" />
 
 **4.分表分库+水平拆分+mysql集群**
 
@@ -57,7 +57,7 @@ date: 2021-11-28 00:04:16
 
 [^2]: 分库：将业务相关的、频繁性的数据分在同一个数据库，将一些趋于冷的数据（如用户的名字、身份证号码等变化很少的数据）放在另外的一个库中。分表：对于复杂业务产生的大量数据，例如产生了100w条数据，放在同一个表中肯定会很慢，换个方式0-25、25-50、50-75、75-100四个分区，可以达到将数据的压力差分的目的。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211117222231999.png" alt="image-20211117222231999" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222231999.png" alt="image-20211117222231999" style="zoom:80%;" />
 
 **5.MySQL的扩展性瓶颈**
 
@@ -65,7 +65,7 @@ MySQL数据库也经常存储一些大文本字段，导致数据库表非常的
 
 **6.今天是什么样子? ?**
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211117222301900.png" alt="image-20211117222301900" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211117222301900.png" alt="image-20211117222301900" style="zoom:80%;" />
 
 **7.为什么用NoSQL**
 
@@ -159,21 +159,21 @@ NoSQL在不太影响性能的情况，就可以方便地实现高可用的架构
 
 1. 演变过程
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420224124725.png" alt="image-20230420224124725" style="zoom: 67%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224124725.png" alt="image-20230420224124725" style="zoom: 67%;" />
 
 2. 第5代
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420224143458.png" alt="image-20230420224143458" style="zoom:67%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224143458.png" alt="image-20230420224143458" style="zoom:67%;" />
 
 3. 第5代架构使命
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420224154563.png" alt="image-20230420224154563" style="zoom:67%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224154563.png" alt="image-20230420224154563" style="zoom:67%;" />
 
 **和我们相关的，多数据源类型的存储问题**
 
 例如一个购物网站的商品页面，会包含商品的基本信息、详情、销量、用户的评价（文字图片视频）、点赞点踩等等不同类型的信息，且信息的存放往往会采用不同的数据源。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420224210584.png" alt="image-20230420224210584" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224210584.png" alt="image-20230420224210584" style="zoom:67%;" />
 
 #### 阿里商品描述
 
@@ -200,11 +200,11 @@ I：IBM的小型机、O：Oracle的数据库、E：EMC的高端存储。这三�
 
 传统关系型数据库如何设计：先画E-R图，描述模型关联，再根据E-R设计表结构。常见的关联有1:1、1:n、n:n等。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211127215531125.png" alt="image-20211127215531125" style="zoom: 67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215531125.png" alt="image-20211127215531125" style="zoom: 67%;" />
 
 NOSQL如何设计：以BSON为例，采用Json结构来表述数据的存储方式，k-v形式可以实现对象的存储。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211127215642374.png" alt="image-20211127215642374" style="zoom: 67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215642374.png" alt="image-20211127215642374" style="zoom: 67%;" />
 
 **为什么用聚合模型来处理**
 高并发的操作是不太建议用关联查询的，互联网公司用冗余数据来避免关联查询；分布式事务是支持不了太多的并发的
@@ -218,11 +218,11 @@ NOSQL如何设计：以BSON为例，采用Json结构来表述数据的存储方�
 3. 列族：顾名思义，是按列存储数据的。最大的特点是方便存储结构化和半结构化数据，方便做数据压缩，
    对针对某一列或者某几列的查询有非常大的IO优势。【Cassandra】、【HBase】、【分布式文件系统】
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211127215851351.png" alt="image-20211127215851351" style="zoom:67%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215851351.png" alt="image-20211127215851351" style="zoom:67%;" />
 
 4. 图形：图关联结构，存放的不是图片数据，而是用来表示存在复杂关系的数据，社交网络、推荐系统等应用较多。【Neo4J】、【InfoGrid】
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211127215940739.png" alt="image-20211127215940739" style="zoom:67%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127215940739.png" alt="image-20211127215940739" style="zoom:67%;" />
 
    
 
@@ -230,7 +230,7 @@ NOSQL如何设计：以BSON为例，采用Json结构来表述数据的存储方�
 
 #### 四者对比
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420224302502.png" alt="image-20230420224302502" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420224302502.png" alt="image-20230420224302502" style="zoom:80%;" />
 
 
 
@@ -255,7 +255,7 @@ NOSQL如何设计：以BSON为例，采用Json结构来表述数据的存储方�
 
 根据定理，分布式系统只能满足三项中的两项而不可能满足全部三项。理解CAP理论的最简单方式是想象两个节点分处分区两侧。允许至少一个节点更新状态会导致数据不一致，即丧失了C性质。如果为了保证数据一致性，将分区一侧的节点设置为不可用，那么又丧失了A性质。除非两个节点可以互相通信，才能既保证C又保证A，这又会导致丧失P性质。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211127224409622.png" alt="image-20211127224409622" style="zoom: 75%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211127224409622.png" alt="image-20211127224409622" style="zoom: 75%;" />
 
 ### CAP的三进二
 

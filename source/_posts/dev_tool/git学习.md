@@ -34,7 +34,7 @@ Git是目前世界上最先进的分布式版本控制系统；并且Git是免�
 
 首先要在Git官网上下载对应系统的版本，然后按提示步骤完成安装
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H5da6c37265a54867b1190bfc0b36e0d1j.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H5da6c37265a54867b1190bfc0b36e0d1j.png" style="zoom:80%;" />
 
 安装完成后，鼠标右键就可以看到Git GUI和Git Bash了，推荐使用Git Bash，类Linux风格，而且使用命令行可以帮助我们熟悉Git的指令，至于GUI熟悉了指令以后可以自己摸索
 
@@ -52,13 +52,13 @@ mkdir ** //新建文件夹
 ......
 ```
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H5974392aa90748dca3543325057c141eJ.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H5974392aa90748dca3543325057c141eJ.png)
 
 #### 1.2.2 Git配置
 
 使用`git config -l`可以查看Git环境配置
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hd516afc4940940db8e24c54761cefadfM.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hd516afc4940940db8e24c54761cefadfM.png)
 
 查看不同级别配置文件：
 
@@ -99,7 +99,7 @@ $ git config --global user.email zhangguo@qq.com   #邮箱
 
 Git本地有三个工作区域：工作目录（Working Directory）、暂存区(Stage/Index)、资源库(Repository或Git Directory)。加上远程的git仓库(Remote Directory)就可以分为四个工作区域。其中相互关系为：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Ha7648ddd85f34d628d2e3155b0e63f07m.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Ha7648ddd85f34d628d2e3155b0e63f07m.png" style="zoom:80%;" />
 
 - Workspace：工作区，就是你平时存放项目代码的地方
 - Index / Stage：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交到文件列表信息
@@ -108,7 +108,7 @@ Git本地有三个工作区域：工作目录（Working Directory）、暂存区
 
 本地的三个区域确切的说应该是git仓库中HEAD指向的版本
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hcce1b8d54f634f8b94039a86e4710200r.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hcce1b8d54f634f8b94039a86e4710200r.png" style="zoom:80%;" />
 
 - Directory：使用Git管理的一个目录，也就是一个仓库，包含我们的工作空间和Git的管理空间。
 - WorkSpace：需要通过Git进行版本控制的目录和文件，这些目录和文件组成了工作空间。
@@ -131,7 +131,7 @@ git的工作流程一般是这样的：
 
 因此，git管理的文件有三种状态：已修改（modified）,已暂存（staged）,已提交(committed)
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Ha8ec5d2890514721a77519937e88f24ew.png" style="zoom: 67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Ha8ec5d2890514721a77519937e88f24ew.png" style="zoom: 67%;" />
 
 ### 2.3 图解教程
 
@@ -139,7 +139,7 @@ Git的原理还是有点小复杂的，要看明白得费点功夫
 
 [图解教程中文版](http://www.cnblogs.com/yaozhongxiao/p/3811130.html)
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hf9a115bf51cc4fa4add8ebdf5064940cg.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hf9a115bf51cc4fa4add8ebdf5064940cg.png" style="zoom:80%;" />
 
 ## 3 Git操作
 
@@ -156,13 +156,13 @@ Git的原理还是有点小复杂的，要看明白得费点功夫
 
 首先创建一个空目录，然后使用`git init`把这个目录变成Git可管理的仓库，可以看到过了一个隐藏文件.git，这个就是Git用来跟踪管理版本库的。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hd4233891706a4f7ebc8b666732284b07j.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hd4233891706a4f7ebc8b666732284b07j.png)
 
 #### 3.1.2 克隆远程仓库
 
 远程克隆就是利用`git clone "url"`形式将远程代码仓库的代码克隆到本地，完成后就可以看到对应文件夹
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H162feeb4765d4f598e84f4bc16dea2b7S.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H162feeb4765d4f598e84f4bc16dea2b7S.png)
 
 
 
@@ -174,7 +174,7 @@ Git的原理还是有点小复杂的，要看明白得费点功夫
 
 文件的四个状态：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Ha29b42020bb54910ad0af45dd70e43acv.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Ha29b42020bb54910ad0af45dd70e43acv.png" style="zoom:80%;" />
 
 - **Untracked**: 未跟踪, 此文件在本地文件夹中, 但并没有加入到git库, 不参与版本控制. 通过`git add` 状态变为`Staged`.
 - **Unmodify**: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为`Modified`. 如果使用`git rm`移出版本库, 则成为`Untracked`文件
@@ -298,7 +298,7 @@ $ git commit -m "add 3 files."
 
 基本
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H0db03f9a49d4440795317da4b9af5dd0G.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H0db03f9a49d4440795317da4b9af5dd0G.png)
 
 ##### 5.比较代码
 
@@ -374,19 +374,19 @@ Git是分布式版本控制系统，同一个Git仓库，可以分布到不同�
 
 GitHub应该是最著名的代码托管平台了，全世界的程序员都在使用，很多优秀的开源项目也都发布在上面，因此作为程序员熟悉GitHub对我们的学习进步有很大的帮助。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H5e4830bfd6b2494c8d816bbf8e12a29fE.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H5e4830bfd6b2494c8d816bbf8e12a29fE.png)
 
 不过由于这是国外的托管平台，因此使用起来会有一些小问题：例如访问较慢、私有仓库收费等。
 
 不过好像就在我写这篇文章的时候，GitHub私有仓库免费了
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H17cc747c3d9d4f339a36ef3002fdc1a6O.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H17cc747c3d9d4f339a36ef3002fdc1a6O.png)
 
 ### 4.2 Coding
 
 之前并不太了解这个，还是这段时间建博客，发现部署到GitHub访问很慢，查解决方法的时候，看到的。用了一下真的很快，在国内访问速度非常的快！功能类似于码云，可以创建私有仓库(<=5个)
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H8e599157833f4fe68dcc694273416ed5u.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H8e599157833f4fe68dcc694273416ed5u.png)
 
 
 
@@ -588,11 +588,11 @@ $ git branch -dr [remote/branch]
 
 一开始的时候，master分支是一条线，Git用master指向最新的提交，再用HEAD指向master，就能确定当前分支，以及当前分支的提交点：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Ha6d04b9e9fd24b399ea4d02825265a38z.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Ha6d04b9e9fd24b399ea4d02825265a38z.png)
 
 每次提交，master分支都会向前移动一步，这样，随着你不断提交，master分支的线也越来越长：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/He13a65570b914f05b419abc08931a709W.gif)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/He13a65570b914f05b419abc08931a709W.gif)
 
 当我们创建新的分支，例如`dev`时，Git新建了一个指针叫`dev`，指向`master`相同的提交，再把`HEAD`指向`dev`，就表示当前分支在`dev`上：
 
@@ -611,31 +611,31 @@ $ git checkout dev
 Switched to branch 'dev'
 ```
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H746ce5ecf824418c959889b9b957e418o.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H746ce5ecf824418c959889b9b957e418o.png)
 
 不过，从现在开始，对工作区的修改和提交就是针对`dev`分支了，比如新提交一次后，`dev`指针往前移动一步，而`master`指针不变：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hf95a9fcb27a5452e922f537d7055892cQ.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hf95a9fcb27a5452e922f537d7055892cQ.png)
 
 假如我们在`dev`上的工作完成了，就可以把`dev`合并到`master`上。Git怎么合并呢？最简单的方法，就是直接把`master`指向`dev`的当前提交，就完成了合并：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H16833115b2d944e4b10438a08986f700x.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H16833115b2d944e4b10438a08986f700x.png)
 
 所以Git合并分支也很快！就改改指针，工作区内容也不变！
 
 合并完分支后，甚至可以删除`dev`分支。删除`dev`分支就是把`dev`指针给删掉，删掉后，我们就剩下了一条`master`分支：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hed917a4e6ad74308bb79798bb4e146feH.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hed917a4e6ad74308bb79798bb4e146feH.png)
 
 过程演示：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H4638bffc36ed420b8ac8eef62e88a33fW.gif)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H4638bffc36ed420b8ac8eef62e88a33fW.gif)
 
 以之前的软工实验截图为例，演示实际操作：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H3e8350bc69894c8d8d8b2d21b91c40c8p.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H3e8350bc69894c8d8d8b2d21b91c40c8p.png" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H422f82153f0944c6aeba13e8d396d231X.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H422f82153f0944c6aeba13e8d396d231X.png" style="zoom:80%;" />
 
 
 
@@ -643,7 +643,7 @@ Switched to branch 'dev'
 
 当我们在新建分支feature1上修改、commit，然后切回master分支后修改、commit，会照成`master`分支和`feature1`分支各自都分别有新的提交，变成了这样：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H7499ff22baf54401b068503db9f70940O.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H7499ff22baf54401b068503db9f70940O.png)
 
 这时如果快速合并，就会报错：
 
@@ -657,7 +657,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 
 此时对冲突文件进行修改，然后再add、commit，现在，`master`分支和`feature1`分支变成了下图所示：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H72bdfbd2e5af4dd1b8ac5367ee35a2e3Q.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H72bdfbd2e5af4dd1b8ac5367ee35a2e3Q.png)
 
 **小结：**当Git无法自动合并分支时，就必须首先解决冲突。解决冲突后，再提交，合并完成。
 
@@ -669,13 +669,13 @@ Automatic merge failed; fix conflicts and then commit the result.
 
 实例演示：创建新分支bbb，在bbb对文件try.txt修改提交，再切回master分支，然后master上再修改提交try.txt，此时两个分支就各自有新的提交了，合并时就会出现冲突，这时再次add然后commit提交，两个分支会走到一个点，类似于三角形。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hebf7896d6ee841d180e18c949d05a3d4z.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hebf7896d6ee841d180e18c949d05a3d4z.png" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/Hbdb75ce1eb654ec0bd4e1b62f62b608a5.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hbdb75ce1eb654ec0bd4e1b62f62b608a5.png" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H8a909fd825ab432caf70077a6ff4b1c00.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H8a909fd825ab432caf70077a6ff4b1c00.png" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/He4faa72548cd4b7db5994528c5464da7v.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/He4faa72548cd4b7db5994528c5464da7v.png" style="zoom:80%;" />
 
 
 
@@ -691,7 +691,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 
 所以，团队合作的分支看起来就像这样：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/H0f374a983f834c42ba7298b077e3d5a9Z.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H0f374a983f834c42ba7298b077e3d5a9Z.png)
 
 ### 5.4 Bug分支
 

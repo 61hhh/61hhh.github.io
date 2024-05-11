@@ -22,7 +22,7 @@ AOP（Aspect Oriented Programming）面向切面编程，是针对面向对象�
 - 提供声明式企业服务。 最重要的服务是声明式事务管理。
 - 让用户实现自定义方面，以AOP补充其对OOP的使用。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223518391.png" alt="image-20230420223518391" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223518391.png" alt="image-20230420223518391" style="zoom:80%;" />
 
 <!--more-->
 
@@ -164,7 +164,7 @@ public class MyTest {
 }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223542496.png" alt="image-20230420223542496" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223542496.png" alt="image-20230420223542496" style="zoom:80%;" />
 
 
 
@@ -203,7 +203,7 @@ public class diyPoint {
 
 测试代码不变，测试执行：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223557595.png" alt="image-20230420223557595" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223557595.png" alt="image-20230420223557595" style="zoom:80%;" />
 
 
 
@@ -263,5 +263,5 @@ public class AnnotationPoint {
 
 3、测试
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223614454.png" alt="image-20230420223614454" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223614454.png" alt="image-20230420223614454" style="zoom:80%;" />
 

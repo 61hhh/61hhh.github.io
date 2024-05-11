@@ -18,17 +18,17 @@ date: 2020-04-14 12:02:00
 
 首先要获取我们的GitHub的IP地址，直接cmd中ping自己的博客地址就可以，然后在`域名`--`解析`中，点击新手引导，将得到的IP地址填到记录栏中，修改为CNAME和A类型
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/H762ccabff22a463ebdefb802e88344a4v.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H762ccabff22a463ebdefb802e88344a4v.png)
 
 ### 添加CNAME文件
 
 在hexo的source文件夹下创建CNAME文件(没有后缀！)，里面填写你的域名：
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Hccac12360b894735bfa5e68ee16784c4J.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Hccac12360b894735bfa5e68ee16784c4J.png)
 
 ### github设置
 
 打开GitHub，找到对应仓库github.io，在setting中下拉找到GitHub Pages，在custom domain中填写你的域名，至此域名的配置就算完成啦！
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/H0479f0ae8b5c4fddb0a32241d472c795E.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/H0479f0ae8b5c4fddb0a32241d472c795E.png)
 

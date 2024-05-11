@@ -242,7 +242,7 @@ public class Student{
 （1）堆内存：保存对象的属性内容。堆内存需要用new关键字来分配空间；
 （2）栈内存：保存的是堆内存的地址（在这里为了分析方便，可以简单理解为栈内存保存的是对象的名字）。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class.png" style="zoom:80%;" />
 
 如果直接使用没有实例化的对象，就会出现报错：`Exception in thread "main" java.lang.NullPointerException`空指向异常。表示只声明了Student对现象，没有实例化（只有栈空间而没有对应的堆内存空间）
 
@@ -255,7 +255,7 @@ Student stu1 = new Student("张三",33);
 Student stu2 = stu1;
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class2.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class2.png" style="zoom:80%;" />
 
 一个引用同时只能指向一个对象
 
@@ -265,7 +265,7 @@ Student stu2 = stu1;
 Student stu2 = new Student("李四",18);//此时引用stu2指向新的对象
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class3.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class3.png" style="zoom:80%;" />
 
 再看看下面的一段代码：
 
@@ -275,7 +275,7 @@ Student stu2 = new Student("李四",18);
 Student stu2 = stu1;
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_class4.png" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_class4.png" style="zoom:80%;" />
 
 此时第二块堆内存空间，没有任何引用指向，这块空间就成为内存垃圾
 

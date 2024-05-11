@@ -121,9 +121,9 @@ public class FileServlet extends HttpServlet {
 }
 ```
 
-![image-20201108192023201](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201108192023201.png)
+![image-20201108192023201](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201108192023201.png)
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/fileD.jpg.jpeg" style="zoom:50%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/fileD.jpg.jpeg" style="zoom:50%;" />
 
 可以看到成功下载了
 
@@ -256,11 +256,11 @@ public class requestServlet extends HttpServlet {
 
 可以看到提交之后实现跳转数据提交成功
 
-![image-20201110163603437](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110163603437.png)
+![image-20201110163603437](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110163603437.png)
 
 ![image-20201110163619759](http://img2.salute61.top/PicGo/image-20201110163619759.png)
 
-![image-20201110163651619](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110163651619.png)
+![image-20201110163651619](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110163651619.png)
 
 ### 2、实现转发
 
@@ -286,7 +286,7 @@ public class reqDisp extends HttpServlet {
 
 访问`http://localhost:8080/s1/reqDisp`进入到了`reqDispFile.jsp`页面中，说明跳转成功了！
 
-![image-20201110164625504](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110164625504.png)
+![image-20201110164625504](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110164625504.png)
 
 由于request也是域对象，因此它也可以实现数据的传递，只不过request的域只代表当前一次请求
 
@@ -319,9 +319,9 @@ public class reqDispData2 extends HttpServlet {
 
 先直接访问Data2是显示为null的，表示没有数据传过去；然后进入Data，他会设置属性值并且页面跳转到Data2的页面中，显示出名字zhangsan
 
-![image-20201110165553251](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110165553251.png)
+![image-20201110165553251](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110165553251.png)
 
-![image-20201110165612755](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110165612755.png)
+![image-20201110165612755](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110165612755.png)
 
 
 
@@ -357,11 +357,11 @@ public class reqFDL extends HttpServlet {
 
 修改首页提交按钮的跳转，在首页点击提交后可以跳转到目标页面reqFDL中，但是直接访问`http://localhost:8080/s1/reqFDL`就会跳转到FDL.jsp页面中，不能看到目标页面。
 
-![image-20201110171516766](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110171516766.png)
+![image-20201110171516766](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110171516766.png)
 
-![image-20201110171530650](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110171530650.png)
+![image-20201110171530650](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110171530650.png)
 
-![image-20201110172022252](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110172022252.png)
+![image-20201110172022252](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110172022252.png)
 
 Referer的作用一个是防盗链，只允许自己的网站访问我的资源服务器。Referer作用是指示它从哪儿链接过来，如果为空表示它是直接输入地址访问的
 
@@ -373,7 +373,7 @@ Referer的作用一个是防盗链，只允许自己的网站访问我的资源�
 
 **请求转发：**客户端发送一次请求后，请求在服务器端进行传递，客户端仅仅发送了一次请求
 
-![image-20201110180947603](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201110180947603.png)
+![image-20201110180947603](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201110180947603.png)
 
 他们的区别：
 

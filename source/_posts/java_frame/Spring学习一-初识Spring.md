@@ -26,7 +26,7 @@ Spring作为Java开发应用最为广泛的一个框架（甚至可以说它是�
 
 Spring 框架是一个分层架构，由 7 个定义良好的模块组成。Spring 模块构建在核心容器之上，核心容器定义了创建、配置和管理 bean 的方式 .
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420222740313.png" alt="image-20230420222740313" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420222740313.png" alt="image-20230420222740313" style="zoom:80%;" />
 
 组成 Spring 框架的每个模块（或组件）都可以单独存在，或者与其他一个或多个模块联合实现。每个模块的功能如下：
 
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
 
 上面的代码就是通过构造函数实现，结构如下：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420222801338.png" alt="image-20230420222801338" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420222801338.png" alt="image-20230420222801338" style="zoom:80%;" />
 
 我们可以在需要用到他的地方 , 不去实现它 , 而是留出一个接口 , 利用setter方法将其作为参数传入：
 
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 
 再看我们的代码结构：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420222813851.png" alt="image-20230420222813851" style="zoom: 70%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420222813851.png" alt="image-20230420222813851" style="zoom: 70%;" />
 
 **IoC是Spring框架的核心内容**，使用多种方式完美的实现了IoC，可以使用XML配置，也可以使用注解，新版本的Spring也可以零配置实现IoC。
 

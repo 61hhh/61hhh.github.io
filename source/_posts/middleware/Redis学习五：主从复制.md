@@ -45,23 +45,23 @@ date: 2022-05-28 10:30:27
 
 3、启动三个redis-server，通过`ps -ef | grep redis`查看启动状态
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328101230533.png" alt="image-20220328101230533" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328101230533.png" alt="image-20220328101230533" style="zoom:80%;" />
 
 4、通过`info replication`查看主从复制信息。基本的配置完成
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220325102204597.png" alt="image-20220325102204597" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220325102204597.png" alt="image-20220325102204597" style="zoom:80%;" />
 
 ### 2 一主二仆
 
 1、在6380、6381上执行`SLAVEOF 127.0.0.1 6379`，再次打印信息，可以看到6379成为主，6380、81成为从
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328103540597.png" alt="image-20220328103540597" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328103540597.png" alt="image-20220328103540597" style="zoom:80%;" />
 
 2、从机数据复制是从头开始，比如主机set k1、k2、k3，从机从k4开始配置，前面的k123都会复制
 
 3、在主节点上写入数据，在从节点可以读取对应数据；而在从节点写入数据会报错
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328104119539.png" alt="image-20220328104119539" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328104119539.png" alt="image-20220328104119539" style="zoom:80%;" />
 
 4、主机挂掉，从机信息：`master_link_status:down`原地待命，主机重启后还是主节点，从节点的信息：`master_link_status:up`；从机挂掉重启后，主从信息会丢失，需要通过命令`SLAVEOF 127.0.0.1 6379`重新指定（也可以通过配置文件修改REPLICATION部分永久生效）
 
@@ -75,7 +75,7 @@ date: 2022-05-28 10:30:27
 
 通过`SLAVEOF newIP newPort`更改主从信息，中途变更了主从复制信息后，会清除之前的数据，重新建立拷贝最新的数据，如图6381新的`get kkk`其实是通过6380获取的
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328112417755.png" alt="image-20220328112417755" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328112417755.png" alt="image-20220328112417755" style="zoom:80%;" />
 
 
 
@@ -91,11 +91,11 @@ date: 2022-05-28 10:30:27
 
 主机日志：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328141337796.png" alt="image-20220328141337796" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328141337796.png" alt="image-20220328141337796" style="zoom:80%;" />
 
 从机日志：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328141422599.png" alt="image-20220328141422599" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328141422599.png" alt="image-20220328141422599" style="zoom:80%;" />
 
 
 
@@ -111,7 +111,7 @@ date: 2022-05-28 10:30:27
 
 需要注意的是，`slaveof`是异步命令，从节点完成主节点ip和port的保存后，向发送`slaveof`命令的客户端直接返回OK，实际的复制操作在这之后才开始进行。这个过程中，可以看到从节点打印日志如下：
 
-![image-20220328142210802](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328142210802.png)
+![image-20220328142210802](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328142210802.png)
 
 
 
@@ -122,7 +122,7 @@ date: 2022-05-28 10:30:27
 - 从节点：为该socket建立一个专门处理复制工作的文件事件处理器，负责后续的复制工作，如接收RDB文件、接收命令传播等。
 - 主节点：接收到从节点的socket连接后（即accept之后），为该socket创建相应的客户端状态，**并将从节点看做是连接到主节点的一个客户端，后面的步骤会以从节点向主节点发送命令请求的形式来进行。**
 
-![image-20220328142412940](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328142412940.png)
+![image-20220328142412940](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328142412940.png)
 
 
 
@@ -140,7 +140,7 @@ date: 2022-05-28 10:30:27
 
 在主节点返回pong情况下，从节点打印日志如下：
 
-![image-20220328142502194](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328142502194.png)
+![image-20220328142502194](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328142502194.png)
 
 
 
@@ -189,11 +189,11 @@ Redis通过psync命令进行全量复制的过程如下：
 
 主机的同步日志：
 
-![image-20220328143313401](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328143313401.png)
+![image-20220328143313401](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328143313401.png)
 
 从机的同步日志：
 
-![image-20220328143411959](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328143411959.png)
+![image-20220328143411959](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328143411959.png)
 
 可以看到：从节点接收了来自主节点的175个字节的数据、接受前先flush清除旧数据、没有设置aof所以没调用`bgrewriteaof`
 
@@ -245,7 +245,7 @@ Redis通过psync命令进行全量复制的过程如下：
 
 PSYNC命令流程图如下：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328151656392.png" alt="image-20220328151656392" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328151656392.png" alt="image-20220328151656392" style="zoom:80%;" />
 
 psync命令的大体流程如下：
 
@@ -294,17 +294,17 @@ psync命令的大体流程如下：
 
 3、启动redis-sentinel，指定`sentinel.conf`文件
 
-![image-20220328155708818](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328155708818.png)
+![image-20220328155708818](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328155708818.png)
 
 4、通过shutdown关闭主节点6379，等一会儿可以看到，投票选出新的6380作为主节点了
 
-![image-20220328160255392](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328160255392.png)
+![image-20220328160255392](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328160255392.png)
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328160351359.png" alt="image-20220328160351359" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328160351359.png" alt="image-20220328160351359" style="zoom:80%;" />
 
 5、再次重启6379后，发现现在已经变成从节点了
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220328160725607.png" alt="image-20220328160725607" style="zoom: 70%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220328160725607.png" alt="image-20220328160725607" style="zoom: 70%;" />
 
 由于所有的写操作都是先在Master上操作，然后同步更新到Slave上，所以从Master同步到Slave机器有一定的延迟，当系统很繁忙的时候，延迟问题会更加严重，Slave机器数量的增加也会使这个问题更加严重。
 

@@ -50,7 +50,7 @@ Git是目前世界上最先进的分布式版本控制系统，无论是我们�
 
 - 后续若要学习git，推荐一个很全面的参考教程 [*Git*简介 - 廖雪峰的官方网站](https://www.baidu.com/link?url=Z8O3Sg4igVflUvqE5-hwJJjzkB34zZiXH2AEdNsItuC_Avh0lVB4MP9gn-e0CsVqqpXtcMx_--570lKkiS0xUwmX3Mqw3url-J6PF71I-i7&ck=7290.9.0.0.0.121.268.0&shh=www.baidu.com&sht=baidu&wd=&eqid=982d1239000645b1000000055e734703)（当时写报告就参照他的教程写的hh）
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427170157536.png" alt="image-20230427170157536" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170157536.png" alt="image-20230427170157536" style="zoom:80%;" />
 
 
 
@@ -60,7 +60,7 @@ Git是目前世界上最先进的分布式版本控制系统，无论是我们�
 
 - [Node.js安装包及源码](https://nodejs.org/en/download/)，按个人配置直接安装即可
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/node.png" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/node.png" style="zoom:80%;" />
 
 <2>先准备一个文件夹安装hexo（以我的D:\Blog61\HG_Blog为例），在此处git bash
 
@@ -77,11 +77,11 @@ Git是目前世界上最先进的分布式版本控制系统，无论是我们�
   查看版本：hexo -v
   ```
 
-​		<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/hexo-v.png" style="zoom: 67%;" />
+​		<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/hexo-v.png" style="zoom: 67%;" />
 
 - 安装后新建一个文件夹存放你的博客（我的是D:\Blog61\HG_Blog\HEXO_File）初始化：hexo init，完成后可以看到文件
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/blogfile.png" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/blogfile.png" style="zoom:80%;" />
 
 - 文件含义：
 
@@ -127,7 +127,7 @@ Git是目前世界上最先进的分布式版本控制系统，无论是我们�
 
   可以在目标文件中找到生成的对应id_rsa.pub文件，用notepad++打开，复制
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427170257332.png" alt="image-20230427170257332" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170257332.png" alt="image-20230427170257332" style="zoom:80%;" />
 
 - 或者在bash中输入：
 
@@ -138,7 +138,7 @@ Git是目前世界上最先进的分布式版本控制系统，无论是我们�
 
 - 打开个人github账号，找到settings，新建SSH key，粘贴
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/GitHub-ssh.png" style="zoom: 50%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/GitHub-ssh.png" style="zoom: 50%;" />
 
 - 填好后，在git bash中输入：
 
@@ -146,7 +146,7 @@ Git是目前世界上最先进的分布式版本控制系统，无论是我们�
   ssh -T git@github.com
   ```
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/ssh-T.png" style="zoom:70%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/ssh-T.png" style="zoom:70%;" />
 
 - 要提交就要指明用户是谁，所以要git config设置，--global表示全作用域的
 

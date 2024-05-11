@@ -18,11 +18,11 @@ date: 2020-07-05 22:01:18
 
 tomcat可以在[官网](https://tomcat.apache.org/)直接下载，点击左侧download选择版本后，再根据自己的版本选择压缩包下载即可，下载完成后解压（建议解压到D盘，C盘可能会出现拒绝访问问题）
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat1.png" alt="下载地址" style="zoom: 67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat1.png" alt="下载地址" style="zoom: 67%;" />
 
 解压完成后，在环境变量中配置，在系统变量中新建，变量名为`CATALINA_HOME`，变量值即为安装目录（是tomcat整个的安装目录！）
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat2.png" style="zoom: 67%;"  >
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat2.png" style="zoom: 67%;"  >
 
 然后在系统变量的path变量中添加`%CATALINA_HOME%\bin`，一路确认返回即可。
 
@@ -32,7 +32,7 @@ Tomcat的运行需要JDK的支持，在命令行中输入`java -version`查看Ja
 
 准备好后在命令行中输入`startup.bat`即可进入tomcat**（此时新产生的命令行窗口不能关闭）**，在浏览器中输入`localhost:8080`查看到相应页面即成功配置！
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat3.png" style="zoom: 67%;" >
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat3.png" style="zoom: 67%;" >
 
 
 
@@ -48,11 +48,11 @@ Tomcat的配置文件在conf/server.xml中，可以配置主机名称、访问�
 
 1 启动错误，一闪而退可能是端口被占用，tomcat默认的是8080端口，可以在到安装目录下的conf/server.xml文件中修改端口
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat4.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat4.png)
 
 2 如果出现乱码，可以在安装目录的conf文件夹下，找到logging.properties文件，打开修改UTF-8为GBK即可
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat5.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat5.png)
 
 
 
@@ -75,7 +75,7 @@ Tomcat的配置文件在conf/server.xml中，可以配置主机名称、访问�
 
   具体演示：在webapps目录下新建test目录，新建一个firstweb.html文件，编写html代码，然后在浏览器中输入`localhost:8080/test/firstweb.html`即可访问
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat6.png" style="zoom:33%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat6.png" style="zoom:33%;" />
 
   
 
@@ -89,11 +89,11 @@ Tomcat的配置文件在conf/server.xml中，可以配置主机名称、访问�
       </welcome-file-list>
     ```
 
-    ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/TomcaT9.png)
+    ![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/TomcaT9.png)
 
     然后此时可以不用再指定资源文件了，直接浏览器输入`localhost:8080/test`即可看到设置的首页
 
-    <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat8.png" style="zoom:50%;" />
+    <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat8.png" style="zoom:50%;" />
 
     
 
@@ -109,7 +109,7 @@ Tomcat的配置文件在conf/server.xml中，可以配置主机名称、访问�
   docBase：表示的是站点目录的绝对路径
   ```
 
-  ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Tomcat7.png)
+  ![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Tomcat7.png)
 
   打开浏览器输入`localhost:8080/new/index.html`即可
 

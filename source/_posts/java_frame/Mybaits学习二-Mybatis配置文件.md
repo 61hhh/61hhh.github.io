@@ -247,7 +247,7 @@ MyBatis 在设置预处理语句（PreparedStatement）中的参数或从结果�
 2. 由SqlSessionFactory创建SqlSession 对象，没有手动设置的话事务默认开启
 3. 调用SqlSession中的api，传入Statement Id和参数，内部进行复杂的处理，最后调用jdbc执行SQL语句，封装结果返回。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180557703.png" alt="image-20230420180557703" style="zoom: 70%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180557703.png" alt="image-20230420180557703" style="zoom: 70%;" />
 
 关于作用域狂神说的挺好的，我就直接引用了
 
@@ -262,7 +262,7 @@ MyBatis 在设置预处理语句（PreparedStatement）中的参数或从结果�
 
 它们之间的结构联系、生命周期如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180611134.png" alt="image-20230420180611134" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180611134.png" alt="image-20230420180611134" style="zoom:80%;" />
 
 其实看过配置文件，多写几个demo后，就会发现常用的还是那几个，其他的配置文件感觉都是了解为主，有问题随时去[官方中文文档](https://mybatis.org/mybatis-3/zh/)查阅，主要还是要理解配置文件怎么整、Mybatis的执行过程和它们的关系！
 

@@ -47,7 +47,7 @@ TCP的拥塞控制是TCP中最重要的部分之一，因此值得好好学习�
 
 实际网络中随提供负载的增大，网络吞吐量会减缓增长直至开始下降，当负载增大到某一数值时吞吐量将为0，此时网络无法工作，这就是**死锁**。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418175330466.png" alt="image-20230418175330466" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418175330466.png" alt="image-20230418175330466" style="zoom:80%;" />
 
 
 
@@ -122,7 +122,7 @@ TCP发送方维持一个拥塞窗口 **CWND** **(Congestion Window)**
 
 其中N是原先未被确认的、但现在被刚收到的确认报文段所确认的字节数。不难看出，当 N<SMSS 时，拥塞窗口每次的增加量要小于SMSS，用这样的方法逐步增大发送方的拥塞窗口cwnd，可以使分组注入到网络的速率更加合理。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418175352794.png" alt="image-20230418175352794" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418175352794.png" alt="image-20230418175352794" style="zoom:80%;" />
 
 注：此处的传输轮次是指——从cwnd所允许的报文段都发送 到 接收到对应的确认。例如拥塞窗口 cwnd= 4，这时的往返时间 RTT 就是发送方连续发送4个报文段，并收到这 4个报文段的确认，总共经历的时间。
 
@@ -148,7 +148,7 @@ cwnd = 1
 
 注：拥塞避免并非指完全能够避免了拥塞。利用以上的措施要完全避免网络拥塞还是不可能的。拥塞避免是说在拥塞避免阶段把拥塞窗口控制为按线性规律增长，使网络比较不容易出现拥塞。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418175413986.png" alt="image-20230418175413986" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418175413986.png" alt="image-20230418175413986" style="zoom:80%;" />
 
 - TCP连接初始化时，拥塞窗口cwnd设置为1，图中的窗口单位不使用字节而使用报文段。慢开始门限的初始值设置为 16 个报文段，即 ssthresh = 16。
 - 发送端的发送窗口不能超过拥塞窗口 cwnd 和接收端窗口 rwnd 中的最小值。我们假定接收端窗口足够大，因此现在发送窗口的数值等于拥塞窗口的数值。
@@ -186,5 +186,5 @@ cwnd = 1
 
 二者合在一起就是所谓的AIMD算法
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418175435699.png" alt="image-20230418175435699" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418175435699.png" alt="image-20230418175435699" style="zoom:80%;" />
 

@@ -28,7 +28,7 @@ Cookie实际上是一个记录用户信息的文本数据。客户端请求服�
 
 【查看Cookie的操作】：在浏览器网址栏中输入`javascript:alert(document.cookie)`回车即可；或者F12在控制台输出同样指令也行。
 
-![image-20201115141148663](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201115141148663.png)
+![image-20201115141148663](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115141148663.png)
 
 我们访问很多网站时，他也会在网站底部提示：是否允许保存Cookie
 
@@ -88,7 +88,7 @@ public class CookieTest extends HttpServlet {
 
 【记得要设置Cookie的时间】在`web.xml`中注册，打开页面会下载Cookie文件，打开即为我们的Cookie信息。
 
-![image-20201115145147399](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201115145147399.png)
+![image-20201115145147399](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201115145147399.png)
 
 
 
@@ -188,7 +188,7 @@ cookie1.setSecure(true);//设置安全属性
 resp.addCookie(cookie1);//resp输出
 ```
 
-![image-20201126073935429](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201126073935429.png)
+![image-20201126073935429](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201126073935429.png)
 
 【注】secure只是保证Cookie在安全的协议中传输，但是对于Cookie本身没有做任何安全操作，因此要提高安全性，可以在程序中对Cookie进行加密操作
 
@@ -249,7 +249,7 @@ public class CookieDemo01 extends HttpServlet {
 
 结果如图：
 
-![image-20201126074829511](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201126074829511.png)
+![image-20201126074829511](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201126074829511.png)
 
 
 
@@ -314,7 +314,7 @@ Session生成后，只要用户继续访问，服务器都会认为该Session活
 
 Session常见的API如下：
 
-![image-20201128074433997](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201128074433997.png)
+![image-20201128074433997](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201128074433997.png)
 
 可以看到，Session和ServletContext有类似的方法，即Session也是一个域对象。只要Session对象没有被销毁，就可以通过它来实现通信。
 
@@ -326,7 +326,7 @@ Session常见的API如下：
 
 由于HTTP是无状态协议，因此Session无法根据HTTP连接来判断是否为同一客户。**因此服务器向客户端发送一个名为JSESSIONID的Cookie，它的值为该Session的id【即`HttpSession.getId()`的返回值】**，Session根据该Cookie来判断是否为同一用户。
 
-![image-20201128091027056](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20201128091027056.png)
+![image-20201128091027056](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201128091027056.png)
 
 这个Cookie的MaxAge是-1，即只有在当前浏览器使用，不会存储在硬盘中
 

@@ -57,7 +57,7 @@ setting.xml主要用于配置maven的运行环境等一系列通用的属性，�
 
 一个maven项目的基本结构如下
 
-![img](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven8.png)
+![img](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven8.png)
 
 项目的根目录`a-maven-project`是项目名，它有一个项目描述文件`pom.xml`，存放Java源码的目录是`src/main/java`，存放资源文件的目录是`src/main/resources`，存放测试源码的目录是`src/test/java`，存放测试资源的目录是`src/test/resources`，最后，所有编译、打包生成的文件都放在`target`目录里。这些就是一个Maven项目的标准目录结构。
 
@@ -65,7 +65,7 @@ setting.xml主要用于配置maven的运行环境等一系列通用的属性，�
 
 如图是一个典型的pom文件，我们可以为要导入的jar包添加依赖
 
-![img](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven7.png)
+![img](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven7.png)
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -106,7 +106,7 @@ setting.xml主要用于配置maven的运行环境等一系列通用的属性，�
 - 在[maven官网](http://maven.apache.org/)左侧的download栏中，选择对应的maven版本下载，下载的压缩包
 - 解压，并配置环境变量
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven1.png" style="zoom: 67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven1.png" style="zoom: 67%;" />
 
 环境变量的配置与JDK类似：
 
@@ -115,7 +115,7 @@ setting.xml主要用于配置maven的运行环境等一系列通用的属性，�
 
 配置完成后，在命令行输入`mvn -version`查看是否配置成功
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven2.png" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven2.png" style="zoom:67%;" />
 
 
 
@@ -133,7 +133,7 @@ setting.xml主要用于配置maven的运行环境等一系列通用的属性，�
     </mirror>
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven3.png" style="zoom: 67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven3.png" style="zoom: 67%;" />
 
 
 
@@ -144,7 +144,7 @@ maven仓库用来存储jar包。maven项目都是从仓库中获取jar包。mave
 **远程仓库**：如果本地仓库没有所需要的jar包，默认去远程仓库下载。远程仓库由公司来进行维护又可称为私服。
 **中央仓库**：中央仓库由maven团队来进行维护，服务于整个互联网。其仓库中存储大量的jar包。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven4.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven4.png)
 
 修改本地仓库直接复制`<localrepository>`语句，例如：
 
@@ -160,7 +160,7 @@ maven仓库用来存储jar包。maven项目都是从仓库中获取jar包。mave
 
 下面的importing可以设置自动导入，导入内容选择等；Repositories可以选择仓库，更新仓库等。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/maven6.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/maven6.png)
 
 
 

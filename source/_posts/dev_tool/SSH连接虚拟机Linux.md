@@ -26,7 +26,7 @@ date: 2020-07-08 15:56:05
 
    我在安装时出现报错
 
-   ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/ssh1.png)
+   ![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/ssh1.png)
 
    发现是系统自带的openssh-client版本，与要安装的openssh-server所依赖的版本不同，所以先安装依赖的版本`sudo apt-get install openssh-client=1:7.6p1-4`，出现以下提示：
 
@@ -56,5 +56,5 @@ date: 2020-07-08 15:56:05
 
 2. 使用putty尝试连接成功
 
-   ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/ssh2.png)
+   ![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/ssh2.png)
 

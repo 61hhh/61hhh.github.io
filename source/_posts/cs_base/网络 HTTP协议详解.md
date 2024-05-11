@@ -22,7 +22,7 @@ HTTP是一个客户端终端（用户）和服务器端（网站）请求和应�
 
 HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/http1.png" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/http1.png" style="zoom:67%;" />
 
 每个万维网都有一个服务器进程，不断监听TCP的80端口，一边发现是否有浏览器向她发送连接建立请求，一旦监听到连接建立请求并创建了TCP连接后，浏览器就向万维网发出浏览某个页面的请求，服务器响应返回相应的页面，结束后释放TCP连接
 
@@ -92,9 +92,9 @@ HTTP报文有两类：请求报文；响应报文
 
 响应报文：HTTP版本、状态码、描述状态的短语
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/http2.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/http2.png)
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/http3.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/http3.png)
 
 
 

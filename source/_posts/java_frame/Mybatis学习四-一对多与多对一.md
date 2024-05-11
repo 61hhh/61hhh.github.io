@@ -174,7 +174,7 @@ public void TestStudent(){
 }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180916297.png" alt="image-20230420180916297" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180916297.png" alt="image-20230420180916297" style="zoom:80%;" />
 
 
 

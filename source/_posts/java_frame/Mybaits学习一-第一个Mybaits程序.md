@@ -116,7 +116,7 @@ insert  into `user`(`id`,`name`,`pwd`) values (1,'狂神','123456'),(2,'张三',
 
 关于核心配置文件内容在官方文档中就有，只需要将它复制过来就行，然后设置具体的参数（关于配置文件的内容详细再下一篇介绍，这里主要是为了能快速跑起来第一个Mybatis程序）
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180454288.png" alt="image-20230420180454288" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180454288.png" alt="image-20230420180454288" style="zoom:80%;" />
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -152,7 +152,7 @@ insert  into `user`(`id`,`name`,`pwd`) values (1,'狂神','123456'),(2,'张三',
 
 查看官方文档，找到怎样`从 XML 中构建 SqlSessionFactory`，然后就可以创建一个`utils`的package存放工具类，实际编写中要注意一点细节
 
-![image-20230420180358676](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180358676.png)
+![image-20230420180358676](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180358676.png)
 
 ```java
 package com.liu.utils;
@@ -311,7 +311,7 @@ public class MyTest {
 
 运行代码，得到结果：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180518646.png" alt="image-20230420180518646" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180518646.png" alt="image-20230420180518646" style="zoom:80%;" />
 
 
 

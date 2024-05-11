@@ -73,7 +73,7 @@ public class autoboxing {
 
 编译之后，用指令`javap -c autoboxing`反编译字节码文件得到如下代码：
 
-![image-20201109174638916](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109174638916.png)
+![image-20201109174638916](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201109174638916.png)
 
 在执行上面的代码时，系统实际执行的操作：
 
@@ -164,7 +164,7 @@ int totalNum = totalPac.intValue();
   }
   ```
 
-  ![image-20201109180630089](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201109180630089.png)
+  ![image-20201109180630089](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201109180630089.png)
 
 - **<3>包装类的运算**
 

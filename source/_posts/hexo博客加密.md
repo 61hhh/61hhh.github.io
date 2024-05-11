@@ -16,9 +16,9 @@ Github上有大神做了插件可以帮助我们。地址： [GitHub](https://gi
 
 不知道为啥，当时正常输密码查看没问题，后来输密码没反应了。。。。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165614097.png" alt="image-20230427165614097" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427165614097.png" alt="image-20230427165614097" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165637092.png" alt="image-20230427165637092" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427165637092.png" alt="image-20230427165637092" style="zoom:80%;" />
 
 ### 安装
 

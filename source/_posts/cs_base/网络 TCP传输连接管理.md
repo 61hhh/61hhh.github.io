@@ -32,7 +32,7 @@ TCP连接采取客户端服务器C/S方式，主动发起连接建立的叫客�
 - TCP客户进程A收到B的确认后，还要向B发出确认，置`ACK=1，ack=y+1`，而自己的序号为`seq=x+1`（注：ACK报文段可以携带数据，**若不携带数据则不消耗序号**——即下一数据报序号仍为x+1）
 - 这时TCP连接建立，A进入established状态；B收到A的确认后，也进入established状态
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418175824271.png" alt="image-20230418175824271" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418175824271.png" alt="image-20230418175824271" style="zoom:80%;" />
 
 
 
@@ -67,7 +67,7 @@ TCP连接采取客户端服务器C/S方式，主动发起连接建立的叫客�
 
   注：MSL最长报文段寿命
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418175746336.png" alt="image-20230418175746336" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418175746336.png" alt="image-20230418175746336" style="zoom:80%;" />
 
 
 
@@ -83,7 +83,7 @@ TCP连接采取客户端服务器C/S方式，主动发起连接建立的叫客�
 
 假定：客户与服务器建立连接，但是后来客户主机突然出现故障，显然服务器不能收到客户发来的数据，但是不能让服务器白白等着浪费资源，可以通过保活计时器，每次收到客户端的数据，就重置保活计时器，时间通常时2小时，两小时内未收到客户端的数据就发送一个探测报文，之后每隔75秒发送一个，若连发10个都没有响应，服务器可以认定客户端故障，接着就关闭连接。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418174934159.png" alt="image-20230418174934159" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418174934159.png" alt="image-20230418174934159" style="zoom:80%;" />
 
 
 

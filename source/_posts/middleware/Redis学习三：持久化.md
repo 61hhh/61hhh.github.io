@@ -20,11 +20,11 @@ Redis的是一个内存数据库，所有数据都存放在内存中，这也是
 
 **Units单位**：配置大小单位,开头定义了一些基本的度量单位，只支持bytes，不支持bit。大小写不敏感
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211206215540244.png" alt="image-20211206215540244" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215540244.png" alt="image-20211206215540244" style="zoom: 80%;" />
 
 **INCLUDES包含**：多实例的情况可以把公用的配置文件提取出来
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211206215658857.png" alt="image-20211206215658857" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211206215658857.png" alt="image-20211206215658857" style="zoom: 80%;" />
 
 相关配置如下表，更多详细配置可以在`redis.conf`文件中查看。
 
@@ -74,7 +74,7 @@ Redis的是一个内存数据库，所有数据都存放在内存中，这也是
 
 Redis官网中介绍了Redis的两种持久化机制，如图所示
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208211519780.png" alt="image-20211208211519780" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208211519780.png" alt="image-20211208211519780" style="zoom:80%;" />
 
 【Redis中文网的翻译如下】Redis 提供了不同级别的持久化方式
 
@@ -91,13 +91,13 @@ Redis官网中介绍了Redis的两种持久化机制，如图所示
 
 了解RDB具体内容之前，可以先看看官网的介绍
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208211537873.png" alt="image-20211208211537873" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208211537873.png" alt="image-20211208211537873" style="zoom:80%;" />
 
 ### RDB是什么
 
 RDB持久化方案是：**在指定的时间间隔内将内存中的数据集快照写入磁盘(point-in-time)，即为Snapshot，恢复方式是将快照文件直接读到内存中**。它以紧缩的二进制文件保存Redis数据库某一时刻所有数据对象的内存快照，可用于Redis的数据备份、转移与恢复。到目前为止，仍是官方的默认支持方案。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208234044320.png" alt="image-20211208234044320" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208234044320.png" alt="image-20211208234044320" style="zoom:80%;" />
 
 ### RDB工作原理
 
@@ -149,13 +149,13 @@ Redis的持久化触发方式有两种：指令主动触发、自动触发
 
   - **save**：执行save执行后，Redis会立刻启动持久化流程，由于Redis的请求处理是单线程模型，因此会阻塞其他所有服务。不建议线上使用。
 
-    <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208221452010.png" alt="image-20211208221452010" style="zoom:80%;" />
+    <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208221452010.png" alt="image-20211208221452010" style="zoom:80%;" />
 
   - **bgsave**：Redis会在后台异步进行快照操作，通过fork出子进程操作持久化，主线程同时可以响应客户端请求。可以通过lastsave命令获取最后一次成功执行快照的时间
 
     【注】Redis的fork子进程操作会阻塞，如果频繁的执行备份或文件集较大fork耗时较长，都会影响Redis性能
 
-    <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208221505183.png" alt="image-20211208221505183" style="zoom:80%;" />
+    <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208221505183.png" alt="image-20211208221505183" style="zoom:80%;" />
 
   - 执行flushall命令，也会产生dump.rdb文件。flushall用于清空Redis数据库所有数据，因此也会对dump.rdb等备份文件进行清空，最终得到的就是空的dump.rdb文件。
 
@@ -165,25 +165,25 @@ Redis的持久化触发方式有两种：指令主动触发、自动触发
 
 1.首先设置自动备份策略`save 15 2`，15秒内有两次key的修改就自动备份。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208231357749.png" alt="image-20211208231357749" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231357749.png" alt="image-20211208231357749" style="zoom: 80%;" />
 
 2.通过`config get dir`获取rdb文件存储路径为`/etc/opt`，此时该路径下还没有dump.rdb文件
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208231546701.png" alt="image-20211208231546701" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231546701.png" alt="image-20211208231546701" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208231525203.png" alt="image-20211208231525203" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231525203.png" alt="image-20211208231525203" style="zoom:67%;" />
 
 3.进入redis-cli，通过`set k v`指令在15秒内修改2个key，此时再看发现有文件了
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208231639148.png" alt="image-20211208231639148" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208231639148.png" alt="image-20211208231639148" style="zoom:67%;" />
 
 4.通过`shutdown`关闭Redis服务，将rdb文件拷贝到myconf目录并重命名dump_old.rdb，删除原来的dump.rdb文件，启动redis，此时`KEYS *`看到的时（empty array），原来的数据都没有了
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208232640759.png" alt="image-20211208232640759" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208232640759.png" alt="image-20211208232640759" style="zoom:80%;" />
 
 5.再次关闭Redis。将dump_old.rdb拷贝到`/etc/opt`目录下【此时会提示是否覆盖，因为shutdown未指定aof时会产生rdb文件】，启动Redis，此时就又可以看到之前的key了
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208232921640.png" alt="image-20211208232921640" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208232921640.png" alt="image-20211208232921640" style="zoom:80%;" />
 
 6.手动备份直接调用save或bgsave，就会在`/etc/opt`目录下生成dump.rdb文件。其他验证操作类似
 
@@ -214,7 +214,7 @@ RDB备份的优缺点官网文档已经给出
 
 同样可以先了解下官网文档对AOF的介绍
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211208234508553.png" alt="image-20211208234508553" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211208234508553.png" alt="image-20211208234508553" style="zoom:80%;" />
 
 ### AOF是什么
 
@@ -346,7 +346,7 @@ AOF文件持续增长而过大时，会fork出一条新进程来将文件重写(
 
 （5）使用新的AOF文件覆盖旧的AOF文件，完成AOF重写。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211210002329960.png" alt="image-20211210002329960" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210002329960.png" alt="image-20211210002329960" style="zoom: 80%;" />
 
 **重写举例**
 
@@ -354,7 +354,7 @@ Redis服务器通过AOF重写生成新的aof文件替代旧aof，新旧aof文件
 
 启动Redis输入如下指令：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211210225414544.png" alt="重写实现" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210225414544.png" alt="重写实现" style="zoom:80%;" />
 
 此时list中的数据状态：`["v0","v1","v2","v3","v7","v8"]`，旧的aof文件包括以上所有修改数据的指令。
 
@@ -366,7 +366,7 @@ Redis服务器通过AOF重写生成新的aof文件替代旧aof，新旧aof文件
 
 当Redis服务关闭重启后，对于服务器上既有RDB又有AOF文件时，优先加载AOF文件
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211210003029035.png" alt="image-20211210003029035" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211210003029035.png" alt="image-20211210003029035" style="zoom: 80%;" />
 
 
 

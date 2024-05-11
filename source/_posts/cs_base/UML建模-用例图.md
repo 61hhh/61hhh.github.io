@@ -6,15 +6,11 @@ abbrlink: 208504bf
 date: 2020-05-11 16:39:06
 ---
 
-## 前言
-
-最近开了应用软件实验，分小组做项目，相当于上学期软件工程实验的升级版，主要的知识除了code就是软工的那些了，画用例图的时候感觉很模糊，上学期的知识已经忘光了。。。这里简单整理一下，免得以后忘了又要到处找。
-
-<!--more-->
-
 ## 定义
 
 根据百度百科：用例图是指由参与者（Actor）、[用例](https://baike.baidu.com/item/用例/163511)（Use Case），边界以及它们之间的关系构成的用于描述系统功能的视图。用例图（User Case）是外部用户（被称为参与者）所能观察到的系统功能的**模型图。用例图是系统的蓝图。**用例图呈现了一些参与者，一些用例，以及它们之间的关系，主要用于对系统、子系统或类的功能行为进行[建模](https://baike.baidu.com/item/建模/814831)。
+
+<!--more-->
 
 ## 组成
 
@@ -24,19 +20,19 @@ date: 2020-05-11 16:39:06
 
    不一定指人，它表示你开发的系统以外的，使用本系统或与本系统交互的角色。用小人形表示
 
-   ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Actor.png)
+   ![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Actor.png)
 
 2. 用例（Use Case）
 
    是对包括变量在内的一组动作序列的描述，系统执行这些动作，并产生传递特定参与者的价值的可观察结果。简单说用例就是外部可见的系统功能，对系统提供的服务进行描述。用椭圆表示。
 
-   ![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/usecase.png)
+   ![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/usecase.png)
 
 3. 容器
 
    容器代表的就是开发的系统。
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420172714300.png" alt="image-20230420172714300" style="zoom:50%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420172714300.png" alt="image-20230420172714300" style="zoom:50%;" />
 
    系统边界：[系统边界](https://baike.baidu.com/item/系统边界)是用来表示正在[建模](https://baike.baidu.com/item/建模)系统的边界。边界内表示系统的组成部分，边界外表示系统外部。系统边界在画图中用方框来表示，同时附上系统的名称，参与者画在边界的外面，用例画在边界里面。
 
@@ -60,7 +56,7 @@ date: 2020-05-11 16:39:06
 
    【箭头指向】：include关系在用例图中使用带箭头的虚线表示(在线上标注<<include>>)，箭头从基用例指向子用例。
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420172732551.png" alt="image-20230420172732551" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420172732551.png" alt="image-20230420172732551" style="zoom:80%;" />
 
 2. 扩展关系（extend）：假设一个用例明显地混合了两种或者两种以上的不同场景，即依据情况可能发生多种分支，则能够将这个用例分为一个基用例和一个或多个扩展子用例。这样可能会使描写叙述更加清晰。（**基用例即使没有子用例的参与，也可以完成一个完整的功能**）
 
@@ -68,14 +64,14 @@ date: 2020-05-11 16:39:06
 
    【箭头指向】：extend关系在用例图中使用带箭头的虚线表示(在线上标注<<extend>>)，箭头从子用例指向基用例。
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420172749045.png" alt="image-20230420172749045" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420172749045.png" alt="image-20230420172749045" style="zoom:80%;" />
 
 3. 泛化关系（generalization）：泛化关系是一种继承关系，子用例将继承基用例的所有行为，关系和通信关系，也就是说在任何使用基用例的地方都可以用子用例来代替。
 
    【箭头指向】：在用例图中使用空心的箭头表示，箭头方向从子用例指向基用例。
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420172802314.png" alt="image-20230420172802314" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420172802314.png" alt="image-20230420172802314" style="zoom:80%;" />
 
 以下是一个小示例：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420172820440.png" alt="image-20230420172820440" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420172820440.png" alt="image-20230420172820440" style="zoom:80%;" />

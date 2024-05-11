@@ -278,7 +278,7 @@ public class MyTest {
 
 查看结果：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420222910704.png" alt="image-20230420222910704" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420222910704.png" alt="image-20230420222910704" style="zoom:80%;" />
 
 可以看到结果中：一个无参三个带参的构造函数都显示了，跟xml文件中的一致，并且是在show方法之前就显示了，**<font color="blue">说明spring中的bean在注册context容器时就将其实例化了，因为spring默认单例模式实现!</font>**
 
@@ -533,7 +533,7 @@ c 命名空间注入 : c即constructor实现，因此要加上对应的构造器
 
 Singleton是单例类型，就是在创建容器时就同时自动创建了一个bean的对象，不管你是否使用，他都存在了，每次获取到的对象都是同一个对象（上面演示代码中就有出现）。注意，Singleton作用域是Spring中的缺省作用域。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420222938333.png" alt="image-20230420222938333" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420222938333.png" alt="image-20230420222938333" style="zoom:80%;" />
 
 文档中提到：Spring的单例模式和四人帮(GoF)的单例模式不同。GoF单例对对象的范围进行硬编码，以使每个ClassLoader只能创建一个特定类的一个实例。 而Spring单例的作用域最好描述为每个容器和每个bean。 这意味着：如果在单个Spring容器中为一个特定类定义一个bean，则Spring容器将创建由该`bean定义`所定义的类的一个且只有一个实例。 Singleton范围是Spring中的默认范围。 要将bean定义为XML中的单例，可以定义bean，如以下示例所示：
 
@@ -555,7 +555,7 @@ Singleton是单例类型，就是在创建容器时就同时自动创建了一�
 
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223043075.png" alt="image-20230420223043075" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223043075.png" alt="image-20230420223043075" style="zoom:80%;" />
 
 ### 3、Request
 

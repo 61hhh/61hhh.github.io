@@ -10,7 +10,7 @@ date: 2020-10-14 15:38:16
 
 在对象中可能会有一些公共的行为，例如日志记录、权限验证等，如果每个对象都写上这些就会造成冗余。对此AOP【Aspect Oriented Programming面向切面编程】提供了一种方式：将通用的方法抽离出来并封装，定义为独立的切面，在合适的时机将其横向切入业务流程指定的位置中
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223345217.png" alt="image-20230420223345217" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223345217.png" alt="image-20230420223345217" style="zoom:80%;" />
 
 因为Spring的AOP主要作用就是通过不修改源代码的方式，将非核心的功能代码织入，来实现对方法的增强，而它实现的原理，关键就在于使用代理模式
 
@@ -132,7 +132,7 @@ public class Client {
 
 【InvocationHandler：调用处理程序】
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223405917.png" alt="image-20230420223405917" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223405917.png" alt="image-20230420223405917" style="zoom:80%;" />
 
 ```java
 Object invoke(Object proxy, 方法 method, Object[] args)；
@@ -144,9 +144,9 @@ Object invoke(Object proxy, 方法 method, Object[] args)；
 
 【Proxy  : 代理】
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223430282.png" alt="image-20230420223430282" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223430282.png" alt="image-20230420223430282" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223453857.png" alt="image-20230420223453857" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223453857.png" alt="image-20230420223453857" style="zoom:80%;" />
 
 ```java
 //生成代理类

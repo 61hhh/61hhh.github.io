@@ -146,13 +146,13 @@ public class UserMapperTest {
 
 和之前的测试结果一样：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180707145.png" alt="image-20230420180707145" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180707145.png" alt="image-20230420180707145" style="zoom:67%;" />
 
 > 另外三个接口注释和这个类似
 
 利用Debug查看
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180721396.png" alt="image-20230420180721396" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180721396.png" alt="image-20230420180721396" style="zoom:80%;" />
 
 
 
@@ -160,6 +160,6 @@ public class UserMapperTest {
 
 由上及之前的学习可知，Mybatis的执行流程如图（图片来自狂神公众号文章）：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Mybatis-annotation3.png" alt="Mybatis-annotation3" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Mybatis-annotation3.png" alt="Mybatis-annotation3" style="zoom:80%;" />
 
 将注解与配置文件协同编程最能有助于我们的开发！

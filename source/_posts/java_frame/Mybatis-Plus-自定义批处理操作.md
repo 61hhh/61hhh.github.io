@@ -177,11 +177,11 @@ public interface VehicleMapper extends BatchMapper<VehicleCoordDO> {
 
 自带的 `saveOrUpdateBatch()` 方法执行，批量提交，但是批次内还是单条执行，耗时4s
 
-![image-20230511163740993](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230511163740993.png)
+![image-20230511163740993](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511163740993.png)
 
 使用自定义的批量操作，形式和 `INSERT xxx VALUES (xxx),(xxx)` 一致，一条语句执行多个参数
 
-![image-20230511164158482](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230511164158482.png)
+![image-20230511164158482](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511164158482.png)
 
 
 
@@ -189,7 +189,7 @@ public interface VehicleMapper extends BatchMapper<VehicleCoordDO> {
 
 1、Mybatis-Plus 其实已经提供了一个拓展，里面的 `InsertBatchSomeColumn` 提供了批量插入的方法
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230511170953276.png" alt="image-20230511170953276" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230511170953276.png" alt="image-20230511170953276" style="zoom:80%;" />
 
 使用步骤和上面类似
 

@@ -26,7 +26,7 @@ date: 2021-03-05 12:26:14
 
 《1》在IDEA新建maven项目，命名为`SSM_Union`，再右键`Add Framework support`添加web框架支持。完成后如图
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305054235227.png" alt="image-20210305054235227" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305054235227.png" alt="image-20210305054235227" style="zoom:80%;" />
 
 《2》在项目的`pom.xml`文件中添加依赖配置
 
@@ -130,7 +130,7 @@ date: 2021-03-05 12:26:14
 
 《4》搭建目录结构如图
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305060016972.png" alt="image-20210305060016972" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305060016972.png" alt="image-20210305060016972" style="zoom:80%;" />
 
 | 包名       | 名称                 | 描述                                                         |
 | ---------- | -------------------- | ------------------------------------------------------------ |
@@ -315,7 +315,7 @@ public interface BookMapper {
 
 在学习Spring时就已经整合过，操作参照就行了
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305061811079.png" alt="image-20210305061811079" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305061811079.png" alt="image-20210305061811079" style="zoom:80%;" />
 
 新建`spring-dao.xml`用于整合。<font color="red">**并在`applicationContext.xml`中进行注册**</font>
 
@@ -587,7 +587,7 @@ public class BookServiceImpl implements BookService{
 
 最后`applicationContext.xml`应该如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305065107243.png" alt="image-20210305065107243" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305065107243.png" alt="image-20210305065107243" style="zoom:80%;" />
 
 
 
@@ -888,18 +888,18 @@ public class BookController {
 
 完整的项目结构如图
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305065635143.png" alt="image-20210305065635143" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305065635143.png" alt="image-20210305065635143" style="zoom:80%;" />
 
 《1》在左上角File的`Project Structure`中`Artifacts`将项目打包。采用`Web Application:Exploded`打包【因为是后面添加的web framework，所以他自动打包的会缺少lib依赖，所以我们要自己打包】
 
 《2》配置Tomcat，启动
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305070415977.png" alt="image-20210305070415977" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305070415977.png" alt="image-20210305070415977" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305070428608.png" alt="image-20210305070428608" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305070428608.png" alt="image-20210305070428608" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305070446813.png" alt="image-20210305070446813" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305070446813.png" alt="image-20210305070446813" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20210305070611508.png" alt="image-20210305070611508" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20210305070611508.png" alt="image-20210305070611508" style="zoom:80%;" />
 
 这个项目虽然很简陋，但是基本的SSM框架很明了。两天时间快速过了一遍，仅仅也只是了解了基本流程，很多细节并不清楚。

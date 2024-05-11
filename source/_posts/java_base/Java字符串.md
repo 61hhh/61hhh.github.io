@@ -20,7 +20,7 @@ String实现了三个接口:Serializable、Comparable < String >、CharSequence
 
 StringBuilder只实现了两个接口Serializable、CharSequence，相比之下String的实例可以通过compareTo方法进行比较，其他两个不可以。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Java_String.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Java_String.png)
 
 <!--more-->
 

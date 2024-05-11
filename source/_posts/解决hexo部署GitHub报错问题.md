@@ -14,7 +14,7 @@ date: 2020-07-02 21:29:34
 
 之前写的一篇博客上传了就没管了，结果在网站上压根没有，重新`npm run deployee`了两遍还是没有，仔细一看才发现部署信息提示报错了（很奇怪：有时有有时无。。）——在hexo d部署时出现了`ssh: connect to host github.com port 22: Connection timed out`问题。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427165954014.png" alt="image-20230427165954014" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427165954014.png" alt="image-20230427165954014" style="zoom:80%;" />
 
 遗憾的是第一次看见时我跑偏了。。只关注了下面的`Please make sure you have the correct access rights and the repository exists.`描述，然后找解决问题，发现是git服务器没有存储本地ssh密钥。因此执行了一遍操作：
 
@@ -27,7 +27,7 @@ date: 2020-07-02 21:29:34
 
 再次hexo d没报错，结果还是没有，再执行hexo d又报错了：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427170007989.png" alt="image-20230427170007989" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170007989.png" alt="image-20230427170007989" style="zoom:80%;" />
 
 搜到另外的操作：
 
@@ -51,9 +51,9 @@ date: 2020-07-02 21:29:34
 
 提示如下图，操作完成后可以看到如图2：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427170029473.png" alt="image-20230427170029473" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170029473.png" alt="image-20230427170029473" style="zoom:80%;" />
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230427170044822.png" alt="image-20230427170044822" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230427170044822.png" alt="image-20230427170044822" style="zoom:80%;" />
 
 根本的问题是：GitHub的ssh连接用到了22端口而防火墙并没有开放。（我也没动过22端口。。。真离谱）
 

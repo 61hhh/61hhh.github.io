@@ -14,7 +14,7 @@ ICMP报文格式：前4个字节是统一格式，共三个字段：类型、代
 
 <!--more-->
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418174505639.png" alt="image-20230418174505639" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418174505639.png" alt="image-20230418174505639" style="zoom:80%;" />
 
 ICMP报文分类：
 
@@ -27,7 +27,7 @@ ICMP报文分类：
   - 回送请求和回答
   - 时间戳请求和回答
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418174544071.png" alt="image-20230418174544071" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418174544071.png" alt="image-20230418174544071" style="zoom:80%;" />
 
 ### 询问报文例子
 
@@ -35,7 +35,7 @@ PING——分组网间探测(Packet InterNet Groper)用来测试两台主机之�
 
 在cmd窗口中输入`ping www.baidu.com`，回车就可以看到结果
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230418174356254.png" alt="image-20230418174356254" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230418174356254.png" alt="image-20230418174356254" style="zoom:80%;" />
 
 流程：键入`ping  www.baidu.com`后，PC会一连发出四个ICMP回送请求报文，如果服务器baidu.com正常工作且响应了这个ICMP会送请求报文，那么它就会发送会送回答报文，往返的ICMP报文上有时间戳，可以得出往返时间，最后显示统计结果：发送到哪个IP地址，发送的、接受的、丢失的分组数，往返时间最小最大平均值
 

@@ -24,7 +24,7 @@ date: 2020-10-14 14:58:35
 
 官方文档中给出的关于XML和configuration的问题看法：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223247040.png" alt="image-20230420223247040" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223247040.png" alt="image-20230420223247040" style="zoom:80%;" />
 
 
 
@@ -250,7 +250,7 @@ public class UserConfig{
 
 IDEA左侧出现一个绿色小叶子，点击就会跳转到对应的`ApplicationContext.xml`上：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420223310765.png" alt="image-20230420223310765" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420223310765.png" alt="image-20230420223310765" style="zoom:80%;" />
 
 在MyTest中测试上述代码是否正确：
 

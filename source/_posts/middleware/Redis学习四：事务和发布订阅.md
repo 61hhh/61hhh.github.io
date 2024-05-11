@@ -40,19 +40,19 @@ Redis通过`MULTI`、`EXEC`、`DISCARD`、`WATCH`指令来实现事务功能。�
 
 通过`MULTI`指令开启事务，添加命令到队列中，通过`EXEC`执行：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220322162204162.png" alt="image-20220322162204162" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220322162204162.png" alt="image-20220322162204162" style="zoom:80%;" />
 
 #### 2、放弃事务
 
 通过`MULTI`指令开启事务，添加命令到队列中，通过`DISCARD`取消：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220323000524729.png" alt="image-20220323000524729" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323000524729.png" alt="image-20220323000524729" style="zoom:80%;" />
 
 #### 3、全体连坐
 
 如果事务队列中的命令存在语法错误（例如参数数量、名称等不对），或者其他更严重的错误，比如内存不足（使用 `maxmemory` 设置了最大内存限制），此时整个队列都会被取消：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220323001510293.png" alt="image-20220323001510293" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323001510293.png" alt="image-20220323001510293" style="zoom:80%;" />
 
 通过对入队命令的返回值做检查，如果是`QUEUED`标识正常入队，否则就是入队失败，2.6.5之后如果有入队失败的情况则`EXEC`时拒绝执行此事务。
 
@@ -60,7 +60,7 @@ Redis通过`MULTI`、`EXEC`、`DISCARD`、`WATCH`指令来实现事务功能。�
 
 如果命令不是语法上的错误，而是执行阶段的错误（例如对string类型执行`INCR`等），则只有报错的命令不会被执行，而其他的正确命令都会执行，整体事务不会回滚：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220323001337310.png" alt="image-20220323001337310" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323001337310.png" alt="image-20220323001337310" style="zoom:80%;" />
 
 
 
@@ -83,15 +83,15 @@ Redis通过`MULTI`、`EXEC`、`DISCARD`、`WATCH`指令来实现事务功能。�
 
 设置工资开销`salary`、`spending`的初始值为10000和0，如果自己一个人正常用，洗个脚1600：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220323003943605.png" alt="image-20220323003943605" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323003943605.png" alt="image-20220323003943605" style="zoom:80%;" />
 
 假设工资是和女朋友一起用，第二次去洗脚时女朋友直接刷了个8400的包，这时结账就会出问题了：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220323004419871.png" alt="image-20220323004419871" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323004419871.png" alt="image-20220323004419871" style="zoom:80%;" />
 
 如果不加`WATCH`就会出大问题了，银行卡变成`-1600`：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220323004836824.png" alt="image-20220323004836824" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220323004836824.png" alt="image-20220323004836824" style="zoom:80%;" />
 
 **watch指令，类似乐观锁**，事务提交时，如果 key 的值已被别的客户端改变，比如某个 list 已被别的客户端push/pop 过了，整个事务队列都不会被执行，同时返回Nullmulti-bulk应答以通知调用者事务执行失败
 
@@ -121,13 +121,13 @@ Redis通过`MULTI`、`EXEC`、`DISCARD`、`WATCH`指令来实现事务功能。�
 
 `MULTI`命令唯一做的就是， 将客户端的 `REDIS_MULTI` 选项打开， 让客户端从非事务状态切换到事务状态。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324103546438.png" alt="image-20220324103546438" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324103546438.png" alt="image-20220324103546438" style="zoom:80%;" />
 
 #### 2、命令入队
 
 对于非执行指令（除EXEC、DISCARD、MULTI、WATCH）直接入队，返回结果QUEUED，如果指令有语法错误则返回错误信息
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324104045964.png" alt="image-20220324104045964" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324104045964.png" alt="image-20220324104045964" style="zoom:80%;" />
 
 #### 2*、事务队列
 
@@ -208,7 +208,7 @@ QUEUED
 
 当遇到EXEC、DISCARD、MULTI、WATCH这四个指令时，事务就会被执行。服务器根据客户端所保存的事务队列， 以先进先出（FIFO）的方式执行事务队列中的命令： 最先入队的命令最先执行， 而最后入队的命令最后执行。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324103946709.png" alt="image-20220324103946709" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324103946709.png" alt="image-20220324103946709" style="zoom: 80%;" />
 
 当事务队列里的所有命令被执行完之后，EXEC命令会将回复队列作为自己的执行结果返回给客户端， 客户端从事务状态返回到非事务状态， 至此， 事务执行完毕。伪代码如下：
 
@@ -236,7 +236,7 @@ def execute_transaction():
 
 在每个代表数据库的 `redis.h/redisDb` 结构类型中， 都保存了一个 `watched_keys` 字典， 字典的键是这个数据库被监视的键， 而字典的值则是一个链表， 链表中保存了所有监视这个键的客户端。如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324143007715.png" alt="image-20220324143007715" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143007715.png" alt="image-20220324143007715" style="zoom:80%;" />
 
 其中， 键 `key1` 正在被 `client2` 、 `client5` 和 `client1` 三个客户端监视， 其他一些键也分别被其他别的客户端监视着。
 
@@ -244,7 +244,7 @@ WATCH命令的作用， 就是将当前客户端和要监视的键在 `watched_k
 
 举个例子， 如果当前客户端为 `client10086` ， 那么当客户端执行 `WATCH key1 key2` 时， 前面展示的 `watched_keys` 将被修改成这个样子：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324143132923.png" alt="image-20220324143132923" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143132923.png" alt="image-20220324143132923" style="zoom:80%;" />
 
 通过 `watched_keys` 字典， 如果程序想检查某个键是否被监视， 那么它只要检查字典中是否存在这个键即可； 如果程序要获取监视某个键的所有客户端， 那么只要取出键的值（一个链表）， 然后对链表进行遍历即可。
 
@@ -254,7 +254,7 @@ WATCH命令的作用， 就是将当前客户端和要监视的键在 `watched_k
 
 在任何对数据库键空间（key space）进行修改的命令成功执行之后 （比如FLUSHDB、SET、DEL、LPUSH、SADD、ZREM等）， `multi.c/touchWatchedKey` 函数都会被调用——它检查数据库的 `watched_keys` 字典， 查找是否有被该命令修改的键，有的话 程序将所有监视这个/这些被修改键的客户端的 `REDIS_DIRTY_CAS` 选项打开：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324143653578.png" alt="image-20220324143653578" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324143653578.png" alt="image-20220324143653578" style="zoom:80%;" />
 
 当客户端发送EXEC命令、触发事务执行时， 服务器会对客户端的状态进行检查：
 
@@ -279,7 +279,7 @@ def check_safety_before_execute_trasaction():
 
 举个例子，假设数据库的 `watched_keys` 字典如下图所示：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420225953389.png" alt="image-20230420225953389" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420225953389.png" alt="image-20230420225953389" style="zoom:80%;" />
 
 如果某个客户端对 `key1` 进行了修改（比如执行 `DEL key1` ）， 那么所有监视 `key1` 的客户端， 包括 `client2` 、 `client5` 和 `client1` 的 `REDIS_DIRTY_CAS` 选项都会被打开， 当客户端 `client2` 、 `client5` 和 `client1` 执行EXEC的时候， 它们的事务都会以失败告终。
 
@@ -295,25 +295,25 @@ Redis 发布订阅 (pub/sub) 是一种消息通信模式：发送者 (pub) 发�
 
 如图是 channel1 和三个订阅了频道的Redis客户端：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324144453619.png" alt="image-20220324144453619" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324144453619.png" alt="image-20220324144453619" style="zoom: 80%;" />
 
 当有消息message通过`PUBLISH`指令发送到 channel1 时，这个message会发送到订阅它的客户端：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324144910793.png" alt="image-20220324144910793" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324144910793.png" alt="image-20220324144910793" style="zoom:80%;" />
 
 ### 操作示例
 
 1、打开一个客户端，订阅频道`channel1`：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324145443960.png" alt="image-20220324145443960" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324145443960.png" alt="image-20220324145443960" style="zoom:80%;" />
 
 2、打开另一个客户端，通过`PUBLISH channel1 hello-redis0`发布消息，返回值1表示频道channel1有一个订阅者，可以看到订阅的客户端收到了`hello-redis0`消息：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324145758711.png" alt="image-20220324145758711" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324145758711.png" alt="image-20220324145758711" style="zoom:80%;" />
 
 3、再打开一个客户端订阅channel1，发送消息`hello-redis1`，可以看到返回2，两个订阅的都收到消息，并且新订阅的是没有收到之前的消息`hello-redis0`的：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20220324150219041.png" alt="image-20220324150219041" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20220324150219041.png" alt="image-20220324150219041" style="zoom:80%;" />
 
 
 

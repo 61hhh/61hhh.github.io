@@ -39,7 +39,7 @@ public static void main(String[] args){
     }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230424215830342.png" alt="image-20230424215830342" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230424215830342.png" alt="image-20230424215830342" style="zoom:80%;" />
 
 为什么会出现这样的情况？
 

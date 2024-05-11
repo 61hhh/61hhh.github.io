@@ -28,7 +28,7 @@ mybatis 也提供了对缓存的支持， 分为**一级缓存**和**二级缓�
 
 在Mybatis的jar包中，找到`org.apache.ibatis`可以看到`cache`目录下的文件
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420180957876.png" alt="image-20230420180957876" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420180957876.png" alt="image-20230420180957876" style="zoom:80%;" />
 
 其中有一个Cache 接口，只有一个默认的实现类 PerpetualCache，它是用HashMap 实现的。
 
@@ -46,7 +46,7 @@ mybatis 也提供了对缓存的支持， 分为**一级缓存**和**二级缓�
 
 SqlSession只是一个Mybatis对外的接口，SqlSession将它的工作交给了Executor执行器这个角色来完成，负责完成对数据库的各种操作。当创建了一个SqlSession对象时，Mybatis会为这个对象创建一个新的Executor执行器，而缓存信息就被维护在这个Executor执行器中，Mybatis将缓存和对缓存相关的操作封装成了Cache接口中。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Mybatis-localCache.png" alt="Mybatis-localCache" style="zoom:67%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Mybatis-localCache.png" alt="Mybatis-localCache" style="zoom:67%;" />
 
 由于Session级别的一级缓存实际上就是使用**PerpetualCache**维护的，那么**PerpetualCache**是怎样实现的呢？
 
@@ -98,7 +98,7 @@ public void testQueryUserById(){
 
 可以看到：查询语句只执行了一次！并且判断`user1==user2`结果为true
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420181057541.png" alt="image-20230420181057541" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181057541.png" alt="image-20230420181057541" style="zoom:80%;" />
 
 
 
@@ -139,7 +139,7 @@ public void queryUserByIdTest(){
 
 上面的代码开启了两个SqlSession，分别执行相同的查询，输出如下：可以看到它执行了两次SQL，表明user1的缓存并没有作用到user2上！结论：**每个sqlSession中的缓存相互独立**
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420181132780.png" alt="image-20230420181132780" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181132780.png" alt="image-20230420181132780" style="zoom:80%;" />
 
 
 
@@ -164,7 +164,7 @@ public void testQueryUserById(){
 
 这个很明显，user1和user2查询的对象并不相同，user1缓存的是queryUserById(1)内容，不能复用到user2上。同样观察结果发现两次查询，判断为false
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420181159362.png" alt="image-20230420181159362" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181159362.png" alt="image-20230420181159362" style="zoom:80%;" />
 
 
 
@@ -212,7 +212,7 @@ public void testQueryUserById3(){
 
 在两次查询中间加入了一个update操作
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420181216600.png" alt="image-20230420181216600" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181216600.png" alt="image-20230420181216600" style="zoom:80%;" />
 
 
 
@@ -250,7 +250,7 @@ public void testQueryUserById(){
 
 MyBatis 用了一个装饰器的类来维护，就是CachingExecutor。如果启用了二级缓存，MyBatis 在创建Executor 对象的时候会对Executor 进行装饰。CachingExecutor 对于查询请求，会判断二级缓存是否有缓存结果，如果有就直接返回，如果没有委派交给真正的查询器Executor 实现类，比如SimpleExecutor 来执行查询，再走到一级缓存的流程。最后会把结果缓存起来，并且返回给用户。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420181235208.png" alt="image-20230420181235208" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181235208.png" alt="image-20230420181235208" style="zoom:80%;" />
 
 
 
@@ -309,7 +309,7 @@ public void testQueryUserById(){
 
 **缓存原理图**
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20230420181252335.png" alt="image-20230420181252335" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230420181252335.png" alt="image-20230420181252335" style="zoom:80%;" />
 
 
 

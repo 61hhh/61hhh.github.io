@@ -39,17 +39,17 @@ redis是一种支持key-value等多种数据结构的存储系统，有点类似
 
 2. 使用`tar -zxvf redis-6.2.1.tar.gz`解压，得到`redis-6.2.1`文件夹。
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129221432662.png" alt="image-20211129221432662" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129221432662.png" alt="image-20211129221432662" style="zoom:80%;" />
 
 3. 使用`cd redis-6.2.1`进入安装目录，执行`make`指令编译。
 
    - 初次安装的虚拟机执行make会报错。是因为缺少GCC
 
-     <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129221717318.png" alt="image-20211129221717318" style="zoom: 80%;" />
+     <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129221717318.png" alt="image-20211129221717318" style="zoom: 80%;" />
 
    - 使用`yum install gcc-c++`指令安装GCC。报错：Jemalloc/jemalloc.h：没有这个文件或目录
 
-     <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129221924535.png" alt="image-20211129221924535" style="zoom: 80%;" />
+     <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129221924535.png" alt="image-20211129221924535" style="zoom: 80%;" />
 
    - 使用`make distclean`后再次make即可。
 
@@ -57,11 +57,11 @@ redis是一种支持key-value等多种数据结构的存储系统，有点类似
 
 5. 默认安装在`usr/local/bin`目录下
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129222334084.png" alt="image-20211129222334084" style="zoom: 80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129222334084.png" alt="image-20211129222334084" style="zoom: 80%;" />
 
 6. 启动测试一下
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129222550428.png" alt="image-20211129222550428" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129222550428.png" alt="image-20211129222550428" style="zoom:80%;" />
 
 **说明**
 
@@ -72,7 +72,7 @@ redis是一种支持key-value等多种数据结构的存储系统，有点类似
 
 再次执行`redis-server /etc/opt/myconf/redis.conf`。此时服务可以启动，执行`redis-cli`启动客户端，执行ping验证连通性，得到pong即为redis启动成功。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129223723969.png" alt="image-20211129223723969" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129223723969.png" alt="image-20211129223723969" style="zoom:80%;" />
 
 
 
@@ -82,15 +82,15 @@ redis是一种支持key-value等多种数据结构的存储系统，有点类似
 
 2. Redis默认数据库有16个
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129224146572.png" alt="image-20211129224146572" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129224146572.png" alt="image-20211129224146572" style="zoom:80%;" />
 
 3. select命令切换数据库，默认使用0号库
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129232543897.png" alt="image-20211129232543897" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129232543897.png" alt="image-20211129232543897" style="zoom:80%;" />
 
 4. dbsize查看数据库的key数量
 
-   <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211129232703531.png" alt="image-20211129232703531" style="zoom:80%;" />
+   <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211129232703531.png" alt="image-20211129232703531" style="zoom:80%;" />
 
 5. flushdb清空当前库、flushall清空所有库
 
@@ -114,7 +114,7 @@ Redis对读写时间的响应是通过封装epoll[^epoll]函数来实现的。Re
 
 [^epoll]: Epoll是Linux内核为处理大批量文件描述符而作了改进的epoll，是Linux下多路复用IO接口select/poll的增强版本，它能显著提高程序在大量并发连接中只有少量活跃的情况下的系统CPU利用率。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Redis-Multiplexing.gif)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Redis-Multiplexing.gif)
 
 
 
@@ -140,7 +140,7 @@ Redis的五大基本数据结构：
 
 对Redis来说，所有的Key都是字符串
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/redis-key.png" alt="redis-key" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/redis-key.png" alt="redis-key" style="zoom:80%;" />
 
 #### 2.常用指令
 
@@ -156,7 +156,7 @@ Redis的五大基本数据结构：
 
 执行结果如下：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211202231612405.png" alt="image-20211202231612405" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211202231612405.png" alt="image-20211202231612405" style="zoom:80%;" />
 
 ```shell
 #unlink是非阻塞删除，即仅仅将数据从keyspace元数据中删除，真正的删除会在后续异步操作
@@ -172,7 +172,7 @@ FLUSHDB 	#清空当前数据库
 FLUSHALL 	#清空所有数据库
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211202232040962.png" alt="image-20211202232040962" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211202232040962.png" alt="image-20211202232040962" style="zoom:80%;" />
 
 
 
@@ -182,7 +182,7 @@ FLUSHALL 	#清空所有数据库
 
 String的数据结构为简单动态字符串（Simple Dynamic String，简写SDS）。是可修改的字符串，内部结构是线上类似于Java的ArrayList，采用预分配荣誉空间的方式来减少内少的频繁分配。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211204234129389.png" alt="image-20211204234129389" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211204234129389.png" alt="image-20211204234129389" style="zoom:80%;" />
 
 如图所示，内部为当前字符串实际分配的空间capacity，一般要高于实际字符串长度len。
 
@@ -219,7 +219,7 @@ incr、decr、incrby、decrby
 #对数值的增减操作是原子性的
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211202232516451.png" alt="image-20211202232516451" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211202232516451.png" alt="image-20211202232516451" style="zoom:80%;" />
 
 #### 3.使用场景
 
@@ -235,7 +235,7 @@ incr、decr、incrby、decrby
 
 List就是链表，Redis的List采用双端链表来实现，value可重复，类似于Java中的LinkedList。所以它的特性和链表相似：对两端的插入删除操作性能很好，但是通过索引定位查找的性能较差。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Redis-List.png" alt="Redis-List" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Redis-List.png" alt="Redis-List" style="zoom:80%;" />
 
 首先在列表元素较少的情况下会使用一块连续的内存存储，这个结构是ziplist，也即是压缩列表。它将所有的元素紧挨着一起存储，分配的是一块连续的内存。
 
@@ -261,14 +261,14 @@ lset<key><index><value>		# 将列表key下标为index的值替换成value
 
 使用基础的LPUSH、RPUSH效果如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211205211524791.png" alt="image-20211205211524791" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211205211524791.png" alt="image-20211205211524791" style="zoom: 80%;" />
 
 可以利用list的链表本质实现一些基本数据结构。
 
 1. list实现队列：**LPUSH+RPOP**或**RPUSH+LPOP**；利用队列先进先出的特点，实现消息队列或异步处理等操作。
 1. 2.list实现栈：**LPUSH+LPOP**或**RPUSH+RPOP**；实现了栈先进后出的特点。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211205212523432.png" alt="image-20211205212523432" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211205212523432.png" alt="image-20211205212523432" style="zoom: 80%;" />
 
 #### 3.使用场景
 
@@ -280,7 +280,7 @@ list常见的场景有消息队列、时间轴、点赞评论的列表等
 
 Redis的Hash字典是一个kv键值对集合，同时v也是一个string类型的`field-value`映射表。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Redis-Hash.png" alt="Redis-Hash" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Redis-Hash.png" alt="Redis-Hash" style="zoom:80%;" />
 
 #### 1.数据结构
 
@@ -306,7 +306,7 @@ hsetnx <key><field><value>			# 将哈希表 key 中的 field 的值设置为 val
 
 使用效果如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211205215743109.png" alt="image-20211205215743109" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211205215743109.png" alt="image-20211205215743109" style="zoom: 80%;" />
 
 #### 3.使用场景
 
@@ -318,7 +318,7 @@ hsetnx <key><field><value>			# 将哈希表 key 中的 field 的值设置为 val
 
 Set和List都是单key多value，不过set里面的value不允许重复；集合中的元素是无序的，不能通过下表获取元素；set可以利用集合特性实现相关操作，如取交集、并集等。Redis Set提供了判断某个成员是否在一个set集合内的重要接口，这个也是list所不能提供的。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Redis-set.png" alt="Redis-set" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Redis-set.png" alt="Redis-set" style="zoom:80%;" />
 
 #### 1.数据结构
 
@@ -348,7 +348,7 @@ sdiff <key1><key2>				# 返回两个集合的差集元素(key1中的，不包含
 
 使用效果如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211205221127567.png" alt="image-20211205221127567" style="zoom: 80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211205221127567.png" alt="image-20211205221127567" style="zoom: 80%;" />
 
 #### 3.使用场景
 
@@ -363,7 +363,7 @@ Zset在Set的基础上，为每个成员增加了一个评分score，通过按sc
 
 由于元素有序，所以可以根据评分score和次序position来快速获取一个区间的元素。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/Redis-Zset.png" alt="Redis-Zset" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/Redis-Zset.png" alt="Redis-Zset" style="zoom:80%;" />
 
 #### 1.数据结构
 
@@ -396,7 +396,7 @@ zrank <key><value>					# 返回该值在集合中的排名，从0开始。
 
 使用效果如图：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20211205225104267.png" alt="image-20211205225104267" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20211205225104267.png" alt="image-20211205225104267" style="zoom:80%;" />
 
 #### 3.使用场景
 

@@ -182,7 +182,7 @@ int len2 = s2.length();
 
 `equals()` 方法比较是从第一字符开始，一个字符一个字符依次比较。
 
-![equals比较原理](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/wm.png)
+![equals比较原理](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/wm.png)
 
 如果想忽略掉大小写关系，比如：java 和 Java 是一样的，那怎么办呢？可以调用 `equalsIgnoreCase()` 方法，其用法与 `equals()` 一致，不过它会忽视大小写。
 
@@ -605,7 +605,7 @@ if(条件){
 }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434347907568.png" alt="if语句执行过程"  />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1051timestamp1434347907568.png" alt="if语句执行过程"  />
 
 `if...else` 语句当条件成立时，则执行 `if` 部分的代码块； 条件不成立时，则进入 `else` 部分。例如，如果一个月天数大于 30 天，则为大月，否则为小月。
 
@@ -620,7 +620,7 @@ else{
 }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434347936247.png" alt="if...else语句执行过程" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1051timestamp1434347936247.png" alt="if...else语句执行过程" style="zoom:80%;" />
 
 多重 `if` 语句，在条件 1 不满足的情况下，才会进行条件 2 的判断，以此向下；当前面的条件均不成立时，最终执行 `else` 块内的代码。
 
@@ -639,7 +639,7 @@ else {
 }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid97timestamp1437039991806.png" alt="多重if语句" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid97timestamp1437039991806.png" alt="多重if语句" style="zoom:80%;" />
 
 > 注意：如果 `if`（或 `else if`，或 `else`) 条件成立时的执行语句只有一条，是可以省略大括号的！但如果执行语句有多条，那么大括号就是不可或缺的。
 
@@ -671,7 +671,7 @@ else{
 }
 ```
 
-![if的嵌套](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348012040.png)
+![if的嵌套](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1051timestamp1434348012040.png)
 
 `if` 语句练习：小明考了 78 分，60 分以上及格，80 分以上为良好，90 分以上为优秀，60 分以下要重考，编写源代码 `ScoreJudge.java`，输出小明的情况。
 
@@ -789,7 +789,7 @@ while(条件){
 
 然后重复执行 `1`、`2`， 直到循环条件不成立为止。
 
-![while的语句流程](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348643037.png)
+![while的语句流程](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1051timestamp1434348643037.png)
 
 `do-while` 语法：
 
@@ -804,7 +804,7 @@ do{
 1. 先执行一遍循环操作，然后判断循环条件是否成立。
 2. 如果条件成立，继续执行`1`、`2`，直到循环条件不成立为止。
 
-![do...while的流程](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348718160.png)
+![do...while的流程](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1051timestamp1434348718160.png)
 
 如：
 
@@ -885,7 +885,7 @@ for(循环变量初始化①; 循环条件②; 循环变量值操作③){
 (1) -> [(2)->(4)->(3)] -> [(2)->(4)->(3)] -> ... => (3) 结果为 false, 退出循环。
 ```
 
-![for的流程](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1051timestamp1434348757545.png)
+![for的流程](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1051timestamp1434348757545.png)
 
 例如，计算 100 以内不能被 3 整除的数之和：
 
@@ -1161,7 +1161,7 @@ public class PrintWeek{
 
 简单来说，数组就是相同数据类型的元素按一定顺序排列的集合。可以把它看成一个大的盒子，里面按顺序存放了多个数据类型相同的数据。
 
-![数组的定义](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/document-uid79144labid1052timestamp1434356533170.png)
+![数组的定义](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/document-uid79144labid1052timestamp1434356533170.png)
 
 数组中的元素都可以通过下标来访问，**下标从 0 开始，到数组长度 -1 结束**。例如，可以通过 `ages[0]` 获取数组中的第一个元素 18 ，`ages[3]` 就可以取到第四个元素 10。
 

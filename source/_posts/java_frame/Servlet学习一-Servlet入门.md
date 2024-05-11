@@ -10,7 +10,7 @@ date: 2020-11-04 15:58:30
 
 Java Servlet 是运行在 **Web 服务器或应用服务器上**的程序，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。
 
-![Servlet架构](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104160436506.png)
+![Servlet架构](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104160436506.png)
 
 作用：处理浏览器带来的HTTP请求，并返回一个响应给浏览器，从而实现浏览器和服务器的交互
 
@@ -49,7 +49,7 @@ Java Servlet 是运行在 **Web 服务器或应用服务器上**的程序，它�
 
 2、创建modules，勾选Create from archetype，选择webapp创建
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104162246668.png" alt="image-20201104162246668" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104162246668.png" alt="image-20201104162246668" style="zoom:80%;" />
 
 
 
@@ -106,11 +106,11 @@ public class helloServlet extends HttpServlet {
 
 - 在右上角Run--Edit Configuration
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104164343123.png" alt="image-20201104164343123" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104164343123.png" alt="image-20201104164343123" style="zoom:80%;" />
 
 - 在Server右侧的Configure...找到本地的Tomcat服务器，查看JRE版本和项目要保持一致、在上面的Deployment中点击+号找到我们的Servlet项目，添加Application context路径，启动访问
 
-  ![image-20201104165240454](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104165240454.png)
+  ![image-20201104165240454](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104165240454.png)
 
 【注】：启动的时候报错`Error:java: Compilation failed: internal java compiler error`，应该是项目的JDK版本设置不一致，在Project Structure-->Project和Setting--Java Complier中将JDK版本都设为一致的即可！
 
@@ -128,7 +128,7 @@ public class helloServlet extends HttpServlet {
 
 Servlet常见的创建方式有三种，我们用的继承HTTPServlet就属于其中一种，查看HttpServlet类图如下：
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/HttpServlet.png" alt="HttpServlet" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/HttpServlet.png" alt="HttpServlet" style="zoom:80%;" />
 
 上面已经展示了继承HttpServlet类实现，还有另外两种继承GenericServlet和实现Servlet方式。
 
@@ -176,11 +176,11 @@ public class testServlet implements Servlet {
 
 - 可以发现，第一次访问时init方法和service方法被执行，后续再进入/testServlet只会执行service方法
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104172052959.png" alt="image-20201104172052959" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104172052959.png" alt="image-20201104172052959" style="zoom:80%;" />
 
 - 关闭tomcat服务器，destroy方法被调用了
 
-  <img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104172155166.png" alt="image-20201104172155166" style="zoom:80%;" />
+  <img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104172155166.png" alt="image-20201104172155166" style="zoom:80%;" />
 
 
 
@@ -191,7 +191,7 @@ public class testServlet implements Servlet {
 3. 处理服务。浏览器每次访问Servlet时都会调用service()方法处理请求服务
 4. 销毁。Tomcat关闭时要删除相关的Servlet，会自动调用destroy()方法，释放所占的资源
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/image-20201104174537836.png" alt="image-20201104174537836" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20201104174537836.png" alt="image-20201104174537836" style="zoom:80%;" />
 
 
 

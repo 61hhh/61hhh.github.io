@@ -41,7 +41,7 @@ HTTPS 协议就是 HTTP+SSL/TLS，即在 HTTP 基础上加入 SSL /TLS 层，提
 5. Web服务器利用自己的私钥解密出会话密钥。
 6. Web服务器利用会话密钥加密与客户端之间的通信。
 
-![](https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/04/https1.png)
+![](https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/https1.png)
 
 #### HTTPS：TSL/SSL原理
 

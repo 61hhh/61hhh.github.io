@@ -56,7 +56,7 @@ Intent分为两种类型：
 
   隐式 Intent 指定能够在可以执行相应操作的设备上调用任何应用的操作，相比于显式Intent，隐式Intent不指定组件名，而是指定Intent的Action、Data或Category，当启动组件时，系统会去匹配`AndroidManifest.xml`中相关的`Intent-filter`，逐一匹配满足属性的组件，不止一个满足条件时会弹出应用选择框。
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230510135701302.png" alt="image-20230510135701302" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135701302.png" alt="image-20230510135701302" style="zoom:80%;" />
 
 ## 3 Intent相关属性
 
@@ -185,7 +185,7 @@ startActivity(intent);
         </activity>
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230510135730727.png" alt="image-20230510135730727" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135730727.png" alt="image-20230510135730727" style="zoom:80%;" />
 
 注：当然匹配到的testActivity中的Activity2并没有对应的功能代码，这里只是演示，实际项目开发中不要将没有对应功能的Activity进行响应
 
@@ -227,7 +227,7 @@ String data=intent.getStringExtra("extra_data");
 Log.d("secondActivity",data);
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230510135747866.png" alt="image-20230510135747866" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135747866.png" alt="image-20230510135747866" style="zoom:80%;" />
 
 返回数据给上一个活动（使用startActivityForResult），由于使用startActivityForResult启动了secondActivity，因此secondActivity销毁后会回调上一个活动的onActivityResult方法，因此要重写一下：
 
@@ -257,7 +257,7 @@ finish();
     }
 ```
 
-<img src="https://jihulab.com/Leslie61/imagelake/-/raw/main/pictures/2023/05/image-20230510135810004.png" alt="image-20230510135810004" style="zoom:80%;" />
+<img src="https://leslie1-1309334886.cos.ap-shanghai.myqcloud.com/obsidian/image-20230510135810004.png" alt="image-20230510135810004" style="zoom:80%;" />
 
 ### 3.7 Flag（标志位）
 
